@@ -22,7 +22,7 @@ Run your server using `ant our-server`.
 Run your client using `ant our-client`.
 
 ## JSON
-There are example JSON files under the 'sample' folder.  These are examples 
+There are example JSON files under the [sample](../sample) folder.  These are examples 
 of the JSON objects used to make requests to the server, and to return the 
 game state (i.e., client model) to the client.  You can also see the syntax
 for the server's JSON inputs and outputs on the server's Swagger page,
