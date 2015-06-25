@@ -5,7 +5,7 @@ First of all, you will need to create a GitHub account. Once you do, let me know
 
 When you create your Eclipse project, uncheck "Use default location" and browse to the location of the cloned folder. This will import everything automatically for you. Nice.
 
-Once you have everything setup, you can create a new branch, do all of your wonderful work. Once it's looking good, we can merge it back into the master branch.
+Once you have everything setup, you can create a new branch, and do all of your wonderful work. Once it's looking good, we can merge it back into the master branch.
 
 ## ANT
 
