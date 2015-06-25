@@ -1,9 +1,11 @@
 # Settlers of Catan CS 340 Project
 ## Using Git and GitHub
 
-First of all, you will need to create a GitHub account. Probably the easiest way to use Git is with GitHub's client. It can be found [here for Windows](https://windows.github.com "GitHub Client for Windows") and [here for Mac](https://mac.github.com "GitHub Client for Mac"). The help pages do a pretty good job of helping you set it up. Basically, you will fork this project and then clone it onto your machine. Clone it to where you want your Eclipse project to be. Do this before creating an Eclipse project. If you want to be brave and use Git by command line, be my guest.
+First of all, you will need to create a GitHub account. Once you do, let me know your username and I will add you to the project. Probably the easiest way to use Git is with GitHub's client. It can be found [here for Windows](https://windows.github.com "GitHub Client for Windows") and [here for Mac](https://mac.github.com "GitHub Client for Mac"). The help pages do a pretty good job of helping you set it up. When you have that, and after I have added you, click "Clone to Desktop". Clone it to where you want your Eclipse project to be. Do this before creating an Eclipse project. If you want to be brave and use Git by command line, be my guest.
 
 When you create your Eclipse project, uncheck "Use default location" and browse to the location of the cloned folder. This will import everything automatically for you. Nice.
+
+Once you have everything setup, you can create a new branch, do all of your wonderful work. Once it's looking good, we can merge it back into the master branch.
 
 ## ANT
 
