@@ -13,5 +13,21 @@ public class Player {
 	private Name name;
 	private TradeRatios tradeRatios;
 	private PlayerID playerID;
+	
+	public Player(Color color) {
+		this.playerBank = new PlayerBank();
+		this.longestRoad = new LongestRoad();
+		this.largestArmy = new LargestArmy();
+		this.color = color;
+		this.roads = new Roads();
+		this.settlements = new Settlements();
+		this.cities = new Cities();
+		this.victoryPoints = new VictoryPoints();
+		this.name = new Name();
+		this.tradeRatios = new TradeRatios();
+		this.playerID = new PlayerID();
+	}
+	
+	
 
 }
