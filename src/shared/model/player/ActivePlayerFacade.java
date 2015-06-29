@@ -1,0 +1,67 @@
+package shared.model.player;
+
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.VertexLocation;
+
+public class ActivePlayerFacade implements IPlayerFacade{
+
+	private Player player;
+	
+	
+	@Override
+	public boolean canBuildCity(VertexLocation location) {
+		if (player.getCities().getCitiesLeft() > 0 && player.getPlayerBank().hasRC(ResourceType.WHEAT, 2) 
+				&& player.getPlayerBank().hasRC(ResourceType.ORE, 3))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean canBuildSettlement() {
+		if (player.getSettlements().getSettlementsLeft() > 0
+				&& player.getPlayerBank().hasRC(ResourceType.WHEAT, 1)
+				&& player.getPlayerBank().hasRC(ResourceType.WOOD, 1)
+				&& player.getPlayerBank().hasRC(ResourceType.BRICK, 1)
+				&& player.getPlayerBank().hasRC(ResourceType.SHEEP, 1))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean canBuildRoad(EdgeLocation location) {
+		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(ResourceType.WOOD, 1)
+				&& player.getPlayerBank().hasRC(ResourceType.BRICK, 1))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean canPlayCard() {
+		return !player.getHasPlayedCard();
+	}
+
+	@Override
+	public boolean canTrade() {
+		return true;
+	}
+
+	@Override
+	public boolean isActivePlayer() {
+		return true;
+	}
+
+	@Override
+	public boolean canBuyDevelopmentCard() {
+		if (player.getPlayerBank().hasRC(ResourceType.SHEEP, 1)
+				&& player.getPlayerBank().hasRC(ResourceType.ORE, 1)
+				&& player.getPlayerBank().hasRC(ResourceType.WHEAT, 1))
+			return true;
+		else
+			return false;
+	}
+
+}
