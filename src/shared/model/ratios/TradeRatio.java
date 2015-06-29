@@ -1,4 +1,4 @@
-package shared.model;
+package shared.model.ratios;
 
 public class TradeRatio {
 
@@ -12,7 +12,7 @@ public class TradeRatio {
 		return ratio;
 	}
 
-	public void setRatio(int ratio) {
+	public void setRatio(int ratio) throws Exception {
 		if (ratio <= 4 && ratio >= 2) {
 			this.ratio = ratio;
 		}

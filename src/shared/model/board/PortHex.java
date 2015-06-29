@@ -4,6 +4,7 @@ import shared.definitions.PortType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
+import shared.model.ratios.TradeRatio;
 
 public class PortHex extends WaterHex {
 
