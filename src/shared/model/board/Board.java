@@ -13,6 +13,14 @@ public class Board {
 		landHexes = new ArrayList<Hex>();
 		waterHexes = new ArrayList<WaterHex>();
 		ports = new ArrayList<PortHex>();
+		generateBoard();
+	}
+	
+	/**
+	 * Randomly generate a random board
+	 */
+	private void generateBoard() {
+		
 	}
 	
 	// TODO: hashcode, equals, toString
