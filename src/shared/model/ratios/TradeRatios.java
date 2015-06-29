@@ -1,6 +1,7 @@
-package shared.model;
+package shared.model.ratios;
 
 import java.util.HashMap;
+
 import shared.definitions.ResourceType;
 
 public class TradeRatios {
@@ -19,7 +20,7 @@ public class TradeRatios {
 		return tradeRatios;
 	}
 	
-	public void setRatio(ResourceType type, int newRatio) {
+	public void setRatio(ResourceType type, int newRatio) throws Exception {
 		tradeRatios.get(type).setRatio(newRatio);
 	}
 }
