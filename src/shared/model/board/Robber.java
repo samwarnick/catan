@@ -2,6 +2,11 @@ package shared.model.board;
 
 import shared.locations.HexLocation;
 
+/**
+ * 
+ * @author samwarnick
+ *
+ */
 public class Robber {
 
 	private HexLocation location;
@@ -12,8 +17,9 @@ public class Robber {
 	
 	/**
 	 * Moves the robber to a new hex, if that hex is not the same hex it is already on
-	 * @param newLocation
-	 * @throws InvalidRobberLocationException
+	 * @param newLocation the new location to move the robber to
+	 * @exception InvalidRobberLocationException if newLocation is an invalid hex (i.e. the same hex the robber is on)
+	 * @pre newLocation is not the desert hex
 	 */
 	public void moveRobber(HexLocation newLocation) throws InvalidRobberLocationException{
 		if (location != newLocation) {
@@ -33,10 +39,20 @@ public class Robber {
 	}
 }
 
+/**
+ * 
+ * @author samwarnick
+ *
+ */
+@SuppressWarnings("serial")
 class InvalidRobberLocationException extends Exception {
 	
 	public InvalidRobberLocationException() {
 		super("Cannot move robber to same hex");
+	}
+	
+	public InvalidRobberLocationException(String message) {
+		super(message);
 	}
 	
 }
