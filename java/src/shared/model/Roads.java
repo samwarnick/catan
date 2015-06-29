@@ -23,7 +23,7 @@ public class Roads {
 			roadsLeft--;
 		}
 		else
-			throw new Exception();
+			throw new NoRoadsLeftException();
 		
 	}
 
@@ -31,4 +31,9 @@ public class Roads {
 		return roadsLeft;
 	}
 
+}
+
+@SuppressWarnings("serial")
+class NoRoadsLeftException extends Exception{
+	
 }

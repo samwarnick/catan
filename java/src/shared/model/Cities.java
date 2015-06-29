@@ -23,11 +23,18 @@ public class Cities {
 			citiesLeft--;
 		}
 		else
-			throw new Exception();
+			throw new NoCitiesLeftException();
 	}
 
 	public int getCitiesLeft() {
 		return citiesLeft;
 	}
+	
+	
 
+}
+
+@SuppressWarnings("serial")
+class NoCitiesLeftException extends Exception{
+	
 }

@@ -23,12 +23,16 @@ public class Settlements {
 			settlementsLeft--;
 		}
 		else
-			throw new Exception();
+			throw new NoSettlementsLeftException();
 	}
 
 	public int getSettlementsLeft() {
 		return settlementsLeft;
 	}
 	
+	
+}
+@SuppressWarnings("serial")
+class NoSettlementsLeftException extends Exception{
 	
 }
