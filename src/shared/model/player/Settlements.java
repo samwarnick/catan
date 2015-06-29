@@ -30,6 +30,13 @@ public class Settlements {
 		return settlementsLeft;
 	}
 	
+	public void subtractSettlement(Settlement settlement){
+		settlements.Remove(settlement);
+		settlementsLeft++;
+	}
+	
+	
+	
 	
 }
 @SuppressWarnings("serial")
