@@ -1,9 +1,16 @@
 package shared.model.player;
 
+import java.util.List;
+
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
-
+import shared.model.bank.ResourceCard;
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class ActivePlayerFacade implements IPlayerFacade{
 
 	private Player player;
@@ -62,6 +69,11 @@ public class ActivePlayerFacade implements IPlayerFacade{
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public boolean canAcceptTrade(List<ResourceCard> list) {
+		return false;
 	}
 
 }

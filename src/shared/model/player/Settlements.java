@@ -2,6 +2,12 @@ package shared.model.player;
 
 import java.util.ArrayList;
 
+
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Settlements {
 
 	

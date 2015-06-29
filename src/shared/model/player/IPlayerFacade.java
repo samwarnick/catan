@@ -1,7 +1,17 @@
 package shared.model.player;
 
+import java.util.List;
+
+
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
+import shared.model.bank.ResourceCard;
+
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 
 public interface IPlayerFacade {
 
@@ -67,4 +77,11 @@ public interface IPlayerFacade {
 	 *
 	 */
 	public boolean isActivePlayer();
+	/**
+	 * 
+	 * @param list is a list of cards needed for the transaction
+	 * pre the list of cards is a valid list of resource cards
+	 * post returns true if the player has the cards needed for the trade, false if they don't
+	 */
+	public boolean canAcceptTrade(List<ResourceCard> list);
 }

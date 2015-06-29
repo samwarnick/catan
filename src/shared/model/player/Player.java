@@ -4,7 +4,11 @@ import shared.model.bank.PlayerBank;
 
 import shared.model.ratios.TradeRatios;
 
-
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Player {
 	
 	private PlayerBank playerBank;

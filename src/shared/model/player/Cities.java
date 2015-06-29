@@ -1,7 +1,11 @@
 package shared.model.player;
 
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Cities {
 	
 	private List<City> cities;

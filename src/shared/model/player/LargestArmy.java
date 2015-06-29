@@ -1,5 +1,10 @@
 package shared.model.player;
 
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class LargestArmy {
 	
 	private int numSoldiers;
