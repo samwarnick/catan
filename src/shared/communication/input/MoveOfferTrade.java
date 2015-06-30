@@ -1,15 +1,15 @@
 package shared.communication.input;
 
-import java.util.ArrayList;
-
-import shared.model.bank.ResourceCard;
-
+/**
+ * @author isaachartung
+ *
+ */
 public class MoveOfferTrade extends MoveInput {
 	
 	private int receiver;
-	private ArrayList<ResourceCard> cards;
+	private ResourceHand cards;
 	
-	public MoveOfferTrade(int playerID, int receiver, ArrayList<ResourceCard> cards){
+	public MoveOfferTrade(int playerID, int receiver, ResourceHand cards){
 		super("/moves/offerTrade", playerID);
 		this.receiver = receiver;
 		this.cards = cards;
@@ -19,7 +19,7 @@ public class MoveOfferTrade extends MoveInput {
 		return receiver;
 	}
 
-	public ArrayList<ResourceCard> getCards() {
+	public ResourceHand getCards() {
 		return cards;
 	}
 
@@ -27,7 +27,7 @@ public class MoveOfferTrade extends MoveInput {
 		this.receiver = receiver;
 	}
 
-	public void setCards(ArrayList<ResourceCard> cards) {
+	public void setCards(ResourceHand cards) {
 		this.cards = cards;
 	}
 
