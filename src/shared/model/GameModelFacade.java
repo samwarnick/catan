@@ -6,6 +6,11 @@ import shared.locations.VertexLocation;
 import shared.model.bank.PlayerBank;
 import shared.model.player.Player;
 
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class GameModelFacade {
 
 	/**

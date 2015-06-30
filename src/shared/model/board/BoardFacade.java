@@ -2,7 +2,11 @@ package shared.model.board;
 
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
-
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class BoardFacade {
 
 	/**
