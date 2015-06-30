@@ -1,7 +1,6 @@
 package shared.model.board;
 
 import shared.locations.EdgeLocation;
-import PlayerID;
 
 public class Edge {
 
