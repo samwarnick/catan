@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import shared.model.board.Road;
 
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Roads {
 	
 	private ArrayList<Road> roads;

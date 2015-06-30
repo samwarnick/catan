@@ -3,7 +3,11 @@ package shared.model.player;
 import java.util.ArrayList;
 
 import shared.model.board.City;
-
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Cities {
 	
 	private ArrayList<City> cities;
