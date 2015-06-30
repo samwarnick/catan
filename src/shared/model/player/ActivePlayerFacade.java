@@ -76,4 +76,19 @@ public class ActivePlayerFacade implements IPlayerFacade{
 		return false;
 	}
 
+	@Override
+	public boolean canDiscard() {
+		return false;
+	}
+
+	@Override
+	public boolean canFinishTurn() {
+		return false;
+	}
+
+	@Override
+	public boolean canBeRobbed() {
+		return false;
+	}
+
 }

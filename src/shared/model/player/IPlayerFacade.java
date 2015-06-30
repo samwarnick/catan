@@ -84,4 +84,21 @@ public interface IPlayerFacade {
 	 * post returns true if the player has the cards needed for the trade, false if they don't
 	 */
 	public boolean canAcceptTrade(List<ResourceCard> list);
+	/**
+	 * 
+	 * @pre none
+	 * @post returns true if the player has more than 7 cards and it is their turn otherwise returns false
+	 */
+	public boolean canDiscard();
+	/**
+	 * @pre none
+	 * @post returns true if the player is the active player.  Otherwise returns false.
+	 * 
+	 */
+	public boolean canFinishTurn();
+	/**
+	 * @pre none
+	 * @post returns true if it is not the player's turn and they have resource cards.  Otherwise returns false.
+	 */
+	public boolean canBeRobbed();
 }
