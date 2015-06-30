@@ -13,11 +13,11 @@ public class Player {
 	private Settlements settlements;
 	private Cities cities;
 	private VictoryPoints victoryPoints;
-	private Name name;
+	private String name;
 	private TradeRatios tradeRatios;
-	private PlayerID playerID;
+	private int playerID;
 	
-	public Player(Color color) {
+	public Player(Color color, String name, int playerID) {
 		this.playerBank = new PlayerBank();
 		this.longestRoad = new LongestRoad();
 		this.largestArmy = new LargestArmy();
@@ -26,9 +26,9 @@ public class Player {
 		this.settlements = new Settlements();
 		this.cities = new Cities();
 		this.victoryPoints = new VictoryPoints();
-		this.name = new Name();
+		this.name = name;
 		this.tradeRatios = new TradeRatios();
-		this.playerID = new PlayerID();
+		this.playerID = playerID;
 	}
 	
 	

@@ -4,6 +4,11 @@ import java.util.HashMap;
 
 import shared.definitions.ResourceType;
 
+/**
+ * 
+ * @author Matt
+ *
+ */
 public class TradeRatios {
 
 	private HashMap<ResourceType, TradeRatio> tradeRatios;

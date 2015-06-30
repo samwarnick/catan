@@ -1,5 +1,10 @@
 package shared.model.ratios;
 
+/**
+ * 
+ * @author Matt
+ *
+ */
 public class TradeRatio {
 
 	private int ratio;
