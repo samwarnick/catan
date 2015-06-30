@@ -17,9 +17,9 @@ public interface IPlayerFacade {
 
 	/**
 	 * 
-	 * @param location
-	 * pre the location is a valid location on the map
-	 * post returns true if: 1) the player has at least one unplayed city
+	 * @param location the location of the vertex on the board
+	 * @pre the location is a valid location on the map
+	 * @post returns true if: 1) the player has at least one unplayed city
 	 *  2) the player has a settlement at that location
 	 *  3) the player has at least 2 wheat and 3 ore resource cards in their bank
 	 *  4) the player is the active player
@@ -29,8 +29,8 @@ public interface IPlayerFacade {
 	public boolean canBuildCity(VertexLocation location);
 	/**
 	 * 
-	 * pre none
-	 * post returns true if:
+	 * @pre none
+	 * @post returns true if:
 	 *  1) The player has at least one unplayed settlement
 	 *  2) The player has at least 1 wood, 1 brick, 1 sheep, 1 wheat
 	 *  3) the player is the active player
@@ -39,9 +39,9 @@ public interface IPlayerFacade {
 	public boolean canBuildSettlement();
 	/**
 	 * 
-	 * @param location
-	 * pre the location is a valid location on the map
-	 * post returns true if:
+	 * @param location th
+	 * @pre the location is a valid location on the map
+	 * @post returns true if:
 	 *  1) the player has at least one unplayed road
 	 *  2) the player has at least 1 wood and 1 brick
 	 *  3) the player is the active player
@@ -49,16 +49,16 @@ public interface IPlayerFacade {
 	 */
 	public boolean canBuildRoad(EdgeLocation location);
 	/**
-	 * pre none
-	 * post returns true if:
+	 * @pre none
+	 * @post returns true if:
 	 * 1) the player has at least 1 sheep, 1 ore, and 1 wheat
 	 * 2) the player is the active player
 	 * returns false if any of the constraints aren't met
 	 */
 	public boolean canBuyDevelopmentCard();
 	/**
-	 * pre none
-	 * post returns true if the player hasn't played a card this turn and it is the active player
+	 * @pre none
+	 * @post returns true if the player hasn't played a card this turn and it is the active player
 	 * returns false if any of the constraints aren't met
 	 * 
 	 */
@@ -66,22 +66,22 @@ public interface IPlayerFacade {
 	public boolean canPlayCard();
 	/**
 	 * 
-	 * pre none
-	 * post returns true if the player is the active player
+	 * @pre none
+	 * @post returns true if the player is the active player
 	 * returns false if they aren't the active player
 	 */
 	public boolean canTrade();
 	/**
-	 * pre none
-	 * post returns true if the player is the active player and false if they are not the active player. 
+	 * @pre none
+	 * @post returns true if the player is the active player and false if they are not the active player. 
 	 *
 	 */
 	public boolean isActivePlayer();
 	/**
 	 * 
 	 * @param list is a list of cards needed for the transaction
-	 * pre the list of cards is a valid list of resource cards
-	 * post returns true if the player has the cards needed for the trade, false if they don't
+	 * @pre the list of cards is a valid list of resource cards
+	 * @post returns true if the player has the cards needed for the trade, false if they don't
 	 */
 	public boolean canAcceptTrade(List<ResourceCard> list);
 	/**
