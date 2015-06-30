@@ -1,5 +1,7 @@
 package shared.model.board;
 
+import java.util.List;
+
 import shared.definitions.HexType;
 import shared.locations.HexLocation;
 
