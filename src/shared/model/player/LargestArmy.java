@@ -1,5 +1,10 @@
 package shared.model.player;
 
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class LargestArmy {
 	
 	private int numSoldiers;
@@ -14,11 +19,11 @@ public class LargestArmy {
 		return numSoldiers;
 	}
 
-	public void addSoldiers() {
+	public void addSoldier() {
 		++numSoldiers;
 	}
 
-	public boolean isHasLargestArmy() {
+	public boolean getHasLargestArmy() {
 		return hasLargestArmy;
 	}
 

@@ -2,7 +2,9 @@ package shared.model.player;
 
 import java.util.ArrayList;
 
+
 import shared.model.board.Settlement;
+
 /**
  * 
  * @author Spencer Krieger
@@ -35,6 +37,13 @@ public class Settlements {
 	public int getSettlementsLeft() {
 		return settlementsLeft;
 	}
+	
+	public void subtractSettlement(Settlement settlement){
+		settlements.remove(settlement);
+		settlementsLeft++;
+	}
+	
+	
 	
 	
 }
