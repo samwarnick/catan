@@ -3,7 +3,8 @@ package shared.communication.input;
 /**
  * 
  * @author Matt
- *
+ * This class contains the userLogin method name, the username and the password for the user.
+ * 
  */
 public class UserLoginInput extends Input{
 	

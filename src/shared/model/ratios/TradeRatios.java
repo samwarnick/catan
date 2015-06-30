@@ -7,7 +7,8 @@ import shared.definitions.ResourceType;
 /**
  * 
  * @author Matt
- *
+ * This class contains a map of TradeRatio organized by ResourceType.
+ * 
  */
 public class TradeRatios {
 
@@ -23,6 +24,10 @@ public class TradeRatios {
 
 	public HashMap<ResourceType, TradeRatio> getTradeRatios() {
 		return tradeRatios;
+	}
+	
+	public int getTradeRatio(ResourceType type) {
+		return tradeRatios.get(type).getRatio();
 	}
 	
 	public void setRatio(ResourceType type, int newRatio) throws Exception {

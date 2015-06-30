@@ -1,5 +1,11 @@
 package shared.communication.input;
 
+/**
+ * 
+ * @author Matt
+ * This class contains the gamesSave method name, the gameID and the fileName for the game.
+ * 
+ */
 public class GamesSaveInput extends Input {
 
 	private int gameID;

@@ -3,7 +3,8 @@ package shared.model.ratios;
 /**
  * 
  * @author Matt
- *
+ * This class contains a ratio for maritime trade.
+ * 
  */
 public class TradeRatio {
 

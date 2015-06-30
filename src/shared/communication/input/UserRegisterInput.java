@@ -1,5 +1,11 @@
 package shared.communication.input;
 
+/**
+ * 
+ * @author Matt
+ * This class contains the userRegister method name, the username and the password for the new user.
+ * 
+ */
 public class UserRegisterInput extends Input {
 
 	private Username username;
