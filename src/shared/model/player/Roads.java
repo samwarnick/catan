@@ -2,9 +2,18 @@ package shared.model.player;
 
 import java.util.ArrayList;
 
+
+import shared.model.board.Road;
+
+
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Roads {
 	
-	private List<Road> roads;
+	private ArrayList<Road> roads;
 	private int roadsLeft;
 	
 	public Roads(){
@@ -12,14 +21,14 @@ public class Roads {
 		roadsLeft = 15;
 	}
 
-	public List<Road> getRoads() {
+	public ArrayList<Road> getRoads() {
 		return roads;
 	}
 
-	public void addRoad(Road road) {
+	public void addRoad(Road road) throws NoRoadsLeftException {
 		if (roadsLeft > 0)
 		{
-			roads.Add(road);
+			roads.add(road);
 			roadsLeft--;
 		}
 		else

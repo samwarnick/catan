@@ -2,9 +2,17 @@ package shared.model.player;
 
 import java.util.ArrayList;
 
+
+import shared.model.board.City;
+
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Cities {
 	
-	private List<City> cities;
+	private ArrayList<City> cities;
 	private int citiesLeft;
 	
 	public Cities(){
@@ -12,14 +20,14 @@ public class Cities {
 		citiesLeft = 4;
 	}
 
-	public List<City> getCities() {
+	public ArrayList<City> getCities() {
 		return cities;
 	}
 
-	public void buildCity(City city) {
+	public void buildCity(City city) throws NoCitiesLeftException {
 		if (citiesLeft > 0)
 		{
-			cities.Add(city);
+			cities.add(city);
 			citiesLeft--;
 		}
 		else

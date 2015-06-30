@@ -2,10 +2,18 @@ package shared.model.player;
 
 import java.util.ArrayList;
 
+
+import shared.model.board.Settlement;
+
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class Settlements {
 
 	
-	private List<Settlement> settlements;
+	private ArrayList<Settlement> settlements;
 	private int settlementsLeft;
 	
 	public Settlements(){
@@ -13,13 +21,13 @@ public class Settlements {
 		settlementsLeft = 5;
 	}
 
-	public List<Settlement> getSettlements() {
+	public ArrayList<Settlement> getSettlements() {
 		return settlements;
 	}
 
-	public void buildSettlement(Settlement settlement) {
+	public void buildSettlement(Settlement settlement) throws NoSettlementsLeftException {
 		if(settlementsLeft > 0){
-			settlements.Add(settlement);
+			settlements.add(settlement);
 			settlementsLeft--;
 		}
 		else
@@ -29,6 +37,13 @@ public class Settlements {
 	public int getSettlementsLeft() {
 		return settlementsLeft;
 	}
+	
+	public void subtractSettlement(Settlement settlement){
+		settlements.remove(settlement);
+		settlementsLeft++;
+	}
+	
+	
 	
 	
 }

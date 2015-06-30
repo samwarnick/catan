@@ -1,5 +1,11 @@
 package shared.model.player;
 
+
+/**
+ * 
+ * @author Spencer Krieger
+ *
+ */
 public class VictoryPoints {
 	
 	private int totalVictoryPoints;
