@@ -5,11 +5,23 @@ import java.util.ArrayList;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 
+
+/**
+ * @author isaachartung
+ *
+ *The Bank Object holds ResourceCard Objects and DevelopmentCard Objects.
+ *It contains methods to add and remove these objects, as well as to query
+ *information concerning them.  It also contains two boolean data members:
+ *one which tells us whether this bank holds the largestArmyCard and another
+ *which indicates whether this bank has the longestRoadCard.  These also have
+ *setters and methods to query their value.
+ *
+ */
 public class Bank {
 	
 	private ArrayList<ResourceCard> resourceCards = new ArrayList<ResourceCard>();
 	private ArrayList<DevelopmentCard> developmentCards = new ArrayList<DevelopmentCard>();;
-	private boolean longestArmyCard = false;
+	private boolean largestArmyCard = false;
 	private boolean longestRoadCard = false;
 	
 	public ArrayList<ResourceCard> getResourceCards() {
@@ -18,8 +30,8 @@ public class Bank {
 	public ArrayList<DevelopmentCard> getDevelopmentCards() {
 		return developmentCards;
 	}
-	public boolean hasLongestArmyCard() {
-		return longestArmyCard;
+	public boolean hasLargestArmyCard() {
+		return largestArmyCard;
 	}
 	public boolean hasLongestRoadCard() {
 		return longestRoadCard;
@@ -30,8 +42,8 @@ public class Bank {
 	public void setDevelopmentCards(ArrayList<DevelopmentCard> developmentCards) {
 		this.developmentCards = developmentCards;
 	}
-	public void setLongestArmyCard(boolean longestArmyCard) {
-		this.longestArmyCard = longestArmyCard;
+	public void setLargestArmyCard(boolean largestArmyCard) {
+		this.largestArmyCard = largestArmyCard;
 	}
 	public void setLongestRoadCard(boolean longestRoadCard) {
 		this.longestRoadCard = longestRoadCard;
@@ -40,20 +52,27 @@ public class Bank {
 	/**
 	 * adds a single resource card to the bank.
 	 * 
-	 * @param RC
+	 * @param RC is a ResourceCard object
+	 * @pre RC is not null
+	 * @post RC is added to the Bank's Array
+	 * 
 	 */
 	
 	public void addRC(ResourceCard RC){
+		if(RC == null) return;
 		resourceCards.add(RC);
 	}
 	
 	/**
 	 * adds a single development card to the bank.
 	 * 
-	 * @param DC
+	 * @param DC is a DevelopmentCard Object
+	 * @pre DC is not null
+	 * @post DC is added to the Bank's Array of DC Cards
 	 */
 	
 	public void addDC(DevelopmentCard DC){
+		if(DC == null) return;
 		developmentCards.add(DC);
 	}
 	
@@ -61,7 +80,9 @@ public class Bank {
 	 * returns a resource card of the type specified by the 
 	 * parameter. if not found, it returns null
 	 * 
-	 * @return
+	 * @param rt is a ResouceType
+	 * @pre rt is a valid ResourceType, namely Grain, Ore, etc.
+	 * @post a ResourceCard Object of the parameter type is returned, null if the bank has none.
 	 */
 	
 	public ResourceCard getRC(ResourceType rt){
@@ -72,7 +93,9 @@ public class Bank {
 	 * returns a Development card of the type specified by the 
 	 * parameter. if not found, it returns null
 	 * 
-	 * @return
+	 * @param dt is a DevCardType 
+	 * @pre dt is valid DevCardType, namely Soldier, Monopoly, etc.
+	 * @post a DevelopmentCard Object of the parameter type is returned, null if the bank has none.
 	 */
 	
 	public DevelopmentCard getDC(DevCardType dt){
@@ -83,9 +106,10 @@ public class Bank {
 	 * returns true if the player possesses the given quantity of the
 	 * specified resource card.
 	 * 
-	 * @param rt
-	 * @param quantity
-	 * @return
+	 * @param rt is a ResourceType
+	 * @param quantity is the number of cards we want to find
+	 * @pre a valid ResourceType is given and a non-negative quantity
+	 * @post returns true if the player has the specified number of the specified type, false otherwise. 
 	 */
 	
 	public boolean hasRC(ResourceType rt, int quantity){
@@ -96,8 +120,11 @@ public class Bank {
 	 * returns true if the player possesses the given quantity of the
 	 * specified development card.
 	 * 
+	 * @param dt is a DevCardType
+	 * @param quantity is the number of cards we want to find
+	 * @pre a valid DevCardType and a non-negative quantity
+	 * @post returns true if the player has the specified number of the specified type, false otherwise.
 	 * 
-	 * @return
 	 */
 	
 	public boolean hasDC(DevCardType dt, int quantity){
