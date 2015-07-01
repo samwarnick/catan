@@ -2,7 +2,7 @@ package shared.communication.input;
 
 /**
  * @author isaachartung
- *
+ *this is the input object for an SendChat command
  */
 public class MoveSendChat extends MoveInput {
 	

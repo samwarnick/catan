@@ -1,5 +1,10 @@
 package shared.communication.input;
 
+/**
+ * @author isaachartung
+ *this is the input object for an AcceptTrade command
+ *
+ */
 public class MoveAcceptTrade extends MoveInput{
 	
 	private boolean acceptTrade;

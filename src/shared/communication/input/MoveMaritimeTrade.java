@@ -7,7 +7,7 @@ import shared.model.ratios.TradeRatio;
 
 /**
  * @author isaachartung
- *
+ *this is the input object for an MaritimeTrade command
  */
 public class MoveMaritimeTrade extends MoveInput {
 	

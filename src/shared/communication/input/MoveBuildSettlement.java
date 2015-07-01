@@ -5,6 +5,7 @@ import shared.locations.VertexLocation;
 
 /**
  * @author isaachartung
+ *this is the input object for an BuildSettlement command
  *
  */
 public class MoveBuildSettlement extends MoveInput{

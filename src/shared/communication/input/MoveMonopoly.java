@@ -4,7 +4,7 @@ import shared.definitions.ResourceType;
 
 /**
  * @author isaachartung
- *
+ *this is the input object for an Monopoly command
  */
 public class MoveMonopoly extends MoveInput{
 	

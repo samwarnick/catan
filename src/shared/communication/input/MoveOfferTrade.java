@@ -2,7 +2,7 @@ package shared.communication.input;
 
 /**
  * @author isaachartung
- *
+ *this is the input object for an OfferTrade command
  */
 public class MoveOfferTrade extends MoveInput {
 	

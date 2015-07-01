@@ -4,7 +4,7 @@ import shared.locations.HexLocation;
 
 /**
  * @author isaachartung
- *
+ *this is the input object for an RobPlayer command
  */
 public class MoveRobPlayer extends MoveInput {
 	

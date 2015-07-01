@@ -7,6 +7,7 @@ import shared.model.bank.ResourceCard;
 /**
  * @author isaachartung
  *
+ *this is the input object for an DiscardCard command
  */
 public class MoveDiscardCards extends MoveInput{
 	
