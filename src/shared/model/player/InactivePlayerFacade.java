@@ -13,6 +13,10 @@ import shared.model.bank.ResourceCard;
  */
 public class InactivePlayerFacade implements IPlayerFacade{
 
+	private Player player;
+	public InactivePlayerFacade(Player player){
+		this.player = player;
+	}
 	@Override
 	public boolean canBuildCity(VertexLocation location) {
 		return false;
@@ -50,13 +54,18 @@ public class InactivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canAcceptTrade(List<ResourceCard> list) {
-		//need to do this part
+		for (ResourceCard rc : list)//still needs to be implemented, waiting for bank
+		{
+			if (player.getPlayerBank().hasRC(rc.getType(), 1))
+				return true;
+		}
+		
 		return false;
 	}
 
 	@Override
 	public boolean canDiscard() {
-		return false;
+		return false;//still needs to be implemented, waiting for bank
 	}
 
 	@Override
@@ -66,7 +75,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canBeRobbed() {
-		return false;
+		return false;//still needs to be implemented, waiting for bank
 	}
 
 }

@@ -78,12 +78,12 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canDiscard() {
-		return false;
+		return false;//still need to be implemented
 	}
 
 	@Override
 	public boolean canFinishTurn() {
-		return false;
+		return true;
 	}
 
 	@Override
