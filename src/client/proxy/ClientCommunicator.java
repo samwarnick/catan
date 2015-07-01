@@ -1,4 +1,4 @@
-package client.communication;
+package client.proxy;
 
 /**
  * @author isaachartung

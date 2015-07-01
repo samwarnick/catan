@@ -23,6 +23,13 @@ public class PortHex extends WaterHex {
 		this.validVertex2 = validVertex2;
 		this.orientation = orientation;
 	}
+
+	// TODO: hascode, equals
 	
-	// TODO: hashcode, equals, toString
+	@Override
+	public String toString() {
+		return "PortHex [portType=" + portType + ", ratio=" + ratio
+				+ ", validVertex1=" + validVertex1 + ", validVertex2="
+				+ validVertex2 + ", orientation=" + orientation + "]";
+	}
 }

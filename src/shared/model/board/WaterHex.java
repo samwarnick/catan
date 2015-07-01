@@ -8,6 +8,4 @@ public class WaterHex extends Hex {
 	public WaterHex(HexLocation location) {
 		super(HexType.WATER, location);
 	}
-	
-	// TODO: hashcode, equals, toString
 }
