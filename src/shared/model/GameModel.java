@@ -19,7 +19,7 @@ public class GameModel {
 	private Board board;
 	private Robber robber;
 	private List<Player> players;
-	private TurnTracker turnTracker;
+	// private TurnTracker turnTracker;
 	private Bank bank;
 	
 	public GameModel() {
