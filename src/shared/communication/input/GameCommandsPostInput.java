@@ -1,5 +1,7 @@
 package shared.communication.input;
 
+import java.util.List;
+
 /**
  * 
  * @author Matt
@@ -8,14 +10,14 @@ package shared.communication.input;
  */
 public class GameCommandsPostInput extends Input {
 
-	private GameCommandsGetOutput commandsList;
+	private List<String> commandsList;
 	
-	public GameCommandsPostInput(GameCommandsGetOutput commandsList) {
+	public GameCommandsPostInput(List<String> commandsList) {
 		super("/game/commandsPost");
 		this.commandsList = commandsList;
 	}
 
-	public GameCommandsGetOutput getCommandsList() {
+	public List<String> getCommandsList() {
 		return commandsList;
 	}
 

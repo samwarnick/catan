@@ -3,6 +3,7 @@ package server;
 import java.util.List;
 
 import shared.communication.input.*;
+import shared.communication.input.move.*;
 import shared.model.GameModel;
 
 /**
@@ -209,7 +210,7 @@ public interface IServer {
 	 * @post The chat contains your message at the end
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel sendChat(MoveSendChat input) throws ServerException;
+	public GameModel sendChat(SendChatInput input) throws ServerException;
 	
 	// MISC.
 	
@@ -223,7 +224,7 @@ public interface IServer {
 	 * 3. The trade offer is removed<br>
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel acceptTrade(MoveAcceptTrade input) throws ServerException;
+	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException;
 	
 	/**
 	 * Player whimpers as they discard cards
@@ -235,7 +236,7 @@ public interface IServer {
 	 * 2. If you're the last one to discard, the client model status changes to 'Robbing'
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel discardCards(MoveDiscardCards input) throws ServerException;
+	public GameModel discardCards(DiscardCardsInput input) throws ServerException;
 	
 	// ROLLING
 	
@@ -247,7 +248,7 @@ public interface IServer {
 	 * @post The client model’s status is now in ‘Discarding’ or ‘Robbing’ or ‘Playing’
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel rollNumber(MoveRollNumber input) throws ServerException;
+	public GameModel rollNumber(RollNumberInput input) throws ServerException;
 	
 	// PLAYING
 	/**
@@ -268,7 +269,7 @@ public interface IServer {
 	 * 3. If applicable, “longest road” has been awarded to the player with the longest road
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel buildRoad(MoveBuildRoad input) throws ServerException;
+	public GameModel buildRoad(BuildRoadInput input) throws ServerException;
 	
 	/**
 	 * Player builds a settlement
@@ -282,7 +283,7 @@ public interface IServer {
 	 * 2.The settlement is on the map at the specified location
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel buildSettlement(MoveBuildSettlement input) throws ServerException;
+	public GameModel buildSettlement(BuildSettlementInput input) throws ServerException;
 	
 	/**
 	 * Player builds a City
@@ -294,7 +295,7 @@ public interface IServer {
 	 * 3. You got a settlement back<br>
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel buildCity(MoveBuildCity input) throws ServerException;
+	public GameModel buildCity(BuildCityInput input) throws ServerException;
 	
 	/**
 	 * Player offers a trade
@@ -303,7 +304,7 @@ public interface IServer {
 	 * @post The trade is offered to the other player (stored in the server model)
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel offerTrade(MoveOfferTrade input) throws ServerException;
+	public GameModel offerTrade(OfferTradeInput input) throws ServerException;
 	
 	/**
 	 * Player trades with the salty sea
@@ -313,7 +314,7 @@ public interface IServer {
 	 * @post The trade has been executed (the offered resources are in the bank, and the requested resource has been received)
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel maritimeTrade(MoveMaritimeTrade input) throws ServerException;
+	public GameModel maritimeTrade(MaritimeTradeInput input) throws ServerException;
 	
 	/**
 	 * Player robs another helpless victim
@@ -324,7 +325,7 @@ public interface IServer {
 	 * 2. The player being robbed (if any) gave you one of his resource cards (randomly selected)
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel robPlayer(MoveRobPlayer input) throws ServerException;
+	public GameModel robPlayer(RobPlayerInput input) throws ServerException;
 	
 	/**
 	 * Player takes their sweet time and finishes their turn, finally
@@ -334,7 +335,7 @@ public interface IServer {
 	 * 2. It is the next player’s turn
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel finishTurn(MoveFinishTurn input) throws ServerException;
+	public GameModel finishTurn(FinishTurnInput input) throws ServerException;
 	
 	/**
 	 * Player shows their wealth by purchasing a development card to the awe of the other players
@@ -346,7 +347,7 @@ public interface IServer {
 	 * <li>If it is a non­monument card, it has been added to your new devcard hand (unplayable this turn)
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel buyDevCard(MoveBuyDevCard input) throws ServerException;
+	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException;
 	
 	// DEV CARD
 	/**
@@ -368,7 +369,7 @@ public interface IServer {
 	 * 4. You are not allowed to play other development cards during this turn (except for monument cards, which may still be played)
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel playSoldier(MoveSoldier input) throws ServerException;
+	public GameModel playSoldier(PlaySoldierInput input) throws ServerException;
 	
 	/**
 	 * Player plays soldier card
@@ -377,7 +378,7 @@ public interface IServer {
 	 * @post You gained the two specified resources
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel playYearOfPlenty(MoveYearOfPlenty input) throws ServerException;
+	public GameModel playYearOfPlenty(PlayYearOfPlentyInput input) throws ServerException;
 	
 	/**
 	 * Player plays soldier card
@@ -391,7 +392,7 @@ public interface IServer {
 	 * 3. If applicable, “longest road” has been awarded to the player with the longest road
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel playRoadBuilding(MoveRoadBuilding input) throws ServerException;
+	public GameModel playRoadBuilding(PlayRoadBuildingInput input) throws ServerException;
 	
 	/**
 	 * Player plays soldier card
@@ -400,7 +401,7 @@ public interface IServer {
 	 * @post All of the other players have given you all of their resource cards of the specified type
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel playMonopoly(MoveMonopoly input) throws ServerException;
+	public GameModel playMonopoly(PlayMonopolyInput input) throws ServerException;
 	
 	/**
 	 * Player plays soldier card
@@ -409,5 +410,5 @@ public interface IServer {
 	 * @post You gained a victory point
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public GameModel playMonument(MoveMonument input) throws ServerException;
+	public GameModel playMonument(PlayMonumentInput input) throws ServerException;
 }
