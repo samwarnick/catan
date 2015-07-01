@@ -14,6 +14,7 @@ public class Player {
 	private PlayerBank playerBank;
 	private LongestRoad longestRoad;
 	private LargestArmy largestArmy;
+	
 	private Color color;
 	private Roads roads;
 	private Settlements settlements;
