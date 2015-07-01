@@ -44,6 +44,16 @@ public class Player {
 	}
 	
 	
+	public IPlayerFacade getPlayerFacade() {
+		return playerFacade;
+	}
+
+
+	public void setPlayerFacade(IPlayerFacade playerFacade) {
+		this.playerFacade = playerFacade;
+	}
+
+
 	public boolean hasLongestRoad(){
 		return longestRoad.isHasLongestRoad();
 	}

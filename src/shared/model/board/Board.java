@@ -24,6 +24,16 @@ public class Board {
 	private void generateBoard(boolean random) {
 		
 	}
+	
+	
+
+	public BoardFacade getBoardFacade() {
+		return boardFacade;
+	}
+
+	public void setBoardFacade(BoardFacade boardFacade) {
+		this.boardFacade = boardFacade;
+	}
 
 	@Override
 	public int hashCode() {

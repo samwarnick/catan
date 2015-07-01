@@ -25,4 +25,30 @@ public class GameModel {
 	public GameModel() {
 		
 	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public Robber getRobber() {
+		return robber;
+	}
+
+	public void setRobber(Robber robber) {
+		this.robber = robber;
+	}
+
+	public Bank getBank() {
+		return bank;
+	}
+
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+	
+	
 }
