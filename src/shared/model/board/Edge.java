@@ -1,5 +1,9 @@
 package shared.model.board;
-
+/**
+ * 
+ * @author jordanJohnson
+ *
+ */
 import shared.locations.EdgeLocation;
 
 public class Edge {

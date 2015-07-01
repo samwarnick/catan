@@ -8,6 +8,7 @@ public class Board {
 	private List<Hex> landHexes;
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
+	private BoardFacade boardFacade;
 	
 	public Board() {
 		landHexes = new ArrayList<Hex>();
