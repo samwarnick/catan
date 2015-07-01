@@ -2,7 +2,7 @@ package shared.communication.input;
 
 /**
  * @author isaachartung
- *
+ *This class keeps track of the number of each resource card a player has.
  */
 public class ResourceHand {
 	

@@ -4,6 +4,7 @@ import shared.locations.VertexLocation;
 
 /**
  * @author isaachartung
+ *this is the input object for an BuildCity command
  *
  */
 public class MoveBuildCity extends MoveInput{

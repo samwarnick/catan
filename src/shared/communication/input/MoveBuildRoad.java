@@ -4,6 +4,7 @@ import shared.locations.EdgeLocation;
 
 /**
  * @author isaachartung
+ *this is the input object for an BuildRoad command
  *
  */
 public class MoveBuildRoad extends MoveInput {

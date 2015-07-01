@@ -6,7 +6,7 @@ import shared.model.bank.ResourceCard;
 
 /**
  * @author isaachartung
- *
+ *this is the input object for an YearOfPlenty command
  */
 public class MoveYearOfPlenty extends MoveInput {
 	
