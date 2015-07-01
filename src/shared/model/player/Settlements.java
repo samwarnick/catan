@@ -3,12 +3,14 @@ package shared.model.player;
 import java.util.ArrayList;
 
 
+
 import shared.model.board.Settlement;
 
 /**
  * 
  * @author Spencer Krieger
- *
+ * 
+ *Contains a list of Settlement and keeps track of how many settlements the player has left.
  */
 public class Settlements {
 
@@ -25,6 +27,12 @@ public class Settlements {
 		return settlements;
 	}
 
+	/**
+	 * @pre none
+	 * @param settlement
+	 * @throws NoSettlementsLeftException
+	 * @post adds a Settlement, or throws NoSettlementsLeftException.
+	 */
 	public void buildSettlement(Settlement settlement) throws NoSettlementsLeftException {
 		if(settlementsLeft > 0){
 			settlements.add(settlement);
@@ -38,6 +46,11 @@ public class Settlements {
 		return settlementsLeft;
 	}
 	
+	/**
+	 * @pre settlement(passed in as a parameter) must have been previously added to Settlements
+	 * @param settlement
+	 * @post removes the Settlement specified in the parameter.
+	 */
 	public void subtractSettlement(Settlement settlement){
 		settlements.remove(settlement);
 		settlementsLeft++;

@@ -5,6 +5,8 @@ package shared.model.player;
  * 
  * @author Spencer Krieger
  *
+ *keeps track of the total number of victory point a player has.
+ *keeps track of the total number of visible victory points a player has.
  */
 public class VictoryPoints {
 	

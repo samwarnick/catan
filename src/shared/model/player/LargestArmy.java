@@ -3,7 +3,7 @@ package shared.model.player;
 /**
  * 
  * @author Spencer Krieger
- *
+ * keeps track of the number of soldiers a player has and who has the largest army
  */
 public class LargestArmy {
 	

@@ -2,7 +2,7 @@ package shared.model.player;
 /**
  * 
  * @author Spencer Krieger
- *
+ * keeps track of the number of roads a player has and who has the longest road
  */
 public class LongestRoad {
 	
@@ -13,7 +13,10 @@ public class LongestRoad {
 		numRoads = 0;
 		hasLongestRoad = false;
 	}
-	
+	/**
+	 * @pre none
+	 * @post increases numRoads.
+	 */
 	public void addRoad(){
 		numRoads++;
 	}

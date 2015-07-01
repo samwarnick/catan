@@ -3,13 +3,15 @@ package shared.model.player;
 import java.util.ArrayList;
 
 
+
 import shared.model.board.Road;
 
 
 /**
  * 
  * @author Spencer Krieger
- *
+ * 
+ * Contains a list of Road and keeps track of how many roads the player has left.
  */
 public class Roads {
 	
@@ -24,7 +26,13 @@ public class Roads {
 	public ArrayList<Road> getRoads() {
 		return roads;
 	}
-
+	
+	/**
+	 * @pre none
+	 * @param road
+	 * @throws NoRoadsLeftException
+	 * @post adds a Road, or throws NoRoadsLeftException.
+	 */
 	public void addRoad(Road road) throws NoRoadsLeftException {
 		if (roadsLeft > 0)
 		{

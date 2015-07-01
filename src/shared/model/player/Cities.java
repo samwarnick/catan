@@ -8,7 +8,7 @@ import shared.model.board.City;
 /**
  * 
  * @author Spencer Krieger
- *
+ * Contains a list of City and keeps track of how many cities the player has left.
  */
 public class Cities {
 	
@@ -23,7 +23,13 @@ public class Cities {
 	public ArrayList<City> getCities() {
 		return cities;
 	}
-
+	
+/**
+ * @pre none
+ * @param city
+ * @throws NoCitiesLeftException
+ * @post adds a city, or throws NoCitiesLeftException.
+ */
 	public void buildCity(City city) throws NoCitiesLeftException {
 		if (citiesLeft > 0)
 		{

@@ -7,7 +7,7 @@ import shared.model.ratios.TradeRatios;
 /**
  * 
  * @author Spencer Krieger
- *
+ * Represents a player.  Has everything a player would have.
  */
 public class Player {
 	
