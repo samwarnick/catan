@@ -1,5 +1,7 @@
 package shared.communication.input;
 
+import shared.model.user.*;
+
 /**
  * 
  * @author Matt
