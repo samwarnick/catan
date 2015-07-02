@@ -3,9 +3,8 @@ package shared.communication.input;
 import java.util.List;
 
 /**
- * 
- * @author Matt
  * This class contains the gameCommandsPost method name and the list of commands previously retrieved from the server.
+ * @author Matt
  * 
  */
 public class GameCommandsPostInput extends Input {

@@ -1,9 +1,8 @@
 package shared.communication.input;
 
 /**
- * 
- * @author Matt
  * This class contains the gameListAll method name.
+ * @author Matt
  * 
  */
 public class GameListAIInput extends Input {

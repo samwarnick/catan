@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.locations.EdgeLocation;
 
 /**
- * 
- * @author Matt
  * This class contains the buildRoad method name, whether the Road is free or not, the location for the Road and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class BuildRoadInput extends MoveInput {

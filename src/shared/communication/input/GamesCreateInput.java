@@ -1,9 +1,8 @@
 package shared.communication.input;
 
 /**
- * 
- * @author Matt
  * This class contains the gamesCreate method name, the name for the game and booleans for whether the tiles, numbers and ports are random or not.
+ * @author Matt
  * 
  */
 public class GamesCreateInput extends Input {

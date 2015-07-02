@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.locations.VertexLocation;
 
 /**
- * 
- * @author Matt
  * This class contains the buildSettlement method name, whether the Settlement is free or not, the location for the Settlement and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class BuildSettlementInput extends MoveInput {

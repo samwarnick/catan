@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.locations.EdgeLocation;
 
 /**
- * 
- * @author Matt
  * This class contains the playRoadBuilding method name, the locations for two new roads and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class PlayRoadBuildingInput extends MoveInput {
