@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.definitions.ResourceType;
 
 /**
- * 
- * @author Matt
  * This class contains the maritimeTrade method name, the trade ratio, input and output ResourceTypes and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class MaritimeTradeInput extends MoveInput {

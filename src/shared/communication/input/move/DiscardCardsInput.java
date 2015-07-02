@@ -1,9 +1,8 @@
 package shared.communication.input.move;
 
 /**
- * 
- * @author Matt
  * This class contains the discardCards method name, the resources being discarded and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class DiscardCardsInput extends MoveInput {

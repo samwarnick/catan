@@ -1,10 +1,9 @@
 package shared.communication.input.move;
 
 /**
- * 
- * @author Matt
  * This class represents a collection of resource cards, each resource type represented by an integer.
  * 0 means the card amount will not change. A negative value means the player is gaining one or more of that card. A positive number means the player is losing one of more of that card.
+ * @author Matt
  * 
  */
 public class ResourceHand {

@@ -3,9 +3,8 @@ package shared.communication.input;
 import shared.model.player.Color;
 
 /**
- * 
- * @author Matt
  * This class contains the gamesJoin method name, the gameID and the Color for the new player.
+ * @author Matt
  * 
  */
 public class GamesJoinInput extends Input {

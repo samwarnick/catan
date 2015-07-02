@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.locations.HexLocation;
 
 /**
- * 
- * @author Matt
  * This class contains the playSoldier method name, the new location for the robber and the playerIndexes for the player stealing and being stolen from.
+ * @author Matt
  * 
  */
 public class PlaySoldierInput extends MoveInput {

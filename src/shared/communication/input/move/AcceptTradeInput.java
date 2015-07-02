@@ -1,9 +1,8 @@
 package shared.communication.input.move;
 
 /**
- * 
- * @author Matt
  * This class contains the acceptTrade method name, playerIndex and a boolean indicating whether the player accepts the trade or not.
+ * @author Matt
  * 
  */
 public class AcceptTradeInput extends MoveInput {

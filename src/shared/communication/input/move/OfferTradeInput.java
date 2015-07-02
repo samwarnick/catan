@@ -1,9 +1,8 @@
 package shared.communication.input.move;
 
 /**
- * 
- * @author Matt
  * This class contains the offerTrade method name, the resources offered and the playerIndexes for the player offering and receiving the trade.
+ * @author Matt
  * 
  */
 public class OfferTradeInput extends MoveInput {

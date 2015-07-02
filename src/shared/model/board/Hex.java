@@ -17,6 +17,22 @@ public class Hex {
 		this.location = location;
 	}
 
+	public HexType getLandType() {
+		return landType;
+	}
+
+	public void setLandType(HexType landType) {
+		this.landType = landType;
+	}
+
+	public HexLocation getLocation() {
+		return location;
+	}
+
+	public List<Edge> getEdges() {
+		return edges;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

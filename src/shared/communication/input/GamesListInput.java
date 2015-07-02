@@ -1,9 +1,8 @@
 package shared.communication.input;
 
 /**
- * 
- * @author Matt
  * This class contains the gamesList method name.
+ * @author Matt
  * 
  */
 public class GamesListInput extends Input {

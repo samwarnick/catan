@@ -1,9 +1,8 @@
 package shared.communication.input.move;
 
 /**
- * 
- * @author Matt
  * This class contains the buyDevCard method name and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class BuyDevCardInput extends MoveInput {
