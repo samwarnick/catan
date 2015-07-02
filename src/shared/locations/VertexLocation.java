@@ -169,6 +169,77 @@ public class VertexLocation
 		return adjacentHexes;
 	}
 	
+	public ArrayList<EdgeLocation> getAdjacentEdges() {
+		HexLocation newLoc1;
+		HexLocation newLoc2;
+		HexLocation newLoc3;
+		EdgeDirection newDir1;
+		EdgeDirection newDir2;
+		EdgeDirection newDir3;
+		
+		switch(dir) {
+		case NorthWest: newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
+						newDir1 = EdgeDirection.NorthEast;
+						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir2 = EdgeDirection.NorthWest;
+						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir3 = EdgeDirection.North;
+						
+		case NorthEast: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+						newDir1 = EdgeDirection.SouthEast;
+						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir2 = EdgeDirection.North;
+						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir3 = EdgeDirection.NorthEast;
+						
+		case East: 		newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
+						newDir1 = EdgeDirection.South;
+						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir2 = EdgeDirection.NorthEast;
+						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir3 = EdgeDirection.SouthEast;
+						
+		case SouthEast: newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
+						newDir1 = EdgeDirection.SouthWest;
+						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir2 = EdgeDirection.SouthEast;
+						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir3 = EdgeDirection.South;
+						
+		case SouthWest: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
+						newDir1 = EdgeDirection.NorthWest;
+						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir2 = EdgeDirection.South;
+						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir3 = EdgeDirection.SouthWest;
+						
+		case West:		newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
+						newDir1 = EdgeDirection.North;
+						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir2 = EdgeDirection.SouthWest;
+						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+						newDir3 = EdgeDirection.NorthWest;
+						
+		default:		newLoc1 = null;
+						newDir1 = null;
+						newLoc2 = null;
+						newDir2 = null;
+						newLoc3 = null;
+						newDir3 = null;
+		}
+		
+		EdgeLocation adjacent1 = new EdgeLocation(newLoc1, newDir1);
+		EdgeLocation adjacent2 = new EdgeLocation(newLoc2, newDir2);
+		EdgeLocation adjacent3 = new EdgeLocation(newLoc3, newDir3);
+		
+		ArrayList<EdgeLocation> adjacentEdges = new ArrayList<EdgeLocation>();
+		adjacentEdges.add(adjacent1);
+		adjacentEdges.add(adjacent2);
+		adjacentEdges.add(adjacent3);
+		
+		return adjacentEdges;
+	}
+	
 	@Override
 	public String toString()
 	{
