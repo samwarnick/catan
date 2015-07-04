@@ -19,8 +19,16 @@ import shared.definitions.ResourceType;
  */
 public class Bank {
 	
-	private ArrayList<ResourceCard> resourceCards = new ArrayList<ResourceCard>();
-	private ArrayList<DevelopmentCard> developmentCards = new ArrayList<DevelopmentCard>();;
+	private ResourceCard brick;
+	private ResourceCard wood;
+	private ResourceCard sheep;
+	private ResourceCard wheat;
+	private ResourceCard ore;
+	private DevelopmentCard soldier;
+	private DevelopmentCard yearOfPlenty;
+	private DevelopmentCard buildRoad;
+	private DevelopmentCard monopoly;
+	private DevelopmentCard monument;
 	private boolean largestArmyCard = false;
 	private boolean longestRoadCard = false;
 	
