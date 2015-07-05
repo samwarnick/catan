@@ -5,13 +5,12 @@ import shared.definitions.ResourceType;
 /**
  * @author isaachartung
  *
- *The ResourceCard card holds only a ResourceType.  It contains a method to
- *query this type.
+ *The ResourceCard card holds only its quantity, which cannot exceed 19.
  *
  */
 public class ResourceCard {
 	
-	private ResourceType type;
+	private int quantity;
 	
 	/**
 	 * 
