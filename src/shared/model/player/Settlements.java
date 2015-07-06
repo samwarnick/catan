@@ -65,13 +65,13 @@ public class Settlements {
 	public void subtractSettlement(Settlement settlement) throws NoSettlementFoundException{
 		boolean removed = false;
 		for (int i = 0;i < settlements.size();i++){
-			if (settlements.get(i).getLocation().equals(settlement.getLocation()) && !removed){
+			if (settlements.get(i).equals(settlement)) {
 				settlements.remove(i);
 				settlementsLeft++;
 				removed = true;
 			}
 		}
-		if(removed){
+		if(!removed){
 			throw new NoSettlementFoundException();
 		}
 		
