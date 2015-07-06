@@ -230,7 +230,9 @@ public class Bank {
 		return false;
 
 	}
-
+	public int getNumResourceCards(){
+		return wood.getQuantity() + brick.getQuantity() + sheep.getQuantity() + wheat.getQuantity() + ore.getQuantity();
+	}
 	
 
 	

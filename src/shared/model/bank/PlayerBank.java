@@ -132,5 +132,7 @@ public class PlayerBank extends Bank {
 		newMonument.setQuantity(dh.getMonument());
 		newRoadBuild.setQuantity(dh.getRoadBuild());
 	}
+	
+	
 
 }
