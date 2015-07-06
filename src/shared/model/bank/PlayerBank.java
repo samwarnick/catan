@@ -21,28 +21,31 @@ public class PlayerBank extends Bank {
 	private DevelopmentCard newYearOfPlenty;
 	private DevelopmentCard newRoadBuild;
 	
-	PlayerBank() throws Exception{
+	PlayerBank(){
 		super();
-		newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
-		newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
-		newMonument = new DevelopmentCard(0, DevCardType.MONUMENT);
-		newYearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
-		newRoadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+		try {
+			newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
+			newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+			newMonument = new DevelopmentCard(0, DevCardType.MONUMENT);
+			newYearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
+			newRoadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+		} catch (BankException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 
-	
 	/**
-	 * adds the Development Card parameter to the array.
 	 * 
-	 * @param DC is a DevelopmentCard object
-	 * @throws Exception 
-	 * @pre DC is not null
-	 * @post DC is add to the newDevelopmentCards array.
+	 * increments a single attribute of the player bank; which attribute
+	 * is decided by the DevCardType parameter.
 	 * 
+	 * @param card
+	 * @throws BankException
 	 */
-
-	public void addDC(DevCardType card) throws Exception {
+	public void addNewDC(DevCardType card) throws BankException {
 		switch(card){
 		case SOLDIER: newSoldier.modify(1);
 			break;
@@ -55,11 +58,19 @@ public class PlayerBank extends Bank {
 		case MONUMENT: newMonument.modify(1);
 			break;
 		default:
-			throw new Exception("bad type parameter");
+			throw new BankException("bad type parameter");
 		}
 	}
 	
-	public void addNewDC(DevelopmentHand dh) throws Exception{
+	
+	/**
+	 * 
+	 * adds corresponding dh attribute values to player bank attributes
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
+	public void addNewDC(DevelopmentHand dh) throws BankException{
 		newSoldier.modify(dh.getSoldier());
 		newMonopoly.modify(dh.getMonopoly());
 		newYearOfPlenty.modify(dh.getYearOfPlenty());
@@ -81,7 +92,7 @@ public class PlayerBank extends Bank {
 			newMonument.setQuantity(0);
 			newRoadBuild.setQuantity(0);
 			newYearOfPlenty.setQuantity(0);
-		} catch (Exception e) {
+		} catch (BankException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -89,13 +100,13 @@ public class PlayerBank extends Bank {
 	}
 	
 	/**
-	 * @throws Exception 
+	 * @throws BankException 
 	 * @pre no preconditions
 	 * @post any DevelopmentCard objects contained in this classes array
 	 *  is transfered to the D. Card array of the super class.
 	 */
 	
-	public void transfer() throws Exception{
+	public void transfer() throws BankException{
 		soldier.modify(newSoldier.getQuantity());
 		monopoly.modify(newMonopoly.getQuantity());
 		yearOfPlenty.modify(newYearOfPlenty.getQuantity());
@@ -104,7 +115,14 @@ public class PlayerBank extends Bank {
 		clear();
 	}
 	
-	public void initNewDC(DevelopmentHand dh) throws Exception{
+	/**
+	 * sets player bank attributes to their corresponding values in 
+	 * the parameter dh
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
+	public void initNewDC(DevelopmentHand dh) throws BankException{
 		newSoldier.setQuantity(dh.getSoldier());
 		newMonopoly.setQuantity(dh.getMonopoly());
 		newYearOfPlenty.setQuantity(dh.getYearOfPlenty());

@@ -31,17 +31,23 @@ public class Bank {
 	private boolean largestArmyCard = false;
 	private boolean longestRoadCard = false;
 	
-	public Bank() throws Exception{
-		brick = new ResourceCard(0);
-		wood = new ResourceCard(0);
-		sheep = new ResourceCard(0);
-		wheat = new ResourceCard(0);
-		ore = new ResourceCard(0);
-		soldier = new DevelopmentCard(0, DevCardType.SOLDIER);
-		yearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
-		roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
-		monument = new DevelopmentCard(0, DevCardType.MONUMENT);
-		monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+	public Bank(){
+		try {
+			brick = new ResourceCard(0);
+			wood = new ResourceCard(0);
+			sheep = new ResourceCard(0);
+			wheat = new ResourceCard(0);
+			ore = new ResourceCard(0);
+			soldier = new DevelopmentCard(0, DevCardType.SOLDIER);
+			yearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
+			roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+			monument = new DevelopmentCard(0, DevCardType.MONUMENT);
+			monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+		} catch (BankException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public boolean hasLargestArmyCard() {
@@ -60,10 +66,12 @@ public class Bank {
 
 	/**
 	 * 
-	 * @param rh
-	 * @throws Exception
+	 * @param rh a ResourceHand object
+	 * @throws BankException
+	 * @pre all attributes of the rh are non negative and do not exceed limits
+	 * @post all resource attributes are increased by their corresponding rh attribute.
 	 */
-	public void addRC(ResourceHand rh) throws Exception{
+	public void addRC(ResourceHand rh) throws BankException{
 		brick.modify(rh.getBrick());
 		wheat.modify(rh.getWheat());
 		ore.modify(rh.getOre());
@@ -75,9 +83,9 @@ public class Bank {
 	/**
 	 * 
 	 * @param card
-	 * @throws Exception
+	 * @throws BankException
 	 */
-	public void addDC(DevCardType card) throws Exception{
+	public void addDC(DevCardType card) throws BankException{
 		switch(card){
 		case SOLDIER: soldier.modify(1);
 			break;
@@ -90,11 +98,17 @@ public class Bank {
 		case MONUMENT: monument.modify(1);
 			break;
 		default:
-			throw new Exception("bad type parameter");
+			throw new BankException("bad type parameter");
 		}
 	}
 	
-	public void addDC(DevelopmentHand dh) throws Exception{
+	/**
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
+	
+	public void addDC(DevelopmentHand dh) throws BankException{
 		soldier.modify(dh.getSoldier());
 		monopoly.modify(dh.getMonopoly());
 		yearOfPlenty.modify(dh.getYearOfPlenty());
@@ -123,13 +137,13 @@ public class Bank {
 	 * 
 	 * @param dt is a DevCardType
 	 * @param quantity is the number of cards we want to find
-	 * @throws Exception 
+	 * @throws BankException 
 	 * @pre a valid DevCardType and a non-negative quantity
 	 * @post returns true if the player has the specified number of the specified type, false otherwise.
 	 * 
 	 */
 	
-	public boolean hasDC(DevCardType dt, int quantity) throws Exception{
+	public boolean hasDC(DevCardType dt, int quantity) throws BankException{
 		int temp = 0;
 		switch(dt){
 		case SOLDIER: temp = soldier.getQuantity();
@@ -143,7 +157,7 @@ public class Bank {
 		case MONUMENT: temp = monument.getQuantity();
 			break;
 		default:
-			throw new Exception("type does not exist");
+			throw new BankException("type does not exist");
 		}
 		
 		if(temp<quantity) return false;
@@ -152,9 +166,13 @@ public class Bank {
 	
 	
 	
+	/**
+	 * 
+	 * @param quantity
+	 * @throws BankException
+	 */
 	
-	
-	public void initRC(int quantity) throws Exception{
+	public void setRC(int quantity) throws BankException{
 		brick.setQuantity(quantity);
 		ore.setQuantity(quantity);
 		wheat.setQuantity(quantity);
@@ -162,7 +180,13 @@ public class Bank {
 		sheep.setQuantity(quantity);
 	}
 	
-	public void initRC(ResourceHand rh) throws Exception{
+	
+	/**
+	 * 
+	 * @param rh
+	 * @throws BankException
+	 */
+	public void setRC(ResourceHand rh) throws BankException{
 		brick.setQuantity(rh.getBrick());
 		ore.setQuantity(rh.getOre());
 		wheat.setQuantity(rh.getWheat());
@@ -170,12 +194,34 @@ public class Bank {
 		sheep.setQuantity(rh.getSheep());
 	}
 	
-	public void initDC(DevelopmentHand dh) throws Exception{
+	/**
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
+	
+	public void setDC(DevelopmentHand dh) throws BankException{
 		soldier.setQuantity(dh.getSoldier());
 		monument.setQuantity(dh.getMonument());
 		monopoly.setQuantity(dh.getMonopoly());
 		yearOfPlenty.setQuantity(dh.getYearOfPlenty());
 		roadBuild.setQuantity(dh.getRoadBuild());
+	}
+	
+	/**
+	 * returns true if Bank has any DC's, false otherwise.
+	 * @return
+	 */
+	
+	public boolean hasAnyDC(){
+		if(soldier.getQuantity()>0) return true;
+		if(monument.getQuantity()>0) return true;
+		if(monopoly.getQuantity()>0) return true;
+		if(yearOfPlenty.getQuantity()>0) return true;
+		if(roadBuild.getQuantity()>0) return true;
+		
+		return false;
+
 	}
 	
 	

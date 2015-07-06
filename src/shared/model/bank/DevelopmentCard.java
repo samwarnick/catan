@@ -21,7 +21,7 @@ public class DevelopmentCard {
 	 * @throws Exception
 	 */
 	
-	public DevelopmentCard(int quantity, DevCardType type) throws Exception{
+	public DevelopmentCard(int quantity, DevCardType type) throws BankException{
 		switch(type){
 		case SOLDIER: limit = 14;
 			break;
@@ -34,9 +34,9 @@ public class DevelopmentCard {
 		case MONUMENT: limit = 5;
 			break;
 		default:
-			throw new Exception("bad type parameter");
+			throw new BankException("bad type parameter");
 		}
-		if(quantity > limit || quantity < 0) throw new Exception("quantity out of range");
+		if(quantity > limit || quantity < 0) throw new BankException("quantity out of range");
 		this.quantity = quantity;
 	}
 	
@@ -47,8 +47,8 @@ public class DevelopmentCard {
 	 * @pre when inc is added to quantity, it does not go over limit or under 0
 	 * @post inc is added to the quantity.
 	 */
-	public void modify(int inc) throws Exception{
-		if((quantity + inc) < 0 || (quantity + inc) > limit ) throw new Exception
+	public void modify(int inc) throws BankException{
+		if((quantity + inc) < 0 || (quantity + inc) > limit ) throw new BankException
 																	("modify parameter takes quantity out of bounds");
 		quantity += inc;
 	}
@@ -57,8 +57,8 @@ public class DevelopmentCard {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) throws Exception {
-		if((quantity) < 0 || (quantity) > limit ) throw new Exception
+	public void setQuantity(int quantity) throws BankException {
+		if((quantity) < 0 || (quantity) > limit ) throw new BankException
 													("set quantity parameter is out of bounds");
 		this.quantity = quantity;
 	}
