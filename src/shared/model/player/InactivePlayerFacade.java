@@ -2,6 +2,7 @@ package shared.model.player;
 
 
 import shared.communication.input.move.ResourceHand;
+import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
@@ -37,7 +38,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canTrade() {
+	public boolean canTrade(ResourceHand rh) {
 		return false;
 	}
 
@@ -72,6 +73,10 @@ public class InactivePlayerFacade implements IPlayerFacade{
 	@Override
 	public boolean canBeRobbed() {
 		return player.getPlayerBank().getNumResourceCards() > 0;
+	}
+	@Override
+	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output) {
+		return false;
 	}
 
 }
