@@ -94,6 +94,14 @@ public class Bank {
 		}
 	}
 	
+	public void addDC(DevelopmentHand dh) throws Exception{
+		soldier.modify(dh.getSoldier());
+		monopoly.modify(dh.getMonopoly());
+		yearOfPlenty.modify(dh.getYearOfPlenty());
+		monument.modify(dh.getMonument());
+		roadBuild.modify(dh.getRoadBuild());
+	}
+	
 
 	/**
 	 * 	
@@ -128,19 +136,21 @@ public class Bank {
 			break;
 		case MONOPOLY: temp = monopoly.getQuantity();
 			break;
-		case YEAR_OF_PLENTY: yearOfPlenty.modify(1);
+		case YEAR_OF_PLENTY: temp = yearOfPlenty.getQuantity();
 			break;
-		case ROAD_BUILD: roadBuild.modify(1);
+		case ROAD_BUILD: temp = roadBuild.getQuantity();
 			break;
-		case MONUMENT: monument.modify(1);
+		case MONUMENT: temp = monument.getQuantity();
 			break;
 		default:
-			throw new Exception("bad type parameter");
+			throw new Exception("type does not exist");
 		}
 		
 		if(temp<quantity) return false;
 		return true;
 	}
+	
+	
 	
 	
 	
@@ -161,11 +171,11 @@ public class Bank {
 	}
 	
 	public void initDC(DevelopmentHand dh) throws Exception{
-		soldier.modify(dh.getSoldier());
-		monument.modify(dh.getMonument());
-		monopoly.modify(dh.getMonopoly());
-		yearOfPlenty.modify(dh.getYearOfPlenty());
-		roadBuild.modify(dh.getRoadBuild());
+		soldier.setQuantity(dh.getSoldier());
+		monument.setQuantity(dh.getMonument());
+		monopoly.setQuantity(dh.getMonopoly());
+		yearOfPlenty.setQuantity(dh.getYearOfPlenty());
+		roadBuild.setQuantity(dh.getRoadBuild());
 	}
 	
 	

@@ -59,6 +59,14 @@ public class PlayerBank extends Bank {
 		}
 	}
 	
+	public void addNewDC(DevelopmentHand dh) throws Exception{
+		newSoldier.modify(dh.getSoldier());
+		newMonopoly.modify(dh.getMonopoly());
+		newYearOfPlenty.modify(dh.getYearOfPlenty());
+		newMonument.modify(dh.getMonument());
+		newRoadBuild.modify(dh.getRoadBuild());
+	}
+	
 	/**
 	 * empties the array.
 	 * 
@@ -97,11 +105,11 @@ public class PlayerBank extends Bank {
 	}
 	
 	public void initNewDC(DevelopmentHand dh) throws Exception{
-		newSoldier.modify(dh.getSoldier());
-		newMonopoly.modify(dh.getMonopoly());
-		newYearOfPlenty.modify(dh.getYearOfPlenty());
-		newMonument.modify(dh.getMonument());
-		newRoadBuild.modify(dh.getRoadBuild());
+		newSoldier.setQuantity(dh.getSoldier());
+		newMonopoly.setQuantity(dh.getMonopoly());
+		newYearOfPlenty.setQuantity(dh.getYearOfPlenty());
+		newMonument.setQuantity(dh.getMonument());
+		newRoadBuild.setQuantity(dh.getRoadBuild());
 	}
 
 }
