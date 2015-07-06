@@ -1,5 +1,11 @@
 package client.proxy;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import server.ServerException;
 import shared.communication.input.Input;
 
 /**
@@ -12,8 +18,11 @@ import shared.communication.input.Input;
  */
 public class ClientCommunicator {
 	
+	private final String DEFAULT_HOST = "localhost";
+	private final int DEFAULT_PORT = 8081;
 	private String serverHost = "localhost";
 	private int serverPort = 8081;
+	private String URLPrefix;
 	
 	/**
 	 * 
@@ -23,9 +32,14 @@ public class ClientCommunicator {
 	 * @post a ClientCommunicator is created with the given host name and port number.
 	 */
 	
+	public ClientCommunicator() {
+		URLPrefix = "http://" + DEFAULT_HOST + ":" + DEFAULT_PORT;
+	}
+	
 	public ClientCommunicator(String host, int port){
 		serverHost = host;
 		serverPort = port;
+		URLPrefix = "http://" + serverHost + ":" + serverPort;
 	}
 	
 	/**
@@ -35,8 +49,28 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public Object post(Input toPost){
-		return null;
+	public Object post(Input toPost) throws ServerException {
+		Object result = null;
+		try {
+			String method = toPost.getMethod();
+	        URL url;
+			url = new URL(URLPrefix+method);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+	        conn.setRequestMethod("POST");
+	        conn.setDoInput(true);
+	        conn.setDoOutput(true);
+	        conn.connect();
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.writeValue(conn.getOutputStream(), toPost);
+	        conn.getOutputStream().close();
+	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+	        	result = new Object();
+	        	result = mapper.readValue(conn.getInputStream(), result.getClass());
+	        }
+		} catch (Exception e) {
+			throw new ServerException(e.getMessage());
+		}
+		return result;
 	}
 
 }
