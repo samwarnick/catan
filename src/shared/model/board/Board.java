@@ -11,7 +11,7 @@ public class Board {
 	private BoardFacade boardFacade;
 	
 	private List<Road> roads;
-	private List<Settlement> settlements;
+	private List<Vertex> buildings;
 	
 	public Board(boolean random) {
 		landHexes = new ArrayList<Hex>();
@@ -20,7 +20,7 @@ public class Board {
 		generateBoard(random);
 		
 		roads = new ArrayList<Road>();
-		settlements = new ArrayList<Settlement>();
+		buildings = new ArrayList<Vertex>();
 	}
 	
 	/**
@@ -41,12 +41,12 @@ public class Board {
 		this.roads = roads;
 	}
 
-	public List<Settlement> getSettlements() {
-		return settlements;
+	public List<Vertex> getBuildings() {
+		return buildings;
 	}
 
-	public void setSettlements(List<Settlement> settlements) {
-		this.settlements = settlements;
+	public void setBuildings(List<Vertex> buildings) {
+		this.buildings = buildings;
 	}
 
 	

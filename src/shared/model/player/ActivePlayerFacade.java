@@ -2,6 +2,7 @@ package shared.model.player;
 
 
 import shared.communication.input.move.ResourceHand;
+import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 /**
@@ -45,8 +46,8 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canTrade() {
-		return true;
+	public boolean canTrade(ResourceHand rh) {
+		return player.getPlayerBank().hasRC(rh);
 	}
 
 	@Override
@@ -81,5 +82,22 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	public boolean canBeRobbed() {
 		return false;
 	}
+
+	@Override
+	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output) {
+		int ratio = player.getTradeRatios().getTradeRatio(output);
+		ResourceHand rh = null;
+		switch(input){
+		case WOOD:	rh = new ResourceHand(ratio*amtOutput,0,0,0,0);
+		case BRICK:	rh = new ResourceHand(0,ratio*amtOutput,0,0,0);
+		case SHEEP:	rh = new ResourceHand(0,0,ratio*amtOutput,0,0);
+		case WHEAT:	rh = new ResourceHand(0,0,0,ratio*amtOutput,0);
+		case ORE:	rh = new ResourceHand(0,0,0,0,ratio*amtOutput);
+		default: 	assert false;
+		}
+		
+		return player.getPlayerBank().hasRC(rh);
+	}
+
 
 }
