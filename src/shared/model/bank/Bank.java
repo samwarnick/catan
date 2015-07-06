@@ -184,6 +184,17 @@ public class Bank {
 		roadBuild.setQuantity(dh.getRoadBuild());
 	}
 	
+	public boolean hasAnyDC(){
+		if(soldier.getQuantity()>0) return true;
+		if(monument.getQuantity()>0) return true;
+		if(monopoly.getQuantity()>0) return true;
+		if(yearOfPlenty.getQuantity()>0) return true;
+		if(roadBuild.getQuantity()>0) return true;
+		
+		return false;
+
+	}
+	
 	
 	
 	

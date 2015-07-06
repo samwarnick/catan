@@ -21,13 +21,19 @@ public class PlayerBank extends Bank {
 	private DevelopmentCard newYearOfPlenty;
 	private DevelopmentCard newRoadBuild;
 	
-	PlayerBank() throws BankException{
+	PlayerBank(){
 		super();
-		newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
-		newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
-		newMonument = new DevelopmentCard(0, DevCardType.MONUMENT);
-		newYearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
-		newRoadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+		try {
+			newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
+			newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+			newMonument = new DevelopmentCard(0, DevCardType.MONUMENT);
+			newYearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
+			newRoadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+		} catch (BankException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 
