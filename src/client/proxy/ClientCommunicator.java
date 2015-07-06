@@ -1,5 +1,7 @@
 package client.proxy;
 
+import shared.communication.input.Input;
+
 /**
  * @author isaachartung
  *
@@ -11,7 +13,7 @@ package client.proxy;
 public class ClientCommunicator {
 	
 	private String serverHost = "localhost";
-	private int serverPort = 39640;
+	private int serverPort = 8081;
 	
 	/**
 	 * 
@@ -33,7 +35,7 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public Object post(Object toPost){
+	public Object post(Input toPost){
 		return null;
 	}
 
