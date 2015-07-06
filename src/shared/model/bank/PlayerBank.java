@@ -21,7 +21,7 @@ public class PlayerBank extends Bank {
 	private DevelopmentCard newRoadBuild;
 	
 
-	PlayerBank(){
+	public PlayerBank(){
 
 		super();
 		try {
