@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.locations.VertexLocation;
 
 /**
- * 
- * @author Matt
  * This class contains the buildSettlement method name, the location for the settlement and the playerIndex for the player doing the action.
+ * @author Matt
  * 
  */
 public class BuildCityInput extends MoveInput {

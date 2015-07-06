@@ -1,9 +1,8 @@
 package shared.communication.input;
 
 /**
- * 
- * @author Matt
  * This class contains the gameModelVersion method name and the version number.
+ * @author Matt
  * 
  */
 public class GameModelVersionInput extends Input {

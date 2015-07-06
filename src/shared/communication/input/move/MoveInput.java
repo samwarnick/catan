@@ -3,9 +3,8 @@ package shared.communication.input.move;
 import shared.communication.input.Input;
 
 /**
- * 
- * @author Matt
  * This class is the base class for all Move server methods and contains the base method name and playerIndex.
+ * @author Matt
  * 
  */
 public class MoveInput extends Input {

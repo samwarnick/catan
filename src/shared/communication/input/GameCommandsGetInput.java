@@ -1,9 +1,8 @@
 package shared.communication.input;
 
 /**
- * 
- * @author Matt
  * This class contains the gameCommandsGet method name.
+ * @author Matt
  * 
  */
 public class GameCommandsGetInput extends Input {

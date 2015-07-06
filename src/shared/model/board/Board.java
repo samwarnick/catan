@@ -10,11 +10,17 @@ public class Board {
 	private List<PortHex> ports;
 	private BoardFacade boardFacade;
 	
+	private List<Road> roads;
+	private List<Settlement> settlements;
+	
 	public Board(boolean random) {
 		landHexes = new ArrayList<Hex>();
 		waterHexes = new ArrayList<WaterHex>();
 		ports = new ArrayList<PortHex>();
 		generateBoard(random);
+		
+		roads = new ArrayList<Road>();
+		settlements = new ArrayList<Settlement>();
 	}
 	
 	/**
@@ -24,9 +30,28 @@ public class Board {
 	private void generateBoard(boolean random) {
 		
 	}
-	
+
 	
 
+	public List<Road> getRoads() {
+		return roads;
+	}
+
+	public void setRoads(List<Road> roads) {
+		this.roads = roads;
+	}
+
+	public List<Settlement> getSettlements() {
+		return settlements;
+	}
+
+	public void setSettlements(List<Settlement> settlements) {
+		this.settlements = settlements;
+	}
+
+	
+	
+	
 	public BoardFacade getBoardFacade() {
 		return boardFacade;
 	}

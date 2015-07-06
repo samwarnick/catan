@@ -32,6 +32,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 				&& player.getPlayerBank().hasRC(ResourceType.WOOD, 1)
 				&& player.getPlayerBank().hasRC(ResourceType.BRICK, 1)
 				&& player.getPlayerBank().hasRC(ResourceType.SHEEP, 1))
+			//also needs to check for adjacent road belonging to player
 			return true;
 		else
 			return false;
@@ -41,6 +42,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	public boolean canBuildRoad(EdgeLocation location) {
 		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(ResourceType.WOOD, 1)
 				&& player.getPlayerBank().hasRC(ResourceType.BRICK, 1))
+			// also needs to check for an adjacent road belonging to player
 			return true;
 		else
 			return false;

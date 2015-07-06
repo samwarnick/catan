@@ -1,9 +1,9 @@
 package shared.communication.input;
 
 /**
- * 
- * @author Matt
  * This class is the base class for all Input classes
+ * @author Matt
+ * 
  */
 public class Input {
 

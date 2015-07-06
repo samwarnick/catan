@@ -31,13 +31,24 @@ public class Roads {
 	 * @pre none
 	 * @param road
 	 * @throws NoRoadsLeftException
+	 * @throws RoadAlreadyThereException 
 	 * @post adds a Road, or throws NoRoadsLeftException.
 	 */
-	public void addRoad(Road road) throws NoRoadsLeftException {
+	public void addRoad(Road road) throws NoRoadsLeftException, RoadAlreadyThereException {
 		if (roadsLeft > 0)
 		{
-			roads.add(road);
-			roadsLeft--;
+			boolean alreadyThere = false;
+			for (Road r : roads){
+				if (r.getLocation().equals(road.getLocation()))
+					alreadyThere = true;
+			}
+			if (!alreadyThere){
+				roads.add(road);
+				roadsLeft--;
+			}
+			else 
+				throw new RoadAlreadyThereException();
+			
 		}
 		else
 			throw new NoRoadsLeftException();
@@ -52,5 +63,9 @@ public class Roads {
 
 @SuppressWarnings("serial")
 class NoRoadsLeftException extends Exception{
+	
+}
+@SuppressWarnings("serial")
+class RoadAlreadyThereException extends Exception{
 	
 }

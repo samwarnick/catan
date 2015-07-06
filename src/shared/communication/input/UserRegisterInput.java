@@ -3,9 +3,9 @@ package shared.communication.input;
 import shared.model.user.*;
 
 /**
- * 
- * @author Matt
  * This class contains the userRegister method name, the username and the password for the new user.
+ * @author Matt
+ * 
  * 
  */
 public class UserRegisterInput extends Input {

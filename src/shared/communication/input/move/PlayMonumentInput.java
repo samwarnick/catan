@@ -1,9 +1,8 @@
 package shared.communication.input.move;
 
 /**
- * 
- * @author Matt
  * This class contains the playMonument method name and the index of the player doing the action.
+ * @author Matt
  * 
  */
 public class PlayMonumentInput extends MoveInput {

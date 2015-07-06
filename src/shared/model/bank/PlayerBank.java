@@ -2,6 +2,8 @@ package shared.model.bank;
 
 import java.util.ArrayList;
 
+import shared.definitions.DevCardType;
+
 /**
  * @author isaachartung
  *
@@ -13,24 +15,56 @@ import java.util.ArrayList;
  */
 public class PlayerBank extends Bank {
 	
-	private ArrayList<DevelopmentCard> newDevelopmentCards;
-
-	public ArrayList<DevelopmentCard> getNewDevelopmentCards() {
-		return newDevelopmentCards;
+	private DevelopmentCard newSoldier;
+	private DevelopmentCard newMonopoly;
+	private DevelopmentCard newMonument;
+	private DevelopmentCard newYearOfPlenty;
+	private DevelopmentCard newRoadBuild;
+	
+	PlayerBank() throws Exception{
+		super();
+		newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
+		newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+		newMonument = new DevelopmentCard(0, DevCardType.MONUMENT);
+		newYearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
+		newRoadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
 	}
+	
+
 	
 	/**
 	 * adds the Development Card parameter to the array.
 	 * 
 	 * @param DC is a DevelopmentCard object
+	 * @throws Exception 
 	 * @pre DC is not null
 	 * @post DC is add to the newDevelopmentCards array.
 	 * 
 	 */
 
-	public void addDC(DevelopmentCard DC) {
-		if(DC == null) return;
-		newDevelopmentCards.add(DC);
+	public void addDC(DevCardType card) throws Exception {
+		switch(card){
+		case SOLDIER: newSoldier.modify(1);
+			break;
+		case MONOPOLY: newMonopoly.modify(1);
+			break;
+		case YEAR_OF_PLENTY: newYearOfPlenty.modify(1);
+			break;
+		case ROAD_BUILD: newRoadBuild.modify(1);
+			break;
+		case MONUMENT: newMonument.modify(1);
+			break;
+		default:
+			throw new Exception("bad type parameter");
+		}
+	}
+	
+	public void addNewDC(DevelopmentHand dh) throws Exception{
+		newSoldier.modify(dh.getSoldier());
+		newMonopoly.modify(dh.getMonopoly());
+		newYearOfPlenty.modify(dh.getYearOfPlenty());
+		newMonument.modify(dh.getMonument());
+		newRoadBuild.modify(dh.getRoadBuild());
 	}
 	
 	/**
@@ -41,20 +75,41 @@ public class PlayerBank extends Bank {
 	 */
 	
 	public void clear(){
-		newDevelopmentCards.clear();
+		try {
+			newSoldier.setQuantity(0);
+			newMonopoly.setQuantity(0);
+			newMonument.setQuantity(0);
+			newRoadBuild.setQuantity(0);
+			newYearOfPlenty.setQuantity(0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**
+	 * @throws Exception 
 	 * @pre no preconditions
 	 * @post any DevelopmentCard objects contained in this classes array
 	 *  is transfered to the D. Card array of the super class.
 	 */
 	
-	public void transfer(){
-		for(int i = 0; i<newDevelopmentCards.size(); i++){
-			super.addDC(newDevelopmentCards.get(i));
-		}
+	public void transfer() throws Exception{
+		soldier.modify(newSoldier.getQuantity());
+		monopoly.modify(newMonopoly.getQuantity());
+		yearOfPlenty.modify(newYearOfPlenty.getQuantity());
+		roadBuild.modify(newRoadBuild.getQuantity());
+		monument.modify(newMonument.getQuantity());
 		clear();
+	}
+	
+	public void initNewDC(DevelopmentHand dh) throws Exception{
+		newSoldier.setQuantity(dh.getSoldier());
+		newMonopoly.setQuantity(dh.getMonopoly());
+		newYearOfPlenty.setQuantity(dh.getYearOfPlenty());
+		newMonument.setQuantity(dh.getMonument());
+		newRoadBuild.setQuantity(dh.getRoadBuild());
 	}
 
 }
