@@ -1,10 +1,8 @@
 package shared.model.bank;
 
-import java.util.ArrayList;
 
 import shared.communication.input.move.ResourceHand;
 import shared.definitions.DevCardType;
-import shared.definitions.ResourceType;
 
 
 /**
@@ -33,6 +31,19 @@ public class Bank {
 	private boolean largestArmyCard = false;
 	private boolean longestRoadCard = false;
 	
+	public Bank() throws Exception{
+		brick = new ResourceCard(0);
+		wood = new ResourceCard(0);
+		sheep = new ResourceCard(0);
+		wheat = new ResourceCard(0);
+		ore = new ResourceCard(0);
+		soldier = new DevelopmentCard(0, DevCardType.SOLDIER);
+		yearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
+		roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+		monument = new DevelopmentCard(0, DevCardType.MONUMENT);
+		monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+	}
+	
 	public boolean hasLargestArmyCard() {
 		return largestArmyCard;
 	}
@@ -46,16 +57,12 @@ public class Bank {
 		this.longestRoadCard = longestRoadCard;
 	}
 	
+
 	/**
-	 * adds a single resource card to the bank.
 	 * 
-	 * @param RC is a ResourceCard object
-	 * @throws Exception 
-	 * @pre RC is not null
-	 * @post RC is added to the Bank's Array
-	 * 
+	 * @param rh
+	 * @throws Exception
 	 */
-	
 	public void addRC(ResourceHand rh) throws Exception{
 		brick.modify(rh.getBrick());
 		wheat.modify(rh.getWheat());
@@ -64,15 +71,12 @@ public class Bank {
 		sheep.modify(rh.getSheep());
 	}
 	
+
 	/**
-	 * adds a single development card to the bank.
 	 * 
-	 * @param DC is a DevelopmentCard Object
-	 * @throws Exception 
-	 * @pre DC is not null
-	 * @post DC is added to the Bank's Array of DC Cards
+	 * @param card
+	 * @throws Exception
 	 */
-	
 	public void addDC(DevCardType card) throws Exception{
 		switch(card){
 		case SOLDIER: soldier.modify(1);
@@ -90,16 +94,12 @@ public class Bank {
 		}
 	}
 	
+
 	/**
-	 * returns true if the player possesses the given quantity of the
-	 * specified resource card.
-	 * 
-	 * @param rt is a ResourceType
-	 * @param quantity is the number of cards we want to find
-	 * @pre a valid ResourceType is given and a non-negative quantity
-	 * @post returns true if the player has the specified number of the specified type, false otherwise. 
+	 * 	
+	 * @param rh
+	 * @return
 	 */
-	
 	public boolean hasRC(ResourceHand rh){
 		if(ore.getQuantity()<rh.getOre()) return false;
 		if(wood.getQuantity()<rh.getWood()) return false;
@@ -140,6 +140,32 @@ public class Bank {
 		
 		if(temp<quantity) return false;
 		return true;
+	}
+	
+	
+	
+	public void initRC(int quantity) throws Exception{
+		brick.setQuantity(quantity);
+		ore.setQuantity(quantity);
+		wheat.setQuantity(quantity);
+		wood.setQuantity(quantity);
+		sheep.setQuantity(quantity);
+	}
+	
+	public void initRC(ResourceHand rh) throws Exception{
+		brick.setQuantity(rh.getBrick());
+		ore.setQuantity(rh.getOre());
+		wheat.setQuantity(rh.getWheat());
+		wood.setQuantity(rh.getWood());
+		sheep.setQuantity(rh.getSheep());
+	}
+	
+	public void initDC(DevelopmentHand dh) throws Exception{
+		soldier.modify(dh.getSoldier());
+		monument.modify(dh.getMonument());
+		monopoly.modify(dh.getMonopoly());
+		yearOfPlenty.modify(dh.getYearOfPlenty());
+		roadBuild.modify(dh.getRoadBuild());
 	}
 	
 	
