@@ -1,11 +1,11 @@
 package shared.model;
 
 
-import shared.communication.input.move.ResourceHand;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import shared.model.bank.PlayerBank;
+import shared.model.bank.ResourceHand;
 import shared.model.player.Player;
 
 /**

@@ -15,6 +15,14 @@ public class DevelopmentHand {
 		this.yearOfPlenty = 0;
 		this.roadBuild = 0;
 	}
+	
+	public DevelopmentHand(int soldier, int monument, int monopoly, int yearOfPlenty, int roadBuild) {
+		this.soldier = soldier;
+		this.monument = monument;
+		this.monopoly = monopoly;
+		this.yearOfPlenty = yearOfPlenty;
+		this.roadBuild = roadBuild;
+	}
 
 	public int getSoldier() {
 		return soldier;

@@ -1,5 +1,7 @@
 package shared.communication.input.move;
 
+import shared.model.bank.ResourceHand;
+
 /**
  * This class contains the offerTrade method name, the resources offered and the playerIndexes for the player offering and receiving the trade.
  * @author Matt

@@ -1,4 +1,4 @@
-package shared.communication.input.move;
+package shared.model.bank;
 
 /**
  * This class represents a collection of resource cards, each resource type represented by an integer.
@@ -22,7 +22,7 @@ public class ResourceHand {
 		ore = 0;
 	}
 	
-	public ResourceHand(int wood, int brick, int sheep, int wheat, int ore){
+	public ResourceHand(int brick, int wood, int sheep, int wheat, int ore){
 		this.wood = wood;
 		this.brick = brick;
 		this.sheep = sheep;

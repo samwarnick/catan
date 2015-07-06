@@ -1,9 +1,9 @@
 package shared.model.player;
 
 
-import shared.communication.input.move.ResourceHand;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
+import shared.model.bank.ResourceHand;
 /**
  * 
  * @author Spencer Krieger
