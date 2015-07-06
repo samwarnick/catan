@@ -1,0 +1,5 @@
+Spencer:  Poller implementation(just a nagger), Turn Tracker, Version number, all of the constructors
+Isaac:  Proxy Server Testing, Game Model Facade testing
+Matt:  Board Generator, and Board Facade and game model facade
+Jordan:  
+Sam:  Player Facade testing, client communicator, bank test, jackson
