@@ -37,18 +37,15 @@ public class PlayerBank extends Bank {
 	}
 	
 
-	
 	/**
-	 * adds the Development Card parameter to the array.
 	 * 
-	 * @param DC is a DevelopmentCard object
-	 * @throws BankException 
-	 * @pre DC is not null
-	 * @post DC is add to the newDevelopmentCards array.
+	 * increments a single attribute of the player bank; which attribute
+	 * is decided by the DevCardType parameter.
 	 * 
+	 * @param card
+	 * @throws BankException
 	 */
-
-	public void addDC(DevCardType card) throws BankException {
+	public void addNewDC(DevCardType card) throws BankException {
 		switch(card){
 		case SOLDIER: newSoldier.modify(1);
 			break;
@@ -65,6 +62,14 @@ public class PlayerBank extends Bank {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * adds corresponding dh attribute values to player bank attributes
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
 	public void addNewDC(DevelopmentHand dh) throws BankException{
 		newSoldier.modify(dh.getSoldier());
 		newMonopoly.modify(dh.getMonopoly());
@@ -110,6 +115,13 @@ public class PlayerBank extends Bank {
 		clear();
 	}
 	
+	/**
+	 * sets player bank attributes to their corresponding values in 
+	 * the parameter dh
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
 	public void initNewDC(DevelopmentHand dh) throws BankException{
 		newSoldier.setQuantity(dh.getSoldier());
 		newMonopoly.setQuantity(dh.getMonopoly());

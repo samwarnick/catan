@@ -68,6 +68,8 @@ public class Bank {
 	 * 
 	 * @param rh a ResourceHand object
 	 * @throws BankException
+	 * @pre all attributes of the rh are non negative and do not exceed limits
+	 * @post all resource attributes are increased by their corresponding rh attribute.
 	 */
 	public void addRC(ResourceHand rh) throws BankException{
 		brick.modify(rh.getBrick());
@@ -99,6 +101,12 @@ public class Bank {
 			throw new BankException("bad type parameter");
 		}
 	}
+	
+	/**
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
 	
 	public void addDC(DevelopmentHand dh) throws BankException{
 		soldier.modify(dh.getSoldier());
@@ -158,9 +166,13 @@ public class Bank {
 	
 	
 	
+	/**
+	 * 
+	 * @param quantity
+	 * @throws BankException
+	 */
 	
-	
-	public void initRC(int quantity) throws BankException{
+	public void setRC(int quantity) throws BankException{
 		brick.setQuantity(quantity);
 		ore.setQuantity(quantity);
 		wheat.setQuantity(quantity);
@@ -168,7 +180,13 @@ public class Bank {
 		sheep.setQuantity(quantity);
 	}
 	
-	public void initRC(ResourceHand rh) throws BankException{
+	
+	/**
+	 * 
+	 * @param rh
+	 * @throws BankException
+	 */
+	public void setRC(ResourceHand rh) throws BankException{
 		brick.setQuantity(rh.getBrick());
 		ore.setQuantity(rh.getOre());
 		wheat.setQuantity(rh.getWheat());
@@ -176,13 +194,24 @@ public class Bank {
 		sheep.setQuantity(rh.getSheep());
 	}
 	
-	public void initDC(DevelopmentHand dh) throws BankException{
+	/**
+	 * 
+	 * @param dh
+	 * @throws BankException
+	 */
+	
+	public void setDC(DevelopmentHand dh) throws BankException{
 		soldier.setQuantity(dh.getSoldier());
 		monument.setQuantity(dh.getMonument());
 		monopoly.setQuantity(dh.getMonopoly());
 		yearOfPlenty.setQuantity(dh.getYearOfPlenty());
 		roadBuild.setQuantity(dh.getRoadBuild());
 	}
+	
+	/**
+	 * returns true if Bank has any DC's, false otherwise.
+	 * @return
+	 */
 	
 	public boolean hasAnyDC(){
 		if(soldier.getQuantity()>0) return true;
