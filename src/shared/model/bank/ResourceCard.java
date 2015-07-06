@@ -20,8 +20,8 @@ public class ResourceCard {
 	 * @post sets the quantity to the given parameter.
 	 */
 	
-	public ResourceCard(int quantity) throws Exception {
-		if(quantity<0||quantity>19) throw new Exception("quantity out of bounds");
+	public ResourceCard(int quantity) throws BankException {
+		if(quantity<0||quantity>19) throw new BankException("quantity out of bounds");
 		else this.quantity = quantity;
 	}
 	
@@ -29,8 +29,8 @@ public class ResourceCard {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) throws Exception {
-		if(quantity < 0 || quantity > 19 ) throw new Exception("set quantity parameter is out of bounds");
+	public void setQuantity(int quantity) throws BankException {
+		if(quantity < 0 || quantity > 19 ) throw new BankException("set quantity parameter is out of bounds");
 		this.quantity = quantity;
 	}
 
@@ -41,8 +41,8 @@ public class ResourceCard {
 	 * @pre when inc is added to quantity, it does not go over 19 or under 0
 	 * @post inc is added to the quantity.
 	 */
-	public void modify(int inc) throws Exception{
-		if((quantity + inc) < 0 || (quantity + inc) > 19 ) throw new Exception("modify value takes quantity out of bounds");
+	public void modify(int inc) throws BankException{
+		if((quantity + inc) < 0 || (quantity + inc) > 19 ) throw new BankException("modify value takes quantity out of bounds");
 		quantity += inc;
 	}
 

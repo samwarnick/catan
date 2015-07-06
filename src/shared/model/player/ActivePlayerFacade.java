@@ -1,11 +1,9 @@
 package shared.model.player;
 
-import java.util.List;
 
-import shared.definitions.ResourceType;
+import shared.communication.input.move.ResourceHand;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
-import shared.model.bank.ResourceCard;
 /**
  * 
  * @author Spencer Krieger
@@ -18,8 +16,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	
 	@Override
 	public boolean canBuildCity(VertexLocation location) {
-		if (player.getCities().getCitiesLeft() > 0 && player.getPlayerBank().hasRC(ResourceType.WHEAT, 2) 
-				&& player.getPlayerBank().hasRC(ResourceType.ORE, 3))
+		if (player.getCities().getCitiesLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(0,0,0,2,3)))
 			return true;
 		else
 			return false;
@@ -28,11 +25,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	@Override
 	public boolean canBuildSettlement() {
 		if (player.getSettlements().getSettlementsLeft() > 0
-				&& player.getPlayerBank().hasRC(ResourceType.WHEAT, 1)
-				&& player.getPlayerBank().hasRC(ResourceType.WOOD, 1)
-				&& player.getPlayerBank().hasRC(ResourceType.BRICK, 1)
-				&& player.getPlayerBank().hasRC(ResourceType.SHEEP, 1))
-			//also needs to check for adjacent road belonging to player
+				&& player.getPlayerBank().hasRC(new ResourceHand(1,1,1,1,0)))
 			return true;
 		else
 			return false;
@@ -40,9 +33,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canBuildRoad(EdgeLocation location) {
-		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(ResourceType.WOOD, 1)
-				&& player.getPlayerBank().hasRC(ResourceType.BRICK, 1))
-			// also needs to check for an adjacent road belonging to player
+		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(1,1,0,0,0)))
 			return true;
 		else
 			return false;
@@ -65,22 +56,20 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canBuyDevelopmentCard() {
-		if (player.getPlayerBank().hasRC(ResourceType.SHEEP, 1)
-				&& player.getPlayerBank().hasRC(ResourceType.ORE, 1)
-				&& player.getPlayerBank().hasRC(ResourceType.WHEAT, 1))
+		if (player.getPlayerBank().hasRC(new ResourceHand(0,0,1,1,1)))
 			return true;
 		else
 			return false;
 	}
 
 	@Override
-	public boolean canAcceptTrade(List<ResourceCard> list) {
+	public boolean canAcceptTrade(ResourceHand rh) {
 		return false;
 	}
 
 	@Override
 	public boolean canDiscard() {
-		return false;//still need to be implemented
+		return (player.getPlayerBank().getNumResourceCards() > 7);
 	}
 
 	@Override

@@ -1,11 +1,9 @@
 package shared.model.player;
 
-import java.util.List;
 
-
+import shared.communication.input.move.ResourceHand;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
-import shared.model.bank.ResourceCard;
 
 /**
  * 
@@ -83,7 +81,7 @@ public interface IPlayerFacade {
 	 * @pre the list of cards is a valid list of resource cards
 	 * @post returns true if the player has the cards needed for the trade, false if they don't
 	 */
-	public boolean canAcceptTrade(List<ResourceCard> list);
+	public boolean canAcceptTrade(ResourceHand rh);
 	/**
 	 * 
 	 * @pre none

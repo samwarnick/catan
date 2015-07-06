@@ -1,13 +1,12 @@
 package shared.model;
 
-import java.util.List;
 
+import shared.communication.input.move.ResourceHand;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import shared.model.bank.PlayerBank;
 import shared.model.player.Player;
-import shared.model.bank.*;
 
 /**
  * 
@@ -23,8 +22,8 @@ public class GameModelFacade {
 	 * @pre none
 	 * @post returns true if the player's canAcceptTrade returns true and the player is being offered trade.  Otherwise returns false
 	 */
-	public boolean canAcceptTrade(Player player,List<ResourceCard> list){
-		return player.getPlayerFacade().canAcceptTrade(list);
+	public boolean canAcceptTrade(Player player,ResourceHand rh){
+		return player.getPlayerFacade().canAcceptTrade(rh);
 	}
 	/**
 	 * 
@@ -119,7 +118,7 @@ public class GameModelFacade {
 	 * @post returns true if the player can buy a development card and the bank still has them otherwise false
 	 */
 	public boolean canBuyDevCard(Player player){
-		return player.getPlayerFacade().canBuyDevelopmentCard() && !gameModel.getBank().getDevelopmentCards().isEmpty();
+		return player.getPlayerFacade().canBuyDevelopmentCard();//needas work
 	}
 	/**
 	 * 

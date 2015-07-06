@@ -21,6 +21,14 @@ public class ResourceHand {
 		wheat = 0;
 		ore = 0;
 	}
+	
+	public ResourceHand(int wood, int brick, int sheep, int wheat, int ore){
+		this.wood = wood;
+		this.brick = brick;
+		this.sheep = sheep;
+		this.wheat = wheat;
+		this.ore = ore;
+	}
 
 	public int getBrick() {
 		return brick;

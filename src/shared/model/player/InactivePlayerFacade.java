@@ -1,10 +1,9 @@
 package shared.model.player;
 
-import java.util.List;
 
+import shared.communication.input.move.ResourceHand;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
-import shared.model.bank.ResourceCard;
 
 /**
  * 
@@ -53,19 +52,16 @@ public class InactivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canAcceptTrade(List<ResourceCard> list) {
-		for (ResourceCard rc : list)//still needs to be implemented, waiting for bank
-		{
-			if (player.getPlayerBank().hasRC(rc.getType(), 1))
-				return true;
-		}
-		
-		return false;
+	public boolean canAcceptTrade(ResourceHand rh) {
+		if (player.getPlayerBank().hasRC(rh))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public boolean canDiscard() {
-		return false;//still needs to be implemented, waiting for bank
+		return (player.getPlayerBank().getNumResourceCards() > 7);
 	}
 
 	@Override
@@ -75,7 +71,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canBeRobbed() {
-		return false;//still needs to be implemented, waiting for bank
+		return player.getPlayerBank().getNumResourceCards() > 0;
 	}
 
 }
