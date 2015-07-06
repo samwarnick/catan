@@ -32,7 +32,6 @@ public class Bank {
 	private boolean longestRoadCard = false;
 	
 
-
 	public Bank(){
 
 		try {
@@ -46,6 +45,8 @@ public class Bank {
 			roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
 			monument = new DevelopmentCard(0, DevCardType.MONUMENT);
 			monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+
+
 
 		} catch (BankException e) {
 
@@ -214,10 +215,6 @@ public class Bank {
 	}
 	
 
-	public int getNumResourceCards(){
-		return brick.getQuantity() + wood.getQuantity() + sheep.getQuantity() + wheat.getQuantity() + ore.getQuantity();
-	}
-
 	/**
 	 * returns true if Bank has any DC's, false otherwise.
 	 * @return
@@ -233,6 +230,7 @@ public class Bank {
 		return false;
 
 	}
+
 	
 
 	
