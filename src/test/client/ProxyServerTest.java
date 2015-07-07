@@ -35,7 +35,6 @@ import shared.communication.input.move.PlayMonumentInput;
 import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
-import shared.communication.input.move.ResourceHand;
 import shared.communication.input.move.RobPlayerInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.communication.input.move.SendChatInput;
@@ -46,6 +45,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.model.GameModel;
+import shared.model.bank.ResourceHand;
 import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
@@ -410,7 +410,12 @@ public class ProxyServerTest {
 
 	@Test
 	public void testErrors(){
-		cc.post(new Input("Bad/Path"));
+		try {
+			cc.post(new Input("Bad/Path"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
