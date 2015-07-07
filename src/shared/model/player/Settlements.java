@@ -28,7 +28,8 @@ public class Settlements {
 	 * @throws SettlementAlreadyThereException 
 	 * @post adds a Settlement, or throws NoSettlementsLeftException.
 	 */
-	public void buildSettlement(Settlement settlement) throws NoSettlementsLeftException {
+
+	public void buildSettlement() throws NoSettlementsLeftException {
 		if(settlementsLeft > 0){
 				settlementsLeft--;
 		}
@@ -47,8 +48,8 @@ public class Settlements {
 	 * @throws NoSettlementFoundException 
 	 * @post removes the Settlement specified in the parameter.
 	 */
-	public void subtractSettlement(Settlement settlement) throws TooManySettlementsException {
-		if (settlementsLeft < 6){
+	public void subtractSettlement() throws TooManySettlementsException {
+		if (settlementsLeft < 5){
 			settlementsLeft++;
 		}
 		else

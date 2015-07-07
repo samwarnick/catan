@@ -1,8 +1,8 @@
 package shared.model.bank;
 
 
-import shared.communication.input.move.ResourceHand;
 import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
 
 
 /**
@@ -18,39 +18,36 @@ import shared.definitions.DevCardType;
  */
 public class Bank {
 	
-	private ResourceCard brick;
-	private ResourceCard wood;
-	private ResourceCard sheep;
-	private ResourceCard wheat;
-	private ResourceCard ore;
+	protected ResourceCard brick;
+	protected ResourceCard wood;
+	protected ResourceCard sheep;
+	protected ResourceCard wheat;
+	protected ResourceCard ore;
 	protected DevelopmentCard soldier;
 	protected DevelopmentCard yearOfPlenty;
 	protected DevelopmentCard roadBuild;
 	protected DevelopmentCard monopoly;
 	protected DevelopmentCard monument;
-	private boolean largestArmyCard = false;
-	private boolean longestRoadCard = false;
+	protected boolean largestArmyCard = true;
+	protected boolean longestRoadCard = true;
 	
 
 	public Bank(){
 
 		try {
-			brick = new ResourceCard(0);
-			wood = new ResourceCard(0);
-			sheep = new ResourceCard(0);
-			wheat = new ResourceCard(0);
-			ore = new ResourceCard(0);
-			soldier = new DevelopmentCard(0, DevCardType.SOLDIER);
-			yearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
-			roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
-			monument = new DevelopmentCard(0, DevCardType.MONUMENT);
-			monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
-
-
+			brick = new ResourceCard(19, ResourceType.BRICK);
+			wood = new ResourceCard(19, ResourceType.WOOD);
+			sheep = new ResourceCard(19, ResourceType.SHEEP);
+			wheat = new ResourceCard(19, ResourceType.WHEAT);
+			ore = new ResourceCard(19, ResourceType.ORE);
+			soldier = new DevelopmentCard(14, DevCardType.SOLDIER);
+			yearOfPlenty = new DevelopmentCard(2, DevCardType.YEAR_OF_PLENTY);
+			roadBuild = new DevelopmentCard(2, DevCardType.ROAD_BUILD);
+			monument = new DevelopmentCard(5, DevCardType.MONUMENT);
+			monopoly = new DevelopmentCard(2, DevCardType.MONOPOLY);
 
 		} catch (BankException e) {
 
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -69,6 +66,40 @@ public class Bank {
 		this.longestRoadCard = longestRoadCard;
 	}
 	
+	public ResourceCard getResourceStack(ResourceType type) {
+		switch (type) {
+		case BRICK:
+			return brick;
+		case WOOD:
+			return wood;
+		case SHEEP:
+			return sheep;
+		case WHEAT:
+			return wheat;
+		case ORE:
+			return ore;
+		default:
+			return null;
+		}
+	}
+	
+	public DevelopmentCard getDevStack(DevCardType type) {
+		switch(type){
+		case SOLDIER:
+			return soldier;
+		case MONOPOLY:
+			return monopoly;
+		case YEAR_OF_PLENTY:
+			return yearOfPlenty;
+		case ROAD_BUILD: 
+			return roadBuild;
+		case MONUMENT:
+			return monument;
+		default:
+			return null;
+		}
+	}
+	
 
 	/**
 	 * 
@@ -77,7 +108,7 @@ public class Bank {
 	 * @pre all attributes of the rh are non negative and do not exceed limits
 	 * @post all resource attributes are increased by their corresponding rh attribute.
 	 */
-	public void addRC(ResourceHand rh) throws BankException{
+	public void modifyRC(ResourceHand rh) throws BankException{
 		brick.modify(rh.getBrick());
 		wheat.modify(rh.getWheat());
 		ore.modify(rh.getOre());
@@ -114,7 +145,7 @@ public class Bank {
 	 * @throws BankException
 	 */
 	
-	public void addDC(DevelopmentHand dh) throws BankException{
+	public void modifyDC(DevelopmentHand dh) throws BankException{
 		soldier.modify(dh.getSoldier());
 		monopoly.modify(dh.getMonopoly());
 		yearOfPlenty.modify(dh.getYearOfPlenty());
@@ -230,13 +261,12 @@ public class Bank {
 		return false;
 
 	}
+	
+	public int getNumDevCards() {
+		return soldier.getQuantity() + monument.getQuantity() + monopoly.getQuantity() + yearOfPlenty.getQuantity() + roadBuild.getQuantity();
+	}
+	
 	public int getNumResourceCards(){
 		return wood.getQuantity() + brick.getQuantity() + sheep.getQuantity() + wheat.getQuantity() + ore.getQuantity();
 	}
-	
-
-	
-	
-	
-
 }

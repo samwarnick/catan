@@ -1,10 +1,14 @@
 package shared.model.player;
 
+<<<<<<< HEAD
+=======
 
 import shared.communication.input.move.ResourceHand;
+>>>>>>> master
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
+import shared.model.bank.ResourceHand;
 
 /**
  * 
@@ -25,7 +29,7 @@ public interface IPlayerFacade {
 	 *  returns false if either 1 or 2 or 3 or 4 aren't satisfied.
 	 *  
 	 */
-	public boolean canBuildCity(VertexLocation location);
+	public boolean canBuildCity();
 	/**
 	 * 
 	 * @pre none
@@ -46,7 +50,7 @@ public interface IPlayerFacade {
 	 *  3) the player is the active player
 	 *  returns false if any of the constraints aren't met
 	 */
-	public boolean canBuildRoad(EdgeLocation location);
+	public boolean canBuildRoad();
 	/**
 	 * @pre none
 	 * @post returns true if:
@@ -63,9 +67,23 @@ public interface IPlayerFacade {
 	 */
 
 	public boolean canPlayCard();
+	
 	/**
 	 * 
 	 * @pre none
+	 * @post returns true if the player is the active player and has the resources to trade
+	 * returns false if any of the constraints aren't met 
+	 */
+	public boolean canTrade(ResourceHand rh);
+	
+	/**
+	 * 
+	 * @pre none
+<<<<<<< HEAD
+	 * @post returns true if the player is the active player, has the resources to trade and the trade matches the player's trade ratio
+	 * returns false if any of the constraints aren't met
+	 */
+=======
 	 * @post returns true if the player is the active player and has the resources to trade
 	 * returns false if any of the constraints aren't met 
 	 */
@@ -76,6 +94,7 @@ public interface IPlayerFacade {
 	 * @post returns true if the player is the active player, has the resources to trade and the trade matches the player's trade ratio
 	 * returns false if any of the constraints aren't met
 	 */
+>>>>>>> master
 	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output);
 	/**
 	 * @pre none

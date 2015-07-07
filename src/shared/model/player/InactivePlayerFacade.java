@@ -1,10 +1,15 @@
 package shared.model.player;
 
+<<<<<<< HEAD
+import shared.definitions.ResourceType;
+import shared.model.bank.ResourceHand;
+=======
 
 import shared.communication.input.move.ResourceHand;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
+>>>>>>> master
 
 /**
  * 
@@ -18,7 +23,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 		this.player = player;
 	}
 	@Override
-	public boolean canBuildCity(VertexLocation location) {
+	public boolean canBuildCity() {
 		return false;
 	}
 
@@ -28,7 +33,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canBuildRoad(EdgeLocation location) {
+	public boolean canBuildRoad() {
 		return false;
 	}
 

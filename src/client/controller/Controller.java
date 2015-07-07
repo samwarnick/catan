@@ -1,5 +1,12 @@
 package client.controller;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+public class Controller {
+
+=======
+=======
+>>>>>>> master
 import java.util.List;
 
 import client.poller.Poller;
@@ -68,6 +75,10 @@ public class Controller {
 
 
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
 	public void updateGame(){
 		
 	}

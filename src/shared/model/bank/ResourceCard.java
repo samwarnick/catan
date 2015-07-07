@@ -1,5 +1,7 @@
 package shared.model.bank;
 
+import shared.definitions.ResourceType;
+
 /**
  * @author isaachartung
  *
@@ -9,6 +11,7 @@ package shared.model.bank;
 public class ResourceCard {
 	
 	private int quantity;
+	private ResourceType type;
 	
 	/**
 	 * 
@@ -20,9 +23,12 @@ public class ResourceCard {
 	 * @post sets the quantity to the given parameter.
 	 */
 	
-	public ResourceCard(int quantity) throws BankException {
+	public ResourceCard(int quantity, ResourceType type) throws BankException {
 		if(quantity<0||quantity>19) throw new BankException("quantity out of bounds");
-		else this.quantity = quantity;
+		else {
+			this.quantity = quantity;
+			this.type = type;
+		}
 	}
 	
 	public int getQuantity() {
@@ -32,6 +38,14 @@ public class ResourceCard {
 	public void setQuantity(int quantity) throws BankException {
 		if(quantity < 0 || quantity > 19 ) throw new BankException("set quantity parameter is out of bounds");
 		this.quantity = quantity;
+	}
+
+	public ResourceType getType() {
+		return type;
+	}
+
+	public void setType(ResourceType type) {
+		this.type = type;
 	}
 
 	/**

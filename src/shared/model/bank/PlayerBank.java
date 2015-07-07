@@ -2,6 +2,7 @@ package shared.model.bank;
 
 
 import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
 
 /**
  * @author isaachartung
@@ -25,20 +26,50 @@ public class PlayerBank extends Bank {
 
 		super();
 		try {
+			
+			brick = new ResourceCard(0, ResourceType.BRICK);
+			wood = new ResourceCard(0, ResourceType.WOOD);
+			sheep = new ResourceCard(0, ResourceType.SHEEP);
+			wheat = new ResourceCard(0, ResourceType.WHEAT);
+			ore = new ResourceCard(0, ResourceType.ORE);
+			
+			soldier = new DevelopmentCard(0, DevCardType.SOLDIER);
+			yearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
+			roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+			monument = new DevelopmentCard(0, DevCardType.MONUMENT);
+			monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+			
 			newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
 			newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
 			newMonument = new DevelopmentCard(0, DevCardType.MONUMENT);
 			newYearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
 			newRoadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
+			
+			largestArmyCard = false;
+			longestRoadCard = false;
 
 		} catch (BankException e) {
 
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
+	public DevelopmentCard getNewDevStack(DevCardType type) {
+		switch(type){
+		case SOLDIER:
+			return newSoldier;
+		case MONOPOLY:
+			return newMonopoly;
+		case YEAR_OF_PLENTY:
+			return newYearOfPlenty;
+		case ROAD_BUILD: 
+			return newRoadBuild;
+		case MONUMENT:
+			return newMonument;
+		default:
+			return null;
+		}
+	}
 
 	/**
 	 * 

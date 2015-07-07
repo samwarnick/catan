@@ -55,6 +55,38 @@ public class GameModel {
 		this.robber = robber;
 	}
 
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+
+	public int getGameVersion() {
+		return gameVersion;
+	}
+
+	public void setGameVersion(int gameVersion) {
+		this.gameVersion = gameVersion;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public TurnTracker getTurnTracker() {
+		return turnTracker;
+	}
+
+	public void setTurnTracker(TurnTracker turnTracker) {
+		this.turnTracker = turnTracker;
+	}
+
 	public Bank getBank() {
 		return bank;
 	}
@@ -66,7 +98,6 @@ public class GameModel {
 	public TurnTracker getTurnTracker() {
 		return turnTracker;
 	}
-	
 	
 }
 

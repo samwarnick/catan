@@ -1,10 +1,14 @@
 package shared.model.player;
 
+<<<<<<< HEAD
+=======
 
 import shared.communication.input.move.ResourceHand;
+>>>>>>> master
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
+import shared.model.bank.ResourceHand;
 /**
  * 
  * @author Spencer Krieger
@@ -14,9 +18,12 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	private Player player;
 	
+	public ActivePlayerFacade(Player player){
+		this.player = player;
+	}
 	
 	@Override
-	public boolean canBuildCity(VertexLocation location) {
+	public boolean canBuildCity() {
 		if (player.getCities().getCitiesLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(0,0,0,2,3)))
 			return true;
 		else
@@ -33,7 +40,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canBuildRoad(EdgeLocation location) {
+	public boolean canBuildRoad() {
 		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(1,1,0,0,0)))
 			return true;
 		else
@@ -85,7 +92,11 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output) {
+<<<<<<< HEAD
+		int ratio = player.getTradeRatios().getTradeRatio(output).getRatio();
+=======
 		int ratio = player.getTradeRatios().getTradeRatio(output);
+>>>>>>> master
 		ResourceHand rh = null;
 		switch(input){
 		case WOOD:	rh = new ResourceHand(ratio*amtOutput,0,0,0,0);
