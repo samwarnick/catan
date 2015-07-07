@@ -1,10 +1,5 @@
 package shared.model.player;
 
-
-
-
-import shared.model.board.Settlement;
-
 /**
  * 
  * @author Spencer Krieger

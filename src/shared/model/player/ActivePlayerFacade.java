@@ -1,13 +1,6 @@
 package shared.model.player;
 
-<<<<<<< HEAD
-=======
-
-import shared.communication.input.move.ResourceHand;
->>>>>>> master
 import shared.definitions.ResourceType;
-import shared.locations.EdgeLocation;
-import shared.locations.VertexLocation;
 import shared.model.bank.ResourceHand;
 /**
  * 
@@ -92,11 +85,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output) {
-<<<<<<< HEAD
 		int ratio = player.getTradeRatios().getTradeRatio(output).getRatio();
-=======
-		int ratio = player.getTradeRatios().getTradeRatio(output);
->>>>>>> master
 		ResourceHand rh = null;
 		switch(input){
 		case WOOD:	rh = new ResourceHand(ratio*amtOutput,0,0,0,0);

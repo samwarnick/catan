@@ -94,10 +94,5 @@ public class GameModel {
 	public void setBank(Bank bank) {
 		this.bank = bank;
 	}
-
-	public TurnTracker getTurnTracker() {
-		return turnTracker;
-	}
-	
 }
 
