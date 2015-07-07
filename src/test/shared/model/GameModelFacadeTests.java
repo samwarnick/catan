@@ -17,7 +17,7 @@ public class GameModelFacadeTests {
 	private Player player;
 	
 	@Before void prep(){
-		player = new Player(Color.RED, "George", 1);
+		player = new Player(CatanColor.RED, "George", 1);
 	}
 	
 	@Test
