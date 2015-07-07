@@ -24,12 +24,12 @@ public class Board {
 	private List<Road> roads;
 	private List<Vertex> buildings;
 	
-	public Board(boolean random) {
+	public Board(boolean randHexes, boolean randPorts, boolean randNums) {
 		resourceHexes = new ArrayList<ResourceHex>();
 		waterHexes = new ArrayList<WaterHex>();
 		ports = new ArrayList<PortHex>();
 		desertHex = null;
-		generateBoard(random);
+		generateBoard(randHexes, randPorts, randNums);
 		
 		roads = new ArrayList<Road>();
 		buildings = new ArrayList<Vertex>();
@@ -39,7 +39,7 @@ public class Board {
 	 * Generates a random or standard board
 	 * @param random whether the board should be random or standard
 	 */
-	private void generateBoard(boolean random) {
+	private void generateBoard(boolean randHexes, boolean randPorts, boolean randNums) {
 		ArrayList<HexType> landTypes = new ArrayList<HexType>();
 		landTypes.add(HexType.ORE);
 		landTypes.add(HexType.WHEAT);
@@ -92,9 +92,14 @@ public class Board {
 		numTokens.add(12);
 		numTokens.add(6);
 		
-		if(random) {
+		if(randHexes) {
 			Collections.shuffle(landTypes);
-			Collections.shuffle(portTypes);
+		}
+		if(randPorts) {
+			Collections.shuffle(portTypes);			
+		}
+		if(randNums) {
+			// need to implement this so that 6s and 8s are not next to each other
 		}
 		
 		Iterator<HexType> landIt = landTypes.iterator();
@@ -255,10 +260,11 @@ public class Board {
 	public void setBuildings(List<Vertex> buildings) {
 		this.buildings = buildings;
 	}
+	
+	public Hex getDesertHex() {
+		return desertHex;
+	}
 
-	
-	
-	
 	public BoardFacade getBoardFacade() {
 		return boardFacade;
 	}
