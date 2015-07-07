@@ -28,9 +28,13 @@ public class Roads {
 	 * @throws RoadAlreadyThereException 
 	 * @post adds a Road, or throws NoRoadsLeftException.
 	 */
+<<<<<<< HEAD
 
 	public void buildRoad() throws NoRoadsLeftException {
 
+=======
+	public void addRoad(Road road) throws NoRoadsLeftException {
+>>>>>>> master
 		if (roadsLeft > 0)
 		{
 			roadsLeft--;

@@ -30,7 +30,6 @@ public class Settlements {
 	 */
 
 	public void buildSettlement() throws NoSettlementsLeftException {
-
 		if(settlementsLeft > 0){
 				settlementsLeft--;
 		}

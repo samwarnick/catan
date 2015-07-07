@@ -1,5 +1,6 @@
 package shared.model;
 
+import shared.communication.input.move.ResourceHand;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -45,9 +46,9 @@ public class GameModelFacade {
 		int ore = 0;
 		if(rh.getWood() >=0) wood = rh.getWood();
 		if(rh.getBrick() >= 0) brick = rh.getBrick();
-		if(rh.getSheep() >=0) wood = rh.getSheep();
-		if(rh.getWheat() >=0) wood = rh.getWheat();
-		if(rh.getOre() >=0) wood = rh.getOre();
+		if(rh.getSheep() >=0) sheep = rh.getSheep();
+		if(rh.getWheat() >=0) wheat = rh.getWheat();
+		if(rh.getOre() >=0) ore = rh.getOre();
 		ResourceHand neededResources = new ResourceHand(wood, brick, sheep, wheat, ore);
 		return player.getPlayerFacade().canAcceptTrade(neededResources);
 	}
@@ -118,9 +119,9 @@ public class GameModelFacade {
 		int ore = 0;
 		if(rh.getWood() >=0) wood = rh.getWood();
 		if(rh.getBrick() >= 0) brick = rh.getBrick();
-		if(rh.getSheep() >=0) wood = rh.getSheep();
-		if(rh.getWheat() >=0) wood = rh.getWheat();
-		if(rh.getOre() >=0) wood = rh.getOre();
+		if(rh.getSheep() >=0) sheep = rh.getSheep();
+		if(rh.getWheat() >=0) wheat = rh.getWheat();
+		if(rh.getOre() >=0) ore = rh.getOre();
 		ResourceHand neededResources = new ResourceHand(wood, brick, sheep, wheat, ore);
 		return player.getPlayerFacade().canTrade(neededResources);
 	}

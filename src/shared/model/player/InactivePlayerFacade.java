@@ -1,7 +1,15 @@
 package shared.model.player;
 
+<<<<<<< HEAD
 import shared.definitions.ResourceType;
 import shared.model.bank.ResourceHand;
+=======
+
+import shared.communication.input.move.ResourceHand;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.VertexLocation;
+>>>>>>> master
 
 /**
  * 
