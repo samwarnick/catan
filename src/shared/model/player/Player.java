@@ -1,7 +1,7 @@
 package shared.model.player;
 
+import shared.definitions.CatanColor;
 import shared.model.bank.PlayerBank;
-
 import shared.model.ratios.TradeRatios;
 
 /**
@@ -15,7 +15,7 @@ public class Player {
 	private LongestRoad longestRoad;
 	private LargestArmy largestArmy;
 	
-	private Color color;
+	private CatanColor color;
 	private Roads roads;
 	private Settlements settlements;
 	private Cities cities;
@@ -29,7 +29,7 @@ public class Player {
 	private boolean hasPlayedCard;
 
 	
-	public Player(Color color, String name, int playerID) {
+	public Player(CatanColor color, String name, int playerID) {
 		this.playerBank = new PlayerBank();
 		this.longestRoad = new LongestRoad();
 		this.largestArmy = new LargestArmy();
@@ -78,11 +78,11 @@ public class Player {
 		this.playerBank = playerBank;
 	}
 
-	public Color getColor() {
+	public CatanColor getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(CatanColor color) {
 		this.color = color;
 	}
 

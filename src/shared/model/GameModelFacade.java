@@ -63,7 +63,7 @@ public class GameModelFacade {
 	 * @post returns true if both the location is valid and the player can build the road otherwise false
 	 */
 	public boolean canBuildRoad(Player player,EdgeLocation location){
-		return player.getPlayerFacade().canBuildRoad(location)
+		return player.getPlayerFacade().canBuildRoad()
 				&& gameModel.getBoard().getBoardFacade().canBuildRoad(player, location);
 	}
 	/**
@@ -85,7 +85,7 @@ public class GameModelFacade {
 	 * @post returns true if the player can build the city otherwise false
 	 */
 	public boolean canBuildCity(Player player,VertexLocation location){
-		return player.getPlayerFacade().canBuildCity(location)
+		return player.getPlayerFacade().canBuildCity()
 				&& gameModel.getBoard().getBoardFacade().canBuildCity(player, location);
 	}
 	/**

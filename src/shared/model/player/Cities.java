@@ -24,7 +24,7 @@ public class Cities {
  * @throws NoCitiesLeftException
  * @post adds a city, or throws NoCitiesLeftException.
  */
-	public void buildCity(City city) throws NoCitiesLeftException {
+	public void buildCity() throws NoCitiesLeftException {
 		if (citiesLeft > 0)
 		{
 			citiesLeft--;

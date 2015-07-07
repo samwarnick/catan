@@ -26,8 +26,8 @@ public class TradeRatios {
 		return tradeRatios;
 	}
 	
-	public int getTradeRatio(ResourceType type) {
-		return tradeRatios.get(type).getRatio();
+	public TradeRatio getTradeRatio(ResourceType type) {
+		return tradeRatios.get(type);
 	}
 	
 	public void setRatio(TradeRatio newRatio) {

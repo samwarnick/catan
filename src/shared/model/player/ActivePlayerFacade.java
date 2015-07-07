@@ -13,9 +13,12 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	private Player player;
 	
+	public ActivePlayerFacade(Player player){
+		this.player = player;
+	}
 	
 	@Override
-	public boolean canBuildCity(VertexLocation location) {
+	public boolean canBuildCity() {
 		if (player.getCities().getCitiesLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(0,0,0,2,3)))
 			return true;
 		else
@@ -32,7 +35,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canBuildRoad(EdgeLocation location) {
+	public boolean canBuildRoad() {
 		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(1,1,0,0,0)))
 			return true;
 		else
@@ -84,7 +87,7 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output) {
-		int ratio = player.getTradeRatios().getTradeRatio(output);
+		int ratio = player.getTradeRatios().getTradeRatio(output).getRatio();
 		ResourceHand rh = null;
 		switch(input){
 		case WOOD:	rh = new ResourceHand(ratio*amtOutput,0,0,0,0);

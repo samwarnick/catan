@@ -17,7 +17,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 		this.player = player;
 	}
 	@Override
-	public boolean canBuildCity(VertexLocation location) {
+	public boolean canBuildCity() {
 		return false;
 	}
 
@@ -27,7 +27,7 @@ public class InactivePlayerFacade implements IPlayerFacade{
 	}
 
 	@Override
-	public boolean canBuildRoad(EdgeLocation location) {
+	public boolean canBuildRoad() {
 		return false;
 	}
 

@@ -24,7 +24,7 @@ public interface IPlayerFacade {
 	 *  returns false if either 1 or 2 or 3 or 4 aren't satisfied.
 	 *  
 	 */
-	public boolean canBuildCity(VertexLocation location);
+	public boolean canBuildCity();
 	/**
 	 * 
 	 * @pre none
@@ -45,7 +45,7 @@ public interface IPlayerFacade {
 	 *  3) the player is the active player
 	 *  returns false if any of the constraints aren't met
 	 */
-	public boolean canBuildRoad(EdgeLocation location);
+	public boolean canBuildRoad();
 	/**
 	 * @pre none
 	 * @post returns true if:
