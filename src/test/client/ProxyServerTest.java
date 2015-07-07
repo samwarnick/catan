@@ -410,24 +410,18 @@ public class ProxyServerTest {
 
 	@Test
 	public void testErrors(){
-<<<<<<< HEAD
+
 		boolean passed = false;
-		
-=======
->>>>>>> origin/master
+
 		try {
 			cc.post(new Input("Bad/Path"));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-<<<<<<< HEAD
+
 			passed = true;
 		}
 		
 		assert(false);
-=======
-			e.printStackTrace();
-		}
->>>>>>> origin/master
-	}
+	
 
+	}
 }
