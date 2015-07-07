@@ -1,5 +1,7 @@
 package shared.locations;
 
+import java.util.ArrayList;
+
 /**
  * Represents the location of a hex on a hex map
  */
@@ -90,5 +92,48 @@ public class HexLocation
 		}
 	}
 	
+	public boolean isAdjacent(HexLocation loc) {
+		return !this.equals(loc)
+				&& Math.abs(this.x - loc.x) <= 1
+				&& Math.abs(this.y - loc.y) <= 1;
+	}
+	
+	/**
+	 * 
+	 * @param loc
+	 * @return a list of HexLocations that are not adjacent to loc and are valid landHex locations, list can be empty if there are no such locations
+	 */
+	public ArrayList<HexLocation> getLocsNotAdjacentTo(HexLocation loc) {
+		ArrayList<HexLocation> newLocs = new ArrayList<HexLocation>();
+		HexLocation newLoc = new HexLocation(this.x - loc.x, this.y);
+		if(newLoc.isValidLandHexLocation()) {
+			newLocs.add(newLoc);
+		}
+		
+		newLoc = new HexLocation(this.x, this.y - loc.y);
+		if(newLoc.isValidLandHexLocation()) {
+			newLocs.add(newLoc);
+		}
+		
+		newLoc = new HexLocation(this.x - loc.x, this.y - loc.y);
+		if(newLoc.isValidLandHexLocation()) {
+			newLocs.add(newLoc);
+		}
+		
+		return newLocs;
+	}
+	
+	public boolean isValidLandHexLocation() {
+		if(x > 2 || x < -2) return false;
+		if(y > 2 || y < -2) return false;
+		
+		if(x == 0 || y == 0) return true;
+		if(x == -2 && y >= 0) return true;
+		if(x == -1 && y >= -1) return true;
+		if(x == 1 && y <= 1) return true;
+		if(x == 2 && y <= 0) return true;
+		
+		return false;
+	}
 }
 

@@ -65,7 +65,10 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canAcceptTrade(ResourceHand rh) {
-		return false;
+		if (player.getPlayerBank().hasRC(rh))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
@@ -85,14 +88,19 @@ public class ActivePlayerFacade implements IPlayerFacade{
 
 	@Override
 	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output) {
-		int ratio = player.getTradeRatios().getTradeRatio(output).getRatio();
+		int ratio = player.getTradeRatios().getTradeRatio(input).getRatio();
 		ResourceHand rh = null;
 		switch(input){
-		case WOOD:	rh = new ResourceHand(ratio*amtOutput,0,0,0,0);
-		case BRICK:	rh = new ResourceHand(0,ratio*amtOutput,0,0,0);
+		case BRICK:	rh = new ResourceHand(ratio*amtOutput,0,0,0,0);
+		break;
+		case WOOD:	rh = new ResourceHand(0,ratio*amtOutput,0,0,0);
+		break;
 		case SHEEP:	rh = new ResourceHand(0,0,ratio*amtOutput,0,0);
+		break;
 		case WHEAT:	rh = new ResourceHand(0,0,0,ratio*amtOutput,0);
+		break;
 		case ORE:	rh = new ResourceHand(0,0,0,0,ratio*amtOutput);
+		break;
 		default: 	assert false;
 		}
 		

@@ -42,7 +42,7 @@ public class ClientCommunicator {
 		serverPort = port;
 		URLPrefix = "http://" + serverHost + ":" + serverPort;
 	}
-	
+
 	/**
 	 * 
 	 * @param toPost is some Object to be sent to the server
