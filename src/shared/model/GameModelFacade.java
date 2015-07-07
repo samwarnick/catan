@@ -128,7 +128,8 @@ public class GameModelFacade {
 	 */
 	public boolean canRobPlayer(Player player,HexLocation location){
 		return player.getPlayerFacade().canBeRobbed()
-				&& gameModel.getRobber().getLocation().equals(location);
+				&& gameModel.getRobber().getLocation().equals(location)
+				&& gameModel.getTurnTracker().getStatus().equals("Robbing");
 	}
 	/**
 	 * 
