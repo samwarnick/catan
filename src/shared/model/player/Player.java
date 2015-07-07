@@ -1,7 +1,6 @@
 package shared.model.player;
 
 import shared.model.bank.PlayerBank;
-
 import shared.model.ratios.TradeRatios;
 
 /**
