@@ -18,7 +18,7 @@ public class TradeRatios {
 		tradeRatios = new HashMap<ResourceType, TradeRatio>();
 		
 		for (ResourceType type : ResourceType.values()) {
-			tradeRatios.put(type, new TradeRatio());
+			tradeRatios.put(type, new TradeRatio(type));
 		}
 	}
 
@@ -30,7 +30,7 @@ public class TradeRatios {
 		return tradeRatios.get(type).getRatio();
 	}
 	
-	public void setRatio(ResourceType type, int newRatio) throws Exception {
-		tradeRatios.get(type).setRatio(newRatio);
+	public void setRatio(TradeRatio newRatio) {
+		tradeRatios.put(newRatio.getType(), newRatio);
 	}
 }
