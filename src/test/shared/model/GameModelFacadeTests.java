@@ -1,4 +1,4 @@
-package shared.model;
+package test.shared.model;
 
 import java.io.IOException;
 import java.util.List;
