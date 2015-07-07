@@ -28,6 +28,9 @@ public class ClientCommunicator {
 		serverPort = port;
 	}
 	
+	public ClientCommunicator(){
+	}
+	
 	/**
 	 * 
 	 * @param toPost is some Object to be sent to the server
