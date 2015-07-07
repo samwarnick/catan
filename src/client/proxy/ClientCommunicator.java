@@ -1,5 +1,6 @@
 package client.proxy;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -42,9 +43,6 @@ public class ClientCommunicator {
 		URLPrefix = "http://" + serverHost + ":" + serverPort;
 	}
 	
-	public ClientCommunicator(){
-	}
-	
 	/**
 	 * 
 	 * @param toPost is some Object to be sent to the server
@@ -70,7 +68,11 @@ public class ClientCommunicator {
 	        	result = new Object();
 	        	result = mapper.readValue(conn.getInputStream(), result.getClass());
 	        }
-		} catch (Exception e) {
+	        else{
+	        	throw new ServerException(String.format(url.toString(),
+						toPost.getMethod(), conn.getResponseCode()));
+	        }
+		} catch (IOException e) {
 			throw new ServerException(e.getMessage());
 		}
 		return result;

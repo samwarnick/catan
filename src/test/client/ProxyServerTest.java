@@ -35,7 +35,6 @@ import shared.communication.input.move.PlayMonumentInput;
 import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
-import shared.communication.input.move.ResourceHand;
 import shared.communication.input.move.RobPlayerInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.communication.input.move.SendChatInput;
@@ -46,6 +45,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.model.GameModel;
+import shared.model.bank.ResourceHand;
 import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
@@ -101,7 +101,7 @@ public class ProxyServerTest {
 			ps.loginUser(new UserLoginInput(user, pass));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -129,7 +129,7 @@ public class ProxyServerTest {
 			ps.createGame(new GamesCreateInput("x", true, true, true));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -141,7 +141,7 @@ public class ProxyServerTest {
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -153,7 +153,7 @@ public class ProxyServerTest {
 			ps.saveGame(new GamesSaveInput(0, "file.txt"));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -165,7 +165,7 @@ public class ProxyServerTest {
 			ps.loadGame(new GamesLoadInput("x"));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -178,7 +178,7 @@ public class ProxyServerTest {
 			ps.getGameModelVersion(new GameModelVersionInput(1));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -189,7 +189,7 @@ public class ProxyServerTest {
 			ps.resetGame(new GameResetInput(true));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -201,7 +201,7 @@ public class ProxyServerTest {
 			ps.getGameCommands(new GameCommandsGetInput());
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 		
 	}
@@ -213,7 +213,7 @@ public class ProxyServerTest {
 			ps.postGameCommands(new GameCommandsPostInput(null));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -236,7 +236,7 @@ public class ProxyServerTest {
 			ps.acceptTrade(new AcceptTradeInput(0,false));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -247,7 +247,7 @@ public class ProxyServerTest {
 			ps.discardCards(new DiscardCardsInput(0, new ResourceHand()));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -258,7 +258,7 @@ public class ProxyServerTest {
 			ps.rollNumber(new RollNumberInput(2,2));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -270,7 +270,7 @@ public class ProxyServerTest {
 					new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -282,7 +282,7 @@ public class ProxyServerTest {
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -294,7 +294,7 @@ public class ProxyServerTest {
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -305,7 +305,7 @@ public class ProxyServerTest {
 			ps.offerTrade(new OfferTradeInput(0, new ResourceHand(), 1));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -316,7 +316,7 @@ public class ProxyServerTest {
 			ps.maritimeTrade(new MaritimeTradeInput(0, 1, ResourceType.BRICK, ResourceType.BRICK));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -327,7 +327,7 @@ public class ProxyServerTest {
 			ps.robPlayer(new RobPlayerInput(0, new HexLocation(1,1), 1));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -338,7 +338,7 @@ public class ProxyServerTest {
 			ps.finishTurn(new FinishTurnInput(1));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -349,7 +349,7 @@ public class ProxyServerTest {
 			ps.buyDevCard(new BuyDevCardInput(1));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -360,7 +360,7 @@ public class ProxyServerTest {
 			ps.playSoldier(new PlaySoldierInput(0, null, 0));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -371,7 +371,7 @@ public class ProxyServerTest {
 			ps.playYearOfPlenty(new PlayYearOfPlentyInput(0, null, null));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -382,7 +382,7 @@ public class ProxyServerTest {
 			ps.playRoadBuilding(new PlayRoadBuildingInput(null, 0, null, null));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -393,7 +393,7 @@ public class ProxyServerTest {
 			ps.playMonopoly(new PlayMonopolyInput(0, null));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
@@ -404,13 +404,22 @@ public class ProxyServerTest {
 			ps.playMonument(new PlayMonumentInput(0));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert(false);
 		}
 	}
 
 	@Test
 	public void testErrors(){
-		cc.post(new Input("Bad/Path"));
+		boolean passed = false;
+		
+		try {
+			cc.post(new Input("Bad/Path"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			passed = true;
+		}
+		
+		assert(false);
 	}
 
 }
