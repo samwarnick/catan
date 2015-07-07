@@ -24,7 +24,7 @@ public class PlayerBank extends Bank {
 
 	public PlayerBank(){
 
-		super();
+		super(true);
 		try {
 			
 			brick = new ResourceCard(0, ResourceType.BRICK);

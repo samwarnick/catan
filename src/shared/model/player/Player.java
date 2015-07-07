@@ -26,7 +26,7 @@ public class Player {
 	private int playerID;
 
 
-	private boolean hasPlayedCard;
+	private boolean hasPlayedCard = false;
 
 	
 	public Player(CatanColor color, String name, int playerID) {
