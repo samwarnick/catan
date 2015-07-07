@@ -77,21 +77,26 @@ public class ActivePlayerFacadeTest {
 		// wrong trade ratio
 		
 		try {
-			player.getPlayerBank().modifyRC(new ResourceHand(0, 0, 0, 4, 0));
+			player.getPlayerBank().modifyRC(new ResourceHand(0, 0, 0, 3, 0));
 		} catch (BankException e) {
 			return;
 		}
-		assertFalse(player.getPlayerFacade().canMaritimeTrade(3, ResourceType.WHEAT, ResourceType.WOOD));
+		assertFalse(player.getPlayerFacade().canMaritimeTrade(1, ResourceType.WHEAT, ResourceType.WOOD));
 		
 		// does not have resource
 		
-		assertFalse(player.getPlayerFacade().canMaritimeTrade(4, ResourceType.ORE, ResourceType.WOOD));
+		assertFalse(player.getPlayerFacade().canMaritimeTrade(1, ResourceType.ORE, ResourceType.WOOD));
 		
 		// 4:1
 		
+		try {
+			player.getPlayerBank().modifyRC(new ResourceHand(0, 0, 0, 1, 0));
+		} catch (BankException e) {
+			return;
+		}
 		assertEquals(4, player.getTradeRatios().getTradeRatio(ResourceType.WHEAT).getRatio());
 		assertEquals(4, player.getPlayerBank().getResourceStack(ResourceType.WHEAT).getQuantity());
-		assertTrue(player.getPlayerFacade().canMaritimeTrade(4, ResourceType.WHEAT, ResourceType.WOOD));
+		assertTrue(player.getPlayerFacade().canMaritimeTrade(1, ResourceType.WHEAT, ResourceType.WOOD));
 		
 		// 3:1
 		
@@ -103,19 +108,19 @@ public class ActivePlayerFacadeTest {
 		}
 		assertEquals(3, player.getTradeRatios().getTradeRatio(ResourceType.WHEAT).getRatio());
 		assertEquals(3, player.getPlayerBank().getResourceStack(ResourceType.WHEAT).getQuantity());
-		assertTrue(player.getPlayerFacade().canMaritimeTrade(4, ResourceType.WHEAT, ResourceType.WOOD));
+		assertTrue(player.getPlayerFacade().canMaritimeTrade(1, ResourceType.WHEAT, ResourceType.WOOD));
 		
 		// 2:1
 		
 		try {
 			player.getPlayerBank().modifyRC(new ResourceHand(0, 0, 0, -1, 0));
-			player.getTradeRatios().getTradeRatio(ResourceType.WHEAT).setRatio(3);
+			player.getTradeRatios().getTradeRatio(ResourceType.WHEAT).setRatio(2);
 		} catch (Exception e) {
 			return;
 		}
 		assertEquals(2, player.getTradeRatios().getTradeRatio(ResourceType.WHEAT).getRatio());
 		assertEquals(2, player.getPlayerBank().getResourceStack(ResourceType.WHEAT).getQuantity());
-		assertTrue(player.getPlayerFacade().canMaritimeTrade(4, ResourceType.WHEAT, ResourceType.WOOD));
+		assertTrue(player.getPlayerFacade().canMaritimeTrade(1, ResourceType.WHEAT, ResourceType.WOOD));
 	}
 	
 	@Test
