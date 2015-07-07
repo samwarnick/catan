@@ -32,7 +32,7 @@ public class Bank {
 	protected boolean longestRoadCard = true;
 	
 
-	public Bank(boolean isPlayerBank){
+	public Bank(){
 
 		try {
 			brick = new ResourceCard(19, ResourceType.BRICK);
@@ -45,12 +45,6 @@ public class Bank {
 			roadBuild = new DevelopmentCard(2, DevCardType.ROAD_BUILD);
 			monument = new DevelopmentCard(5, DevCardType.MONUMENT);
 			monopoly = new DevelopmentCard(2, DevCardType.MONOPOLY);
-			if(isPlayerBank){
-				setRC(0);
-				setDC(new DevelopmentHand());
-				largestArmyCard = false;
-				longestRoadCard = false;
-			}
 
 		} catch (BankException e) {
 
