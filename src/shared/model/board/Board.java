@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
@@ -16,6 +17,7 @@ import shared.locations.VertexLocation;
 public class Board {
 	
 	private List<ResourceHex> resourceHexes;
+	private Map<HexLocation,ResourceHex> resourceHexesMap;
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
 	private Hex desertHex;
@@ -99,7 +101,7 @@ public class Board {
 			Collections.shuffle(portTypes);			
 		}
 		if(randNums) {
-			// need to implement this so that 6s and 8s are not next to each other
+			Collections.shuffle(numTokens);
 		}
 		
 		Iterator<HexType> landIt = landTypes.iterator();
@@ -126,11 +128,15 @@ public class Board {
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		for (++y; y <= 2; y++) {
 			HexType temp = landIt.next();
+			HexLocation newLoc = new HexLocation(x,y);
 			if(temp != HexType.DESERT) {
-				resourceHexes.add(new ResourceHex(temp, new HexLocation(x,y), numIt.next()));
+				int num = numIt.next();
+				ResourceHex newHex = new ResourceHex(temp, newLoc, num);
+				resourceHexes.add(newHex);
+				resourceHexesMap.put(newLoc, newHex);
 			}
 			else {
-				desertHex = new Hex(temp, new HexLocation(x,y));
+				desertHex = new Hex(temp, newLoc);
 			}
 		}
 		hexLoc = new HexLocation(x, y++);
@@ -148,11 +154,15 @@ public class Board {
 		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
 		for (++y; y <= 2; y++) {
 			HexType temp = landIt.next();
+			HexLocation newLoc = new HexLocation(x,y);
 			if(temp != HexType.DESERT) {
-				resourceHexes.add(new ResourceHex(temp, new HexLocation(x,y), numIt.next()));
+				int num = numIt.next();
+				ResourceHex newHex = new ResourceHex(temp, newLoc, num);
+				resourceHexes.add(newHex);
+				resourceHexesMap.put(newLoc, newHex);
 			}
 			else {
-				desertHex = new Hex(temp, new HexLocation(x,y));
+				desertHex = new Hex(temp, newLoc);
 			}
 		}
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
@@ -162,11 +172,15 @@ public class Board {
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		for (++y; y <= 2; y++) {
 			HexType temp = landIt.next();
+			HexLocation newLoc = new HexLocation(x,y);
 			if(temp != HexType.DESERT) {
-				resourceHexes.add(new ResourceHex(temp, new HexLocation(x,y), numIt.next()));
+				int num = numIt.next();
+				ResourceHex newHex = new ResourceHex(temp, newLoc, num);
+				resourceHexes.add(newHex);
+				resourceHexesMap.put(newLoc, newHex);
 			}
 			else {
-				desertHex = new Hex(temp, new HexLocation(x,y));
+				desertHex = new Hex(temp, newLoc);
 			}
 		}
 		hexLoc = new HexLocation(x, y++);
@@ -184,11 +198,15 @@ public class Board {
 		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
 		for (++y; y <= 1; y++) {
 			HexType temp = landIt.next();
+			HexLocation newLoc = new HexLocation(x,y);
 			if(temp != HexType.DESERT) {
-				resourceHexes.add(new ResourceHex(temp, new HexLocation(x,y), numIt.next()));
+				int num = numIt.next();
+				ResourceHex newHex = new ResourceHex(temp, newLoc, num);
+				resourceHexes.add(newHex);
+				resourceHexesMap.put(newLoc, newHex);
 			}
 			else {
-				desertHex = new Hex(temp, new HexLocation(x,y));
+				desertHex = new Hex(temp, newLoc);
 			}
 		}
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
@@ -198,11 +216,15 @@ public class Board {
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		for (++y; y <= 0; y++) {
 			HexType temp = landIt.next();
+			HexLocation newLoc = new HexLocation(x,y);
 			if(temp != HexType.DESERT) {
-				resourceHexes.add(new ResourceHex(temp, new HexLocation(x,y), numIt.next()));
+				int num = numIt.next();
+				ResourceHex newHex = new ResourceHex(temp, newLoc, num);
+				resourceHexes.add(newHex);
+				resourceHexesMap.put(newLoc, newHex);
 			}
 			else {
-				desertHex = new Hex(temp, new HexLocation(x,y));
+				desertHex = new Hex(temp, newLoc);
 			}
 		}
 		hexLoc = new HexLocation(x, y++);
@@ -233,6 +255,41 @@ public class Board {
 		assert ports.size() == 9;
 		assert waterHexes.size() == 9;
 		assert desertHex != null;
+		
+		
+		// will loop until no changes in numbering are made
+		while(numberArranger()) {}
+	}
+	
+	// moves any 8s and 6s that are adjacent. returns true if change made
+	private boolean numberArranger() {
+		List<ResourceHex> sixAndEights = new ArrayList<ResourceHex>();
+		for(ResourceHex hex : resourceHexes) {
+			if(hex.getNumberToken() == 6 || hex.getNumberToken() == 8) {
+				sixAndEights.add(hex);
+			}
+		}
+		
+		assert sixAndEights.size() == 4; 
+		
+		for(ResourceHex hex1 : sixAndEights) {
+			HexLocation hex1Loc = hex1.getLocation();
+			for(ResourceHex hex2 : sixAndEights) {
+				HexLocation hex2Loc = hex2.getLocation();
+				if(hex1Loc.isAdjacent(hex2Loc)) {
+					List<HexLocation> newLocs = hex2Loc.getLocsNotAdjacentTo(hex1Loc);
+					for(HexLocation newLoc : newLocs) {
+						if(!newLoc.equals(desertHex.getLocation())) {
+							int temp = resourceHexesMap.get(newLoc).getNumberToken();
+							resourceHexesMap.get(newLoc).setNumberToken(hex2.getNumberToken());
+							hex2.setNumberToken(temp);
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	private PortHex createPortHex(HexLocation location, PortType type,
