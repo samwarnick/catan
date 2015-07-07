@@ -420,7 +420,7 @@ public class ProxyServerTest {
 			passed = true;
 		}
 		
-		assert(false);
+		assert(passed);
 	
 
 	}
