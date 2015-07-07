@@ -28,7 +28,9 @@ public class Settlements {
 	 * @throws SettlementAlreadyThereException 
 	 * @post adds a Settlement, or throws NoSettlementsLeftException.
 	 */
+
 	public void buildSettlement() throws NoSettlementsLeftException {
+
 		if(settlementsLeft > 0){
 				settlementsLeft--;
 		}

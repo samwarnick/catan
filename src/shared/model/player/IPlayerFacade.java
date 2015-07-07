@@ -62,6 +62,7 @@ public interface IPlayerFacade {
 	 */
 
 	public boolean canPlayCard();
+	
 	/**
 	 * 
 	 * @pre none
@@ -69,6 +70,7 @@ public interface IPlayerFacade {
 	 * returns false if any of the constraints aren't met 
 	 */
 	public boolean canTrade(ResourceHand rh);
+	
 	/**
 	 * 
 	 * @pre none

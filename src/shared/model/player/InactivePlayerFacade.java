@@ -1,8 +1,6 @@
 package shared.model.player;
 
 import shared.definitions.ResourceType;
-import shared.locations.EdgeLocation;
-import shared.locations.VertexLocation;
 import shared.model.bank.ResourceHand;
 
 /**
