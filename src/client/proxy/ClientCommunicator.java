@@ -42,6 +42,9 @@ public class ClientCommunicator {
 		URLPrefix = "http://" + serverHost + ":" + serverPort;
 	}
 	
+	public ClientCommunicator(){
+	}
+	
 	/**
 	 * 
 	 * @param toPost is some Object to be sent to the server
