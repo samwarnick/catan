@@ -1,5 +1,6 @@
 package shared.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import shared.model.bank.Bank;
@@ -22,8 +23,20 @@ public class GameModel {
 	private TurnTracker turnTracker;
 	private Bank bank;
 	
-	public GameModel() {
-		
+	public GameModel(int gameID) {
+		this.gameID = gameID;
+		gameVersion = 0;
+		players = new ArrayList<Player>();
+		turnTracker = new TurnTracker();
+		bank = new Bank();
+	}
+	
+	public void addPlayer(Player player) throws TooManyPlayersException{
+		if (players.size() < 4){
+			players.add(player);
+		}
+		else
+			throw new TooManyPlayersException();
 	}
 
 	public Board getBoard() {

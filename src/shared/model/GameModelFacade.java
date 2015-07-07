@@ -17,6 +17,21 @@ import shared.model.player.Player;
 public class GameModelFacade {
 
 	private GameModel gameModel;
+	public GameModelFacade(int gameid){
+		gameModel = new GameModel(gameid);
+	}
+	
+	
+	public GameModel getGameModel() {
+		return gameModel;
+	}
+
+
+	public void setGameModel(GameModel gameModel) {
+		this.gameModel = gameModel;
+	}
+
+
 	/**
 	 * 
 	 * @param player
