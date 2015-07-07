@@ -1,5 +1,7 @@
 package shared.model.ratios;
 
+import shared.definitions.ResourceType;
+
 /**
  * 
  * @author Matt
@@ -9,11 +11,22 @@ package shared.model.ratios;
 public class TradeRatio {
 
 	private int ratio;
+	private ResourceType type;
 	
-	public TradeRatio() {
+	public TradeRatio(ResourceType type) {
 		ratio = 4;
+		this.type = type;
+	}
+	
+	public TradeRatio(ResourceType type, int ratio) throws Exception {
+		this.type = type;
+		setRatio(ratio);
 	}
 
+	public ResourceType getType() {
+		return type;
+	}
+	
 	public int getRatio() {
 		return ratio;
 	}

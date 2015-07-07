@@ -9,12 +9,12 @@ import shared.model.ratios.TradeRatio;
 public class PortHex extends WaterHex {
 
 	private PortType portType;
-	private TradeRatio ratio;
+	private int ratio;
 	private VertexLocation validVertex1;
 	private VertexLocation validVertex2;
 	private EdgeLocation orientation;
 	
-	public PortHex(HexLocation location, PortType portType, TradeRatio ratio, 
+	public PortHex(HexLocation location, PortType portType, int ratio, 
 			VertexLocation validVertex1, VertexLocation validVertex2, EdgeLocation orientation) {
 		super(location);
 		this.portType = portType;

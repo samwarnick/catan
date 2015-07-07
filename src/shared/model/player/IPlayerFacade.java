@@ -1,6 +1,6 @@
 package shared.model.player;
 
-
+import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 import shared.model.bank.ResourceHand;
@@ -65,10 +65,17 @@ public interface IPlayerFacade {
 	/**
 	 * 
 	 * @pre none
-	 * @post returns true if the player is the active player
-	 * returns false if they aren't the active player
+	 * @post returns true if the player is the active player and has the resources to trade
+	 * returns false if any of the constraints aren't met 
 	 */
-	public boolean canTrade();
+	public boolean canTrade(ResourceHand rh);
+	/**
+	 * 
+	 * @pre none
+	 * @post returns true if the player is the active player, has the resources to trade and the trade matches the player's trade ratio
+	 * returns false if any of the constraints aren't met
+	 */
+	public boolean canMaritimeTrade(int amtOutput, ResourceType input, ResourceType output);
 	/**
 	 * @pre none
 	 * @post returns true if the player is the active player and false if they are not the active player. 
