@@ -35,10 +35,18 @@ import shared.communication.input.move.PlayMonumentInput;
 import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
+import shared.communication.input.move.ResourceHand;
 import shared.communication.input.move.RobPlayerInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.communication.input.move.SendChatInput;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import shared.model.GameModel;
+import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
 import client.proxy.ClientCommunicator;
@@ -59,7 +67,7 @@ public class ProxyServerTest {
 	
 	
 	@Test
-	public void testRegisterUser(UserRegisterInput input){
+	public void testRegisterUser(){
 		Username newUN = new Username("xxx");
 		Password newP = new Password("xxx");
 		
@@ -88,7 +96,7 @@ public class ProxyServerTest {
 	
 	
 	@Test
-	public void testLoginUser(UserLoginInput input){
+	public void testLoginUser(){
 		try {
 			ps.loginUser(new UserLoginInput(user, pass));
 		} catch (ServerException e) {
@@ -103,7 +111,7 @@ public class ProxyServerTest {
 
 	
 	@Test
-	public void testListGames(GamesListInput input){
+	public void testListGames(){
 		try {
 			//ps.loginUser(new UserLoginInput(user, pass));
 			ps.listGames(new GamesListInput());
@@ -115,58 +123,98 @@ public class ProxyServerTest {
 
 	
 	@Test
-	public void testCreateGame(GamesCreateInput input){
+	public void testCreateGame(){
 		
-		ps.createGame(new GamesCreateInput());
-		
-	}
-
-	
-	@Test
-	public void testJoinGame(GamesJoinInput input){
-		ps.joinGame(new GamesJoinInput());
+		try {
+			ps.createGame(new GamesCreateInput("x", true, true, true));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	
 	@Test
-	public void testSaveGame(GamesSaveInput input){
-		ps.saveGame(new GamesSaveInput());
+	public void testJoinGame(){
+		try {
+			ps.joinGame(new GamesJoinInput(0,Color.RED));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	
 	@Test
-	public void testLoadGame(GamesLoadInput input) {
-		ps.loadGame(new GamesLoadInput());
+	public void testSaveGame(){
+		try {
+			ps.saveGame(new GamesSaveInput(0, "file.txt"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	
 	@Test
-	public void testGetGameModelVersion(GameModelVersionInput input){
-
-		ps.getGameModelVersion(new GameModelVersionInput());
-	}
-
-	
-	@Test
-	public void testResetGame(GameResetInput input) {
-		ps.resetGame(new GameResetInput());
+	public void testLoadGame() {
+		try {
+			ps.loadGame(new GamesLoadInput("x"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	
 	@Test
-	public void testGetGameCommands(GameCommandsGetInput input){
-		ps.getGameCommands(new GamesCommandsGetInput());
+	public void testGetGameModelVersion(){
+
+		try {
+			ps.getGameModelVersion(new GameModelVersionInput(1));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
+	@Test
+	public void testResetGame() {
+		try {
+			ps.resetGame(new GameResetInput(true));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	
 	@Test
-	public void testPostGameCommands(GameCommandsPostInput input){
-		ps.postGameCommands(new GameCommandsPostInput());
+	public void testGetGameCommands(){
+		try {
+			ps.getGameCommands(new GameCommandsGetInput());
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	@Test
+	public void testPostGameCommands(){
+		try {
+			ps.postGameCommands(new GameCommandsPostInput(null));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -176,99 +224,177 @@ public class ProxyServerTest {
 //	}
 
 	
+//	@Test
+//	public void testSendChat(SendChatInput input){
+//		ps.sendChat(SendChatInput());
+//	}
+
+	
 	@Test
-	public void testSendChat(SendChatInput input){
-		ps.sendChat(SendChatInput());
+	public void testAcceptTrade(){
+		try {
+			ps.acceptTrade(new AcceptTradeInput(0,false));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testAcceptTrade(AcceptTradeInput input){
-		ps.acceptTrade(new AcceptTradeInput());
+	public void testDiscardCards(){
+		try {
+			ps.discardCards(new DiscardCardsInput(0, new ResourceHand()));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testDiscardCards(DiscardCardsInput input){
-		ps.discardCards(new DiscardCardsInput());
+	public void testRollNumber() {
+		try {
+			ps.rollNumber(new RollNumberInput(2,2));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testRollNumber(RollNumberInput input) {
-		ps.rollNumber(new RollNumberInput());
+	public void testBuildRoad(){
+		try {
+			ps.buildRoad(new BuildRoadInput(0,false,
+					new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testBuildRoad(BuildRoadInput input){
-		ps.buildRoad(new BuildRoadInput());
+	public void testBuildSettlement(){
+		try {
+			ps.buildSettlement(new BuildSettlementInput(0,false,
+					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testBuildSettlement(BuildSettlementInput input){
-		ps.buildSettlement(new BuildSettlementInput());
+	public void testBuildCity(){
+		try {
+			ps.buildCity(new BuildCityInput("Joy", 0,
+					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testBuildCity(BuildCityInput input){
-		ps.buildCity(new BuildCityInput());
+	public void testOfferTrade(){
+		try {
+			ps.offerTrade(new OfferTradeInput(0, new ResourceHand(), 1));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testOfferTrade(OfferTradeInput input){
-		ps.offerTrade(new OfferTradeInput());
+	public void testMaritimeTrade(){
+		try {
+			ps.maritimeTrade(new MaritimeTradeInput(0, 1, ResourceType.BRICK, ResourceType.BRICK));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testMaritimeTrade(MaritimeTradeInput input){
-		ps.maritimeTrade(new MaritimeTradeInput());
+	public void testRobPlayer() {
+		try {
+			ps.robPlayer(new RobPlayerInput(0, new HexLocation(1,1), 1));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testRobPlayer(RobPlayerInput input) {
-		ps.robPlayer(new RobPlayerInput());
+	public void testFinishTurn(){
+		try {
+			ps.finishTurn(new FinishTurnInput(1));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testFinishTurn(FinishTurnInput input){
-		ps.finishTurn(new FinishTurnInput());
+	public void testBuyDevCard(){
+		try {
+			ps.buyDevCard(new BuyDevCardInput(1));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testBuyDevCard(BuyDevCardInput input){
-		ps.buyDevCard(new BuyDevCardInput());
+	public void testPlaySoldier(){
+		try {
+			ps.playSoldier(new PlaySoldierInput(0, null, 0));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
-	public void testPlaySoldier(PlaySoldierInput input){
-		ps.playSoldier(new PlaySoldierInput())
-	}
-
-	
-	@Test
-	public void testPlayYearOfPlenty(PlayYearOfPlentyInput input){
-		ps.playYearOfPlenty(new PlayYearOfPlentyInput());
+	public void testPlayYearOfPlenty(){
+		try {
+			ps.playYearOfPlenty(new PlayYearOfPlentyInput(0, null, null));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
 	public void testPlayRoadBuilding(){
-		ps.playRoadBuilding(new PlayRoadBuildingInput());
+		try {
+			ps.playRoadBuilding(new PlayRoadBuildingInput(null, 0, null, null));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
 	@Test
 	public void testPlayMonopoly(){
-		ps.playMonopoly(new PlayMonopolyInput());
+		try {
+			ps.playMonopoly(new PlayMonopolyInput(0, null));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
