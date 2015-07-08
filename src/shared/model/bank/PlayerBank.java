@@ -27,17 +27,9 @@ public class PlayerBank extends Bank {
 		super();
 		try {
 			
-			brick = new ResourceCard(0, ResourceType.BRICK);
-			wood = new ResourceCard(0, ResourceType.WOOD);
-			sheep = new ResourceCard(0, ResourceType.SHEEP);
-			wheat = new ResourceCard(0, ResourceType.WHEAT);
-			ore = new ResourceCard(0, ResourceType.ORE);
+			super.setRC(new ResourceHand());
 			
-			soldier = new DevelopmentCard(0, DevCardType.SOLDIER);
-			yearOfPlenty = new DevelopmentCard(0, DevCardType.YEAR_OF_PLENTY);
-			roadBuild = new DevelopmentCard(0, DevCardType.ROAD_BUILD);
-			monument = new DevelopmentCard(0, DevCardType.MONUMENT);
-			monopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
+			super.setDC(new DevelopmentHand());
 			
 			newSoldier = new DevelopmentCard(0, DevCardType.SOLDIER);
 			newMonopoly = new DevelopmentCard(0, DevCardType.MONOPOLY);
