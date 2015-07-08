@@ -199,7 +199,7 @@ public class GameModelFacadeTests {
 	
 	@Test
 	public void testCanRobPlayer(){
-		GMF.getGameModel().setRobber(new Robber(new HexLocation(1,0)));
+		GMF.getGameModel().getBoard().setRobber(new Robber(new HexLocation(1,0)));
 		GMF.getGameModel().getTurnTracker().setStatus("Robbing");
 		boolean passed = GMF.canRobPlayer(p0, new HexLocation(1,0));
 		assert(!passed);
