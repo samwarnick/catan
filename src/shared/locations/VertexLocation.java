@@ -45,7 +45,7 @@ public class VertexLocation
 	 * 
 	 * @return List of VertexLocations that indicate the same location on the board as this VertexLocation
 	 */
-	public ArrayList<VertexLocation> getAbiguousVertices() {
+	public ArrayList<VertexLocation> getAmbiguousVertices() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
 		VertexDirection newDir1;
