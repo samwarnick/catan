@@ -1,6 +1,7 @@
 package test.shared.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -8,6 +9,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -22,7 +25,12 @@ import shared.model.bank.DevelopmentHand;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
 import shared.model.board.BoardFacade;
+import shared.model.board.City;
+import shared.model.board.PlayerID;
+import shared.model.board.Road;
 import shared.model.board.Robber;
+import shared.model.board.Settlement;
+import shared.model.board.Vertex;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Color;
 import shared.model.player.InactivePlayerFacade;
@@ -62,6 +70,17 @@ public class GameModelFacadeTests {
 			Player p2 = GMF.getGameModel().getPlayers().get(2);
 			Player p3 = GMF.getGameModel().getPlayers().get(3);
 			Board board = new Board(false, false, false);
+			List<Vertex> vertices = new ArrayList<Vertex>();
+			vertices.add(new Settlement(new PlayerID(11), new VertexLocation(new HexLocation(0,0), VertexDirection.East)));
+			vertices.add(new City(new PlayerID(11), new VertexLocation(new HexLocation(-1,-1), VertexDirection.SouthWest)));
+			vertices.add(new Settlement(new PlayerID(44), new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast)));
+			board.setBuildings(vertices);
+			List<Road> roads = new ArrayList<Road>();
+			roads.add(new Road(new PlayerID(11), new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthEast)));
+			roads.add(new Road(new PlayerID(11), new EdgeLocation(new HexLocation(0,0), EdgeDirection.South)));
+			roads.add(new Road(new PlayerID(44), new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
+			roads.add(new Road(new PlayerID(44), new EdgeLocation(new HexLocation(0,2), EdgeDirection.NorthEast)));
+			board.setRoads(roads);
 			board.setBoardFacade(new BoardFacade());
 			GMF.getGameModel().setBoard(new Board(false, false, false));
 		} catch (TooManyPlayersException e) {
@@ -117,19 +136,35 @@ public class GameModelFacadeTests {
 	
 	@Test
 	public void testCanBuildRoad(){
-		boolean passed = GMF.canBuildCity(p1, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+		boolean passed = GMF.canBuildRoad(p3, new EdgeLocation(new HexLocation(0,2), EdgeDirection.North));
+		assert(!passed);
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthWest));
+		assert(passed);
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthWest));
 		assert(!passed);
 	}
 	
 	@Test
 	public void testCanBuildSettlement(){
-		boolean passed = GMF.canBuildCity(p1, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+		boolean passed = GMF.canBuildSettlement(p1, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
+		assert(!passed);
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
+		assert(!passed);
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest));
+		assert(passed);
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast));
+		assert(!passed);
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
 		assert(!passed);
 	}
 	
 	@Test
 	public void testCanBuildCity(){
-		boolean passed = GMF.canBuildCity(p1, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+		boolean passed = GMF.canBuildCity(p1, new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast));
+		assert(!passed);
+		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+		assert(passed);
+		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest));
 		assert(!passed);
 	}
 	
