@@ -303,6 +303,34 @@ public class Board {
 		}
 	}
 
+	public List<ResourceHex> getResourceHexes() {
+		return resourceHexes;
+	}
+
+	public void setResourceHexes(List<ResourceHex> resourceHexes) {
+		this.resourceHexes = resourceHexes;
+	}
+
+	public List<WaterHex> getWaterHexes() {
+		return waterHexes;
+	}
+
+	public void setWaterHexes(List<WaterHex> waterHexes) {
+		this.waterHexes = waterHexes;
+	}
+
+	public List<PortHex> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(List<PortHex> ports) {
+		this.ports = ports;
+	}
+
+	public void setDesertHex(Hex desertHex) {
+		this.desertHex = desertHex;
+	}
+
 	public List<Road> getRoads() {
 		return roads;
 	}

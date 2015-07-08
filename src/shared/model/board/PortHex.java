@@ -25,6 +25,22 @@ public class PortHex extends WaterHex {
 
 	// TODO: hascode, equals
 	
+	public PortType getPortType() {
+		return portType;
+	}
+
+	public void setPortType(PortType portType) {
+		this.portType = portType;
+	}
+
+	public int getRatio() {
+		return ratio;
+	}
+
+	public void setRatio(int ratio) {
+		this.ratio = ratio;
+	}
+
 	@Override
 	public String toString() {
 		return "PortHex [portType=" + portType + ", ratio=" + ratio
