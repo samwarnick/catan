@@ -6,6 +6,7 @@ import server.*;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.model.GameModel;
+import shared.model.JsonParser;
 
 public class ProxyServer implements IServer {
 
@@ -200,8 +201,7 @@ public class ProxyServer implements IServer {
 	@Override
 	public GameModel playMonument(PlayMonumentInput input)
 			throws ServerException {
-		GameModel toReturn = (GameModel) clientCommunicator.post(input);
-		return toReturn;
+		return JsonParser.gameModelFromJson(clientCommunicator.post(input));
 	}
 
 	

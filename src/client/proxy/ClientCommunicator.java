@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import server.ServerException;
@@ -50,8 +51,7 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public Object post(Input toPost) throws ServerException {
-		Object result = null;
+	public JsonNode post(Input toPost) throws ServerException {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
@@ -65,8 +65,7 @@ public class ClientCommunicator {
 	        mapper.writeValue(conn.getOutputStream(), toPost);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	result = new Object();
-	        	result = mapper.readValue(conn.getInputStream(), result.getClass());
+	        	return mapper.readTree(conn.getInputStream());
 	        }
 	        else{
 	        	throw new ServerException(String.format(url.toString(),
@@ -75,7 +74,5 @@ public class ClientCommunicator {
 		} catch (IOException e) {
 			throw new ServerException(e.getMessage());
 		}
-		return result;
 	}
-
 }
