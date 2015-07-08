@@ -301,12 +301,12 @@ public class Board {
 	}
 
 	private PortHex createPortHex(HexLocation location, PortType type,
-			VertexLocation vertex1, VertexLocation vertex2, EdgeLocation orientation) {
+			 EdgeLocation orientation) {
 		if(type == PortType.THREE) {
-			return new PortHex(location, type, 3, vertex1, vertex2, orientation);
+			return new PortHex(location, type, 3, orientation);
 		}
 		else {
-			return new PortHex(location, type, 2, vertex1, vertex2, orientation);
+			return new PortHex(location, type, 2, orientation);
 		}
 	}
 
