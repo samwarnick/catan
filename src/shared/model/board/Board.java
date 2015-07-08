@@ -148,7 +148,7 @@ public class Board {
 		
 		x = -1;
 		y = -2;
-		hexLoc = new HexLocation(x, y++);
+		hexLoc = new HexLocation(x, y);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
 		orientation = new EdgeLocation(hexLoc, EdgeDirection.South);
@@ -192,7 +192,7 @@ public class Board {
 		
 		x = 1;
 		y = -3;
-		hexLoc = new HexLocation(x, y++);
+		hexLoc = new HexLocation(x, y);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
 		orientation = new EdgeLocation(hexLoc, EdgeDirection.South);
@@ -249,10 +249,10 @@ public class Board {
 		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		
-//		assert !landIt.hasNext();
+		assert !landIt.hasNext();
 		assert !portIt.hasNext();
-//		assert !numIt.hasNext();
-//		assert resourceHexes.size() == 18;
+		assert !numIt.hasNext();
+		assert resourceHexes.size() == 18;
 		assert ports.size() == 9;
 		assert waterHexes.size() == 9;
 		assert desertHex != null;
@@ -271,7 +271,7 @@ public class Board {
 			}
 		}
 		
-//		assert sixAndEights.size() == 4; 
+		assert sixAndEights.size() == 4; 
 		
 		for(ResourceHex hex1 : sixAndEights) {
 			HexLocation hex1Loc = hex1.getLocation();
@@ -301,6 +301,34 @@ public class Board {
 		else {
 			return new PortHex(location, type, 2, vertex1, vertex2, orientation);
 		}
+	}
+
+	public List<ResourceHex> getResourceHexes() {
+		return resourceHexes;
+	}
+
+	public void setResourceHexes(List<ResourceHex> resourceHexes) {
+		this.resourceHexes = resourceHexes;
+	}
+
+	public List<WaterHex> getWaterHexes() {
+		return waterHexes;
+	}
+
+	public void setWaterHexes(List<WaterHex> waterHexes) {
+		this.waterHexes = waterHexes;
+	}
+
+	public List<PortHex> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(List<PortHex> ports) {
+		this.ports = ports;
+	}
+
+	public void setDesertHex(Hex desertHex) {
+		this.desertHex = desertHex;
 	}
 
 	public List<Road> getRoads() {

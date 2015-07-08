@@ -3,3 +3,13 @@ Isaac:  Proxy Server Testing, Game Model Facade testing
 Matt:  Board Generator, and Board Facade and game model facade
 Jordan:  
 Sam:  Player Facade testing, client communicator, bank test, jackson
+
+TODO:
+Implement the mock server,
+
+Your model will also need the ability to initialize itself from the JSON data returned
+by the server from the /game/model web service API.
+
+check the javadocs on everything
+
+poller unit tests

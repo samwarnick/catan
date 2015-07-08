@@ -2,6 +2,7 @@ package shared.model.player;
 
 import shared.definitions.CatanColor;
 import shared.model.bank.PlayerBank;
+import shared.model.board.PlayerID;
 import shared.model.ratios.TradeRatios;
 
 /**
@@ -23,7 +24,7 @@ public class Player {
 	private String name;
 	private TradeRatios tradeRatios;
 	private IPlayerFacade playerFacade;
-	private int playerID;
+	private PlayerID playerID;
 
 
 	private boolean hasPlayedCard = false;
@@ -40,7 +41,7 @@ public class Player {
 		this.victoryPoints = new VictoryPoints();
 		this.name = name;
 		this.tradeRatios = new TradeRatios();
-		this.playerID = playerID;
+		this.playerID = new PlayerID(playerID);
 	}
 	
 	
@@ -110,12 +111,12 @@ public class Player {
 		this.tradeRatios = tradeRatios;
 	}
 
-	public int getPlayerID() {
+	public PlayerID getPlayerID() {
 		return playerID;
 	}
 
 	public void setPlayerID(int playerID) {
-		this.playerID = playerID;
+		this.playerID = new PlayerID(playerID);
 	}
 
 	public Roads getRoads() {
