@@ -1,8 +1,8 @@
-Spencer:  Poller implementation(just a nagger), Turn Tracker, Version number, all of the constructors
-Isaac:  Proxy Server Testing, Game Model Facade testing
-Matt:  Board Generator, and Board Facade and game model facade
-Jordan:  
-Sam:  Player Facade testing, client communicator, bank test, jackson
+Spencer:  run proxy server tests, poller
+Isaac:  GameModelFacade stuff, implement the mock server
+Matt:  GameModelFacade stuff
+Jordan: junit for poller and cc, and parser
+Sam: client communicator, parser
 
 TODO:
 Implement the mock server,
@@ -10,6 +10,8 @@ Implement the mock server,
 Your model will also need the ability to initialize itself from the JSON data returned
 by the server from the /game/model web service API.
 
-check the javadocs on everything
-
 poller unit tests
+
+parser unit tests
+
+run proxy server tests

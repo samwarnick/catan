@@ -15,7 +15,6 @@ public class UpdateGame extends TimerTask{
 	
 	@Override
 	public void run() {
-		System.out.println("yay");
 		controller.updateGame();
 		
 	}
