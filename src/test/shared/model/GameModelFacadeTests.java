@@ -151,12 +151,15 @@ public class GameModelFacadeTests {
 	public void testCanBuildSettlement(){
 		boolean passed = GMF.canBuildSettlement(p1, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
 		assert(!passed);
+		// no roads near this vertex
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
 		assert(!passed);
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest));
 		assert(passed);
+		// settlement adjacent
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast));
 		assert(!passed);
+		// already settlement
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
 		assert(!passed);
 	}
