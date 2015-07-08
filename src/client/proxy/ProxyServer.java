@@ -39,8 +39,9 @@ public class ProxyServer implements IServer {
 
 	@Override
 	public GameModel createGame(GamesCreateInput input) throws ServerException {
-		GameModel toReturn = (GameModel) clientCommunicator.post(input);
-		return toReturn;
+		//GameModel toReturn = (GameModel) 
+		clientCommunicator.post(input);
+		return null;
 	}
 
 	@Override

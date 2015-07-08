@@ -21,14 +21,19 @@ public class RobberTest {
 		Robber robber = new Robber(locationValid);
 		assertEquals(locationValid, robber.getLocation());
 		HexLocation locationValid2 = new HexLocation(-1, 0);
-		robber.moveRobber(locationValid2);
+		try {
+			robber.moveRobber(locationValid2);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		assertEquals(locationValid2, robber.getLocation());
 		try{
 			robber.moveRobber(locationValid2);
 			assertTrue(false);
 		}
-		catch{
+		catch(Exception e){
 			assertTrue(true);
 		}
 		HexLocation locationInvalid = new HexLocation(-3, 0);
@@ -36,7 +41,7 @@ public class RobberTest {
 			robber.moveRobber(locationInvalid);
 			assertTrue(false);
 		}
-		catch{
+		catch(Exception e){
 			assertTrue(true);
 		}
 	}

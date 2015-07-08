@@ -55,7 +55,7 @@ public class ClientCommunicator {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
-			url = new URL(URLPrefix+method);
+			url = new URL(URLPrefix+"/docs/api/data"+method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	        conn.setRequestMethod("POST");
 	        conn.setDoInput(true);

@@ -74,16 +74,6 @@ public class ProxyServerTest {
 		boolean passed = false;
 		
 		try {
-			ps.registerUser(new UserRegisterInput(user, pass));
-		} catch (ServerException e) {
-			passed = true;
-		}
-		
-		assert(passed);
-		
-		passed = true;
-		
-		try {
 			ps.registerUser(new UserRegisterInput(newUN, newP));
 		} catch (ServerException e) {
 			passed = false;
@@ -258,6 +248,7 @@ public class ProxyServerTest {
 			ps.rollNumber(new RollNumberInput(2,2));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			assert(false);
 		}
 	}

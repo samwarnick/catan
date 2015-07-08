@@ -1,5 +1,6 @@
 package client.proxy;
 
+import java.io.File;
 import java.util.List;
 
 import server.IServer;
@@ -34,6 +35,7 @@ import shared.communication.input.move.RobPlayerInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
+import shared.model.JsonParser;
 
 public class MockProxyServer implements IServer {
 
@@ -86,7 +88,7 @@ public class MockProxyServer implements IServer {
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
 		// TODO Auto-generated method stub
-		return null;
+		return JsonParser.gameModelFromJson(new File("MPS/game/model"));
 	}
 
 	@Override
