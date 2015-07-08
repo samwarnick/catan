@@ -7,7 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import shared.model.TurnTracker.NoPlayerFoundException;
+
+import shared.locations.HexLocation;
 import shared.definitions.CatanColor;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
@@ -16,7 +17,10 @@ import shared.model.bank.BankException;
 import shared.model.bank.DevelopmentHand;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
+import shared.model.board.Robber;
+import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Color;
+import shared.model.player.InactivePlayerFacade;
 import shared.model.player.Player;
 
 public class GameModelFacadeTests {
@@ -28,13 +32,17 @@ public class GameModelFacadeTests {
 		try {
 			Player harold = new Player(CatanColor.BROWN, "Harold", 11);
 			harold.getPlayerBank().setRC(3);
+			harold.setPlayerFacade(new ActivePlayerFacade(harold));
 			Player gretchen = new Player(CatanColor.GREEN, "Gretchen", 22);
 			gretchen.getPlayerBank().setLargestArmyCard(true);
 			gretchen.getPlayerBank().setLongestRoadCard(true);
+			gretchen.setPlayerFacade(new InactivePlayerFacade(gretchen));
 			Player ingrid  = new Player(CatanColor.ORANGE, "Ingrid", 33);
 			ingrid.getPlayerBank().modifyRC(new ResourceHand(2,2,2,1,0));
+			ingrid.setPlayerFacade(new InactivePlayerFacade(ingrid));
 			Player jerry = new Player(CatanColor.BLUE, "Jerry", 44);
 			jerry.getPlayerBank().modifyRC(new ResourceHand(2,2,2,1,1));
+			jerry.setPlayerFacade(new InactivePlayerFacade(jerry));
 			GMF.getGameModel().addPlayer(harold);
 			GMF.getGameModel().addPlayer(gretchen);
 			GMF.getGameModel().addPlayer(ingrid);
@@ -93,7 +101,7 @@ public class GameModelFacadeTests {
 			GMF.getGameModel().getTurnTracker().setStatus("NotRolling");
 			passed = GMF.canRollDice(GMF.getGameModel().getPlayers().get(0));
 			assert(!passed);
-		} catch (NoPlayerFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -126,22 +134,29 @@ public class GameModelFacadeTests {
 	
 	@Test
 	public void testCanRobPlayer(){
-		
+		GMF.getGameModel().setRobber(new Robber(new HexLocation(1,1)));
 	}
 	
 	@Test
 	public void testCanFinishTurn(){
-		
+		boolean passed = GMF.canFinishTurn(GMF.getGameModel().getPlayers().get(0));
+		assert(passed);
+		passed = GMF.canFinishTurn(GMF.getGameModel().getPlayers().get(1));
+		assert(!passed);
 	}
 	
 	@Test
 	public void testCanBuyDevCard(){
 		Player p0 = GMF.getGameModel().getPlayers().get(0);
 		Player p1 = GMF.getGameModel().getPlayers().get(1);
-		DevelopmentHand dh = new DevelopmentHand();
-		dh.setSoldier(3);
-		dh.setRoadBuild(1);
-		p0.getPlayerBank().
+		Player p2 = GMF.getGameModel().getPlayers().get(2);
+		boolean passed = GMF.canBuyDevCard(p0);
+		assert(passed);
+		passed = GMF.canBuyDevCard(p1);
+		assert(!passed);
+		passed = GMF.canBuyDevCard(p2);
+		assert(!passed);
+		
 	}
 	
 	@Test
