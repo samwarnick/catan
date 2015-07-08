@@ -5,7 +5,6 @@ import java.util.List;
 
 import shared.model.bank.Bank;
 import shared.model.board.Board;
-import shared.model.board.Robber;
 import shared.model.player.Player;
 
 /**

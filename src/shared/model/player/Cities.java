@@ -1,9 +1,6 @@
 package shared.model.player;
 
 
-
-import shared.model.board.City;
-
 /**
  * 
  * @author Spencer Krieger
@@ -16,8 +13,11 @@ public class Cities {
 	public Cities(){
 		citiesLeft = 4;
 	}
-
 	
+	public Cities(int citiesLeft) {
+		this.citiesLeft = citiesLeft;
+	}
+
 /**
  * @pre none
  * @param city

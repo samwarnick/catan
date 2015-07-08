@@ -15,7 +15,6 @@ import shared.locations.VertexLocation;
 import shared.model.bank.*;
 import shared.model.board.*;
 import shared.model.player.*;
-import shared.model.ratios.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,17 +28,28 @@ public class JsonParser {
 		try {
 			JsonNode rootNode = mapper.readTree(new File("model.json"));
 			
+			// board
 			Board board = parseBoard(rootNode.path("map"));
+			// bank
 			Bank bank = parseBank(rootNode.path("deck"), rootNode.path("bank"));
 			// players
 			List<Player> players = parsePlayers(rootNode.path("players"));
-			// log
-			// chat
 			// turn tracker
+			TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
+			
+			// go through players and find longest and largest
 			// winner
+			// int winner = rootNode.path("winner").intValue();
 			// version
+			int version = rootNode.path("version").intValue();
+			
+			// set up board
 			gameModel.setBoard(board);
 			gameModel.setBank(bank);
+			gameModel.setPlayers(players);
+			gameModel.setTurnTracker(tracker);
+			gameModel.setGameVersion(version);
+			
 			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -51,6 +61,44 @@ public class JsonParser {
 	
 	private static Bank parseBank(JsonNode deckNode, JsonNode bankNode) {
 		Bank bank = new Bank();
+		
+		int brick = bankNode.path("brick").intValue();
+		int wood = bankNode.path("wood").intValue();
+		int sheep = bankNode.path("sheep").intValue();
+		int wheat = bankNode.path("wheat").intValue();
+		int ore = bankNode.path("ore").intValue();
+		
+		if (brick > 19) {
+			brick = 19;
+		}
+		if (wood > 19) {
+			wood = 19;
+		}
+		if (sheep > 19) {
+			sheep = 19;
+		}
+		if (wheat > 19) {
+			wheat = 19;
+		}
+		if (ore > 19) {
+			ore = 19;
+		}
+		
+		int soldier = deckNode.path("soldier").intValue();
+		int monument = deckNode.path("monument").intValue();
+		int monopoly = deckNode.path("monopoly").intValue();
+		int yearOfPlenty = deckNode.path("yearOfPlenty").intValue();
+		int roadBuilding = deckNode.path("roadBuilding").intValue();
+		
+		ResourceHand rh = new ResourceHand(brick, wood, sheep, wheat, ore);
+		DevelopmentHand dh = new DevelopmentHand(soldier, monument, monopoly, yearOfPlenty, roadBuilding);
+		
+		try {
+			bank.setRC(rh);
+			bank.setDC(dh);
+		} catch (BankException e) {
+			e.printStackTrace();
+		}
 		
 		return bank;
 	}
@@ -68,8 +116,8 @@ public class JsonParser {
 		board.setResourceHexes(resourceHexes);
 		board.setRoads(roads);
 		board.setBuildings(buildings);
+		board.setPorts(ports);
 		board.setRobber(robber);
-		// TODO: radius?
 		return board;
 	}
 	
@@ -222,12 +270,21 @@ public class JsonParser {
 				int monuments = temp.path("monuments").intValue();
 				boolean playedDevCard = temp.path("playedDevCard").booleanValue();
 				boolean discared = temp.path("discared").booleanValue();
-				int playerID = temp.path("playerID").intValue();
+				// int playerID = temp.path("playerID").intValue();
 				int playerIndex = temp.path("playerIndex").intValue();
 				String name = temp.path("name").textValue();
 				String color = temp.path("color").textValue();
 				
-				Player player = new Player(getColor(color), name, new PlayerID(playerIndex));
+				Player player = new Player(getColor(color), name, playerIndex);
+				player.setPlayerBank(playerBank);
+				player.setRoads(new Roads(roads));
+				player.setCities(new Cities(cities));
+				player.setSettlements(new Settlements(settlements));
+				player.setLargestArmy(new LargestArmy(soliders));
+				player.setLongestRoad(new LongestRoad(15-roads));
+				player.setVictoryPoints(new VictoryPoints(monuments+victoryPoints, victoryPoints));
+				player.setHasPlayedCard(playedDevCard);
+				player.setHasDiscared(discared);
 			}
 		}
 		return null;
@@ -266,6 +323,39 @@ public class JsonParser {
 		}
 		
 		return playerBank;
+	}
+	
+	private static TurnTracker parseTracker(JsonNode trackerNode, List<Player> players) {
+		TurnTracker tracker = new TurnTracker();
+		
+		String status = trackerNode.path("status").textValue();
+		int currentTurn = trackerNode.path("currentTurn").intValue();
+		int longestRoad = trackerNode.path("longestRoad").intValue();
+		int largestArmy = trackerNode.path("largestArmy").intValue();
+		
+		try {
+			tracker.setCurrentTurn(currentTurn);
+		} catch (NoPlayerFoundException e) {
+			e.printStackTrace();
+		}
+		tracker.setStatus(status);
+		
+		if (longestRoad != -1) {
+			for (Player p: players) {
+				if (p.getPlayerID().getPlayerid() == longestRoad) {
+					p.getLongestRoad().setHasLongestRoad(true);
+				}
+			}
+		}
+		if (largestArmy != -1) {
+			for (Player p: players) {
+				if (p.getPlayerID().getPlayerid() == largestArmy) {
+					p.getLargestArmy().setHasLargestArmy(true);
+				}
+			}
+		}
+		
+		return tracker;
 	}
 	
 	// String to enum methods
@@ -327,6 +417,17 @@ public class JsonParser {
 	}
 	
 	private static CatanColor getColor(String color) {
-		
+		switch (color) {
+		case "red": return CatanColor.RED;
+		case "orange": return CatanColor.ORANGE;
+		case "yellow": return CatanColor.YELLOW;
+		case "blue": return CatanColor.BLUE;
+		case "green": return CatanColor.GREEN;
+		case "purple": return CatanColor.PURPLE;
+		case "puce": return CatanColor.PUCE;
+		case "white": return CatanColor.WHITE;
+		case "brown": return CatanColor.BROWN;
+		default: return null;
+		}
 	}
 }

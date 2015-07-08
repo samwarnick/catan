@@ -13,6 +13,10 @@ public class LongestRoad {
 		numRoads = 0;
 		hasLongestRoad = false;
 	}
+	
+	public LongestRoad(int numRoads) {
+		this.numRoads = numRoads;
+	}
 	/**
 	 * @pre none
 	 * @post increases numRoads.

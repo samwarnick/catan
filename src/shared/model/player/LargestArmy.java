@@ -15,6 +15,10 @@ public class LargestArmy {
 		hasLargestArmy = false;
 	}
 
+	public LargestArmy(int numSoldiers) {
+		this.numSoldiers = numSoldiers;
+	}
+
 	public int getNumSoldiers() {
 		return numSoldiers;
 	}
