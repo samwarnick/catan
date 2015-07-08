@@ -2,6 +2,7 @@ package shared.model.board;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import shared.locations.VertexLocation;
 public class Board {
 	
 	private List<ResourceHex> resourceHexes;
-	private Map<HexLocation,ResourceHex> resourceHexesMap;
+	private Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
 	private Hex desertHex;
