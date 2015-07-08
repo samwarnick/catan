@@ -50,7 +50,7 @@ public class ProxyServer implements IServer {
 
 	@Override
 	public boolean saveGame(GamesSaveInput input) throws ServerException {
-		boolean toReturn = (boolean) clientCommunicator.post(input);
+		boolean toReturn = (Boolean) clientCommunicator.post(input);
 		return toReturn;
 	}
 
@@ -91,7 +91,7 @@ public class ProxyServer implements IServer {
 	@Override
 	public boolean changeLogLevel(UtilChangeLogLevelInput input)
 			throws ServerException {
-		boolean toReturn = (boolean) clientCommunicator.post(input);
+		boolean toReturn = (Boolean) clientCommunicator.post(input);
 		return toReturn;
 	}
 

@@ -179,6 +179,8 @@ public class GameModelFacadeTests {
 		assert(!passed);
 		passed = GMF.canOfferTrade(p1, new ResourceHand(0,0,0,0,1));
 		assert(!passed);
+		passed = GMF.canOfferTrade(p1, new ResourceHand(0,0,0,0,0));
+		assert(!passed);
 		
 	}
 	
