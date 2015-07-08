@@ -54,13 +54,13 @@ import client.proxy.ProxyServer;
 
 public class ProxyServerTest {
 	
-	private ProxyServer ps;
-	private ClientCommunicator cc;
+	private static ProxyServer ps;
+	private static ClientCommunicator cc;
 	Username user = new Username("Sam");
 	Password pass = new Password("sam");
 	
 	@BeforeClass
-	public void init(){
+	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
 	}
