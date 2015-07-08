@@ -49,17 +49,17 @@ public class GameModelFacadeTests {
 	public static void prep(){
 		GMF = new GameModelFacade(0);
 		try {
-			Player harold = new Player(CatanColor.BROWN, "Harold", 11);
-			harold.getPlayerBank().setRC(3);
+			Player harold = new Player(CatanColor.BROWN, "Harold", 0);
+			harold.getPlayerBank().setRC(4);
 			harold.setPlayerFacade(new ActivePlayerFacade(harold));
-			Player gretchen = new Player(CatanColor.GREEN, "Gretchen", 22);
+			Player gretchen = new Player(CatanColor.GREEN, "Gretchen", 1);
 			gretchen.getPlayerBank().setLargestArmyCard(true);
 			gretchen.getPlayerBank().setLongestRoadCard(true);
 			gretchen.setPlayerFacade(new InactivePlayerFacade(gretchen));
-			Player ingrid  = new Player(CatanColor.ORANGE, "Ingrid", 33);
+			Player ingrid  = new Player(CatanColor.ORANGE, "Ingrid", 2);
 			ingrid.getPlayerBank().modifyRC(new ResourceHand(4,0,2,1,0));
 			ingrid.setPlayerFacade(new InactivePlayerFacade(ingrid));
-			Player jerry = new Player(CatanColor.BLUE, "Jerry", 44);
+			Player jerry = new Player(CatanColor.BLUE, "Jerry", 3);
 			jerry.getPlayerBank().modifyRC(new ResourceHand(2,2,2,1,1));
 			jerry.setPlayerFacade(new InactivePlayerFacade(jerry));
 			GMF.getGameModel().addPlayer(harold);
@@ -72,15 +72,15 @@ public class GameModelFacadeTests {
 			p3 = GMF.getGameModel().getPlayers().get(3);
 			Board board = new Board(false, false, false);
 			List<Vertex> vertices = new ArrayList<Vertex>();
-			vertices.add(new Settlement(new PlayerID(11), new VertexLocation(new HexLocation(0,0), VertexDirection.East)));
-			vertices.add(new City(new PlayerID(11), new VertexLocation(new HexLocation(-1,-1), VertexDirection.SouthWest)));
-			vertices.add(new Settlement(new PlayerID(44), new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast)));
+			vertices.add(new Settlement(new PlayerID(0), new VertexLocation(new HexLocation(0,0), VertexDirection.East)));
+			vertices.add(new City(new PlayerID(0), new VertexLocation(new HexLocation(-1,-1), VertexDirection.SouthWest)));
+			vertices.add(new Settlement(new PlayerID(3), new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast)));
 			board.setBuildings(vertices);
 			List<Road> roads = new ArrayList<Road>();
-			roads.add(new Road(new PlayerID(11), new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthEast)));
-			roads.add(new Road(new PlayerID(11), new EdgeLocation(new HexLocation(0,0), EdgeDirection.South)));
-			roads.add(new Road(new PlayerID(44), new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
-			roads.add(new Road(new PlayerID(44), new EdgeLocation(new HexLocation(0,2), EdgeDirection.NorthEast)));
+			roads.add(new Road(new PlayerID(0), new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthEast)));
+			roads.add(new Road(new PlayerID(0), new EdgeLocation(new HexLocation(0,0), EdgeDirection.South)));
+			roads.add(new Road(new PlayerID(3), new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
+			roads.add(new Road(new PlayerID(3), new EdgeLocation(new HexLocation(0,2), EdgeDirection.NorthEast)));
 			board.setRoads(roads);
 			BoardFacade bf = new BoardFacade();
 			bf.setBoard(board);
@@ -103,7 +103,7 @@ public class GameModelFacadeTests {
 		assert(passed);
 		passed = GMF.canAcceptTrade(p0, new ResourceHand(5,5,5,5,5));
 		assert(!passed);
-		passed = GMF.canAcceptTrade(p0, new ResourceHand(-1,-1,-1,-1,-1));
+		passed = GMF.canAcceptTrade(p0, new ResourceHand(1,1,5,1,1));
 		assert(!passed);
 	}
 	
@@ -175,7 +175,7 @@ public class GameModelFacadeTests {
 	public void testCanOfferTrade(){
 		boolean passed = GMF.canOfferTrade(p0, new ResourceHand(3,3,3,3,3));
 		assert(passed);
-		passed = GMF.canOfferTrade(p0, new ResourceHand(3,4,3,3,3));
+		passed = GMF.canOfferTrade(p0, new ResourceHand(3,5,3,3,3));
 		assert(!passed);
 		passed = GMF.canOfferTrade(p1, new ResourceHand(0,0,0,0,1));
 		assert(!passed);
@@ -184,9 +184,11 @@ public class GameModelFacadeTests {
 	
 	@Test
 	public void testCanMaritimeTrade(){
-		boolean passed = GMF.canMaritimeTrade(p2, 1, ResourceType.BRICK, ResourceType.ORE);
-		assert(passed);
+		boolean passed = GMF.canMaritimeTrade(p3, 1, ResourceType.BRICK, ResourceType.ORE);
+		assert(!passed);
 		passed = GMF.canMaritimeTrade(p0, 1, ResourceType.BRICK, ResourceType.ORE);
+		assert(passed);
+		passed = GMF.canMaritimeTrade(p0, 2, ResourceType.BRICK, ResourceType.ORE);
 		assert(!passed);
 	}
 	
@@ -237,14 +239,14 @@ public class GameModelFacadeTests {
 	
 	@Test
 	public void testCanPlayDevCard(){
-		p0.setHasPlayedCard(true);
+		p0.setHasPlayedCard(false);
 		p1.setHasPlayedCard(false);
 		boolean passed = GMF.canPlayDevCard(p0);
-		assert(!passed);
+		assert(passed);
 		passed = GMF.canPlayDevCard(p1);
-		assert(passed);
+		assert(!passed);
 		passed = GMF.canPlayDevCard(p2);
-		assert(passed);
+		assert(!passed);
 	}
 
 }
