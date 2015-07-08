@@ -17,6 +17,7 @@ import shared.model.player.Color;
 import client.controller.Controller;
 import client.poller.Poller;
 import client.poller.UpdateGame;
+import client.proxy.MockProxyServer;
 import client.proxy.ProxyServer;
 
 public class PollerTest {
@@ -26,7 +27,7 @@ public class PollerTest {
 	
 	@Test
 	public void testPost() {
-		controller = new Controller(0);
+		controller = new Controller(0,new MockProxyServer());
 		proxy = controller.getProxyServer();
 		GamesCreateInput createGame = new GamesCreateInput("game1", false, false, false);
 		GamesJoinInput joinGame = new GamesJoinInput(0, Color.BLUE);
@@ -38,7 +39,7 @@ public class PollerTest {
 		}
 
 		Timer timer = new Timer();
-		timer.schedule(checkChange(), 60001);
+		timer.schedule(checkChange(), 2001);
 		//change game via proxyServer
 		//wait 60000
 		//check if the change happened here too
