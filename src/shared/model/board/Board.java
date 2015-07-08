@@ -249,10 +249,10 @@ public class Board {
 		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		
-		assert !landIt.hasNext();
+//		assert !landIt.hasNext();
 		assert !portIt.hasNext();
-		assert !numIt.hasNext();
-		assert resourceHexes.size() == 18;
+//		assert !numIt.hasNext();
+//		assert resourceHexes.size() == 18;
 		assert ports.size() == 9;
 		assert waterHexes.size() == 9;
 		assert desertHex != null;
@@ -271,7 +271,7 @@ public class Board {
 			}
 		}
 		
-		assert sixAndEights.size() == 4; 
+//		assert sixAndEights.size() == 4; 
 		
 		for(ResourceHex hex1 : sixAndEights) {
 			HexLocation hex1Loc = hex1.getLocation();
