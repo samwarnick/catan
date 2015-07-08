@@ -18,7 +18,6 @@ public class GameModel {
 	private int gameID;
 	private int gameVersion;
 	private Board board;
-	private Robber robber;
 	private List<Player> players;
 	private TurnTracker turnTracker;
 	private Bank bank;
@@ -45,14 +44,6 @@ public class GameModel {
 
 	public void setBoard(Board board) {
 		this.board = board;
-	}
-
-	public Robber getRobber() {
-		return robber;
-	}
-
-	public void setRobber(Robber robber) {
-		this.robber = robber;
 	}
 
 	public int getGameID() {

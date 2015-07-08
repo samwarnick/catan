@@ -23,9 +23,16 @@ public class Board {
 	private List<PortHex> ports;
 	private Hex desertHex;
 	private BoardFacade boardFacade;
+	private Robber robber;
 	
 	private List<Road> roads;
 	private List<Vertex> buildings;
+	
+	public Board() {
+		resourceHexes = new ArrayList<ResourceHex>();
+		waterHexes = new ArrayList<WaterHex>();
+		ports = new ArrayList<PortHex>();
+	}
 	
 	public Board(boolean randHexes, boolean randPorts, boolean randNums) {
 		resourceHexes = new ArrayList<ResourceHex>();
@@ -37,7 +44,7 @@ public class Board {
 		roads = new ArrayList<Road>();
 		buildings = new ArrayList<Vertex>();
 	}
-	
+
 	/**
 	 * Generates a random or standard board
 	 * @param random whether the board should be random or standard
@@ -357,6 +364,14 @@ public class Board {
 
 	public void setBoardFacade(BoardFacade boardFacade) {
 		this.boardFacade = boardFacade;
+	}
+
+	public Robber getRobber() {
+		return robber;
+	}
+
+	public void setRobber(Robber robber) {
+		this.robber = robber;
 	}
 
 	@Override

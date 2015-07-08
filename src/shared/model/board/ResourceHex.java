@@ -3,7 +3,7 @@ package shared.model.board;
 import shared.definitions.HexType;
 import shared.locations.HexLocation;
 
-public class ResourceHex extends Hex{
+public class ResourceHex extends Hex {
 
 	private int numberToken;
 

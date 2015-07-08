@@ -15,7 +15,6 @@ public class BoardFacade {
 
 	private Board board;
 	
-	
 	public Board getBoard() {
 		return board;
 	}
