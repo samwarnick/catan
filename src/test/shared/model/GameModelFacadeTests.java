@@ -151,12 +151,15 @@ public class GameModelFacadeTests {
 	public void testCanBuildSettlement(){
 		boolean passed = GMF.canBuildSettlement(p1, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
 		assert(!passed);
+		// no roads near this vertex
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
 		assert(!passed);
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest));
 		assert(passed);
+		// settlement adjacent
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast));
 		assert(!passed);
+		// already settlement
 		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
 		assert(!passed);
 	}
@@ -178,6 +181,8 @@ public class GameModelFacadeTests {
 		passed = GMF.canOfferTrade(p0, new ResourceHand(3,5,3,3,3));
 		assert(!passed);
 		passed = GMF.canOfferTrade(p1, new ResourceHand(0,0,0,0,1));
+		assert(!passed);
+		passed = GMF.canOfferTrade(p1, new ResourceHand(0,0,0,0,0));
 		assert(!passed);
 		
 	}

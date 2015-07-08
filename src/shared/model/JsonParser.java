@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonParser {
 
 	public static GameModel gameModelFromJson(File file) {
-		GameModel gameModel = new GameModel(gameID);
+		GameModel gameModel = new GameModel(0);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			JsonNode rootNode = mapper.readTree(new File("model.json"));
@@ -178,11 +178,8 @@ public class JsonParser {
 				PortHex port = new PortHex(new HexLocation(x, y), 
 						getPortType(resource), 
 						ratio, 
-						validVertex1, 
-						validVertex2, 
 						getEdgeDirection(direction));
 				ports.add(port);
-				
 			}
 		}
 		
@@ -194,6 +191,84 @@ public class JsonParser {
 		int y = robberNode.path("y").intValue();
 		return new Robber(new HexLocation(x, y));
 	}
+	
+	private static List<Player> parsePlayers(JsonNode playersNode) {
+		List<Player> players = new ArrayList<Player>();
+		
+		if (playersNode != null) {
+			Iterator<JsonNode> iter = playersNode.elements();
+			while (iter.hasNext()) {
+				JsonNode temp = iter.next();
+				players.add(parsePlayer(temp));
+			}
+		}
+		
+		return players;
+	}
+	
+	private static Player parsePlayer(JsonNode playerNode) {
+		if (playerNode != null) {
+			Iterator<JsonNode> iter = playerNode.elements();
+			while (iter.hasNext()) {
+				JsonNode temp = iter.next();
+				PlayerBank playerBank = parsePlayerBank(temp.path("resources"), 
+						temp.path("oldDevCards"), 
+						temp.path("newDevCards"));
+				int roads = temp.path("roads").intValue();
+				int cities = temp.path("cities").intValue();
+				int settlements = temp.path("settlements").intValue();
+				int soliders = temp.path("soldiers").intValue();
+				int victoryPoints = temp.path("victoryPoints").intValue();
+				int monuments = temp.path("monuments").intValue();
+				boolean playedDevCard = temp.path("playedDevCard").booleanValue();
+				boolean discared = temp.path("discared").booleanValue();
+				int playerID = temp.path("playerID").intValue();
+				int playerIndex = temp.path("playerIndex").intValue();
+				String name = temp.path("name").textValue();
+				String color = temp.path("color").textValue();
+				
+				Player player = new Player(getColor(color), name, new PlayerID(playerIndex));
+			}
+		}
+		return null;
+	}
+	
+	private static PlayerBank parsePlayerBank(JsonNode resourcesNode, JsonNode oldDevCardsNode, JsonNode newDevCardsNode) {
+		PlayerBank playerBank = new PlayerBank();
+		
+		int brick = resourcesNode.path("brick").intValue();
+		int wood = resourcesNode.path("wood").intValue();
+		int sheep = resourcesNode.path("sheep").intValue();
+		int wheat = resourcesNode.path("wheat").intValue();
+		int ore = resourcesNode.path("ore").intValue();
+		ResourceHand rh = new ResourceHand(brick, wood, sheep, wheat, ore);
+		
+		int soldier = oldDevCardsNode.path("soldier").intValue();
+		int monument = oldDevCardsNode.path("monument").intValue();
+		int monopoly = oldDevCardsNode.path("monopoly").intValue();
+		int yearOfPlenty = oldDevCardsNode.path("yearOfPlenty").intValue();
+		int roadBuild = oldDevCardsNode.path("roadBuilding").intValue();
+		DevelopmentHand odv = new DevelopmentHand(soldier, monument, monopoly, yearOfPlenty, roadBuild);
+		
+		soldier = newDevCardsNode.path("soldier").intValue();
+		monument = newDevCardsNode.path("monument").intValue();
+		monopoly = newDevCardsNode.path("monopoly").intValue();
+		yearOfPlenty = newDevCardsNode.path("yearOfPlenty").intValue();
+		roadBuild = newDevCardsNode.path("roadBuilding").intValue();
+		DevelopmentHand ndv = new DevelopmentHand(soldier, monument, monopoly, yearOfPlenty, roadBuild);
+		
+		try {
+			playerBank.setRC(rh);
+			playerBank.setDC(odv);
+			playerBank.addNewDC(ndv);
+		} catch (BankException e) {
+			e.printStackTrace();
+		}
+		
+		return playerBank;
+	}
+	
+	// String to enum methods
 	
 	private static HexType getResourceType(String resource) {
 		if (resource != null) {
@@ -249,5 +324,9 @@ public class JsonParser {
 		case "SW": return VertexDirection.SouthWest;
 		default: return null;
 		}
+	}
+	
+	private static CatanColor getColor(String color) {
+		
 	}
 }

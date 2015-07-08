@@ -6,6 +6,7 @@ import client.poller.Poller;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 import server.IServer;
+import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
 import shared.model.board.Board;
@@ -73,7 +74,7 @@ public class Controller {
 		this.proxyServer = proxyServer;
 	}
 
-	public void updateGame(){
-		
+	public void updateGame(GameModel gameModel){
+		gameModelFacade.setGameModel(gameModel);
 	}
 }

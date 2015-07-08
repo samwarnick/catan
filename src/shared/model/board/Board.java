@@ -121,14 +121,12 @@ public class Board {
 		HexLocation hexLoc = new HexLocation(x, y++);
 		VertexLocation vertex1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
 		VertexLocation vertex2 = new VertexLocation(hexLoc, VertexDirection.East);
-		EdgeLocation orientation = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.SouthEast));
 		waterHexes.add(new WaterHex(new HexLocation(x, y++)));
 		hexLoc = new HexLocation(x, y++);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.East);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.NorthEast));
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		
 		x = -2;
@@ -150,16 +148,14 @@ public class Board {
 		hexLoc = new HexLocation(x, y++);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.East);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.NorthEast));
 		
 		x = -1;
 		y = -2;
 		hexLoc = new HexLocation(x, y);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.South);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.South));
 		for (++y; y <= 2; y++) {
 			HexType temp = landIt.next();
 			HexLocation newLoc = new HexLocation(x,y);
@@ -194,16 +190,14 @@ public class Board {
 		hexLoc = new HexLocation(x, y++);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.North);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.North));
 		
 		x = 1;
 		y = -3;
 		hexLoc = new HexLocation(x, y);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.South);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.South));
 		for (++y; y <= 1; y++) {
 			HexType temp = landIt.next();
 			HexLocation newLoc = new HexLocation(x,y);
@@ -238,22 +232,19 @@ public class Board {
 		hexLoc = new HexLocation(x, y++);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.West);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.NorthWest));
 		
 		x = 3;
 		y = -3;
 		hexLoc = new HexLocation(x, y++);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.West);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.SouthWest));
 		waterHexes.add(new WaterHex(new HexLocation(x, y++)));
 		hexLoc = new HexLocation(x, y++);
 		vertex1 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
 		vertex2 = new VertexLocation(hexLoc, VertexDirection.West);
-		orientation = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
-		ports.add(createPortHex(hexLoc, portIt.next(), vertex1, vertex2, orientation));
+		ports.add(createPortHex(hexLoc, portIt.next(), EdgeDirection.NorthWest));
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		
 		assert !landIt.hasNext();
@@ -301,12 +292,12 @@ public class Board {
 	}
 
 	private PortHex createPortHex(HexLocation location, PortType type,
-			VertexLocation vertex1, VertexLocation vertex2, EdgeLocation orientation) {
+			 EdgeDirection orientation) {
 		if(type == PortType.THREE) {
-			return new PortHex(location, type, 3, vertex1, vertex2, orientation);
+			return new PortHex(location, type, 3, orientation);
 		}
 		else {
-			return new PortHex(location, type, 2, vertex1, vertex2, orientation);
+			return new PortHex(location, type, 2, orientation);
 		}
 	}
 

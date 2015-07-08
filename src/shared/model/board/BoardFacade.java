@@ -66,11 +66,13 @@ public class BoardFacade {
 	public boolean canBuildSettlement(Player player, VertexLocation location) {
 		// create list to hold all VertexLocations that need to be checked
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
+		vertices.add(location);
 		// add ambiguities of the given location
 		vertices.addAll(location.getAmbiguousVertices());
 		
 		// get list of adjacent VertexLocations
 		ArrayList<VertexLocation> adjacentHexes = location.getAdjacentVertices();
+		vertices.addAll(adjacentHexes);
 		// for each adjacent vertex, add all ambiguities
 		for(VertexLocation loc : adjacentHexes) {
 			vertices.addAll(loc.getAmbiguousVertices());
@@ -112,6 +114,7 @@ public class BoardFacade {
 	public boolean canBuildCity(Player player, VertexLocation location) {
 		// create list to hold all VertexLocations that need to be checked
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
+		vertices.add(location);
 		// add ambiguities of the given location
 		vertices.addAll(location.getAmbiguousVertices());
 		

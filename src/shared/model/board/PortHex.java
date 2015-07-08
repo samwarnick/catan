@@ -1,6 +1,7 @@
 package shared.model.board;
 
 import shared.definitions.PortType;
+import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -9,21 +10,14 @@ public class PortHex extends WaterHex {
 
 	private PortType portType;
 	private int ratio;
-	private VertexLocation validVertex1;
-	private VertexLocation validVertex2;
-	private EdgeLocation orientation;
+	private EdgeDirection orientation;
 	
-	public PortHex(HexLocation location, PortType portType, int ratio, 
-			VertexLocation validVertex1, VertexLocation validVertex2, EdgeLocation orientation) {
+	public PortHex(HexLocation location, PortType portType, int ratio, EdgeDirection orientation) {
 		super(location);
 		this.portType = portType;
 		this.ratio = ratio;
-		this.validVertex1 = validVertex1;
-		this.validVertex2 = validVertex2;
 		this.orientation = orientation;
 	}
-
-	// TODO: hascode, equals
 	
 	public PortType getPortType() {
 		return portType;
@@ -41,10 +35,13 @@ public class PortHex extends WaterHex {
 		this.ratio = ratio;
 	}
 
-	@Override
-	public String toString() {
-		return "PortHex [portType=" + portType + ", ratio=" + ratio
-				+ ", validVertex1=" + validVertex1 + ", validVertex2="
-				+ validVertex2 + ", orientation=" + orientation + "]";
+	public EdgeDirection getOrientation() {
+		return orientation;
 	}
+
+	public void setOrientation(EdgeDirection orientation) {
+		this.orientation = orientation;
+	}
+	
+	
 }
