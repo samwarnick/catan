@@ -60,13 +60,13 @@ public class BoardFacade {
 		// create list to hold all VertexLocations that need to be checked
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 		// add ambiguities of the given location
-		vertices.addAll(location.getAbiguousVertices());
+		vertices.addAll(location.getAmbiguousVertices());
 		
 		// get list of adjacent VertexLocations
 		ArrayList<VertexLocation> adjacentHexes = location.getAdjacentVertices();
 		// for each adjacent vertex, add all ambiguities
 		for(VertexLocation loc : adjacentHexes) {
-			vertices.addAll(loc.getAbiguousVertices());
+			vertices.addAll(loc.getAmbiguousVertices());
 		}
 		
 		List<Vertex> buildings = board.getBuildings();
@@ -106,7 +106,7 @@ public class BoardFacade {
 		// create list to hold all VertexLocations that need to be checked
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 		// add ambiguities of the given location
-		vertices.addAll(location.getAbiguousVertices());
+		vertices.addAll(location.getAmbiguousVertices());
 		
 		List<Vertex> buildings = board.getBuildings();
 		for(Vertex building : buildings) {
