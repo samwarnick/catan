@@ -22,40 +22,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonParser {
 
-	public static GameModel gameModelFromJson(File file) {
-		GameModel gameModel = new GameModel(0);
+	public static JsonNode nodeFromFile(File file) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			JsonNode rootNode = mapper.readTree(new File("model.json"));
-			
-			// board
-			Board board = parseBoard(rootNode.path("map"));
-			// bank
-			Bank bank = parseBank(rootNode.path("deck"), rootNode.path("bank"));
-			// players
-			List<Player> players = parsePlayers(rootNode.path("players"));
-			// turn tracker
-			TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
-			
-			// go through players and find longest and largest
-			// winner
-			// int winner = rootNode.path("winner").intValue();
-			// version
-			int version = rootNode.path("version").intValue();
-			
-			// set up board
-			gameModel.setBoard(board);
-			gameModel.setBank(bank);
-			gameModel.setPlayers(players);
-			gameModel.setTurnTracker(tracker);
-			gameModel.setGameVersion(version);
-			
-			
+			return mapper.readTree(file);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public static GameModel gameModelFromJson(JsonNode rootNode) {
+		GameModel gameModel = new GameModel(0);
+		
+		// board
+		Board board = parseBoard(rootNode.path("map"));
+		// bank
+		Bank bank = parseBank(rootNode.path("deck"), rootNode.path("bank"));
+		// players
+		List<Player> players = parsePlayers(rootNode.path("players"));
+		// turn tracker
+		TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
+		
+		// go through players and find longest and largest
+		// winner
+		// int winner = rootNode.path("winner").intValue();
+		// version
+		int version = rootNode.path("version").intValue();
+		
+		// set up board
+		gameModel.setBoard(board);
+		gameModel.setBank(bank);
+		gameModel.setPlayers(players);
+		gameModel.setTurnTracker(tracker);
+		gameModel.setGameVersion(version);
+			
 		return gameModel;
 	}
 	
