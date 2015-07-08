@@ -39,13 +39,14 @@ import shared.model.player.Roads;
 
 public class GameModelFacadeTests {
 	
-	private GameModelFacade GMF;
-	private Player p0;
-	private Player p1;
-	private Player p2;
-	private Player p3;
+	private static GameModelFacade GMF;
+	private static Player p0;
+	private static Player p1;
+	private static Player p2;
+	private static Player p3;
 	
-	@BeforeClass void prep(){
+	@BeforeClass 
+	public static void prep(){
 		GMF = new GameModelFacade(0);
 		try {
 			Player harold = new Player(CatanColor.BROWN, "Harold", 11);
@@ -65,10 +66,10 @@ public class GameModelFacadeTests {
 			GMF.getGameModel().addPlayer(gretchen);
 			GMF.getGameModel().addPlayer(ingrid);
 			GMF.getGameModel().addPlayer(jerry);
-			Player p0 = GMF.getGameModel().getPlayers().get(0);
-			Player p1 = GMF.getGameModel().getPlayers().get(1);
-			Player p2 = GMF.getGameModel().getPlayers().get(2);
-			Player p3 = GMF.getGameModel().getPlayers().get(3);
+			p0 = GMF.getGameModel().getPlayers().get(0);
+			p1 = GMF.getGameModel().getPlayers().get(1);
+			p2 = GMF.getGameModel().getPlayers().get(2);
+			p3 = GMF.getGameModel().getPlayers().get(3);
 			Board board = new Board(false, false, false);
 			List<Vertex> vertices = new ArrayList<Vertex>();
 			vertices.add(new Settlement(new PlayerID(11), new VertexLocation(new HexLocation(0,0), VertexDirection.East)));
@@ -81,8 +82,10 @@ public class GameModelFacadeTests {
 			roads.add(new Road(new PlayerID(44), new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
 			roads.add(new Road(new PlayerID(44), new EdgeLocation(new HexLocation(0,2), EdgeDirection.NorthEast)));
 			board.setRoads(roads);
-			board.setBoardFacade(new BoardFacade());
-			GMF.getGameModel().setBoard(new Board(false, false, false));
+			BoardFacade bf = new BoardFacade();
+			bf.setBoard(board);
+			board.setBoardFacade(bf);
+			GMF.getGameModel().setBoard(board);
 		} catch (TooManyPlayersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

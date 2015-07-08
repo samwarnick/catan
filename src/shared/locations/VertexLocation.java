@@ -56,31 +56,37 @@ public class VertexLocation
 						newDir1 = VertexDirection.East;
 						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 						newDir2 = VertexDirection.SouthWest;
+						break;
 						
 		case NorthEast: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 						newDir1 = VertexDirection.SouthEast;
 						newLoc2 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 						newDir2 = VertexDirection.West;
+						break;
 						
 		case East: 		newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 						newDir1 = VertexDirection.SouthWest;
 						newLoc2 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
 						newDir2 = VertexDirection.NorthWest;
+						break;
 						
 		case SouthEast: newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
 						newDir1 = VertexDirection.West;
 						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
 						newDir2 = VertexDirection.NorthEast;
+						break;
 						
 		case SouthWest: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
 						newDir1 = VertexDirection.NorthWest;
 						newLoc2 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
 						newDir2 = VertexDirection.East;
+						break;
 						
 		case West:		newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
 						newDir1 = VertexDirection.NorthEast;
 						newLoc2 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
 						newDir2 = VertexDirection.SouthEast;
+						break;
 						
 		default:		newLoc1 = null;
 						newDir1 = null;
@@ -113,6 +119,7 @@ public class VertexLocation
 						newDir2 = VertexDirection.West;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = VertexDirection.NorthEast;
+						break;
 						
 		case NorthEast: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 						newDir1 = VertexDirection.East;
@@ -120,6 +127,7 @@ public class VertexLocation
 						newDir2 = VertexDirection.NorthWest;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = VertexDirection.East;
+						break;
 						
 		case East: 		newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 						newDir1 = VertexDirection.SouthEast;
@@ -127,6 +135,7 @@ public class VertexLocation
 						newDir2 = VertexDirection.NorthEast;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = VertexDirection.SouthEast;
+						break;
 						
 		case SouthEast: newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
 						newDir1 = VertexDirection.SouthWest;
@@ -134,6 +143,7 @@ public class VertexLocation
 						newDir2 = VertexDirection.East;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = VertexDirection.SouthWest;
+						break;
 						
 		case SouthWest: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
 						newDir1 = VertexDirection.West;
@@ -141,6 +151,7 @@ public class VertexLocation
 						newDir2 = VertexDirection.SouthEast;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = VertexDirection.West;
+						break;
 						
 		case West:		newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
 						newDir1 = VertexDirection.NorthWest;
@@ -148,6 +159,7 @@ public class VertexLocation
 						newDir2 = VertexDirection.SouthWest;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = VertexDirection.NorthWest;
+						break;
 						
 		default:		newLoc1 = null;
 						newDir1 = null;
@@ -184,6 +196,7 @@ public class VertexLocation
 						newDir2 = EdgeDirection.NorthWest;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = EdgeDirection.North;
+						break;
 						
 		case NorthEast: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 						newDir1 = EdgeDirection.SouthEast;
@@ -191,6 +204,7 @@ public class VertexLocation
 						newDir2 = EdgeDirection.North;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = EdgeDirection.NorthEast;
+						break;
 						
 		case East: 		newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 						newDir1 = EdgeDirection.South;
@@ -198,6 +212,7 @@ public class VertexLocation
 						newDir2 = EdgeDirection.NorthEast;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = EdgeDirection.SouthEast;
+						break;
 						
 		case SouthEast: newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
 						newDir1 = EdgeDirection.SouthWest;
@@ -205,6 +220,7 @@ public class VertexLocation
 						newDir2 = EdgeDirection.SouthEast;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = EdgeDirection.South;
+						break;
 						
 		case SouthWest: newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
 						newDir1 = EdgeDirection.NorthWest;
@@ -212,6 +228,7 @@ public class VertexLocation
 						newDir2 = EdgeDirection.South;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = EdgeDirection.SouthWest;
+						break;
 						
 		case West:		newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
 						newDir1 = EdgeDirection.North;
@@ -219,6 +236,7 @@ public class VertexLocation
 						newDir2 = EdgeDirection.SouthWest;
 						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
 						newDir3 = EdgeDirection.NorthWest;
+						break;
 						
 		default:		newLoc1 = null;
 						newDir1 = null;

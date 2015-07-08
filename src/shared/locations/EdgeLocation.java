@@ -45,11 +45,17 @@ public class EdgeLocation
 		HexLocation newLoc;
 		switch(dir) {
 		case NorthWest: newLoc = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
+			break;
 		case North: newLoc = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+			break;
 		case NorthEast: newLoc = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
+			break;
 		case SouthEast: newLoc = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
+			break;
 		case South: newLoc = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
+			break;
 		case SouthWest: newLoc = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
+			break;
 		default: newLoc = null;
 		}
 		
@@ -77,6 +83,7 @@ public class EdgeLocation
 						newDir3 = EdgeDirection.North;
 						newLoc4 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
 						newDir4 = EdgeDirection.NorthEast;
+						break;
 						
 		case North: 	newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 						newDir1 = EdgeDirection.SouthWest;
@@ -86,6 +93,7 @@ public class EdgeLocation
 						newDir3 = EdgeDirection.NorthEast;
 						newLoc4 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 						newDir4 = EdgeDirection.SouthEast;
+						break;
 						
 		case NorthEast:	newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 						newDir1 = EdgeDirection.NorthWest;
@@ -95,6 +103,7 @@ public class EdgeLocation
 						newDir3 = EdgeDirection.SouthEast;
 						newLoc4 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 						newDir4 = EdgeDirection.South;
+						break;
 						
 		case SouthEast: newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
 						newDir1 = EdgeDirection.North;
@@ -104,6 +113,7 @@ public class EdgeLocation
 						newDir3 = EdgeDirection.South;
 						newLoc4 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
 						newDir4 = EdgeDirection.SouthWest;
+						break;
 						
 		case South:		newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
 						newDir1 = EdgeDirection.NorthEast;
@@ -113,6 +123,7 @@ public class EdgeLocation
 						newDir3 = EdgeDirection.SouthWest;
 						newLoc4 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
 						newDir4 = EdgeDirection.NorthWest;
+						break;
 						
 		case SouthWest:	newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
 						newDir1 = EdgeDirection.SouthEast;
@@ -122,6 +133,7 @@ public class EdgeLocation
 						newDir3 = EdgeDirection.NorthWest;
 						newLoc4 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
 						newDir4 = EdgeDirection.North;
+						break;
 						
 		default:		newLoc1 = null;
 						newDir1 = null;
