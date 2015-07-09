@@ -1,6 +1,7 @@
 package client.proxy;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -65,6 +66,8 @@ public class ClientCommunicator {
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(conn.getOutputStream(), toPost);
+	        String x = mapper.writeValueAsString(toPost);
+	        System.out.println(x);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	        	result = new Object();

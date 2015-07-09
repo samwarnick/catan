@@ -6,9 +6,19 @@ package shared.communication.input.move;
  * 
  */
 public class PlayMonumentInput extends MoveInput {
+	
+	private String type = "Monument";
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public PlayMonumentInput(int playerIndex) {
-		super("playMonument", playerIndex);
+		super("/Monument", playerIndex);
 	}
 
 }

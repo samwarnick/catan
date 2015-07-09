@@ -9,15 +9,28 @@ import shared.definitions.ResourceType;
  */
 public class PlayMonopolyInput extends MoveInput {
 
-	private ResourceType resource;
+	private String resource = "wool";
+	private String type = "Monopoly";
 
-	public PlayMonopolyInput(int playerIndex, ResourceType resource) {
-		super("playMonopoly", playerIndex);
+	public String getResource() {
+		return resource;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setResource(String resource) {
 		this.resource = resource;
 	}
 
-	public ResourceType getResource() {
-		return resource;
+	public void setType(String type) {
+		this.type = type;
 	}
+
+	public PlayMonopolyInput(int playerIndex, ResourceType resource) {
+		super("/Monopoly", playerIndex);
+	}
+
 	
 }

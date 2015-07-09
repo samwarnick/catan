@@ -8,14 +8,23 @@ package shared.communication.input.move;
 public class RollNumberInput extends MoveInput {
 
 	private int numberRolled;
+	private String type = "rollNumber";
 
 	public RollNumberInput(int playerIndex, int numberRolled) {
-		super("rollNumber", playerIndex);
+		super("/rollNumber", playerIndex);
 		this.numberRolled = numberRolled;
 	}
 
 	public int getNumberRolled() {
 		return numberRolled;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 		
 }

@@ -10,20 +10,37 @@ import shared.model.bank.ResourceHand;
 public class OfferTradeInput extends MoveInput {
 
 	private ResourceHand offer;
-	private int receiverIndex;
+	private int receiver;
+	private String type = "OfferTrade";
 	
-	public OfferTradeInput(int playerIndex, ResourceHand offer, int receiverIndex) {
-		super("offerTrade", playerIndex);
+	public String getType() {
+		return type;
+	}
+
+	public void setOffer(ResourceHand offer) {
 		this.offer = offer;
-		this.receiverIndex = receiverIndex;
+	}
+
+	public void setReceiver(int receiver) {
+		this.receiver = receiver;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public OfferTradeInput(int playerIndex, ResourceHand offer, int receiverIndex) {
+		super("/offerTrade", playerIndex);
+		this.offer = offer;
+		this.receiver = receiverIndex;
 	}
 
 	public ResourceHand getOffer() {
 		return offer;
 	}
 
-	public int getReceiverIndex() {
-		return receiverIndex;
+	public int getReceiver() {
+		return receiver;
 	}
 	
 }

@@ -11,9 +11,18 @@ public class RobPlayerInput extends MoveInput {
 
 	private HexLocation location;
 	private int victimIndex;
+	private String type = "robPlayer";
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public RobPlayerInput(int playerIndex, HexLocation location, int victimIndex) {
-		super("robPlayer", playerIndex);
+		super("/robPlayer", playerIndex);
 		this.location = location;
 		this.victimIndex = victimIndex;
 	}

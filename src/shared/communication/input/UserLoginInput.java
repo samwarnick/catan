@@ -10,21 +10,37 @@ import shared.model.user.*;
  */
 public class UserLoginInput extends Input{
 	
-	private Username username;
-	private Password password;
+	private String username;
+	private String password;
 
-	public UserLoginInput(Username username, Password password) {
+	public UserLoginInput(String username, String password) {
 		super("/user/login");
 		this.username = username;
 		this.password = password;
 	}
 
-	public Username getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public Password getPassword() {
+	public String getPassword() {
 		return password;
 	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+//	public Username getUsername() {
+//		return username;
+//	}
+//
+//	public Password getPassword() {
+//		return password;
+//	}
 	
 }
