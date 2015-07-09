@@ -84,5 +84,57 @@ public class GameModel {
 	public void setBank(Bank bank) {
 		this.bank = bank;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bank == null) ? 0 : bank.hashCode());
+		result = prime * result + ((board == null) ? 0 : board.hashCode());
+		result = prime * result + gameID;
+		result = prime * result + gameVersion;
+		result = prime * result + ((players == null) ? 0 : players.hashCode());
+		result = prime * result
+				+ ((turnTracker == null) ? 0 : turnTracker.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GameModel other = (GameModel) obj;
+		if (bank == null) {
+			if (other.bank != null)
+				return false;
+		} else if (!bank.equals(other.bank))
+			return false;
+		if (board == null) {
+			if (other.board != null)
+				return false;
+		} else if (!board.equals(other.board))
+			return false;
+		if (gameID != other.gameID)
+			return false;
+		if (gameVersion != other.gameVersion)
+			return false;
+		if (players == null) {
+			if (other.players != null)
+				return false;
+		} else if (!players.equals(other.players))
+			return false;
+		if (turnTracker == null) {
+			if (other.turnTracker != null)
+				return false;
+		} else if (!turnTracker.equals(other.turnTracker))
+			return false;
+		return true;
+	}
+	
+	
 }
 

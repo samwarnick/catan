@@ -87,7 +87,6 @@ public class MockProxyServer implements IServer {
 	@Override
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return JsonParser.gameModelFromJson(new File("MPS/game/model"));
 	}
 
