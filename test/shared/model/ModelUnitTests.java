@@ -16,6 +16,7 @@ public class ModelUnitTests {
 				"shared.model.bank.BankTest",
 				"shared.model.bank.PlayerBankTest",
 				"test.client.ClientCommunicatorTest",
+				"test.client.PollerTest",
 				"test.client.MoveTest",
 				"test.client.GameTests",
 				"test.client.GamesTest",
