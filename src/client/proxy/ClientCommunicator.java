@@ -69,11 +69,10 @@ public class ClientCommunicator {
 	        conn.setDoOutput(true);
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
-	        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(toPost));
 	        mapper.writeValue(conn.getOutputStream(), toPost);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	if (printResponse(conn).equals("Success")) {
+	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body
 	        		return null;
 	        	}
 	        	else {
@@ -81,7 +80,7 @@ public class ClientCommunicator {
 	        	}
 	        }
 	        else{
-	        	throw new ServerException(String.format(url.toString(),
+	        	throw new ServerException(String.format("%s, %s, %s", url.toString(),
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {

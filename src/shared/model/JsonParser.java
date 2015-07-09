@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import shared.definitions.*;
 import shared.locations.EdgeDirection;
@@ -23,6 +24,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonParser {
 
 	public static JsonNode nodeFromFile(File file) {
+		
+		System.out.println("fromFile");
+		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readTree(file);
@@ -65,7 +69,10 @@ public class JsonParser {
 	}
 	
 	public static GameModel gameModelFromJson(JsonNode rootNode) {
+		System.out.println("model");
 		GameModel gameModel = new GameModel(0);
+		
+		System.out.println("root: " + rootNode.size());
 		
 		// board
 		Board board = parseBoard(rootNode.path("map"));
@@ -94,6 +101,9 @@ public class JsonParser {
 	
 	private static Bank parseBank(JsonNode deckNode, JsonNode bankNode) {
 		Bank bank = new Bank();
+		
+		System.out.println("bank: " + bankNode.size());
+		System.out.println("deck: " + deckNode.size());
 		
 		int brick = bankNode.path("brick").intValue();
 		int wood = bankNode.path("wood").intValue();
@@ -137,6 +147,9 @@ public class JsonParser {
 	}
 	
 	private static Board parseBoard(JsonNode mapNode) {
+		
+		System.out.println("map: " + mapNode.size());
+		
 		Board board = new Board();
 		List<ResourceHex> resourceHexes = parseHexes(mapNode.path("hexes"));
 		List<Road> roads = parseRoads(mapNode.path("roads"));
@@ -155,6 +168,9 @@ public class JsonParser {
 	}
 	
 	private static List<ResourceHex> parseHexes(JsonNode hexesNode) {
+		
+		System.out.println("hexes: " + hexesNode.size());
+		
 		List<ResourceHex> resourceHexes = new ArrayList<ResourceHex>();
 		
 		if (!hexesNode.isMissingNode()) {
@@ -181,6 +197,9 @@ public class JsonParser {
 	}
 	
 	private static List<Road> parseRoads(JsonNode roadsNode) {
+		
+		System.out.println("raods: " + roadsNode.size());
+		
 		List<Road> roads = new ArrayList<Road>();
 		
 		if (!roadsNode.isMissingNode()) {
@@ -202,6 +221,8 @@ public class JsonParser {
 	}
 	
 	private static List<Vertex> parseCities(JsonNode citiesNode) {
+		
+		System.out.println("cities: " + citiesNode.size());
 		List<Vertex> buildings = new ArrayList<Vertex>();
 		
 		if (!citiesNode.isMissingNode()) {
@@ -225,6 +246,8 @@ public class JsonParser {
 	private static List<Vertex> parseSettlements(JsonNode settlementsNode) {
 		List<Vertex> buildings = new ArrayList<Vertex>();
 		
+		System.out.println("settlements: " + settlementsNode.size());
+		
 		if (!settlementsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = settlementsNode.elements();
 			while (iter.hasNext()) {
@@ -244,6 +267,9 @@ public class JsonParser {
 	}
 	
 	private static List<PortHex> parsePorts(JsonNode portsNode) {
+		
+		System.out.println("ports: " + portsNode.size());
+		
 		List<PortHex> ports = new ArrayList<PortHex>();
 		
 		if (!portsNode.isMissingNode()) {
@@ -274,6 +300,9 @@ public class JsonParser {
 	}
 	
 	private static List<Player> parsePlayers(JsonNode playersNode) {
+		
+		System.out.println("players: " + playersNode.size());
+		
 		List<Player> players = new ArrayList<Player>();
 		
 		if (playersNode != null) {
@@ -288,37 +317,36 @@ public class JsonParser {
 	}
 	
 	private static Player parsePlayer(JsonNode playerNode) {
+		
+		System.out.println("player: " + playerNode.size());
+		
 		if (!playerNode.isMissingNode()) {
-			Iterator<JsonNode> iter = playerNode.elements();
-			while (iter.hasNext()) {
-				JsonNode temp = iter.next();
-				PlayerBank playerBank = parsePlayerBank(temp.path("resources"), 
-						temp.path("oldDevCards"), 
-						temp.path("newDevCards"));
-				int roads = temp.path("roads").intValue();
-				int cities = temp.path("cities").intValue();
-				int settlements = temp.path("settlements").intValue();
-				int soliders = temp.path("soldiers").intValue();
-				int victoryPoints = temp.path("victoryPoints").intValue();
-				int monuments = temp.path("monuments").intValue();
-				boolean playedDevCard = temp.path("playedDevCard").booleanValue();
-				boolean discared = temp.path("discared").booleanValue();
-				// int playerID = temp.path("playerID").intValue();
-				int playerIndex = temp.path("playerIndex").intValue();
-				String name = temp.path("name").textValue();
-				String color = temp.path("color").textValue();
-				
-				Player player = new Player(getColor(color), name, playerIndex);
-				player.setPlayerBank(playerBank);
-				player.setRoads(new Roads(roads));
-				player.setCities(new Cities(cities));
-				player.setSettlements(new Settlements(settlements));
-				player.setLargestArmy(new LargestArmy(soliders));
-				player.setLongestRoad(new LongestRoad(15-roads));
-				player.setVictoryPoints(new VictoryPoints(monuments+victoryPoints, victoryPoints));
-				player.setHasPlayedCard(playedDevCard);
-				player.setHasDiscared(discared);
-			}
+			PlayerBank playerBank = parsePlayerBank(playerNode.path("resources"), 
+					playerNode.path("oldDevCards"), 
+					playerNode.path("newDevCards"));
+			int roads = playerNode.path("roads").intValue();
+			int cities = playerNode.path("cities").intValue();
+			int settlements = playerNode.path("settlements").intValue();
+			int soliders = playerNode.path("soldiers").intValue();
+			int victoryPoints = playerNode.path("victoryPoints").intValue();
+			int monuments = playerNode.path("monuments").intValue();
+			boolean playedDevCard = playerNode.path("playedDevCard").booleanValue();
+			boolean discared = playerNode.path("discared").booleanValue();
+			// int playerID = playerNode.path("playerID").intValue();
+			int playerIndex = playerNode.path("playerIndex").intValue();
+			String name = playerNode.path("name").textValue();
+			String color = playerNode.path("color").textValue();
+			
+			Player player = new Player(getColor(color), name, playerIndex);
+			player.setPlayerBank(playerBank);
+			player.setRoads(new Roads(roads));
+			player.setCities(new Cities(cities));
+			player.setSettlements(new Settlements(settlements));
+			player.setLargestArmy(new LargestArmy(soliders));
+			player.setLongestRoad(new LongestRoad(15-roads));
+			player.setVictoryPoints(new VictoryPoints(monuments+victoryPoints, victoryPoints));
+			player.setHasPlayedCard(playedDevCard);
+			player.setHasDiscared(discared);
 		}
 		return null;
 	}

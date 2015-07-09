@@ -2,14 +2,22 @@ package test.client;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import server.ServerException;
+import shared.communication.input.GameModelVersionInput;
 import shared.communication.input.GamesCreateInput;
+import shared.communication.input.GamesJoinInput;
 import shared.communication.input.Input;
 import shared.communication.input.UserLoginInput;
 import shared.communication.input.UserRegisterInput;
 import shared.model.GameModel;
+import shared.model.JsonParser;
+import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
 import client.proxy.ClientCommunicator;
@@ -42,7 +50,7 @@ public class ClientCommunicatorTest {
 			//ping server to see if game was created
 			
 			GameModel game2 = new GameModel(0);
-			assertEquals(game, game2);
+			assertEquals(game2, game);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
