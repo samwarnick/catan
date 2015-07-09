@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonParser {
 
 	public static JsonNode nodeFromFile(File file) {
-				
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readTree(file);
@@ -94,13 +93,11 @@ public class JsonParser {
 		List<Player> players = parsePlayers(rootNode.path("players"));
 		// turn tracker
 		TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
-		
 		// go through players and find longest and largest
 		// winner
 		// int winner = rootNode.path("winner").intValue();
 		// version
 		int version = rootNode.path("version").intValue();
-		
 		// set up board
 		gameModel.setBoard(board);
 		gameModel.setBank(bank);

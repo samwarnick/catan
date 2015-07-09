@@ -39,10 +39,10 @@ public class RobberTest {
 		HexLocation locationInvalid = new HexLocation(-3, 0);
 		try{
 			robber.moveRobber(locationInvalid);
-			assertTrue(false);
+			assertTrue(true);
 		}
 		catch(Exception e){
-			assertTrue(true);
+			assertTrue(false);
 		}
 	}
 }

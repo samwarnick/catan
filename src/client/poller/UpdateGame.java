@@ -23,7 +23,6 @@ public class UpdateGame extends TimerTask{
 	public void run() {
 		GameModel serverModel = null;
 		try {
-			
 			serverModel = server.getGameModelVersion(new GameModelVersionInput(controller.getGameModelFacade().getGameModel().getGameVersion()));
 		} catch (ServerException e) {
 			e.printStackTrace();

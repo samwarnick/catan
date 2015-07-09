@@ -26,8 +26,8 @@ public class Controller {
 	
 	public Controller(int gameID, IServer server){
 		gameModelFacade = new GameModelFacade(gameID);
-		poller = new Poller(this);
 		proxyServer = server;
+		poller = new Poller(this);
 	}
 	
 	public void startGame(List<Player> players, boolean randomHexes, boolean randomNumbers, boolean randomPorts){

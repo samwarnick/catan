@@ -83,8 +83,9 @@ public class MockProxyServer implements IServer {
 	@Override
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
-		JsonNode root = JsonParser.nodeFromFile(new File("MPS/game/model.txt"));
-		return JsonParser.gameModelFromJson(root);
+		JsonNode root = JsonParser.nodeFromFile(new File("model.json"));
+		GameModel model = JsonParser.gameModelFromJson(root);
+		return model;
 	}
 
 	@Override
