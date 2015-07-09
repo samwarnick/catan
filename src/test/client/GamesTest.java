@@ -29,9 +29,8 @@ public class GamesTest {
 		ps = new ProxyServer(cc);
 		try {
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
-			ps.joinGame(new GamesJoinInput(0,Color.RED));
+		//	ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			e.printStackTrace();
 			assert(false);
 		}
 	}

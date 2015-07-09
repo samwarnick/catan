@@ -174,17 +174,6 @@ public class MoveTest {
 		}
 	}
 
-	
-//	@Test
-//	public void testRollNumber() {
-//		try {
-//			ps.rollNumber(new RollNumberInput(2,2));
-//		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			assert(false);
-//		}
-//	}
 
 	
 	@Test
