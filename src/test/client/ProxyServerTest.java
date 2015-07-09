@@ -56,13 +56,19 @@ public class ProxyServerTest {
 	
 	private static ProxyServer ps;
 	private static ClientCommunicator cc;
-	Username user = new Username("Sam");
-	Password pass = new Password("sam");
+	static Username user = new Username("Sam");
+	static Password pass = new Password("sam");
 	
 	@BeforeClass
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
+		try {
+			ps.loginUser(new UserLoginInput(user, pass));
+		} catch (ServerException e) {
+			e.printStackTrace();
+			assert(false);
+		}
 	}
 	
 	
@@ -85,16 +91,16 @@ public class ProxyServerTest {
 	
 	
 	
-	@Test
-	public void testLoginUser(){
-		try {
-			ps.loginUser(new UserLoginInput(user, pass));
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			assert(false);
-		}
-		
-	}
+//	@Test
+//	public void testLoginUser(){
+//		try {
+//			ps.loginUser(new UserLoginInput(user, pass));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			assert(false);
+//		}
+//		
+//	}
 
 	
 	
