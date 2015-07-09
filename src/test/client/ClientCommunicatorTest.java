@@ -2,24 +2,12 @@ package test.client;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import server.ServerException;
-import shared.communication.input.GameModelVersionInput;
 import shared.communication.input.GamesCreateInput;
-import shared.communication.input.GamesJoinInput;
-import shared.communication.input.Input;
 import shared.communication.input.UserLoginInput;
-import shared.communication.input.UserRegisterInput;
-import shared.model.GameModel;
-import shared.model.JsonParser;
-import shared.model.player.Color;
-import shared.model.user.Password;
-import shared.model.user.Username;
+import shared.model.Game;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
@@ -46,13 +34,12 @@ public class ClientCommunicatorTest {
 		ProxyServer proxy = new ProxyServer(cc);
 		GamesCreateInput input = new GamesCreateInput("game1", false, false, false);
 		try {
-			GameModel game = proxy.createGame(input);
+			Game game = proxy.createGame(input);
 			//ping server to see if game was created
-			
-			GameModel game2 = new GameModel(0);
+			Game game2 = new Game(game.getGameID(), "game1", game.getPlayers());
 			assertEquals(game2, game);
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
+			assertFalse(true);
 			e.printStackTrace();
 		}
 	

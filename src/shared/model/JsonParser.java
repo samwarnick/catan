@@ -24,9 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonParser {
 
 	public static JsonNode nodeFromFile(File file) {
-		
-		System.out.println("fromFile");
-		
+				
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readTree(file);
@@ -39,7 +37,7 @@ public class JsonParser {
 	}
 	
 	public static List<Game> gamesFromJson(JsonNode rootNode){
-
+		
 		List<Game> games = new ArrayList<Game>();
 		JsonNode gamesNode = rootNode.path("game");
 		ArrayList<DisplayPlayer> players = new ArrayList<DisplayPlayer>();
@@ -65,15 +63,29 @@ public class JsonParser {
 				games.add(tempGame);
 			}
 		}
+		else {
+			String title = rootNode.path("title").textValue();
+			int id = rootNode.path("id").intValue();
+			JsonNode playersNode = rootNode.path("player");
+			Iterator<JsonNode> iter2 = playersNode.elements();
+			
+			while (iter2.hasNext()) {
+				JsonNode temp2 = iter2.next();
+				String color = temp2.path("color").textValue();
+				String name = temp2.path("name").textValue();
+				int playerid = temp2.path("id").intValue();
+				DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
+				players.add(tempPlayer);
+			}
+			Game tempGame = new Game(id, title, players);
+			players.clear();
+			games.add(tempGame);
+		}
 		return games;
 	}
 	
 	public static GameModel gameModelFromJson(JsonNode rootNode) {
-		System.out.println("model");
-		GameModel gameModel = new GameModel(0);
-		
-		System.out.println("root: " + rootNode.size());
-		
+		GameModel gameModel = new GameModel(0);		
 		// board
 		Board board = parseBoard(rootNode.path("map"));
 		// bank
@@ -101,10 +113,7 @@ public class JsonParser {
 	
 	private static Bank parseBank(JsonNode deckNode, JsonNode bankNode) {
 		Bank bank = new Bank();
-		
-		System.out.println("bank: " + bankNode.size());
-		System.out.println("deck: " + deckNode.size());
-		
+				
 		int brick = bankNode.path("brick").intValue();
 		int wood = bankNode.path("wood").intValue();
 		int sheep = bankNode.path("sheep").intValue();
@@ -147,9 +156,7 @@ public class JsonParser {
 	}
 	
 	private static Board parseBoard(JsonNode mapNode) {
-		
-		System.out.println("map: " + mapNode.size());
-		
+				
 		Board board = new Board();
 		List<ResourceHex> resourceHexes = parseHexes(mapNode.path("hexes"));
 		List<Road> roads = parseRoads(mapNode.path("roads"));
@@ -168,9 +175,7 @@ public class JsonParser {
 	}
 	
 	private static List<ResourceHex> parseHexes(JsonNode hexesNode) {
-		
-		System.out.println("hexes: " + hexesNode.size());
-		
+				
 		List<ResourceHex> resourceHexes = new ArrayList<ResourceHex>();
 		
 		if (!hexesNode.isMissingNode()) {
@@ -197,9 +202,7 @@ public class JsonParser {
 	}
 	
 	private static List<Road> parseRoads(JsonNode roadsNode) {
-		
-		System.out.println("raods: " + roadsNode.size());
-		
+				
 		List<Road> roads = new ArrayList<Road>();
 		
 		if (!roadsNode.isMissingNode()) {
@@ -222,7 +225,6 @@ public class JsonParser {
 	
 	private static List<Vertex> parseCities(JsonNode citiesNode) {
 		
-		System.out.println("cities: " + citiesNode.size());
 		List<Vertex> buildings = new ArrayList<Vertex>();
 		
 		if (!citiesNode.isMissingNode()) {
@@ -245,9 +247,7 @@ public class JsonParser {
 	
 	private static List<Vertex> parseSettlements(JsonNode settlementsNode) {
 		List<Vertex> buildings = new ArrayList<Vertex>();
-		
-		System.out.println("settlements: " + settlementsNode.size());
-		
+				
 		if (!settlementsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = settlementsNode.elements();
 			while (iter.hasNext()) {
@@ -267,9 +267,7 @@ public class JsonParser {
 	}
 	
 	private static List<PortHex> parsePorts(JsonNode portsNode) {
-		
-		System.out.println("ports: " + portsNode.size());
-		
+				
 		List<PortHex> ports = new ArrayList<PortHex>();
 		
 		if (!portsNode.isMissingNode()) {
@@ -300,9 +298,7 @@ public class JsonParser {
 	}
 	
 	private static List<Player> parsePlayers(JsonNode playersNode) {
-		
-		System.out.println("players: " + playersNode.size());
-		
+				
 		List<Player> players = new ArrayList<Player>();
 		
 		if (playersNode != null) {
@@ -317,9 +313,7 @@ public class JsonParser {
 	}
 	
 	private static Player parsePlayer(JsonNode playerNode) {
-		
-		System.out.println("player: " + playerNode.size());
-		
+				
 		if (!playerNode.isMissingNode()) {
 			PlayerBank playerBank = parsePlayerBank(playerNode.path("resources"), 
 					playerNode.path("oldDevCards"), 

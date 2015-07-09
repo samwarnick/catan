@@ -87,21 +87,4 @@ public class ClientCommunicator {
 			throw new ServerException(e.getMessage());
 		}
 	}
-
-	
-	private String printResponse(HttpURLConnection conn) {
-		try {
-			StringBuilder sb = new StringBuilder();
-	    	BufferedReader reader;
-			reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line;
-	    	while ((line = reader.readLine()) != null) {
-	    		sb.append(line);
-	    	}
-	    	return sb.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
