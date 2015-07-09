@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import server.*;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
+import shared.model.Game;
 import shared.model.GameModel;
 import shared.model.JsonParser;
 
@@ -32,17 +33,17 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public List<GameModel> listGames(GamesListInput input)
+	public List<Game> listGames(GamesListInput input)
 			throws ServerException {
-		@SuppressWarnings("unchecked")
-		// TODO
-		JsonNode toReturn = clientCommunicator.post(input);
-		return null;
+		
+		return JsonParser.gamesFromJson(clientCommunicator.post(input));
+		 
 	}
 
 	@Override
-	public GameModel createGame(GamesCreateInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input));
+	public Game createGame(GamesCreateInput input) throws ServerException {
+		List<Game> games = JsonParser.gamesFromJson(clientCommunicator.post(input));
+		return games.get(0);
 	}
 
 	@Override

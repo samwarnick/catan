@@ -34,6 +34,36 @@ public class JsonParser {
 		return null;
 	}
 	
+	public static List<Game> gamesFromJson(JsonNode rootNode){
+
+		List<Game> games = new ArrayList<Game>();
+		JsonNode gamesNode = rootNode.path("game");
+		ArrayList<DisplayPlayer> players = new ArrayList<DisplayPlayer>();
+		if (!gamesNode.isMissingNode()) {
+			Iterator<JsonNode> iter = gamesNode.elements();
+			while (iter.hasNext()) {
+				JsonNode temp = iter.next();
+				String title = temp.path("title").textValue();
+				int id = temp.path("id").intValue();
+				JsonNode playersNode = temp.path("player");
+				Iterator<JsonNode> iter2 = playersNode.elements();
+				
+				while (iter2.hasNext()) {
+					JsonNode temp2 = iter2.next();
+					String color = temp2.path("color").textValue();
+					String name = temp2.path("name").textValue();
+					int playerid = temp2.path("id").intValue();
+					DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
+					players.add(tempPlayer);
+				}
+				Game tempGame = new Game(id, title, players);
+				players.clear();
+				games.add(tempGame);
+			}
+		}
+		return games;
+	}
+	
 	public static GameModel gameModelFromJson(JsonNode rootNode) {
 		GameModel gameModel = new GameModel(0);
 		

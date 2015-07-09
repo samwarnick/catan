@@ -36,6 +36,7 @@ import shared.communication.input.move.PlayYearOfPlentyInput;
 import shared.communication.input.move.RobPlayerInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.communication.input.move.SendChatInput;
+import shared.model.Game;
 import shared.model.GameModel;
 import shared.model.JsonParser;
 
@@ -54,13 +55,13 @@ public class MockProxyServer implements IServer {
 	}
 
 	@Override
-	public List<GameModel> listGames(GamesListInput input)
+	public List<Game> listGames(GamesListInput input)
 			throws ServerException {
 		return null;
 	}
 
 	@Override
-	public GameModel createGame(GamesCreateInput input) throws ServerException {
+	public Game createGame(GamesCreateInput input) throws ServerException {
 		return null;
 	}
 
