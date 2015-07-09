@@ -65,8 +65,6 @@ public class ClientCommunicator {
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(conn.getOutputStream(), toPost);
-	        String x = mapper.writeValueAsString(toPost);
-	        System.out.println(x);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body

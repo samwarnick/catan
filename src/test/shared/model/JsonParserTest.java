@@ -15,6 +15,7 @@ import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.model.GameModel;
+import shared.model.JsonParser;
 import shared.model.TurnTracker;
 import shared.model.bank.Bank;
 import shared.model.bank.DevelopmentCard;
@@ -48,9 +49,9 @@ public class JsonParserTest {
 	@Test
 	public void testGameModelFromJson() {
 		//give it a file, them make sure the model it sends back is correct.
-		File file = new File("fileName");
-		JsonNode rootNode = JsonParcer.nodeFromFile(file);
-		GameModel game = JsonParcer.gameModelFromJson(rootNode);
+		File file = new File("JsonExampleFile.txt");
+		JsonNode rootNode = JsonParser.nodeFromFile(file);
+		GameModel game = JsonParser.gameModelFromJson(rootNode);
 		//version
 		assertEquals(game.getGameVersion(), 0);
 		//board
@@ -58,6 +59,7 @@ public class JsonParserTest {
 		testBoard(board);
 		//players
 		List<Player> players = game.getPlayers();
+		assertEquals(4, players.size());
 		testPlayer(players);	
 		//turnTracker
 		TurnTracker turnTracker = game.getTurnTracker();
@@ -151,42 +153,42 @@ public class JsonParserTest {
 	private void testBuildings(List<Vertex> buildings)
 	{
 		int i = 0;
-		assertEquals(buildings.get(i).getOwner(), 3);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 3);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthWest);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), -1);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), 1);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 3);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 3);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthEast);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), 1);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), -2);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 2);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 2);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthWest);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), 0);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), 0);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 2);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 2);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthWest);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), 1);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), -1);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 1);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 1);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthWest);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), -2);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), 1);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 0);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 0);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthEast);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), 0);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), 1);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 1);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 1);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthWest);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), -1);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), -1);
 		i++;
-		assertEquals(buildings.get(i).getOwner(), 0);
+		assertEquals(buildings.get(i).getOwner().getPlayerid(), 0);
 		assertEquals(buildings.get(i).getLocation().getDir(), VertexDirection.SouthWest);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getX(), 2);
 		assertEquals(buildings.get(i).getLocation().getHexLoc().getY(), 0);
@@ -197,42 +199,42 @@ public class JsonParserTest {
 	private void testRoads(List<Road> roads)
 	{
 		int i = 0;
-		assertEquals(roads.get(i).getOwner(), 1);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 1);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.South);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), -1);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), -1);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 3);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 3);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.SouthWest);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), -1);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), 1);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 3);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 3);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.SouthWest);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), 2);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), -2);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 2);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 2);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.South);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), 1);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), -1);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 0);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 0);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.South);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), 0);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), 1);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 2);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 2);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.South);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), 0);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), 0);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 1);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 1);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.SouthWest);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), -2);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), 1);
 		i++;
-		assertEquals(roads.get(i).getOwner(), 0);
+		assertEquals(roads.get(i).getOwner().getPlayerid(), 0);
 		assertEquals(roads.get(i).getLocation().getDir(), EdgeDirection.SouthWest);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getX(), 2);
 		assertEquals(roads.get(i).getLocation().getHexLoc().getY(), 0);
@@ -338,6 +340,8 @@ public class JsonParserTest {
 	
 	private void testPlayer(List<Player> player)
 	{
+		assertEquals(4, player.size());
+		PlayerBank bank = player.get(0).getPlayerBank();
 		//playerBank
 		List<PlayerBank> playerbanks = new ArrayList<PlayerBank>();
 		playerbanks.add(player.get(0).getPlayerBank());
@@ -349,7 +353,7 @@ public class JsonParserTest {
 		for(int i = 0; i < 4; i++)
 		{
 			LongestRoad longestRoad = player.get(i).getLongestRoad();
-			assertEquals(longestRoad.getNumRoads(), 0);
+			assertEquals(longestRoad.getNumRoads(), 2);
 			assertFalse(longestRoad.isHasLongestRoad());
 		}		
 		//LargestArmy
@@ -408,7 +412,7 @@ public class JsonParserTest {
 		//playerID
 		for(int i = 0; i < 4; i++)
 		{
-			assertEquals(player.get(i).getPlayerID(), i);
+			assertEquals(player.get(i).getPlayerID().getPlayerid(), i);
 		}		
 		//hasPlayedCard
 		for(int i = 0; i < 4; i++)
@@ -426,19 +430,19 @@ public class JsonParserTest {
 	{
 		//brick
 		ResourceCard brick = bank.getBrick();
-		assertEquals(brick.getQuantity(), 23);
+		assertEquals(brick.getQuantity(), 19);
 		//wood
 		ResourceCard wood = bank.getWood();
-		assertEquals(wood.getQuantity(), 21);
+		assertEquals(wood.getQuantity(), 19);
 		//sheep
 		ResourceCard sheep = bank.getSheep();
-		assertEquals(sheep.getQuantity(), 20);
+		assertEquals(sheep.getQuantity(), 19);
 		//wheat
 		ResourceCard wheat = bank.getWheat();
-		assertEquals(wheat.getQuantity(), 22);
+		assertEquals(wheat.getQuantity(), 19);
 		//ore
 		ResourceCard ore = bank.getOre();
-		assertEquals(ore.getQuantity(), 22);
+		assertEquals(ore.getQuantity(), 19);
 		//solider
 		DevelopmentCard soldier = bank.getSoldier();
 		assertEquals(soldier.getQuantity(), 14);

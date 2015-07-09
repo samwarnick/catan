@@ -62,12 +62,12 @@ public class ProxyServerTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
-		try {
-			ps.loginUser(new UserLoginInput("Sam", "sam"));
-		} catch (ServerException e) {
-			e.printStackTrace();
-			assert(false);
-		}
+//		try {
+//			ps.loginUser(new UserLoginInput("Sam", "sam"));
+//		} catch (ServerException e) {
+//			e.printStackTrace();
+//			assert(false);
+//		}
 	}
 	
 	
@@ -88,16 +88,16 @@ public class ProxyServerTest {
 	
 	
 	
-	@Test
-	public void testLoginUser(){
-		try {
-			ps.loginUser(new UserLoginInput("Sam", "sam"));
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			assert(false);
-		}
-		
-	}
+//	@Test
+//	public void testLoginUser(){
+//		try {
+//			ps.loginUser(new UserLoginInput("Sam", "sam"));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			assert(false);
+//		}
+//		
+//	}
 
 	
 	
@@ -245,16 +245,16 @@ public class ProxyServerTest {
 	}
 
 	
-	@Test
-	public void testRollNumber() {
-		try {
-			ps.rollNumber(new RollNumberInput(2,2));
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			assert(false);
-		}
-	}
+//	@Test
+//	public void testRollNumber() {
+//		try {
+//			ps.rollNumber(new RollNumberInput(2,2));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			assert(false);
+//		}
+//	}
 
 	
 	@Test

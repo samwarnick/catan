@@ -15,7 +15,14 @@ public class ModelUnitTests {
 				"shared.model.player.VictoryPointsTest",
 				"shared.model.bank.BankTest",
 				"shared.model.bank.PlayerBankTest",
-				"test.client.ClientCommunicatorTest"
+				"test.client.ClientCommunicatorTest",
+				"test.client.ProxyServerTest",
+				"test.shared.model.BoardFacadeTest",
+				"test.shared.model.BoardTest",
+				"test.shared.model.GameModelFacadeTests",
+				"test.shared.model.JsonParserTest",
+				"test.shared.model.RobberTest",
+				"test.shared.model.TradeRatioTest"
 		};
 
 		org.junit.runner.JUnitCore.main(testClasses);
