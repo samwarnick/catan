@@ -32,7 +32,7 @@ public class BoardFacadeTest {
 	public void setUp()
 	{
 		board = new Board(false,false,false);
-		board.setBoardFacade(new BoardFacade());
+		board.setBoardFacade(new BoardFacade(board));
 	}
 
 	//if it's connected to one of the players pieces and no one else has built on that edge location

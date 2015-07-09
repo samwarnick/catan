@@ -93,9 +93,13 @@ public class HexLocation
 	}
 	
 	public boolean isAdjacent(HexLocation loc) {
-		return !this.equals(loc)
-				&& Math.abs(this.x - loc.x) <= 1
-				&& Math.abs(this.y - loc.y) <= 1;
+		if(this.equals(loc)) return false;
+		if(Math.abs(this.x - loc.x) <= 1 && this.y - loc.y == 0) return true;
+		if(Math.abs(this.y - loc.y) <= 1 && this.x - loc.x == 0) return true;
+		if(this.x - loc.x == 1 && this.y - loc.y == -1) return true;
+		if(this.x - loc.x == -1 && this.y - loc.y == 1) return true;
+		
+		return false;
 	}
 	
 	/**
