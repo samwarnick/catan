@@ -17,7 +17,6 @@ import shared.model.player.Color;
 import client.controller.Controller;
 import client.poller.Poller;
 import client.poller.UpdateGame;
-import client.proxy.MockProxyServer;
 import client.proxy.ProxyServer;
 
 public class PollerTest {
@@ -27,36 +26,24 @@ public class PollerTest {
 	
 	@Test
 	public void testPost() {
-		controller = new Controller(0,new MockProxyServer());
-		proxy = controller.getProxyServer();
-		GamesCreateInput createGame = new GamesCreateInput("game1", false, false, false);
-		GamesJoinInput joinGame = new GamesJoinInput(0, Color.BLUE);
-		try {
-			proxy.createGame(createGame);
-			proxy.joinGame(joinGame);
-		} catch (ServerException e) {
-			assertTrue(false);
-		}
-
+		controller = new Controller(0);
+		GameModel game = new GameModel(3);//version3
+		controller.getGameModelFacade().setGameModel(game);
 		Timer timer = new Timer();
 		timer.schedule(checkChange(), 2001);
-		//change game via proxyServer
-		//wait 60000
+		//change gameModel
+		//wait 2 seconds
 		//check if the change happened here too
 	}
 	
 	private TimerTask checkChange()
 	{
-		GamesLoadInput loadGame = new GamesLoadInput("game1");
-		try {
-			GameModel game = proxy.loadGame(loadGame); // GameModel game = controller.getGameModelFacade().getGameModel();
-			assertEquals(game.getPlayers().get(0).getColor(), CatanColor.BLUE);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GameModel game = controller.getGameModelFacade().getGameModel();
+		assertEquals(game.getGameVersion(), 4);//replace with whatever is specified in proxy;
+
 		return null;
 		
 	}
 
 }
+

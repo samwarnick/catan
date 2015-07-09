@@ -358,6 +358,55 @@ public class Bank {
 			return false;
 		return true;
 	}
+
+	public ResourceCard getBrick() {
+		return brick;
+	}
+
+	public ResourceCard getWood() {
+		// TODO Auto-generated method stub
+		return wood;
+	}
+
+	public ResourceCard getSheep() {
+		// TODO Auto-generated method stub
+		return sheep;
+	}
+
+	public ResourceCard getWheat() {
+		// TODO Auto-generated method stub
+		return wheat;
+	}
+
+	public ResourceCard getOre() {
+		// TODO Auto-generated method stub
+		return ore;
+	}
+
+	public DevelopmentCard getSoldier() {
+		// TODO Auto-generated method stub
+		return soldier;
+	}
+
+	public DevelopmentCard getYearOfPlenty() {
+		// TODO Auto-generated method stub
+		return yearOfPlenty;
+	}
+
+	public DevelopmentCard getRoadBuild() {
+		// TODO Auto-generated method stub
+		return roadBuild;
+	}
+
+	public DevelopmentCard getMonopoly() {
+		// TODO Auto-generated method stub
+		return monopoly;
+	}
+
+	public DevelopmentCard getMonument() {
+		// TODO Auto-generated method stub
+		return monument;
+	}
 	
 	
 }

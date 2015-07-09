@@ -174,4 +174,9 @@ public class Player {
 	public void setHasDiscared(boolean hasDiscared) {
 		this.hasDiscared = hasDiscared;
 	}
+
+
+	public boolean getHasDiscarded() {
+		return hasDiscared;
+	}
 }
