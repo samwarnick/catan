@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.junit.Test;
 
+import server.IServer;
 import server.ServerException;
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesJoinInput;
@@ -22,7 +23,7 @@ import client.proxy.ProxyServer;
 
 public class PollerTest {
 	boolean changed = false;
-	ProxyServer proxy;
+	IServer proxy;
 	Controller controller;
 	
 	@Test

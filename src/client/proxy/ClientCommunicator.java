@@ -1,17 +1,8 @@
 package client.proxy;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-<<<<<<< HEAD
-import java.io.InputStreamReader;
-=======
-import java.io.Writer;
->>>>>>> implement_MOCK
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

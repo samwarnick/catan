@@ -62,12 +62,12 @@ public class ProxyServerTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
-//		try {
-//			ps.loginUser(new UserLoginInput(user, pass));
-//		} catch (ServerException e) {
-//			e.printStackTrace();
-//			assert(false);
-//		}
+		try {
+			ps.loginUser(new UserLoginInput("Sam", "sam"));
+		} catch (ServerException e) {
+			e.printStackTrace();
+			assert(false);
+		}
 	}
 	
 	
