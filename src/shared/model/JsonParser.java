@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import shared.definitions.*;
 import shared.locations.EdgeDirection;
@@ -15,7 +16,6 @@ import shared.locations.VertexLocation;
 import shared.model.bank.*;
 import shared.model.board.*;
 import shared.model.player.*;
-import shared.model.ratios.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,39 +23,140 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonParser {
 
-	public static GameModel gameModelFromJson(File file) {
-		GameModel gameModel = new GameModel(0);
+	public static JsonNode nodeFromFile(File file) {
+				
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			JsonNode rootNode = mapper.readTree(new File("model.json"));
-			
-			Board board = parseBoard(rootNode.path("map"));
-			Bank bank = parseBank(rootNode.path("deck"), rootNode.path("bank"));
-			// players
-			List<Player> players = parsePlayers(rootNode.path("players"));
-			// log
-			// chat
-			// turn tracker
-			// winner
-			// version
-			gameModel.setBoard(board);
-			gameModel.setBank(bank);
-			
+			return mapper.readTree(file);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public static List<Game> gamesFromJson(JsonNode rootNode){
+		
+		List<Game> games = new ArrayList<Game>();
+		JsonNode gamesNode = rootNode.path("game");
+		ArrayList<DisplayPlayer> players = new ArrayList<DisplayPlayer>();
+		if (!gamesNode.isMissingNode()) {
+			Iterator<JsonNode> iter = gamesNode.elements();
+			while (iter.hasNext()) {
+				JsonNode temp = iter.next();
+				String title = temp.path("title").textValue();
+				int id = temp.path("id").intValue();
+				JsonNode playersNode = temp.path("player");
+				Iterator<JsonNode> iter2 = playersNode.elements();
+				
+				while (iter2.hasNext()) {
+					JsonNode temp2 = iter2.next();
+					String color = temp2.path("color").textValue();
+					String name = temp2.path("name").textValue();
+					int playerid = temp2.path("id").intValue();
+					DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
+					players.add(tempPlayer);
+				}
+				Game tempGame = new Game(id, title, players);
+				players.clear();
+				games.add(tempGame);
+			}
+		}
+		else {
+			String title = rootNode.path("title").textValue();
+			int id = rootNode.path("id").intValue();
+			JsonNode playersNode = rootNode.path("player");
+			Iterator<JsonNode> iter2 = playersNode.elements();
+			
+			while (iter2.hasNext()) {
+				JsonNode temp2 = iter2.next();
+				String color = temp2.path("color").textValue();
+				String name = temp2.path("name").textValue();
+				int playerid = temp2.path("id").intValue();
+				DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
+				players.add(tempPlayer);
+			}
+			Game tempGame = new Game(id, title, players);
+			players.clear();
+			games.add(tempGame);
+		}
+		return games;
+	}
+	
+	public static GameModel gameModelFromJson(JsonNode rootNode) {
+		GameModel gameModel = new GameModel(0);		
+		// board
+		Board board = parseBoard(rootNode.path("map"));
+		// bank
+		Bank bank = parseBank(rootNode.path("deck"), rootNode.path("bank"));
+		// players
+		List<Player> players = parsePlayers(rootNode.path("players"));
+		// turn tracker
+		TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
+		
+		// go through players and find longest and largest
+		// winner
+		// int winner = rootNode.path("winner").intValue();
+		// version
+		int version = rootNode.path("version").intValue();
+		
+		// set up board
+		gameModel.setBoard(board);
+		gameModel.setBank(bank);
+		gameModel.setPlayers(players);
+		gameModel.setTurnTracker(tracker);
+		gameModel.setGameVersion(version);
+			
 		return gameModel;
 	}
 	
 	private static Bank parseBank(JsonNode deckNode, JsonNode bankNode) {
 		Bank bank = new Bank();
+				
+		int brick = bankNode.path("brick").intValue();
+		int wood = bankNode.path("wood").intValue();
+		int sheep = bankNode.path("sheep").intValue();
+		int wheat = bankNode.path("wheat").intValue();
+		int ore = bankNode.path("ore").intValue();
+		
+		if (brick > 19) {
+			brick = 19;
+		}
+		if (wood > 19) {
+			wood = 19;
+		}
+		if (sheep > 19) {
+			sheep = 19;
+		}
+		if (wheat > 19) {
+			wheat = 19;
+		}
+		if (ore > 19) {
+			ore = 19;
+		}
+		
+		int soldier = deckNode.path("soldier").intValue();
+		int monument = deckNode.path("monument").intValue();
+		int monopoly = deckNode.path("monopoly").intValue();
+		int yearOfPlenty = deckNode.path("yearOfPlenty").intValue();
+		int roadBuilding = deckNode.path("roadBuilding").intValue();
+		
+		ResourceHand rh = new ResourceHand(brick, wood, sheep, wheat, ore);
+		DevelopmentHand dh = new DevelopmentHand(soldier, monument, monopoly, yearOfPlenty, roadBuilding);
+		
+		try {
+			bank.setRC(rh);
+			bank.setDC(dh);
+		} catch (BankException e) {
+			e.printStackTrace();
+		}
 		
 		return bank;
 	}
 	
 	private static Board parseBoard(JsonNode mapNode) {
+				
 		Board board = new Board();
 		List<ResourceHex> resourceHexes = parseHexes(mapNode.path("hexes"));
 		List<Road> roads = parseRoads(mapNode.path("roads"));
@@ -64,19 +165,20 @@ public class JsonParser {
 		List<PortHex> ports = parsePorts(mapNode.path("ports"));
 		Robber robber = parseRobber(mapNode.path("robber"));
 		
-		board.setDesertHex(resourceHexes.get(0));
+		//board.setDesertHex(resourceHexes.get(0));
 		board.setResourceHexes(resourceHexes);
 		board.setRoads(roads);
 		board.setBuildings(buildings);
+		board.setPorts(ports);
 		board.setRobber(robber);
-		// TODO: radius?
 		return board;
 	}
 	
 	private static List<ResourceHex> parseHexes(JsonNode hexesNode) {
+				
 		List<ResourceHex> resourceHexes = new ArrayList<ResourceHex>();
 		
-		if (hexesNode != null) {
+		if (!hexesNode.isMissingNode()) {
 			Iterator<JsonNode> iter = hexesNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -100,9 +202,10 @@ public class JsonParser {
 	}
 	
 	private static List<Road> parseRoads(JsonNode roadsNode) {
+				
 		List<Road> roads = new ArrayList<Road>();
 		
-		if (roadsNode != null) {
+		if (!roadsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = roadsNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -121,9 +224,10 @@ public class JsonParser {
 	}
 	
 	private static List<Vertex> parseCities(JsonNode citiesNode) {
+		
 		List<Vertex> buildings = new ArrayList<Vertex>();
 		
-		if (citiesNode != null) {
+		if (!citiesNode.isMissingNode()) {
 			Iterator<JsonNode> iter = citiesNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -143,8 +247,8 @@ public class JsonParser {
 	
 	private static List<Vertex> parseSettlements(JsonNode settlementsNode) {
 		List<Vertex> buildings = new ArrayList<Vertex>();
-		
-		if (settlementsNode != null) {
+				
+		if (!settlementsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = settlementsNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -163,9 +267,10 @@ public class JsonParser {
 	}
 	
 	private static List<PortHex> parsePorts(JsonNode portsNode) {
+				
 		List<PortHex> ports = new ArrayList<PortHex>();
 		
-		if (portsNode != null) {
+		if (!portsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = portsNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -193,6 +298,7 @@ public class JsonParser {
 	}
 	
 	private static List<Player> parsePlayers(JsonNode playersNode) {
+				
 		List<Player> players = new ArrayList<Player>();
 		
 		if (playersNode != null) {
@@ -207,28 +313,34 @@ public class JsonParser {
 	}
 	
 	private static Player parsePlayer(JsonNode playerNode) {
-		if (playerNode != null) {
-			Iterator<JsonNode> iter = playerNode.elements();
-			while (iter.hasNext()) {
-				JsonNode temp = iter.next();
-				PlayerBank playerBank = parsePlayerBank(temp.path("resources"), 
-						temp.path("oldDevCards"), 
-						temp.path("newDevCards"));
-				int roads = temp.path("roads").intValue();
-				int cities = temp.path("cities").intValue();
-				int settlements = temp.path("settlements").intValue();
-				int soliders = temp.path("soldiers").intValue();
-				int victoryPoints = temp.path("victoryPoints").intValue();
-				int monuments = temp.path("monuments").intValue();
-				boolean playedDevCard = temp.path("playedDevCard").booleanValue();
-				boolean discared = temp.path("discared").booleanValue();
-				int playerID = temp.path("playerID").intValue();
-				int playerIndex = temp.path("playerIndex").intValue();
-				String name = temp.path("name").textValue();
-				String color = temp.path("color").textValue();
 				
-				Player player = new Player(getColor(color), name, new PlayerID(playerIndex));
-			}
+		if (!playerNode.isMissingNode()) {
+			PlayerBank playerBank = parsePlayerBank(playerNode.path("resources"), 
+					playerNode.path("oldDevCards"), 
+					playerNode.path("newDevCards"));
+			int roads = playerNode.path("roads").intValue();
+			int cities = playerNode.path("cities").intValue();
+			int settlements = playerNode.path("settlements").intValue();
+			int soliders = playerNode.path("soldiers").intValue();
+			int victoryPoints = playerNode.path("victoryPoints").intValue();
+			int monuments = playerNode.path("monuments").intValue();
+			boolean playedDevCard = playerNode.path("playedDevCard").booleanValue();
+			boolean discared = playerNode.path("discared").booleanValue();
+			// int playerID = playerNode.path("playerID").intValue();
+			int playerIndex = playerNode.path("playerIndex").intValue();
+			String name = playerNode.path("name").textValue();
+			String color = playerNode.path("color").textValue();
+			
+			Player player = new Player(getColor(color), name, playerIndex);
+			player.setPlayerBank(playerBank);
+			player.setRoads(new Roads(roads));
+			player.setCities(new Cities(cities));
+			player.setSettlements(new Settlements(settlements));
+			player.setLargestArmy(new LargestArmy(soliders));
+			player.setLongestRoad(new LongestRoad(15-roads));
+			player.setVictoryPoints(new VictoryPoints(monuments+victoryPoints, victoryPoints));
+			player.setHasPlayedCard(playedDevCard);
+			player.setHasDiscared(discared);
 		}
 		return null;
 	}
@@ -266,6 +378,41 @@ public class JsonParser {
 		}
 		
 		return playerBank;
+	}
+	
+	private static TurnTracker parseTracker(JsonNode trackerNode, List<Player> players) {
+		TurnTracker tracker = new TurnTracker();
+		
+		if (!trackerNode.isMissingNode()) {
+			String status = trackerNode.path("status").textValue();
+			int currentTurn = trackerNode.path("currentTurn").intValue();
+			int longestRoad = trackerNode.path("longestRoad").intValue();
+			int largestArmy = trackerNode.path("largestArmy").intValue();
+			
+			try {
+				tracker.setCurrentTurn(currentTurn);
+			} catch (NoPlayerFoundException e) {
+				e.printStackTrace();
+			}
+			tracker.setStatus(status);
+			
+			if (longestRoad != -1) {
+				for (Player p: players) {
+					if (p.getPlayerID().getPlayerid() == longestRoad) {
+						p.getLongestRoad().setHasLongestRoad(true);
+					}
+				}
+			}
+			if (largestArmy != -1) {
+				for (Player p: players) {
+					if (p.getPlayerID().getPlayerid() == largestArmy) {
+						p.getLargestArmy().setHasLargestArmy(true);
+					}
+				}
+			}
+		}
+		
+		return tracker;
 	}
 	
 	// String to enum methods
@@ -327,6 +474,17 @@ public class JsonParser {
 	}
 	
 	private static CatanColor getColor(String color) {
-		
+		switch (color) {
+		case "red": return CatanColor.RED;
+		case "orange": return CatanColor.ORANGE;
+		case "yellow": return CatanColor.YELLOW;
+		case "blue": return CatanColor.BLUE;
+		case "green": return CatanColor.GREEN;
+		case "purple": return CatanColor.PURPLE;
+		case "puce": return CatanColor.PUCE;
+		case "white": return CatanColor.WHITE;
+		case "brown": return CatanColor.BROWN;
+		default: return null;
+		}
 	}
 }

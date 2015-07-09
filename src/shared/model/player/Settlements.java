@@ -14,6 +14,10 @@ public class Settlements {
 	public Settlements(){
 		settlementsLeft = 5;
 	}
+	
+	public Settlements(int settlementsLeft) {
+		this.settlementsLeft = settlementsLeft;
+	}
 
 
 	/**

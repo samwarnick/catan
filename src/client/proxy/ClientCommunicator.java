@@ -1,10 +1,19 @@
 package client.proxy;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+<<<<<<< HEAD
+import java.io.InputStreamReader;
+=======
 import java.io.Writer;
+>>>>>>> implement_MOCK
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import server.ServerException;
@@ -52,8 +61,7 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public Object post(Input toPost) throws ServerException {
-		Object result = null;
+	public JsonNode post(Input toPost) throws ServerException {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
@@ -70,17 +78,19 @@ public class ClientCommunicator {
 	        System.out.println(x);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	result = new Object();
-	        	result = mapper.readValue(conn.getInputStream(), result.getClass());
+	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body
+	        		return null;
+	        	}
+	        	else {
+	        		return mapper.readTree(conn.getInputStream());
+	        	}
 	        }
 	        else{
-	        	throw new ServerException(String.format(url.toString(),
+	        	throw new ServerException(String.format("%s, %s, %s", url.toString(),
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {
 			throw new ServerException(e.getMessage());
 		}
-		return result;
 	}
-
 }

@@ -269,4 +269,95 @@ public class Bank {
 	public int getNumResourceCards(){
 		return wood.getQuantity() + brick.getQuantity() + sheep.getQuantity() + wheat.getQuantity() + ore.getQuantity();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((brick == null) ? 0 : brick.hashCode());
+		result = prime * result + (largestArmyCard ? 1231 : 1237);
+		result = prime * result + (longestRoadCard ? 1231 : 1237);
+		result = prime * result
+				+ ((monopoly == null) ? 0 : monopoly.hashCode());
+		result = prime * result
+				+ ((monument == null) ? 0 : monument.hashCode());
+		result = prime * result + ((ore == null) ? 0 : ore.hashCode());
+		result = prime * result
+				+ ((roadBuild == null) ? 0 : roadBuild.hashCode());
+		result = prime * result + ((sheep == null) ? 0 : sheep.hashCode());
+		result = prime * result + ((soldier == null) ? 0 : soldier.hashCode());
+		result = prime * result + ((wheat == null) ? 0 : wheat.hashCode());
+		result = prime * result + ((wood == null) ? 0 : wood.hashCode());
+		result = prime * result
+				+ ((yearOfPlenty == null) ? 0 : yearOfPlenty.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bank other = (Bank) obj;
+		if (brick == null) {
+			if (other.brick != null)
+				return false;
+		} else if (!brick.equals(other.brick))
+			return false;
+		if (largestArmyCard != other.largestArmyCard)
+			return false;
+		if (longestRoadCard != other.longestRoadCard)
+			return false;
+		if (monopoly == null) {
+			if (other.monopoly != null)
+				return false;
+		} else if (!monopoly.equals(other.monopoly))
+			return false;
+		if (monument == null) {
+			if (other.monument != null)
+				return false;
+		} else if (!monument.equals(other.monument))
+			return false;
+		if (ore == null) {
+			if (other.ore != null)
+				return false;
+		} else if (!ore.equals(other.ore))
+			return false;
+		if (roadBuild == null) {
+			if (other.roadBuild != null)
+				return false;
+		} else if (!roadBuild.equals(other.roadBuild))
+			return false;
+		if (sheep == null) {
+			if (other.sheep != null)
+				return false;
+		} else if (!sheep.equals(other.sheep))
+			return false;
+		if (soldier == null) {
+			if (other.soldier != null)
+				return false;
+		} else if (!soldier.equals(other.soldier))
+			return false;
+		if (wheat == null) {
+			if (other.wheat != null)
+				return false;
+		} else if (!wheat.equals(other.wheat))
+			return false;
+		if (wood == null) {
+			if (other.wood != null)
+				return false;
+		} else if (!wood.equals(other.wood))
+			return false;
+		if (yearOfPlenty == null) {
+			if (other.yearOfPlenty != null)
+				return false;
+		} else if (!yearOfPlenty.equals(other.yearOfPlenty))
+			return false;
+		return true;
+	}
+	
+	
 }

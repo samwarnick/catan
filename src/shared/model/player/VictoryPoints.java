@@ -13,6 +13,15 @@ public class VictoryPoints {
 	private int totalVictoryPoints;
 	private int publicVictoryPoints;
 	
+	public VictoryPoints() {
+		totalVictoryPoints = 0;
+		publicVictoryPoints = 0;
+	}
+	
+	public VictoryPoints(int totalVictoryPoints, int publicVictoryPoints) {
+		this.totalVictoryPoints = totalVictoryPoints;
+		this.publicVictoryPoints = publicVictoryPoints;
+	}
 	public int getTotalVictoryPoints() {
 		return totalVictoryPoints;
 	}

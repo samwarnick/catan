@@ -25,10 +25,9 @@ public class Player {
 	private TradeRatios tradeRatios;
 	private IPlayerFacade playerFacade;
 	private PlayerID playerID;
-
-
+	
 	private boolean hasPlayedCard = false;
-
+	private boolean hasDiscared = false;
 	
 	public Player(CatanColor color, String name, int playerID) {
 		this.playerBank = new PlayerBank();
@@ -67,8 +66,8 @@ public class Player {
 		return largestArmy.getNumSoldiers();
 	}
 	
-	public int getLongestRoad(){
-		return longestRoad.getNumRoads();
+	public LongestRoad getLongestRoad(){
+		return longestRoad;
 	}
 
 	public PlayerBank getPlayerBank() {
@@ -143,17 +142,36 @@ public class Player {
 		this.cities = cities;
 	}
 
-
 	public boolean getHasPlayedCard() {
 		return hasPlayedCard;
 	}
 
-
 	public void setHasPlayedCard(boolean hasPlayedCard) {
 		this.hasPlayedCard = hasPlayedCard;
 	}
-	
-	
+
+	public LargestArmy getLargestArmy() {
+		return largestArmy;
+	}
+
+	public void setLargestArmy(LargestArmy largestArmy) {
+		this.largestArmy = largestArmy;
+	}
+
+	public void setLongestRoad(LongestRoad longestRoad) {
+		this.longestRoad = longestRoad;
+	}
 	
 
+	public void setPlayerID(PlayerID playerID) {
+		this.playerID = playerID;
+	}
+
+	public boolean isHasDiscared() {
+		return hasDiscared;
+	}
+
+	public void setHasDiscared(boolean hasDiscared) {
+		this.hasDiscared = hasDiscared;
+	}
 }

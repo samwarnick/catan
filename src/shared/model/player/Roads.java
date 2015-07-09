@@ -13,6 +13,10 @@ public class Roads {
 	public Roads(){
 		roadsLeft = 15;
 	}
+	
+	public Roads(int roadsLeft) {
+		this.roadsLeft = roadsLeft;
+	}
 
 	
 	/**
