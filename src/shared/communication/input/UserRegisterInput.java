@@ -23,12 +23,18 @@ public class UserRegisterInput extends Input {
 		return username;
 	}
 
+<<<<<<< HEAD
 
 	public String getPassword() {
 		return password;
 	}
 
 
+=======
+	public String getPassword() {
+		return password;
+	}
+>>>>>>> master
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -36,6 +42,7 @@ public class UserRegisterInput extends Input {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+<<<<<<< HEAD
 
 //	public Username getUsername() {
 //		return username;
@@ -45,4 +52,6 @@ public class UserRegisterInput extends Input {
 //		return password;
 //	}
 
+=======
+>>>>>>> master
 }

@@ -1,14 +1,10 @@
 package client.proxy;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,10 +41,7 @@ public class ClientCommunicator {
 	public ClientCommunicator() {
 		URLPrefix = "http://" + DEFAULT_HOST + ":" + DEFAULT_PORT;
 	}
-	
-	public void modcook(){
-		
-	}
+
 	
 	public ClientCommunicator(String host, int port){
 		serverHost = host;
@@ -79,8 +72,6 @@ public class ClientCommunicator {
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(conn.getOutputStream(), toPost);
-	        String x = mapper.writeValueAsString(toPost);
-	        System.out.println(x);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body

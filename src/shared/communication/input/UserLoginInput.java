@@ -37,12 +37,4 @@ public class UserLoginInput extends Input{
 		this.password = password;
 	}
 
-//	public Username getUsername() {
-//		return username;
-//	}
-//
-//	public Password getPassword() {
-//		return password;
-//	}
-	
 }

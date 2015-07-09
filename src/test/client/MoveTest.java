@@ -6,6 +6,7 @@ import org.junit.Test;
 import server.ServerException;
 import shared.communication.input.GamesJoinInput;
 import shared.communication.input.UserLoginInput;
+import shared.communication.input.UserRegisterInput;
 import shared.communication.input.move.AcceptTradeInput;
 import shared.communication.input.move.BuildCityInput;
 import shared.communication.input.move.BuildRoadInput;
@@ -55,6 +56,8 @@ public class MoveTest {
 			assert(false);
 		}
 	}
+
+
 	
 	@Test
 	public void testPlayYearOfPlenty(){
@@ -175,16 +178,16 @@ public class MoveTest {
 	}
 
 	
-	@Test
-	public void testRollNumber() {
-		try {
-			ps.rollNumber(new RollNumberInput(2,2));
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			assert(false);
-		}
-	}
+//	@Test
+//	public void testRollNumber() {
+//		try {
+//			ps.rollNumber(new RollNumberInput(2,2));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			assert(false);
+//		}
+//	}
 
 	
 	@Test

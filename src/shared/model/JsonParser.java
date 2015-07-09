@@ -341,6 +341,7 @@ public class JsonParser {
 			player.setVictoryPoints(new VictoryPoints(monuments+victoryPoints, victoryPoints));
 			player.setHasPlayedCard(playedDevCard);
 			player.setHasDiscared(discared);
+			return player;
 		}
 		return null;
 	}
@@ -451,7 +452,7 @@ public class JsonParser {
 	
 	private static EdgeDirection getEdgeDirection(String direction) {
 		switch (direction) {
-		case "N": return EdgeDirection.NorthWest;
+		case "N": return EdgeDirection.North;
 		case "NE": return EdgeDirection.NorthEast;
 		case "SE": return EdgeDirection.SouthEast;
 		case "S": return EdgeDirection.South;
