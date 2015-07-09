@@ -10,27 +10,48 @@ import shared.definitions.ResourceType;
 public class MaritimeTradeInput extends MoveInput {
 
 	private int ratio;
-	private ResourceType inputResource;
-	private ResourceType outpurResource;
+	private String inputResource = "wood";
+	private String outputResource = "brick";
+	private String type = "maritimeTrade";
 	
 	public MaritimeTradeInput(int playerIndex, int ratio, ResourceType inputResource,
 			ResourceType outpurResource) {
-		super("maritimeTrade", playerIndex);
+		super("/maritimeTrade", playerIndex);
 		this.ratio = ratio;
-		this.inputResource = inputResource;
-		this.outpurResource = outpurResource;
 	}
 
 	public int getRatio() {
 		return ratio;
 	}
 
-	public ResourceType getInputResource() {
+	public String getInputResource() {
 		return inputResource;
 	}
 
-	public ResourceType getOutpurResource() {
-		return outpurResource;
+	public String getOutputResource() {
+		return outputResource;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setRatio(int ratio) {
+		this.ratio = ratio;
+	}
+
+	public void setInputResource(String inputResource) {
+		this.inputResource = inputResource;
+	}
+
+	public void setOutputResource(String outputResource) {
+		this.outputResource = outputResource;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 	
 }

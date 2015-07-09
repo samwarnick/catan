@@ -20,7 +20,6 @@ import shared.communication.input.GamesSaveInput;
 import shared.communication.input.Input;
 import shared.communication.input.UserLoginInput;
 import shared.communication.input.UserRegisterInput;
-import shared.communication.input.UtilChangeLogLevelInput;
 import shared.communication.input.move.AcceptTradeInput;
 import shared.communication.input.move.BuildCityInput;
 import shared.communication.input.move.BuildRoadInput;
@@ -63,24 +62,22 @@ public class ProxyServerTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
-		try {
-			ps.loginUser(new UserLoginInput(user, pass));
-		} catch (ServerException e) {
-			e.printStackTrace();
-			assert(false);
-		}
+//		try {
+//			ps.loginUser(new UserLoginInput(user, pass));
+//		} catch (ServerException e) {
+//			e.printStackTrace();
+//			assert(false);
+//		}
 	}
 	
 	
 	@Test
 	public void testRegisterUser(){
-		Username newUN = new Username("xxx");
-		Password newP = new Password("xxx");
 		
 		boolean passed = false;
 		
 		try {
-			ps.registerUser(new UserRegisterInput(newUN, newP));
+			ps.registerUser(new UserRegisterInput("ilovekittenswhotalk", "eros"));
 		} catch (ServerException e) {
 			passed = false;
 		}
@@ -91,16 +88,16 @@ public class ProxyServerTest {
 	
 	
 	
-//	@Test
-//	public void testLoginUser(){
-//		try {
-//			ps.loginUser(new UserLoginInput(user, pass));
-//		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
-//			assert(false);
-//		}
-//		
-//	}
+	@Test
+	public void testLoginUser(){
+		try {
+			ps.loginUser(new UserLoginInput("Sam", "sam"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			assert(false);
+		}
+		
+	}
 
 	
 	
