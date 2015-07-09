@@ -1,6 +1,8 @@
 package client.proxy;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Iterator;
@@ -71,7 +73,12 @@ public class ClientCommunicator {
 	        mapper.writeValue(conn.getOutputStream(), toPost);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	return mapper.readTree(conn.getInputStream());
+	        	if (printResponse(conn).equals("Success")) {
+	        		return null;
+	        	}
+	        	else {
+	        		return mapper.readTree(conn.getInputStream());
+	        	}
 	        }
 	        else{
 	        	throw new ServerException(String.format(url.toString(),
@@ -81,70 +88,20 @@ public class ClientCommunicator {
 			throw new ServerException(e.getMessage());
 		}
 	}
-	public Object postNotGameModel(Input toPost) throws ServerException {
-		try {
-			String method = toPost.getMethod();
-	        URL url;
-			url = new URL(URLPrefix+method);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-	        conn.setRequestMethod("POST");
-	        conn.setDoInput(true);
-	        conn.setDoOutput(true);
-	        conn.connect();
-	        ObjectMapper mapper = new ObjectMapper();
-	        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(toPost));
-	        mapper.writeValue(conn.getOutputStream(), toPost);
-	        conn.getOutputStream().close();
-	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	
-	        	
-	        	
-	        	Object object = mapper.readValue(conn.getInputStream(), Object.class);
-	        	return object;
-	        }
-	        else{
-	        	throw new ServerException(String.format("%s, %s, %s", url.toString(),
-						toPost.getMethod(), conn.getResponseCode()));
-	        }
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new ServerException(e.getMessage());
-		}
-	}
 	
-	private void printResponse(HttpURLConnection conn) {
-		StringBuilder builder = new StringBuilder();
-    	try {
-			builder.append(conn.getResponseCode())
-			       .append(" ")
-			       .append(conn.getResponseMessage())
-			       .append("\n");
+	private String printResponse(HttpURLConnection conn) {
+		try {
+			StringBuilder sb = new StringBuilder();
+	    	BufferedReader reader;
+			reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+	    	while ((line = reader.readLine()) != null) {
+	    		sb.append(line);
+	    	}
+	    	return sb.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-    	Map<String, List<String>> map = conn.getHeaderFields();
-    	for (Map.Entry<String, List<String>> entry : map.entrySet())
-    	{
-    	    if (entry.getKey() == null) 
-    	        continue;
-    	    builder.append( entry.getKey())
-    	           .append(": ");
-
-    	    List<String> headerValues = entry.getValue();
-    	    Iterator<String> it = headerValues.iterator();
-    	    if (it.hasNext()) {
-    	        builder.append(it.next());
-
-    	        while (it.hasNext()) {
-    	            builder.append(", ")
-    	                   .append(it.next());
-    	        }
-    	    }
-
-    	    builder.append("\n");
-    	}
-
-    	System.out.println(builder);
+		return null;
 	}
 }

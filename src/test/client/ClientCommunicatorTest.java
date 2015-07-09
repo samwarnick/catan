@@ -22,24 +22,9 @@ public class ClientCommunicatorTest {
 		boolean error = false;
 		ClientCommunicator cc = new ClientCommunicator();
 		ProxyServer proxy = new ProxyServer(cc);
-		UserLoginInput input = new UserLoginInput(new Username("Sam"), new Password("sam"));
+		UserLoginInput input = new UserLoginInput("Sam", "sam");
 		try {
 			proxy.loginUser(input);
-		} catch (ServerException e) {
-			e.printStackTrace();
-			error = true;
-		}
-		assertFalse(error);
-	}
-	
-	@Test
-	public void testRegister() {
-		boolean error = false;
-		ClientCommunicator cc = new ClientCommunicator();
-		ProxyServer proxy = new ProxyServer(cc);
-		UserRegisterInput input = new UserRegisterInput("Test7", "Test");
-		try {
-			proxy.registerUser(input);
 		} catch (ServerException e) {
 			e.printStackTrace();
 			error = true;
