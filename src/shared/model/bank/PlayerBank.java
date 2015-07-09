@@ -155,6 +155,31 @@ public class PlayerBank extends Bank {
 		newMonument.setQuantity(dh.getMonument());
 		newRoadBuild.setQuantity(dh.getRoadBuild());
 	}
+
+	public DevelopmentCard getNewSoldier() {
+		// TODO Auto-generated method stub
+		return newSoldier;
+	}
+
+	public DevelopmentCard getNewYearOfPlenty() {
+		// TODO Auto-generated method stub
+		return newYearOfPlenty;
+	}
+
+	public DevelopmentCard getNewRoadBuild() {
+		// TODO Auto-generated method stub
+		return newRoadBuild;
+	}
+
+	public DevelopmentCard getNewMonopoly() {
+		// TODO Auto-generated method stub
+		return newMonopoly;
+	}
+
+	public DevelopmentCard getNewMonument() {
+		// TODO Auto-generated method stub
+		return newMonument;
+	}
 	
 	
 
