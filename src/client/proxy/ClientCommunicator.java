@@ -77,4 +77,28 @@ public class ClientCommunicator {
 			throw new ServerException(e.getMessage());
 		}
 	}
+	public Object postNotGameModel(Input toPost) throws ServerException {
+		try {
+			String method = toPost.getMethod();
+	        URL url;
+			url = new URL(URLPrefix+"/docs/api/data"+method);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+	        conn.setRequestMethod("POST");
+	        conn.setDoInput(true);
+	        conn.setDoOutput(true);
+	        conn.connect();
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.writeValue(conn.getOutputStream(), toPost);
+	        conn.getOutputStream().close();
+	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+	        	return mapper.readTree(conn.getInputStream());
+	        }
+	        else{
+	        	throw new ServerException(String.format(url.toString(),
+						toPost.getMethod(), conn.getResponseCode()));
+	        }
+		} catch (IOException e) {
+			throw new ServerException(e.getMessage());
+		}
+	}
 }
