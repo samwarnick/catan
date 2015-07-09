@@ -9,21 +9,21 @@ import shared.model.player.Color;
  */
 public class GamesJoinInput extends Input {
 
-	private int gameID;
+	private int id;
 	private Color color;
 	
 	public GamesJoinInput(int gameID, Color color) {
 		super("/games/join");
-		this.gameID = gameID;
+		this.id = gameID;
 		this.color = color;
 	}
 
-	public int getGameID() {
-		return gameID;
+	public int getId() {
+		return id;
 	}
 
-	public Color getColor() {
-		return color;
+	public String getColor() {
+		return "red";
 	}
 
 }
