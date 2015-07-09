@@ -24,6 +24,10 @@ public class UserLoginInput extends Input{
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> implement_MOCK
 =======
 
 >>>>>>> implement_MOCK
@@ -32,6 +36,10 @@ public class UserLoginInput extends Input{
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> implement_MOCK
 =======
 
 >>>>>>> implement_MOCK
@@ -43,6 +51,7 @@ public class UserLoginInput extends Input{
 		this.password = password;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 //	public Username getUsername() {
@@ -53,5 +62,8 @@ public class UserLoginInput extends Input{
 //		return password;
 //	}
 	
+>>>>>>> implement_MOCK
+=======
+
 >>>>>>> implement_MOCK
 }

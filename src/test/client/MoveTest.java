@@ -46,6 +46,7 @@ public class MoveTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
+<<<<<<< HEAD:src/test/client/MoveTest.java
 <<<<<<< HEAD:src/test/client/ProxyServerTest.java
 //		try {
 //			ps.loginUser(new UserLoginInput("Sam", "sam"));
@@ -61,31 +62,18 @@ public class MoveTest {
 		
 		boolean passed = false;
 		
+=======
+>>>>>>> implement_MOCK:src/test/client/MoveTest.java
 		try {
-			ps.registerUser(new UserRegisterInput("ilovekittenswhotalk", "eros"));
+			//test login
+			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
+			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			passed = false;
+			e.printStackTrace();
+			assert(false);
 		}
-		
-		assert(passed);
-		
 	}
-	
-	
-	
-//	@Test
-//	public void testLoginUser(){
-//		try {
-//			ps.loginUser(new UserLoginInput("Sam", "sam"));
-//		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
-//			assert(false);
-//		}
-//		
-//	}
 
-	
-	
 
 =======
 		try {

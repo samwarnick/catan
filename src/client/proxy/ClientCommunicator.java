@@ -2,6 +2,11 @@ package client.proxy;
 
 import java.io.IOException;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import java.io.InputStreamReader;
+import java.io.Writer;
+>>>>>>> implement_MOCK
 =======
 import java.io.InputStreamReader;
 import java.io.Writer;
@@ -44,6 +49,7 @@ public class ClientCommunicator {
 	public ClientCommunicator() {
 		URLPrefix = "http://" + DEFAULT_HOST + ":" + DEFAULT_PORT;
 	}
+
 	
 	public void modcook(){
 		
