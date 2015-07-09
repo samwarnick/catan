@@ -24,6 +24,7 @@ public class ClientCommunicator {
 	private final int DEFAULT_PORT = 8081;
 	private String serverHost = "localhost";
 	private int serverPort = 8081;
+	private String PATH_PREFIX = "/docs/api/data";
 	private String URLPrefix;
 	
 	/**
@@ -55,7 +56,8 @@ public class ClientCommunicator {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
-			url = new URL(URLPrefix+"/docs/api/data"+method);
+			//url = new URL(URLPrefix+ PATH_PREFIX +method);
+			url = new URL(URLPrefix + method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	        conn.setRequestMethod("POST");
 	        conn.setDoInput(true);
