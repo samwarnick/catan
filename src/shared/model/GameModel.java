@@ -25,6 +25,10 @@ public class GameModel {
 		this.gameID = gameID;
 		gameVersion = 0;
 		players = new ArrayList<Player>();
+		players.add(null);
+		players.add(null);
+		players.add(null);
+		players.add(null);
 		turnTracker = new TurnTracker();
 		bank = new Bank();
 	}

@@ -88,6 +88,7 @@ public class ClientCommunicator {
 			throw new ServerException(e.getMessage());
 		}
 	}
+
 	
 	private String printResponse(HttpURLConnection conn) {
 		try {
