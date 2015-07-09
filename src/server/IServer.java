@@ -24,7 +24,7 @@ public interface IServer {
 	 * logged­in player.<br><br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error message.
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public String loginUser(UserLoginInput input) throws ServerException; // boolean? or cookie? user?
+	public boolean loginUser(UserLoginInput input) throws ServerException; // boolean? or cookie? user?
 	
 	/**
 	 * Creates a new user account and logs the caller into the server as the new user, and sets their catan.user HTTP cookie.
@@ -36,7 +36,7 @@ public interface IServer {
 	 * logged­in player.<br><br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error message.
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public String registerUser(UserRegisterInput input) throws ServerException; // boolean? or cookie? user?
+	public boolean registerUser(UserRegisterInput input) throws ServerException; // boolean? or cookie? user?
 	
 	// GAME
 	
@@ -79,7 +79,7 @@ public interface IServer {
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public String joinGame(GamesJoinInput input) throws ServerException; // cookie?
+	public boolean joinGame(GamesJoinInput input) throws ServerException; // cookie?
 	
 	/**
 	 * This method is for testing and debugging purposes. 

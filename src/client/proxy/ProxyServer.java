@@ -2,6 +2,8 @@ package client.proxy;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import server.*;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
@@ -18,23 +20,24 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public String loginUser(UserLoginInput input) throws ServerException {
-		String toReturn = (String) clientCommunicator.postNotGameModel(input);
-		return toReturn;
+	public boolean loginUser(UserLoginInput input) throws ServerException {
+		clientCommunicator.post(input);
+		return true;
 	}
 
 	@Override
-	public String registerUser(UserRegisterInput input) throws ServerException {
-		String toReturn = (String) clientCommunicator.postNotGameModel(input);
-		return toReturn;
+	public boolean registerUser(UserRegisterInput input) throws ServerException {
+		clientCommunicator.post(input);
+		return true;
 	}
 
 	@Override
 	public List<GameModel> listGames(GamesListInput input)
 			throws ServerException {
 		@SuppressWarnings("unchecked")
-		List<GameModel> toReturn = (List<GameModel>) clientCommunicator.postNotGameModel(input);
-		return toReturn;
+		// TODO
+		JsonNode toReturn = clientCommunicator.post(input);
+		return null;
 	}
 
 	@Override
@@ -43,14 +46,15 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public String joinGame(GamesJoinInput input) throws ServerException {
-		String toReturn = (String) clientCommunicator.postNotGameModel(input);
-		return toReturn;
+	public boolean joinGame(GamesJoinInput input) throws ServerException {
+		clientCommunicator.post(input);
+		return true;
 	}
 
 	@Override
 	public boolean saveGame(GamesSaveInput input) throws ServerException {
-		return (boolean) clientCommunicator.postNotGameModel(input) ;
+		clientCommunicator.post(input);
+		return true;
 	}
 
 	@Override
@@ -73,8 +77,9 @@ public class ProxyServer implements IServer {
 	public List<String> getGameCommands(GameCommandsGetInput input)
 			throws ServerException {
 		@SuppressWarnings("unchecked")
-		List<String> toReturn = (List<String>) clientCommunicator.postNotGameModel(input);
-		return toReturn;
+		JsonNode toReturn = clientCommunicator.post(input);
+		// TODO
+		return null;
 	}
 
 	@Override
@@ -86,8 +91,8 @@ public class ProxyServer implements IServer {
 	@Override
 	public boolean changeLogLevel(UtilChangeLogLevelInput input)
 			throws ServerException {
-		boolean toReturn = (Boolean) clientCommunicator.postNotGameModel(input);
-		return toReturn;
+		clientCommunicator.post(input);
+		return true;
 	}
 
 	@Override

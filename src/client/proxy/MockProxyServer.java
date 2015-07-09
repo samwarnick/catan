@@ -3,6 +3,8 @@ package client.proxy;
 import java.io.File;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import server.IServer;
 import server.ServerException;
 import shared.communication.input.GameCommandsGetInput;
@@ -42,186 +44,160 @@ public class MockProxyServer implements IServer {
 	private GameModel model;
 	
 	@Override
-	public String loginUser(UserLoginInput input) throws ServerException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean loginUser(UserLoginInput input) throws ServerException {
+		return true;
 	}
 
 	@Override
-	public String registerUser(UserRegisterInput input) throws ServerException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean registerUser(UserRegisterInput input) throws ServerException {
+		return true;
 	}
 
 	@Override
 	public List<GameModel> listGames(GamesListInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel createGame(GamesCreateInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void joinGame(GamesJoinInput input) throws ServerException {
-		// TODO Auto-generated method stub
+	public boolean joinGame(GamesJoinInput input) throws ServerException {
+		return true;
 	}
 
 	@Override
 	public boolean saveGame(GamesSaveInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public GameModel loadGame(GamesLoadInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(new File("MPS/game/model"));
+		JsonNode root = JsonParser.nodeFromFile(new File("MPS/game/model.txt"));
+		return JsonParser.gameModelFromJson(root);
 	}
 
 	@Override
 	public GameModel resetGame(GameResetInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<String> getGameCommands(GameCommandsGetInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel postGameCommands(GameCommandsPostInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean changeLogLevel(UtilChangeLogLevelInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public GameModel sendChat(SendChatInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel discardCards(DiscardCardsInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel rollNumber(RollNumberInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel buildRoad(BuildRoadInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel buildSettlement(BuildSettlementInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel buildCity(BuildCityInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel offerTrade(OfferTradeInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel maritimeTrade(MaritimeTradeInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel robPlayer(RobPlayerInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel finishTurn(FinishTurnInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel playSoldier(PlaySoldierInput input) throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel playYearOfPlenty(PlayYearOfPlentyInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel playRoadBuilding(PlayRoadBuildingInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel playMonopoly(PlayMonopolyInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public GameModel playMonument(PlayMonumentInput input)
 			throws ServerException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
