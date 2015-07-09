@@ -23,9 +23,18 @@ public class UserRegisterInput extends Input {
 		return username;
 	}
 
+<<<<<<< HEAD
 	public String getPassword() {
 		return password;
 	}
+=======
+
+	public String getPassword() {
+		return password;
+	}
+
+
+>>>>>>> implement_MOCK
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -33,4 +42,16 @@ public class UserRegisterInput extends Input {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+<<<<<<< HEAD
+=======
+
+//	public Username getUsername() {
+//		return username;
+//	}
+//
+//	public Password getPassword() {
+//		return password;
+//	}
+
+>>>>>>> implement_MOCK
 }
