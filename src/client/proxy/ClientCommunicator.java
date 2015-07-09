@@ -1,16 +1,10 @@
 package client.proxy;
 
 import java.io.IOException;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import java.io.InputStreamReader;
 import java.io.Writer;
->>>>>>> implement_MOCK
-=======
 import java.io.InputStreamReader;
 import java.io.Writer;
->>>>>>> implement_MOCK
 import java.net.HttpURLConnection;
 import java.net.URL;
 

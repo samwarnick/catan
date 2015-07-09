@@ -46,8 +46,6 @@ public class MoveTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
-<<<<<<< HEAD:src/test/client/MoveTest.java
-<<<<<<< HEAD:src/test/client/ProxyServerTest.java
 //		try {
 //			ps.loginUser(new UserLoginInput("Sam", "sam"));
 //		} catch (ServerException e) {
@@ -55,37 +53,10 @@ public class MoveTest {
 //			assert(false);
 //		}
 	}
-	
-	
-	@Test
-	public void testRegisterUser(){
-		
-		boolean passed = false;
-		
-=======
->>>>>>> implement_MOCK:src/test/client/MoveTest.java
-		try {
-			//test login
-			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
-			ps.joinGame(new GamesJoinInput(0,Color.RED));
-		} catch (ServerException e) {
-			e.printStackTrace();
-			assert(false);
-		}
-	}
 
 
-=======
-		try {
-			//test login
-			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
-			ps.joinGame(new GamesJoinInput(0,Color.RED));
-		} catch (ServerException e) {
-			e.printStackTrace();
-			assert(false);
-		}
-	}
->>>>>>> implement_MOCK:src/test/client/MoveTest.java
+
+
 	
 	@Test
 	public void testPlayYearOfPlenty(){
