@@ -7,11 +7,45 @@ import org.junit.Test;
 import server.ServerException;
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.Input;
+import shared.communication.input.UserLoginInput;
+import shared.communication.input.UserRegisterInput;
 import shared.model.GameModel;
+import shared.model.user.Password;
+import shared.model.user.Username;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
 public class ClientCommunicatorTest {
+	
+	@Test
+	public void testLogin() {
+		boolean error = false;
+		ClientCommunicator cc = new ClientCommunicator();
+		ProxyServer proxy = new ProxyServer(cc);
+		UserLoginInput input = new UserLoginInput(new Username("Sam"), new Password("sam"));
+		try {
+			proxy.loginUser(input);
+		} catch (ServerException e) {
+			e.printStackTrace();
+			error = true;
+		}
+		assertFalse(error);
+	}
+	
+	@Test
+	public void testRegister() {
+		boolean error = false;
+		ClientCommunicator cc = new ClientCommunicator();
+		ProxyServer proxy = new ProxyServer(cc);
+		UserRegisterInput input = new UserRegisterInput("Test7", "Test");
+		try {
+			proxy.registerUser(input);
+		} catch (ServerException e) {
+			e.printStackTrace();
+			error = true;
+		}
+		assertFalse(error);
+	}
 	
 	@Test
 	public void testPost() {

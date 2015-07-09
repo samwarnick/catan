@@ -18,13 +18,4 @@ public class UserLoginInput extends Input{
 		this.username = username;
 		this.password = password;
 	}
-
-	public Username getUsername() {
-		return username;
-	}
-
-	public Password getPassword() {
-		return password;
-	}
-	
 }

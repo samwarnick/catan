@@ -115,7 +115,7 @@ public class JsonParser {
 		List<PortHex> ports = parsePorts(mapNode.path("ports"));
 		Robber robber = parseRobber(mapNode.path("robber"));
 		
-		board.setDesertHex(resourceHexes.get(0));
+		//board.setDesertHex(resourceHexes.get(0));
 		board.setResourceHexes(resourceHexes);
 		board.setRoads(roads);
 		board.setBuildings(buildings);
@@ -127,7 +127,7 @@ public class JsonParser {
 	private static List<ResourceHex> parseHexes(JsonNode hexesNode) {
 		List<ResourceHex> resourceHexes = new ArrayList<ResourceHex>();
 		
-		if (hexesNode != null) {
+		if (!hexesNode.isMissingNode()) {
 			Iterator<JsonNode> iter = hexesNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -153,7 +153,7 @@ public class JsonParser {
 	private static List<Road> parseRoads(JsonNode roadsNode) {
 		List<Road> roads = new ArrayList<Road>();
 		
-		if (roadsNode != null) {
+		if (!roadsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = roadsNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -174,7 +174,7 @@ public class JsonParser {
 	private static List<Vertex> parseCities(JsonNode citiesNode) {
 		List<Vertex> buildings = new ArrayList<Vertex>();
 		
-		if (citiesNode != null) {
+		if (!citiesNode.isMissingNode()) {
 			Iterator<JsonNode> iter = citiesNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -195,7 +195,7 @@ public class JsonParser {
 	private static List<Vertex> parseSettlements(JsonNode settlementsNode) {
 		List<Vertex> buildings = new ArrayList<Vertex>();
 		
-		if (settlementsNode != null) {
+		if (!settlementsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = settlementsNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -216,7 +216,7 @@ public class JsonParser {
 	private static List<PortHex> parsePorts(JsonNode portsNode) {
 		List<PortHex> ports = new ArrayList<PortHex>();
 		
-		if (portsNode != null) {
+		if (!portsNode.isMissingNode()) {
 			Iterator<JsonNode> iter = portsNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -258,7 +258,7 @@ public class JsonParser {
 	}
 	
 	private static Player parsePlayer(JsonNode playerNode) {
-		if (playerNode != null) {
+		if (!playerNode.isMissingNode()) {
 			Iterator<JsonNode> iter = playerNode.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
@@ -331,29 +331,31 @@ public class JsonParser {
 	private static TurnTracker parseTracker(JsonNode trackerNode, List<Player> players) {
 		TurnTracker tracker = new TurnTracker();
 		
-		String status = trackerNode.path("status").textValue();
-		int currentTurn = trackerNode.path("currentTurn").intValue();
-		int longestRoad = trackerNode.path("longestRoad").intValue();
-		int largestArmy = trackerNode.path("largestArmy").intValue();
-		
-		try {
-			tracker.setCurrentTurn(currentTurn);
-		} catch (NoPlayerFoundException e) {
-			e.printStackTrace();
-		}
-		tracker.setStatus(status);
-		
-		if (longestRoad != -1) {
-			for (Player p: players) {
-				if (p.getPlayerID().getPlayerid() == longestRoad) {
-					p.getLongestRoad().setHasLongestRoad(true);
+		if (!trackerNode.isMissingNode()) {
+			String status = trackerNode.path("status").textValue();
+			int currentTurn = trackerNode.path("currentTurn").intValue();
+			int longestRoad = trackerNode.path("longestRoad").intValue();
+			int largestArmy = trackerNode.path("largestArmy").intValue();
+			
+			try {
+				tracker.setCurrentTurn(currentTurn);
+			} catch (NoPlayerFoundException e) {
+				e.printStackTrace();
+			}
+			tracker.setStatus(status);
+			
+			if (longestRoad != -1) {
+				for (Player p: players) {
+					if (p.getPlayerID().getPlayerid() == longestRoad) {
+						p.getLongestRoad().setHasLongestRoad(true);
+					}
 				}
 			}
-		}
-		if (largestArmy != -1) {
-			for (Player p: players) {
-				if (p.getPlayerID().getPlayerid() == largestArmy) {
-					p.getLargestArmy().setHasLargestArmy(true);
+			if (largestArmy != -1) {
+				for (Player p: players) {
+					if (p.getPlayerID().getPlayerid() == largestArmy) {
+						p.getLargestArmy().setHasLargestArmy(true);
+					}
 				}
 			}
 		}

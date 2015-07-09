@@ -3,6 +3,9 @@ package client.proxy;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,6 +67,7 @@ public class ClientCommunicator {
 	        conn.setDoOutput(true);
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
+	        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(toPost));
 	        mapper.writeValue(conn.getOutputStream(), toPost);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -81,24 +85,66 @@ public class ClientCommunicator {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
-			url = new URL(URLPrefix+"/docs/api/data"+method);
+			url = new URL(URLPrefix+method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	        conn.setRequestMethod("POST");
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
+	        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(toPost));
 	        mapper.writeValue(conn.getOutputStream(), toPost);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	return mapper.readTree(conn.getInputStream());
+	        	
+	        	
+	        	
+	        	Object object = mapper.readValue(conn.getInputStream(), Object.class);
+	        	return object;
 	        }
 	        else{
-	        	throw new ServerException(String.format(url.toString(),
+	        	throw new ServerException(String.format("%s, %s, %s", url.toString(),
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new ServerException(e.getMessage());
 		}
+	}
+	
+	private void printResponse(HttpURLConnection conn) {
+		StringBuilder builder = new StringBuilder();
+    	try {
+			builder.append(conn.getResponseCode())
+			       .append(" ")
+			       .append(conn.getResponseMessage())
+			       .append("\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+    	Map<String, List<String>> map = conn.getHeaderFields();
+    	for (Map.Entry<String, List<String>> entry : map.entrySet())
+    	{
+    	    if (entry.getKey() == null) 
+    	        continue;
+    	    builder.append( entry.getKey())
+    	           .append(": ");
+
+    	    List<String> headerValues = entry.getValue();
+    	    Iterator<String> it = headerValues.iterator();
+    	    if (it.hasNext()) {
+    	        builder.append(it.next());
+
+    	        while (it.hasNext()) {
+    	            builder.append(", ")
+    	                   .append(it.next());
+    	        }
+    	    }
+
+    	    builder.append("\n");
+    	}
+
+    	System.out.println(builder);
 	}
 }

@@ -67,9 +67,8 @@ public class MockProxyServer implements IServer {
 	}
 
 	@Override
-	public String joinGame(GamesJoinInput input) throws ServerException {
+	public void joinGame(GamesJoinInput input) throws ServerException {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
