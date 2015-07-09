@@ -46,17 +46,15 @@ public class MoveTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
-//		try {
-//			ps.loginUser(new UserLoginInput("Sam", "sam"));
-//		} catch (ServerException e) {
-//			e.printStackTrace();
-//			assert(false);
-//		}
+		try {
+			//test login
+			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
+			ps.joinGame(new GamesJoinInput(0,Color.RED));
+		} catch (ServerException e) {
+			e.printStackTrace();
+			assert(false);
+		}
 	}
-
-
-
-
 	
 	@Test
 	public void testPlayYearOfPlenty(){

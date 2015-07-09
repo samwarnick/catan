@@ -28,7 +28,6 @@ public class GamesTest {
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
 		try {
-			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
@@ -40,7 +39,6 @@ public class GamesTest {
 	@Test
 	public void testListGames(){
 		try {
-			//ps.loginUser(new UserLoginInput(user, pass));
 			ps.listGames(new GamesListInput());
 		} catch (ServerException e) {
 			assert(false);
