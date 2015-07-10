@@ -1,4 +1,4 @@
-package test.shared.model;
+package shared.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,8 +83,8 @@ public class GameModelFacadeTests {
 			roads.add(new Road(new PlayerID(3), new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
 			roads.add(new Road(new PlayerID(3), new EdgeLocation(new HexLocation(0,2), EdgeDirection.NorthEast)));
 			board.setRoads(roads);
-			BoardFacade bf = new BoardFacade();
-			bf.setBoard(board);
+			BoardFacade bf = new BoardFacade(board);
+//			bf.setBoard(board);
 			board.setBoardFacade(bf);
 			GMF.getGameModel().setBoard(board);
 		} catch (TooManyPlayersException e) {

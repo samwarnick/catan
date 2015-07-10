@@ -9,6 +9,8 @@ import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
+import shared.model.player.InactivePlayerFacade;
+import shared.model.player.Player;
 
 public class InactivePlayerFacadeTest {
 

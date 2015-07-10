@@ -2,10 +2,6 @@ package client.proxy;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Writer;
-import java.io.InputStreamReader;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -29,7 +25,6 @@ public class ClientCommunicator {
 	private final int DEFAULT_PORT = 8081;
 	private String serverHost = "localhost";
 	private int serverPort = 8081;
-	private String PATH_PREFIX = "/docs/api/data";
 	private String URLPrefix;
 	private String cookie = null;
 	
@@ -74,7 +69,12 @@ public class ClientCommunicator {
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
 	        if(cookie!=null){
+<<<<<<< HEAD
 	        	conn.setRequestProperty("Cookie", cookie);
+=======
+	        	// System.out.println(cookie);
+	        	conn.addRequestProperty("Cookie", cookie);
+>>>>>>> origin/master
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
@@ -84,14 +84,15 @@ public class ClientCommunicator {
 	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body
 	        		if(toPost.getMethod().equals("/user/login")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			//String[] temp = precookie.split("catan.user=");
 	        			cookie = precookie.substring(0, precookie.length()-8);
+<<<<<<< HEAD
 	        			//cookie = precookie;
 	        			
+=======
+>>>>>>> origin/master
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			//String[] temp = precookie.split("catan.user=");
 	        			cookie += ";  " + precookie.substring(0, precookie.length()-8);
 	        		}
 	        		return null;

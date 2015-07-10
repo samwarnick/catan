@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.model.bank.BankException;
+import shared.model.bank.DevelopmentHand;
+import shared.model.bank.PlayerBank;
 
 public class PlayerBankTest {
 

@@ -31,8 +31,5 @@ public class UpdateGame extends TimerTask{
 		{
 			controller.updateGame(serverModel);
 		}
-		
-		
 	}
-
 }

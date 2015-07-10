@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import shared.definitions.*;
+import shared.model.bank.Bank;
+import shared.model.bank.BankException;
+import shared.model.bank.DevelopmentHand;
+import shared.model.bank.ResourceHand;
 
 public class BankTest {
 	

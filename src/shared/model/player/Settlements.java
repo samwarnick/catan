@@ -65,6 +65,7 @@ class NoSettlementsLeftException extends Exception{
 	
 }
 @SuppressWarnings("serial")
+
 class TooManySettlementsException extends Exception{
 	
 }

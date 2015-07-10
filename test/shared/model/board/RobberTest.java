@@ -1,4 +1,4 @@
-package test.shared.model;
+package shared.model.board;
 
 /**
  * 

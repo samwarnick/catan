@@ -75,7 +75,7 @@
    </target>
 	
 	<target name="test" depends="compile" description="run automated model tests">
-		<java classname="shared.model.ModelUnitTests" fork="yes">
+		<java classname="AllTests" fork="yes">
 			<classpath>
 				<path refid="all-classpath"/>
 			</classpath>

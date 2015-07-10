@@ -1,17 +1,7 @@
-Spencer:  run proxy server tests, poller
-Isaac:  GameModelFacade stuff, implement the mock server
-Matt:  GameModelFacade stuff
-Jordan: junit for poller and cc, and parser
-Sam: client communicator, parser
+Spencer:  Maritime trade, Domestic Trade
+Isaac:  Login, game history, chat, game hub
+Matt:  THE MAP
+Jordan: roll, turn tracker, player waiting, join game.
+Sam: Dev Card, discard, resource bar
 
 TODO:
-Implement the mock server,
-
-Your model will also need the ability to initialize itself from the JSON data returned
-by the server from the /game/model web service API.
-
-poller unit tests
-
-parser unit tests
-
-run proxy server tests

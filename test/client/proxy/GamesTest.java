@@ -1,13 +1,14 @@
-package test.client;
+package client.proxy;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import server.ServerException;
-import shared.communication.input.GameCommandsGetInput;
-import shared.communication.input.GameModelVersionInput;
-import shared.communication.input.GameResetInput;
+import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesJoinInput;
+import shared.communication.input.GamesListInput;
+import shared.communication.input.GamesLoadInput;
+import shared.communication.input.GamesSaveInput;
 import shared.communication.input.UserLoginInput;
 import shared.model.player.Color;
 import shared.model.user.Password;
@@ -15,7 +16,7 @@ import shared.model.user.Username;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
-public class GameTests {
+public class GamesTest {
 
 	private static ProxyServer ps;
 	private static ClientCommunicator cc;
@@ -27,46 +28,69 @@ public class GameTests {
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
 		try {
-			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
-			ps.joinGame(new GamesJoinInput(0,Color.RED));
+		//	ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			e.printStackTrace();
 			assert(false);
 		}
 	}
 	
 	@Test
-	public void testGetGameModelVersion(){
-
+	public void testListGames(){
 		try {
-			ps.getGameModelVersion(new GameModelVersionInput(1));
+			ps.listGames(new GamesListInput());
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assert(false);
 		}
+		
 	}
 
 	
 	@Test
-	public void testResetGame() {
+	public void testCreateGame(){
+		
 		try {
-			ps.resetGame(new GameResetInput(true));
+			ps.createGame(new GamesCreateInput("x", true, true, true));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assert(false);
 		}
 		
 	}
+
 	
 	@Test
-	public void testGetGameCommands(){
+	public void testJoinGame(){
 		try {
-			ps.getGameCommands(new GameCommandsGetInput());
+			ps.joinGame(new GamesJoinInput(3,Color.RED));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assert(false);
 		}
 		
 	}
+//	
+//	@Test
+//	public void testSaveGame(){
+//		try {
+//			ps.saveGame(new GamesSaveInput(0, "file.txt"));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			assert(false);
+//		}
+//		
+//	}
+//
+//	
+//	@Test
+//	public void testLoadGame() {
+//		try {
+//			ps.loadGame(new GamesLoadInput("x"));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			assert(false);
+//		}
+//		
+//	}
+	
 }

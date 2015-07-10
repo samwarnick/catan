@@ -34,8 +34,17 @@ public class GameModel {
 	}
 	
 	public void addPlayer(Player player) throws TooManyPlayersException{
-		if (players.size() < 4){
-			players.add(player);
+		boolean tooManyPlayers = true;
+		int indexToAdd = -1;
+		for (int i = players.size() - 1;i >= 0;i--){
+			if (players.get(i) == null){
+				tooManyPlayers = false;
+				indexToAdd = i;
+			}
+		}
+		if (!tooManyPlayers){
+			players.add(indexToAdd, player);
+			players.remove(4);
 		}
 		else
 			throw new TooManyPlayersException();

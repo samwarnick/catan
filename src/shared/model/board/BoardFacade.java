@@ -15,6 +15,10 @@ public class BoardFacade {
 
 	private Board board;
 	
+	public BoardFacade(Board board) {
+		this.board = board;
+	}
+	
 	public Board getBoard() {
 		return board;
 	}

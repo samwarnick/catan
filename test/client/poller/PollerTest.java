@@ -1,4 +1,4 @@
-package test.client;
+package client.poller;
 
 import static org.junit.Assert.*;
 
