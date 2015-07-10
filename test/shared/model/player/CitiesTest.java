@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import shared.model.player.Cities;
+import shared.model.player.NoCitiesLeftException;
+
 public class CitiesTest {
 
 	@Test

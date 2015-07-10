@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import shared.model.player.VictoryPoints;
+
 public class VictoryPointsTest {
 
 	private static VictoryPoints points;

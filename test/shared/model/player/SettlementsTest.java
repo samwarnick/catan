@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import shared.model.player.NoSettlementsLeftException;
+import shared.model.player.Settlements;
+import shared.model.player.TooManySettlementsException;
+
 public class SettlementsTest {
 
 	@Test

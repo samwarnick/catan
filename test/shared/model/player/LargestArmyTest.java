@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import shared.model.player.LargestArmy;
+
 public class LargestArmyTest {
 
 	@Test
