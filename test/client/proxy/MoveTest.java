@@ -35,6 +35,8 @@ import shared.model.user.Username;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
+import static org.junit.Assert.*;
+
 public class MoveTest {
 
 	private static ProxyServer ps;
@@ -46,14 +48,19 @@ public class MoveTest {
 	public static void init(){
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
+		
+		boolean error = false;
+		
 		try {
 			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
+			error = true;
 			e.printStackTrace();
-			assert(false);
 		}
+		
+		assertFalse(error);
 	}
 	
 	@Test

@@ -68,6 +68,7 @@ public class ClientCommunicator {
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
 	        if(cookie!=null){
+	        	// System.out.println(cookie);
 	        	conn.addRequestProperty("Cookie", cookie);
 	        }
 	        conn.connect();
@@ -78,13 +79,10 @@ public class ClientCommunicator {
 	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body
 	        		if(toPost.getMethod().equals("/user/login")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			//String[] temp = precookie.split("catan.user=");
 	        			cookie = precookie.substring(0, precookie.length()-8);
-	        			
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			//String[] temp = precookie.split("catan.user=");
 	        			cookie += ";  " + precookie.substring(0, precookie.length()-8);
 	        		}
 	        		return null;
