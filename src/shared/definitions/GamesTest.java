@@ -1,7 +1,8 @@
-package client.proxy;
+package shared.definitions;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import server.ServerException;
 import shared.communication.input.GamesCreateInput;
