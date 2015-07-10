@@ -22,7 +22,6 @@ import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
 import shared.communication.input.move.RobPlayerInput;
-import shared.communication.input.move.RollNumberInput;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -33,10 +32,7 @@ import shared.model.bank.ResourceHand;
 import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
-
-import static org.junit.assertTrue.*;
 
 public class MoveTest {
 
@@ -59,7 +55,7 @@ public class MoveTest {
 			e.printStackTrace();
 		}
 		
-		assertTrueFalse(error);
+		assertFalse(error);
 	}
 	
 	@Test
