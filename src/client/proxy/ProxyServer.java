@@ -13,11 +13,28 @@ import shared.model.JsonParser;
 
 public class ProxyServer implements IServer {
 
-	ClientCommunicator clientCommunicator;
+	private static ClientCommunicator clientCommunicator = null;
+	private static ProxyServer instance = null;
 	
-	public ProxyServer(ClientCommunicator clientCommunicator) {
+	private ProxyServer(ClientCommunicator clientCommunicator) {
 		super();
-		this.clientCommunicator = clientCommunicator;
+		ProxyServer.clientCommunicator = clientCommunicator;
+	}
+	
+	public static ProxyServer getInstance() {
+		if (instance == null) {
+			clientCommunicator = new ClientCommunicator();
+			instance = new ProxyServer(clientCommunicator);
+		}
+		return instance;
+	}
+	
+	public static ProxyServer getInstance(String host, int port) {
+		if (instance == null) {
+			clientCommunicator = new ClientCommunicator(host, port);
+			instance = new ProxyServer(clientCommunicator);
+		}
+		return instance;
 	}
 
 	@Override

@@ -19,14 +19,12 @@ import client.proxy.ProxyServer;
 public class GameTests {
 
 	private static ProxyServer ps;
-	private static ClientCommunicator cc;
 	static Username user = new Username("Sam");
 	static Password pass = new Password("sam");
 	
 	@BeforeClass
 	public static void init(){
-		cc = new ClientCommunicator();
-		ps = new ProxyServer(cc);
+		ps = ProxyServer.getInstance();
 		try {
 			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
