@@ -1,7 +1,7 @@
-Spencer:  Fix add Player
-Isaac:  
-Matt:  
-Jordan: 
-Sam: 
+Spencer:  Maritime trade, Domestic Trade
+Isaac:  Login, game history, chat, game hub
+Matt:  THE MAP
+Jordan: roll, turn tracker, player waiting, join game.
+Sam: Dev Card, discard, resource bar
 
 TODO:
