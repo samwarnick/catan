@@ -33,7 +33,7 @@ public class RegisterUserTest {
 			passed = false;
 		}
 		
-		assert(passed);
+		assertTrue(passed);
 		
 	}
 	
@@ -45,7 +45,7 @@ public class RegisterUserTest {
 			ps.loginUser(new UserLoginInput("Sam", "sam"));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			assert(false);
+			assertTrue(false);
 		}
 		
 	}

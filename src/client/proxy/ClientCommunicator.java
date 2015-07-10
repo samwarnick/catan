@@ -69,12 +69,8 @@ public class ClientCommunicator {
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
 	        if(cookie!=null){
-<<<<<<< HEAD
 	        	conn.setRequestProperty("Cookie", cookie);
-=======
 	        	// System.out.println(cookie);
-	        	conn.addRequestProperty("Cookie", cookie);
->>>>>>> origin/master
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
@@ -85,11 +81,6 @@ public class ClientCommunicator {
 	        		if(toPost.getMethod().equals("/user/login")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie = precookie.substring(0, precookie.length()-8);
-<<<<<<< HEAD
-	        			//cookie = precookie;
-	        			
-=======
->>>>>>> origin/master
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");

@@ -31,7 +31,7 @@ public class GamesTest {
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
 		//	ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			assert(false);
+			assertTrue(false);
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class GamesTest {
 		try {
 			ps.listGames(new GamesListInput());
 		} catch (ServerException e) {
-			assert(false);
+			assertTrue(false);
 		}
 		
 	}
@@ -53,7 +53,7 @@ public class GamesTest {
 			ps.createGame(new GamesCreateInput("x", true, true, true));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			assert(false);
+			assertTrue(false);
 		}
 		
 	}
@@ -65,7 +65,7 @@ public class GamesTest {
 			ps.joinGame(new GamesJoinInput(3,Color.RED));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			assert(false);
+			assertTrue(false);
 		}
 		
 	}
@@ -76,7 +76,7 @@ public class GamesTest {
 //			ps.saveGame(new GamesSaveInput(0, "file.txt"));
 //		} catch (ServerException e) {
 //			// TODO Auto-generated catch block
-//			assert(false);
+//			assertTrue(false);
 //		}
 //		
 //	}
@@ -88,7 +88,7 @@ public class GamesTest {
 //			ps.loadGame(new GamesLoadInput("x"));
 //		} catch (ServerException e) {
 //			// TODO Auto-generated catch block
-//			assert(false);
+//			assertTrue(false);
 //		}
 //		
 //	}

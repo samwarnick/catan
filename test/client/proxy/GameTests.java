@@ -32,7 +32,7 @@ public class GameTests {
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
 			e.printStackTrace();
-			assert(false);
+			assertTrue(false);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class GameTests {
 			ps.getGameModelVersion(new GameModelVersionInput(1));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			assert(false);
+			assertTrue(false);
 		}
 	}
 
@@ -54,7 +54,7 @@ public class GameTests {
 			ps.resetGame(new GameResetInput(true));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			assert(false);
+			assertTrue(false);
 		}
 		
 	}
@@ -65,7 +65,7 @@ public class GameTests {
 			ps.getGameCommands(new GameCommandsGetInput());
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
-			assert(false);
+			assertTrue(false);
 		}
 		
 	}
