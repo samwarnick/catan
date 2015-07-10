@@ -280,7 +280,7 @@ public class Board {
 					for(HexLocation newLoc : newLocs) {
 						if(!newLoc.equals(desertHex.getLocation())) {
 							int temp = resourceHexesMap.get(newLoc).getNumberToken();
-							if (temp != 6 && temp != 8) {
+							if (!(temp == 6 || temp == 8)) {
 								resourceHexesMap.get(newLoc).setNumberToken(hex2.getNumberToken());
 								hex2.setNumberToken(temp);
 								return true;								
