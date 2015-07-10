@@ -1,4 +1,4 @@
-package test.client;
+package client.proxy;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
