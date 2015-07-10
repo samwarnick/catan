@@ -9,6 +9,11 @@ import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
+import shared.model.player.ActivePlayerFacade;
+import shared.model.player.NoCitiesLeftException;
+import shared.model.player.NoRoadsLeftException;
+import shared.model.player.NoSettlementsLeftException;
+import shared.model.player.Player;
 
 public class ActivePlayerFacadeTest {
 

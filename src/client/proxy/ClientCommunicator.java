@@ -1,10 +1,6 @@
 package client.proxy;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Writer;
-import java.io.InputStreamReader;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -28,7 +24,6 @@ public class ClientCommunicator {
 	private final int DEFAULT_PORT = 8081;
 	private String serverHost = "localhost";
 	private int serverPort = 8081;
-	private String PATH_PREFIX = "/docs/api/data";
 	private String URLPrefix;
 	private String cookie = null;
 	

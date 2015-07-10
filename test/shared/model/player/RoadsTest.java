@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import shared.model.player.NoRoadsLeftException;
+import shared.model.player.Roads;
+
 public class RoadsTest {
 
 	@Test
