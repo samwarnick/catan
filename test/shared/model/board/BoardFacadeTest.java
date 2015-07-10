@@ -66,6 +66,9 @@ public class BoardFacadeTest {
 		EdgeLocation locationInvalid = new EdgeLocation(hexLocation, EdgeDirection.South); // not attached to anything
 		
 		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid));
+		road = new Road(player1.getPlayerID(), locationValid);
+		roads.add(road);
+		board.setRoads(roads);
 		assertFalse(board.getBoardFacade().canBuildRoad(player1, locationValid));
 		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationValid));
 		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid2));
@@ -116,12 +119,16 @@ public class BoardFacadeTest {
 		VertexLocation locationInvalid2 = new VertexLocation(hexLocation, VertexDirection.NorthWest); // has a  city on it
 
 		assertTrue(board.getBoardFacade().canBuildSettlement(player1, locationValid));
-		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationValid));
 		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationValid));
 		edgeLocation = new EdgeLocation(hexLocation, EdgeDirection.South);
 		road = new Road(player2.getPlayerID(), edgeLocation);
 		roads.add(road);
 		board.setRoads(roads);
+		assertTrue(board.getBoardFacade().canBuildSettlement(player2, locationValid));
+		settlement = new Settlement(player1.getPlayerID(), locationValid);
+		buildings.add(settlement);
+		board.setBuildings(buildings);
+		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationValid));
 		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationValid));
 		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationInvalid));
 		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationInvalid));
@@ -143,7 +150,7 @@ public class BoardFacadeTest {
 		buildings.add(settlement);
 		//add a settlement to player2
 		VertexLocation vertexLocation2 = new VertexLocation(hexLocation, VertexDirection.East);
-		settlement = new Settlement(player2.getPlayerID(), vertexLocation);
+		settlement = new Settlement(player2.getPlayerID(), vertexLocation2);
 		buildings.add(settlement);
 		
 		board.setBuildings(buildings);		
@@ -153,7 +160,6 @@ public class BoardFacadeTest {
 		VertexLocation locationInvalid = new VertexLocation(hexLocation, VertexDirection.SouthWest);
 		//add a settlement to player1 and player2		
 		assertTrue(board.getBoardFacade().canBuildCity(player1, locationValid));
-		assertFalse(board.getBoardFacade().canBuildCity(player1, locationValid));
 		assertFalse(board.getBoardFacade().canBuildCity(player2, locationValid));
 		assertTrue(board.getBoardFacade().canBuildCity(player2, locationValid2));
 		assertFalse(board.getBoardFacade().canBuildCity(player2, locationInvalid));

@@ -279,8 +279,12 @@ public class Board {
 					List<HexLocation> newLocs = hex2Loc.getLocsNotAdjacentTo(hex1Loc);
 					for(HexLocation newLoc : newLocs) {
 						if(!newLoc.equals(desertHex.getLocation())) {
+							boolean adjacentTo68 = false;
+							for(ResourceHex hex : sixAndEights){
+								if(newLoc.isAdjacent(hex.getLocation())) adjacentTo68 = true;
+							}
 							int temp = resourceHexesMap.get(newLoc).getNumberToken();
-							if (!(temp == 6 || temp == 8)) {
+							if (!(temp == 6 || temp == 8) && !adjacentTo68) {
 								resourceHexesMap.get(newLoc).setNumberToken(hex2.getNumberToken());
 								hex2.setNumberToken(temp);
 								return true;								

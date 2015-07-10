@@ -109,19 +109,93 @@ public class HexLocation
 	 */
 	public ArrayList<HexLocation> getLocsNotAdjacentTo(HexLocation loc) {
 		ArrayList<HexLocation> newLocs = new ArrayList<HexLocation>();
-		HexLocation newLoc = new HexLocation(this.x - loc.x, this.y);
-		if(newLoc.isValidLandHexLocation()) {
-			newLocs.add(newLoc);
-		}
+		int dx = this.x - loc.x;
+		int dy = this.y - loc.y;
+		HexLocation newLoc;
 		
-		newLoc = new HexLocation(this.x, this.y - loc.y);
-		if(newLoc.isValidLandHexLocation()) {
-			newLocs.add(newLoc);
+		if(dx == 0 && dy == 1) {
+			newLoc = new HexLocation(this.x - 1, this.y + 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x + 1, this.y);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x, this.y + 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
 		}
-		
-		newLoc = new HexLocation(this.x - loc.x, this.y - loc.y);
-		if(newLoc.isValidLandHexLocation()) {
-			newLocs.add(newLoc);
+		else if(dx == 0 && dy == -1) {
+			newLoc = new HexLocation(this.x - 1, this.y);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x + 1, this.y - 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x, this.y - 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+		}
+		else if(dx == 1 && dy == 0) {
+			newLoc = new HexLocation(this.x, this.y + 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x + 1, this.y - 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x + 1, this.y);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+		}
+		else if(dx == -1 && dy == 0) {
+			newLoc = new HexLocation(this.x, this.y - 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x - 1, this.y + 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x - 1, this.y);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+		}
+		else if(dx == 1 && dy == -1) {
+			newLoc = new HexLocation(this.x, this.y - 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x + 1, this.y);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x + 1, this.y - 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+		}
+		else if(dx == -1 && dy == 1) {
+			newLoc = new HexLocation(this.x, this.y + 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x - 1, this.y);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
+			newLoc = new HexLocation(this.x - 1, this.y + 1);
+			if(newLoc.isValidLandHexLocation()) {
+				newLocs.add(newLoc);
+			}
 		}
 		
 		return newLocs;
