@@ -1,5 +1,6 @@
 package client.proxy;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
@@ -73,7 +74,7 @@ public class ClientCommunicator {
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
 	        if(cookie!=null){
-	        	conn.addRequestProperty("Cookie", cookie);
+	        	conn.setRequestProperty("Cookie", cookie);
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
@@ -85,6 +86,7 @@ public class ClientCommunicator {
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			//String[] temp = precookie.split("catan.user=");
 	        			cookie = precookie.substring(0, precookie.length()-8);
+	        			//cookie = precookie;
 	        			
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){

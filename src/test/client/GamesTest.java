@@ -59,17 +59,17 @@ public class GamesTest {
 	}
 
 	
-//	@Test
-//	public void testJoinGame(){
-//		try {
-//			ps.joinGame(new GamesJoinInput(0,Color.RED));
-//		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
-//			assert(false);
-//		}
-//		
-//	}
-	
+	@Test
+	public void testJoinGame(){
+		try {
+			ps.joinGame(new GamesJoinInput(3,Color.RED));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			assert(false);
+		}
+		
+	}
+//	
 //	@Test
 //	public void testSaveGame(){
 //		try {
