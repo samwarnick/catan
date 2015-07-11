@@ -2,8 +2,8 @@ package shared.definitions;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
 import server.ServerException;
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesJoinInput;
@@ -71,5 +71,28 @@ public class GamesTest {
 		}
 		
 	}
+	
+//	@Test
+//	public void testSaveGame(){
+//		try {
+//			ps.saveGame(new GamesSaveInput(0, "file"));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			assertTrue(false);
+//		}
+//		
+//	}
+//
+//	
+//	@Test
+//	public void testLoadGame() {
+//		try {
+//			ps.loadGame(new GamesLoadInput("file"));
+//		} catch (ServerException e) {
+//			// TODO Auto-generated catch block
+//			assertTrue(false);
+//		}
+//		
+//	}
 	
 }

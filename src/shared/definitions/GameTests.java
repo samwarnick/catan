@@ -49,29 +49,6 @@ public class GameTests {
 			assertTrue(false);
 		}
 	}
-	
-	@Test
-	public void testSaveGame(){
-		try {
-			ps.saveGame(new GamesSaveInput(0, "file"));
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			assertTrue(false);
-		}
-		
-	}
-
-	
-	@Test
-	public void testLoadGame() {
-		try {
-			ps.loadGame(new GamesLoadInput("file"));
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			assertTrue(false);
-		}
-		
-	}
 
 	
 	@Test
