@@ -63,35 +63,13 @@ public class GamesTest {
 	@Test
 	public void testJoinGame(){
 		try {
-			ps.joinGame(new GamesJoinInput(3,Color.RED));
+			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			assertTrue(false);
 		}
 		
 	}
-//	
-//	@Test
-//	public void testSaveGame(){
-//		try {
-//			ps.saveGame(new GamesSaveInput(0, "file.txt"));
-//		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
-//			assertTrue(false);
-//		}
-//		
-//	}
-//
-//	
-//	@Test
-//	public void testLoadGame() {
-//		try {
-//			ps.loadGame(new GamesLoadInput("x"));
-//		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
-//			assertTrue(false);
-//		}
-//		
-//	}
 	
 }

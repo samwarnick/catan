@@ -10,14 +10,27 @@ import shared.model.bank.ResourceHand;
 public class DiscardCardsInput extends MoveInput {
 
 	private ResourceHand discardedCards;
+	private String type = "discardCards";
 
 	public DiscardCardsInput(int playerIndex, ResourceHand discardedCards) {
-		super("dicardCards", playerIndex);
+		super("/dicardCards", playerIndex);
 		this.discardedCards = discardedCards;
 	}
 
 	public ResourceHand getDiscardedCards() {
 		return discardedCards;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setDiscardedCards(ResourceHand discardedCards) {
+		this.discardedCards = discardedCards;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

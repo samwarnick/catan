@@ -8,21 +8,21 @@ package shared.communication.input;
  */
 public class GamesSaveInput extends Input {
 
-	private int gameID;
-	private String fileName;
+	private int id;
+	private String name;
 	
 	public GamesSaveInput(int gameID, String fileName) {
 		super("/games/save");
-		this.gameID = gameID;
-		this.fileName = fileName;
+		this.id = gameID;
+		this.name = fileName;
 	}
 
-	public int getGameID() {
-		return gameID;
+	public int getId() {
+		return id;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getName() {
+		return name;
 	}
 	
 }

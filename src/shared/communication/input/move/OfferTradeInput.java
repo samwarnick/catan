@@ -11,7 +11,7 @@ public class OfferTradeInput extends MoveInput {
 
 	private ResourceHand offer;
 	private int receiver;
-	private String type = "OfferTrade";
+	private String type = "offerTrade";
 	
 	public String getType() {
 		return type;

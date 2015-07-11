@@ -8,14 +8,27 @@ package shared.communication.input.move;
 public class AcceptTradeInput extends MoveInput {
 
 	private boolean willAccept;
+	private String type = "acceptTrade";
 
 	public AcceptTradeInput(int playerIndex, boolean willAccept) {
-		super("acceptTrade", playerIndex);
+		super("/acceptTrade", playerIndex);
 		this.willAccept = willAccept;
 	}
 
 	public boolean isWillAccept() {
 		return willAccept;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setWillAccept(boolean willAccept) {
+		this.willAccept = willAccept;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

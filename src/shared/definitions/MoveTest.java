@@ -1,4 +1,4 @@
-package client.proxy;
+package shared.definitions;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,8 +36,6 @@ import shared.model.user.Username;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
-import static org.junit.assertTrue.*;
-
 public class MoveTest {
 
 	private static ProxyServer ps;
@@ -50,18 +48,13 @@ public class MoveTest {
 		cc = new ClientCommunicator();
 		ps = new ProxyServer(cc);
 		
-		boolean error = false;
-		
 		try {
-			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			error = true;
+			assertTrue(false);
 			e.printStackTrace();
 		}
-		
-		assertTrueFalse(error);
 	}
 	
 	@Test
@@ -89,7 +82,7 @@ public class MoveTest {
 	@Test
 	public void testPlayMonopoly(){
 		try {
-			ps.playMonopoly(new PlayMonopolyInput(0, null));
+			ps.playMonopoly(new PlayMonopolyInput(0, "brick"));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);
@@ -175,7 +168,7 @@ public class MoveTest {
 	@Test
 	public void testDiscardCards(){
 		try {
-			ps.discardCards(new DiscardCardsInput(0, new ResourceHand()));
+			ps.discardCards(new DiscardCardsInput(1, new ResourceHand()));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);

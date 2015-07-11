@@ -12,7 +12,7 @@ public class MoveInput extends Input {
 	private int playerIndex;
 	
 	public MoveInput(String method, int playerIndex) {
-		super("/move" + method);
+		super("/moves" + method);
 		this.playerIndex = playerIndex;
 	}
 

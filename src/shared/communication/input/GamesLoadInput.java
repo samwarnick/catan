@@ -7,15 +7,20 @@ package shared.communication.input;
  */
 public class GamesLoadInput extends Input {
 
-	private String fileName;
+	private String name;
+	private int id;
 
 	public GamesLoadInput(String fileName) {
 		super("/games/load");
-		this.fileName = fileName;
+		this.name = fileName;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getName() {
+		return name;
+	}
+	
+	public int getId(){
+		return id;
 	}
 	
 }

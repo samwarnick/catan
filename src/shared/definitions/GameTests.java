@@ -1,14 +1,16 @@
-package client.proxy;
+package shared.definitions;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
 import server.ServerException;
 import shared.communication.input.GameCommandsGetInput;
 import shared.communication.input.GameModelVersionInput;
 import shared.communication.input.GameResetInput;
 import shared.communication.input.GamesJoinInput;
+import shared.communication.input.GamesLoadInput;
+import shared.communication.input.GamesSaveInput;
 import shared.communication.input.UserLoginInput;
 import shared.model.player.Color;
 import shared.model.user.Password;
@@ -46,6 +48,29 @@ public class GameTests {
 			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
+	}
+	
+	@Test
+	public void testSaveGame(){
+		try {
+			ps.saveGame(new GamesSaveInput(0, "file"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false);
+		}
+		
+	}
+
+	
+	@Test
+	public void testLoadGame() {
+		try {
+			ps.loadGame(new GamesLoadInput("file"));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false);
+		}
+		
 	}
 
 	
