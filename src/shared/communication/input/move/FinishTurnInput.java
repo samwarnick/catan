@@ -7,8 +7,18 @@ package shared.communication.input.move;
  */
 public class FinishTurnInput extends MoveInput {
 
+	private String type = "finishTurn";
+
 	public FinishTurnInput(int playerIndex) {
-		super("finishTurn", playerIndex);
+		super("/finishTurn", playerIndex);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

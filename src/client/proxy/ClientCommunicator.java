@@ -58,15 +58,14 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public JsonNode post(Input toPost) throws ServerException {
+	public JsonNode post(Input toPost, String requestMethod) throws ServerException {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
 			//url = new URL(URLPrefix+ PATH_PREFIX +method);
 			url = new URL(URLPrefix + method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-	        conn.setRequestMethod("POST");
-	        conn.setDoInput(true);
+	        conn.setRequestMethod(requestMethod);
 	        conn.setDoOutput(true);
 	        if(cookie!=null){
 	        	conn.setRequestProperty("Cookie", cookie);
@@ -75,20 +74,22 @@ public class ClientCommunicator {
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(conn.getOutputStream(), toPost);
+	        System.out.println(mapper.writeValueAsString(toPost));
+	        System.out.println(cookie);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	if (conn.getInputStream().available() == 7) { // i.e. "success" in response body
+	        	if (conn.getHeaderField("Content-length").equals("7")) { // i.e. "success" in response body
 	        		if(toPost.getMethod().equals("/user/login")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie = precookie.substring(0, precookie.length()-8);
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			cookie += ";  " + precookie.substring(0, precookie.length()-8);
+	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
 	        		}
 	        		return null;
 	        	}
-	        	else {
+	        	else{
 	        		return mapper.readTree(conn.getInputStream());
 	        	}
 	        }

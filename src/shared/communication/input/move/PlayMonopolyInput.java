@@ -28,8 +28,9 @@ public class PlayMonopolyInput extends MoveInput {
 		this.type = type;
 	}
 
-	public PlayMonopolyInput(int playerIndex, ResourceType resource) {
+	public PlayMonopolyInput(int playerIndex, String resource) {
 		super("/Monopoly", playerIndex);
+		this.resource = resource;
 	}
 
 	

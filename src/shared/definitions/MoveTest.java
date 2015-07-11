@@ -1,4 +1,4 @@
-package client.proxy;
+package shared.definitions;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -44,18 +44,18 @@ public class MoveTest {
 	public static void init(){
 		ps = ProxyServer.getInstance();
 		
-		boolean error = false;
-		
 		try {
-			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			error = true;
+			assertTrue(false);
 			e.printStackTrace();
 		}
+<<<<<<< HEAD:test/client/proxy/MoveTest.java
 		
 		assertFalse(error);
+=======
+>>>>>>> MI4-FIXCC:src/shared/definitions/MoveTest.java
 	}
 	
 	@Test
@@ -83,7 +83,7 @@ public class MoveTest {
 	@Test
 	public void testPlayMonopoly(){
 		try {
-			ps.playMonopoly(new PlayMonopolyInput(0, null));
+			ps.playMonopoly(new PlayMonopolyInput(0, "brick"));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);
@@ -169,7 +169,7 @@ public class MoveTest {
 	@Test
 	public void testDiscardCards(){
 		try {
-			ps.discardCards(new DiscardCardsInput(0, new ResourceHand()));
+			ps.discardCards(new DiscardCardsInput(1, new ResourceHand()));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);
