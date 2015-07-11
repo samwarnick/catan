@@ -13,7 +13,7 @@ public class DiscardCardsInput extends MoveInput {
 	private String type = "discardCards";
 
 	public DiscardCardsInput(int playerIndex, ResourceHand discardedCards) {
-		super("/dicardCards", playerIndex);
+		super("/discardCards", playerIndex);
 		this.discardedCards = discardedCards;
 	}
 

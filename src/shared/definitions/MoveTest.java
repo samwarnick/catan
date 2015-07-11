@@ -115,7 +115,7 @@ public class MoveTest {
 	@Test
 	public void testRobPlayer() {
 		try {
-			ps.robPlayer(new RobPlayerInput(0, new HexLocation(1,1), 1));
+			ps.robPlayer(new RobPlayerInput(0, new HexLocation(1,1), 0));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);
@@ -205,7 +205,7 @@ public class MoveTest {
 	@Test
 	public void testBuildCity(){
 		try {
-			ps.buildCity(new BuildCityInput("Joy", 0,
+			ps.buildCity(new BuildCityInput( 0,
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
