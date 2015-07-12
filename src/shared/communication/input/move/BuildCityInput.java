@@ -11,8 +11,8 @@ public class BuildCityInput extends MoveInput {
 
 	private VertexLocation location;
 
-	public BuildCityInput(String method, int playerIndex, VertexLocation location) {
-		super(method, playerIndex);
+	public BuildCityInput(int playerIndex, VertexLocation location) {
+		super("buildCity", playerIndex);
 		this.location = location;
 	}
 

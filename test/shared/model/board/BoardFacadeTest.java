@@ -65,14 +65,14 @@ public class BoardFacadeTest {
 		hexLocation = new HexLocation(0,1);
 		EdgeLocation locationInvalid = new EdgeLocation(hexLocation, EdgeDirection.South); // not attached to anything
 		
-		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid));
+		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid, false));
 		road = new Road(player1.getPlayerID(), locationValid);
 		roads.add(road);
 		board.setRoads(roads);
-		assertFalse(board.getBoardFacade().canBuildRoad(player1, locationValid));
-		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationValid));
-		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid2));
-		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationInvalid));
+		assertFalse(board.getBoardFacade().canBuildRoad(player1, locationValid, false));
+		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationValid, false));
+		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid2, false));
+		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationInvalid, false));
 	}
 	
 	//if it doesn't boarder any other settlements or cities and is empty
@@ -118,21 +118,21 @@ public class BoardFacadeTest {
 		VertexLocation locationInvalid = new VertexLocation(hexLocation, VertexDirection.West); // boarders a city
 		VertexLocation locationInvalid2 = new VertexLocation(hexLocation, VertexDirection.NorthWest); // has a  city on it
 
-		assertTrue(board.getBoardFacade().canBuildSettlement(player1, locationValid));
-		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationValid));
+		assertTrue(board.getBoardFacade().canBuildSettlement(player1, locationValid, false));
+		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationValid, false));
 		edgeLocation = new EdgeLocation(hexLocation, EdgeDirection.South);
 		road = new Road(player2.getPlayerID(), edgeLocation);
 		roads.add(road);
 		board.setRoads(roads);
-		assertTrue(board.getBoardFacade().canBuildSettlement(player2, locationValid));
+		assertTrue(board.getBoardFacade().canBuildSettlement(player2, locationValid, false));
 		settlement = new Settlement(player1.getPlayerID(), locationValid);
 		buildings.add(settlement);
 		board.setBuildings(buildings);
-		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationValid));
-		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationValid));
-		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationInvalid));
-		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationInvalid));
-		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationInvalid2));
+		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationValid, false));
+		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationValid, false));
+		assertFalse(board.getBoardFacade().canBuildSettlement(player2, locationInvalid, false));
+		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationInvalid, false));
+		assertFalse(board.getBoardFacade().canBuildSettlement(player1, locationInvalid2, false));
 	}
 	
 	//if they have a settlement on that vertex location then build
@@ -159,10 +159,10 @@ public class BoardFacadeTest {
 		VertexLocation locationValid2 = vertexLocation2;
 		VertexLocation locationInvalid = new VertexLocation(hexLocation, VertexDirection.SouthWest);
 		//add a settlement to player1 and player2		
-		assertTrue(board.getBoardFacade().canBuildCity(player1, locationValid));
-		assertFalse(board.getBoardFacade().canBuildCity(player2, locationValid));
-		assertTrue(board.getBoardFacade().canBuildCity(player2, locationValid2));
-		assertFalse(board.getBoardFacade().canBuildCity(player2, locationInvalid));
+		assertTrue(board.getBoardFacade().canBuildCity(player1, locationValid, false));
+		assertFalse(board.getBoardFacade().canBuildCity(player2, locationValid, false));
+		assertTrue(board.getBoardFacade().canBuildCity(player2, locationValid2, false));
+		assertFalse(board.getBoardFacade().canBuildCity(player2, locationInvalid, false));
 	}
 }
 

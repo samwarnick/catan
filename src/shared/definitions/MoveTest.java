@@ -72,7 +72,7 @@ public class MoveTest {
 	@Test
 	public void testPlayRoadBuilding(){
 		try {
-			ps.playRoadBuilding(new PlayRoadBuildingInput(null, 0, null, null));
+			ps.playRoadBuilding(new PlayRoadBuildingInput(0, null, null));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);
@@ -205,8 +205,7 @@ public class MoveTest {
 	@Test
 	public void testBuildCity(){
 		try {
-			ps.buildCity(new BuildCityInput("Joy", 0,
-					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
+			ps.buildCity(new BuildCityInput(0, new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);

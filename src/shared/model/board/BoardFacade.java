@@ -33,7 +33,7 @@ public class BoardFacade {
 	 * @pre none
 	 * @post returns true if there is no existing road at the location and if the player has an adjacent road.  false otherwise
 	 */
-	public boolean canBuildRoad(Player player, EdgeLocation location) {
+	public boolean canBuildRoad(Player player, EdgeLocation location, boolean allowDisconnected) {
 		EdgeLocation ambiguity = location.getAmbiguousEdge();
 		
 		List<Road> roads = board.getRoads();
@@ -44,19 +44,20 @@ public class BoardFacade {
 			}
 		}
 		
-		// check for adjacent road belonging to player
-		List<EdgeLocation> edges = location.getAdjacentEdges();
-		List<EdgeLocation> adjacents = location.getAdjacentEdges();
-		for(EdgeLocation edge: edges) {
-			adjacents.add(edge.getAmbiguousEdge());
-		}
-		
-		for(Road road : roads) {
-			for(EdgeLocation adjacentEdge : adjacents) {
-				if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())){
-					return true;
-				}
+		if (!allowDisconnected) {
+			// check for adjacent road belonging to player
+			List<EdgeLocation> edges = location.getAdjacentEdges();
+			List<EdgeLocation> adjacents = location.getAdjacentEdges();
+			for (EdgeLocation edge : edges) {
+				adjacents.add(edge.getAmbiguousEdge());
 			}
+			for (Road road : roads) {
+				for (EdgeLocation adjacentEdge : adjacents) {
+					if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())) {
+						return true;
+					}
+				}
+			} 
 		}
 		return false;
 	}
@@ -67,7 +68,7 @@ public class BoardFacade {
 	 * @pre none
 	 * @post returns true if there is no settlement at that location or any of the locations one away from it and if the player has an adjacent road.  Returns false otherwise
 	 */
-	public boolean canBuildSettlement(Player player, VertexLocation location) {
+	public boolean canBuildSettlement(Player player, VertexLocation location, boolean allowDisconnected) {
 		// create list to hold all VertexLocations that need to be checked
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 		vertices.add(location);
@@ -78,33 +79,34 @@ public class BoardFacade {
 		ArrayList<VertexLocation> adjacentHexes = location.getAdjacentVertices();
 		vertices.addAll(adjacentHexes);
 		// for each adjacent vertex, add all ambiguities
-		for(VertexLocation loc : adjacentHexes) {
+		for (VertexLocation loc : adjacentHexes) {
 			vertices.addAll(loc.getAmbiguousVertices());
 		}
 		
 		List<Vertex> buildings = board.getBuildings();
-		for(Vertex building : buildings) {
-			for(VertexLocation loc : vertices) {
+		for (Vertex building : buildings) {
+			for (VertexLocation loc : vertices) {
 				if (building.getLocation().equals(loc)) {
 					return false;	
 				}
 			}
 		}
 		
-		// check for adjacent road belonging to player
-		List<Road> roads = board.getRoads();
-		List<EdgeLocation> edges = location.getAdjacentEdges();
-		List<EdgeLocation> adjacents = location.getAdjacentEdges();
-		for(EdgeLocation edge: edges) {
-			adjacents.add(edge.getAmbiguousEdge());
-		}
-		
-		for(Road road : roads) {
-			for(EdgeLocation adjacentEdge : adjacents) {
-				if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())){
-					return true;
-				}
+		if (!allowDisconnected) {
+			// check for adjacent road belonging to player
+			List<Road> roads = board.getRoads();
+			List<EdgeLocation> edges = location.getAdjacentEdges();
+			List<EdgeLocation> adjacents = location.getAdjacentEdges();
+			for (EdgeLocation edge : edges) {
+				adjacents.add(edge.getAmbiguousEdge());
 			}
+			for (Road road : roads) {
+				for (EdgeLocation adjacentEdge : adjacents) {
+					if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())) {
+						return true;
+					}
+				}
+			} 
 		}
 		return false;
 	}
@@ -115,7 +117,7 @@ public class BoardFacade {
 	 * @pre none
 	 * @post returns true if there is a settlement owned by the player at the given location. false otherwise
 	 */
-	public boolean canBuildCity(Player player, VertexLocation location) {
+	public boolean canBuildCity(Player player, VertexLocation location, boolean allowDisconnected) {
 		// create list to hold all VertexLocations that need to be checked
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 		vertices.add(location);

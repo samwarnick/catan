@@ -125,7 +125,7 @@ public class InactivePlayerFacadeTest {
 	@Test
 	public void testCanBuildSettlement() {
 		// without resources
-		assertFalse(inactivePlayer.getPlayerFacade().canBuildSettlement());
+		assertFalse(inactivePlayer.getPlayerFacade().canBuildSettlement(false));
 		
 		// has resource cards
 		try {
@@ -134,13 +134,13 @@ public class InactivePlayerFacadeTest {
 			return;
 		}
 		
-		assertFalse(inactivePlayer.getPlayerFacade().canBuildSettlement());
+		assertFalse(inactivePlayer.getPlayerFacade().canBuildSettlement(false));
 	}
 	
 	@Test
 	public void testCanBuildCity() {
 		// without resources
-		assertFalse(inactivePlayer.getPlayerFacade().canBuildCity());
+		assertFalse(inactivePlayer.getPlayerFacade().canBuildCity(false));
 		
 		// has resource cards
 		try {
@@ -149,7 +149,7 @@ public class InactivePlayerFacadeTest {
 			return;
 		}
 		
-		assertFalse(inactivePlayer.getPlayerFacade().canBuildCity());
+		assertFalse(inactivePlayer.getPlayerFacade().canBuildCity(false));
 	}
 	
 

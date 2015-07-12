@@ -78,9 +78,9 @@ public class GameModelFacade {
 	 * @pre none
 	 * @post returns true if both the location is valid and the player can build the road otherwise false
 	 */
-	public boolean canBuildRoad(Player player,EdgeLocation location){
-		return player.getPlayerFacade().canBuildRoad()
-				&& gameModel.getBoard().getBoardFacade().canBuildRoad(player, location);
+	public boolean canBuildRoad(Player player,EdgeLocation location,boolean isFree,boolean allowDisconnected){
+		return player.getPlayerFacade().canBuildRoad(isFree)
+				&& gameModel.getBoard().getBoardFacade().canBuildRoad(player, location, allowDisconnected);
 	}
 	/**
 	 * 
@@ -89,9 +89,9 @@ public class GameModelFacade {
 	 * @pre none
 	 * @post returns true if both the location is valid and the player can build the settlement otherwise false
 	 */
-	public boolean canBuildSettlement(Player player,VertexLocation location){
-		return player.getPlayerFacade().canBuildSettlement()
-				&& gameModel.getBoard().getBoardFacade().canBuildSettlement(player, location);
+	public boolean canBuildSettlement(Player player,VertexLocation location,boolean isFree,boolean allowDisconnected){
+		return player.getPlayerFacade().canBuildSettlement(isFree)
+				&& gameModel.getBoard().getBoardFacade().canBuildSettlement(player, location, allowDisconnected);
 	}
 	/**
 	 * 
@@ -100,9 +100,9 @@ public class GameModelFacade {
 	 * @pre none
 	 * @post returns true if the player can build the city otherwise false
 	 */
-	public boolean canBuildCity(Player player,VertexLocation location){
-		return player.getPlayerFacade().canBuildCity()
-				&& gameModel.getBoard().getBoardFacade().canBuildCity(player, location);
+	public boolean canBuildCity(Player player,VertexLocation location,boolean isFree,boolean allowDisconnected){
+		return player.getPlayerFacade().canBuildCity(isFree)
+				&& gameModel.getBoard().getBoardFacade().canBuildCity(player, location, allowDisconnected);
 	}
 	/**
 	 * 
@@ -143,7 +143,16 @@ public class GameModelFacade {
 	 */
 	public boolean canRobPlayer(Player player,HexLocation location){
 		return player.getPlayerFacade().canBeRobbed()
-				&& gameModel.getBoard().getRobber().getLocation().equals(location)
+				&& canPlaceRobber(location);
+	}
+	/**
+	 * 
+	 * @param location
+	 * @pre none
+	 * @post returns true if the location is a new one for the robber otherwise false and current turn status is Robbing
+	 */
+	public boolean canPlaceRobber(HexLocation location) {
+		return gameModel.getBoard().getRobber().getLocation().equals(location)
 				&& gameModel.getTurnTracker().getStatus().equals("Robbing");
 	}
 	/**

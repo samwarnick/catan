@@ -16,28 +16,32 @@ public class ActivePlayerFacade implements IPlayerFacade{
 	}
 	
 	@Override
-	public boolean canBuildCity() {
-		if (player.getCities().getCitiesLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(0,0,0,2,3)))
-			return true;
-		else
-			return false;
+	public boolean canBuildCity(boolean isFree) {
+		if (player.getCities().getCitiesLeft() > 0) {
+			if (player.getPlayerBank().hasRC(new ResourceHand(0,0,0,2,3)) || isFree)
+				return true;
+		}
+		return false;
 	}
 
 	@Override
-	public boolean canBuildSettlement() {
-		if (player.getSettlements().getSettlementsLeft() > 0
-				&& player.getPlayerBank().hasRC(new ResourceHand(1,1,1,1,0)))
-			return true;
-		else
-			return false;
+	public boolean canBuildSettlement(boolean isFree) {
+		if (player.getSettlements().getSettlementsLeft() > 0) {
+			if (isFree || player.getPlayerBank().hasRC(new ResourceHand(1,1,1,1,0))) {
+				return true;				
+			}
+		}
+		return false;
 	}
 
 	@Override
-	public boolean canBuildRoad() {
-		if (player.getRoads().getRoadsLeft() > 0 && player.getPlayerBank().hasRC(new ResourceHand(1,1,0,0,0)))
-			return true;
-		else
-			return false;
+	public boolean canBuildRoad(boolean isFree) {
+		if (player.getRoads().getRoadsLeft() > 0) {
+			if (player.getPlayerBank().hasRC(new ResourceHand(1,1,0,0,0)) || isFree) {
+				return true;	
+			}
+		}
+		return false;
 	}
 
 	@Override
