@@ -15,12 +15,10 @@ import shared.model.user.Username;
 public class RegisterUserTest {
 	
 	private static ProxyServer ps;
-	private static ClientCommunicator cc;
 	
 	@BeforeClass
 	public static void init(){
-		cc = new ClientCommunicator();
-		ps = new ProxyServer(cc);
+		ps = ProxyServer.getInstance();	
 	}
 	
 	@Test

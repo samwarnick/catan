@@ -21,7 +21,7 @@ public class Controller {
 	public Controller(int gameID){
 		gameModelFacade = new GameModelFacade(gameID);
 		poller = new Poller(this);
-		proxyServer = new ProxyServer(new ClientCommunicator());
+		proxyServer = ProxyServer.getInstance();
 	}
 	
 	public Controller(int gameID, IServer server){

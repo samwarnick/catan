@@ -16,8 +16,7 @@ public class ClientCommunicatorTest {
 	@Test
 	public void testLogin() {
 		boolean error = false;
-		ClientCommunicator cc = new ClientCommunicator();
-		ProxyServer proxy = new ProxyServer(cc);
+		ProxyServer proxy = ProxyServer.getInstance();
 		UserLoginInput input = new UserLoginInput("Sam", "sam");
 		try {
 			proxy.loginUser(input);
@@ -30,8 +29,7 @@ public class ClientCommunicatorTest {
 	
 	@Test
 	public void testPost() {
-		ClientCommunicator cc = new ClientCommunicator();
-		ProxyServer proxy = new ProxyServer(cc);
+		ProxyServer proxy = ProxyServer.getInstance();
 		GamesCreateInput input = new GamesCreateInput("game1", false, false, false);
 		try {
 			Game game = proxy.createGame(input);

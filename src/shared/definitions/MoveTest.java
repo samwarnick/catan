@@ -22,7 +22,6 @@ import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
 import shared.communication.input.move.RobPlayerInput;
-import shared.communication.input.move.RollNumberInput;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -33,20 +32,17 @@ import shared.model.bank.ResourceHand;
 import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
 public class MoveTest {
 
 	private static ProxyServer ps;
-	private static ClientCommunicator cc;
 	static Username user = new Username("Sam");
 	static Password pass = new Password("sam");
 	
 	@BeforeClass
 	public static void init(){
-		cc = new ClientCommunicator();
-		ps = new ProxyServer(cc);
+		ps = ProxyServer.getInstance();
 		
 		try {
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
@@ -55,6 +51,11 @@ public class MoveTest {
 			assertTrue(false);
 			e.printStackTrace();
 		}
+<<<<<<< HEAD:test/client/proxy/MoveTest.java
+		
+		assertFalse(error);
+=======
+>>>>>>> MI4-FIXCC:src/shared/definitions/MoveTest.java
 	}
 	
 	@Test
