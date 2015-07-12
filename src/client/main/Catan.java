@@ -3,6 +3,7 @@ package client.main;
 import javax.swing.*;
 
 import client.catan.*;
+import client.controller.ModelController;
 import client.login.*;
 import client.join.*;
 import client.misc.*;
@@ -16,6 +17,7 @@ public class Catan extends JFrame
 {
 	
 	private CatanPanel catanPanel;
+	private	ModelController OC;
 	
 	public Catan()
 	{
@@ -95,7 +97,6 @@ public class Catan extends JFrame
 						joinController.start();
 					}
 				});
-				loginView.setController(loginController);
 				loginView.setController(loginController);
 				
 				loginController.start();

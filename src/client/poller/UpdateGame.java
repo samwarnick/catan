@@ -6,14 +6,14 @@ import server.IServer;
 import server.ServerException;
 import shared.communication.input.GameModelVersionInput;
 import shared.model.GameModel;
-import client.controller.Controller;
+import client.controller.ModelController;
 
 public class UpdateGame extends TimerTask{
 
-	private Controller controller;
+	private ModelController controller;
 	private IServer server;
 	
-	public UpdateGame(Controller control){
+	public UpdateGame(ModelController control){
 		super();
 		controller = control;
 		server = controller.getProxyServer();

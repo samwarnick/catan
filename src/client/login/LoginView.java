@@ -140,15 +140,6 @@ public class LoginView extends OverlayView implements ILoginView
         return wholeCompound;
     }
 
-    private ActionListener actionListener = new ActionListener()
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            getController().signIn();
-        }
-    };
-
     @Override
     public ILoginController getController()
     {
@@ -199,8 +190,8 @@ public class LoginView extends OverlayView implements ILoginView
         public SignInPanel()
         {
             initComponents();
-            initLayout();
             initEventListeners();
+            initLayout();
         }
 
         private void initComponents()
@@ -283,8 +274,8 @@ public class LoginView extends OverlayView implements ILoginView
         {
             initComponents();
             initTooltips();
-            initLayout();
             initEventListeners();
+            initLayout();
         }
 
         private void initComponents()
