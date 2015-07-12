@@ -2,18 +2,25 @@ package client.map;
 
 import java.util.*;
 
+import shared.communication.input.move.*;
 import shared.definitions.*;
 import shared.locations.*;
+import shared.model.board.*;
 import client.base.*;
 import client.data.*;
+import server.ServerException;
+import client.controller.Controller;
 
 
 /**
  * Implementation for the map controller
  */
-public class MapController extends Controller implements IMapController {
+public class MapController extends client.base.Controller implements IMapController {
 	
 	private IRobView robView;
+	private Controller controller;
+	private boolean isFree = false;
+	private boolean allowDisconnected = false;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -37,134 +44,177 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	protected void initFromModel() {
+	
+		Board board = controller.getGameModelFacade().getGameModel().getBoard();
 		
-		//<temp>
+		//resource hexes
+		for(ResourceHex hex : board.getResourceHexes()) {
+			getView().addHex(hex.getLocation(), hex.getLandType());
+			getView().addNumber(hex.getLocation(), hex.getNumberToken());
+		}
 		
-		Random rand = new Random();
-
-		for (int x = 0; x <= 3; ++x) {
-			
-			int maxY = 3 - x;			
-			for (int y = -3; y <= maxY; ++y) {				
-				int r = rand.nextInt(HexType.values().length);
-				HexType hexType = HexType.values()[r];
-				HexLocation hexLoc = new HexLocation(x, y);
-				getView().addHex(hexLoc, hexType);
-				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
-						CatanColor.RED);
-				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SouthWest),
-						CatanColor.BLUE);
-				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.South),
-						CatanColor.ORANGE);
-				getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NorthWest), CatanColor.GREEN);
-				getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NorthEast), CatanColor.PURPLE);
+		//ports
+		for(PortHex port : board.getPorts()) {
+			getView().addPort(new EdgeLocation(port.getLocation(), port.getOrientation()), port.getPortType());
+		}
+		
+		//water hexes
+		for(WaterHex hex : board.getWaterHexes()) {
+			getView().addHex(hex.getLocation(), hex.getLandType());
+		}
+		
+		//roads
+		for(Road road : board.getRoads()) {
+			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(road.getOwner()).getColor();
+			getView().placeRoad(road.getLocation(), color);
+		}
+		
+		//buildings
+		for(Vertex building : board.getBuildings()) {
+			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(building.getOwner()).getColor();
+			if(building.getClass() == Settlement.class) {
+				getView().placeSettlement(building.getLocation(), color);
 			}
-			
-			if (x != 0) {
-				int minY = x - 3;
-				for (int y = minY; y <= 3; ++y) {
-					int r = rand.nextInt(HexType.values().length);
-					HexType hexType = HexType.values()[r];
-					HexLocation hexLoc = new HexLocation(-x, y);
-					getView().addHex(hexLoc, hexType);
-					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
-							CatanColor.RED);
-					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SouthWest),
-							CatanColor.BLUE);
-					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.South),
-							CatanColor.ORANGE);
-					getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NorthWest), CatanColor.GREEN);
-					getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NorthEast), CatanColor.PURPLE);
-				}
+			else if(building.getClass() == City.class) {
+				getView().placeCity(building.getLocation(), color);
 			}
 		}
 		
-		PortType portType = PortType.BRICK;
-		getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
-		getView().addPort(new EdgeLocation(new HexLocation(0, -3), EdgeDirection.South), portType);
-		getView().addPort(new EdgeLocation(new HexLocation(-3, 3), EdgeDirection.NorthEast), portType);
-		getView().addPort(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), portType);
-		getView().addPort(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), portType);
-		getView().addPort(new EdgeLocation(new HexLocation(3, 0), EdgeDirection.NorthWest), portType);
-		
-		getView().placeRobber(new HexLocation(0, 0));
-		
-		getView().addNumber(new HexLocation(-2, 0), 2);
-		getView().addNumber(new HexLocation(-2, 1), 3);
-		getView().addNumber(new HexLocation(-2, 2), 4);
-		getView().addNumber(new HexLocation(-1, 0), 5);
-		getView().addNumber(new HexLocation(-1, 1), 6);
-		getView().addNumber(new HexLocation(1, -1), 8);
-		getView().addNumber(new HexLocation(1, 0), 9);
-		getView().addNumber(new HexLocation(2, -2), 10);
-		getView().addNumber(new HexLocation(2, -1), 11);
-		getView().addNumber(new HexLocation(2, 0), 12);
-		
-		//</temp>
+		//desert and robber
+		getView().addHex(board.getDesertHex().getLocation(), board.getDesertHex().getLandType());
+		getView().placeRobber(board.getRobber().getLocation());
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		
-		return true;
+		// can this only be called from the active player???
+		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		return controller.getGameModelFacade().canBuildRoad(controller.getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		
-		return true;
+		// can this only be called from the active player???
+		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		return controller.getGameModelFacade().canBuildSettlement(controller.getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		
-		return true;
+		// can this only be called from the active player???
+		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		return controller.getGameModelFacade().canBuildCity(controller.getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
-		return true;
+		return controller.getGameModelFacade().canPlaceRobber(hexLoc);
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
-		
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+		try {			
+			//need to contact server?? what order with ResourceBar, which contacts server?
+			PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+			
+			BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
+			controller.updateGame(controller.getProxyServer().buildRoad(input));
+			
+			// if updateGame will redraw whole map, then dont need this
+			getView().placeRoad(edgeLoc, color);
+		} 
+		catch (ServerException e) {
+			e.printStackTrace();
+		}
+		finally {
+			isFree = false;
+			allowDisconnected = false;			
+		}
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		
-		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+		try {
+			PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+			
+			BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
+			controller.updateGame(controller.getProxyServer().buildSettlement(input));
+			
+			getView().placeSettlement(vertLoc, color);
+		}
+		catch (ServerException e) {
+			e.printStackTrace();
+		}
+		finally {
+			isFree = false;
+			allowDisconnected = false;			
+		}
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		
-		getView().placeCity(vertLoc, CatanColor.ORANGE);
+		try {
+			PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+			
+			BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
+			controller.updateGame(controller.getProxyServer().buildCity(input));
+			
+			getView().placeCity(vertLoc, color);
+		}
+		catch (ServerException e) {
+			e.printStackTrace();
+		}
+		finally {
+			isFree = false;
+			allowDisconnected = false;			
+		}
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		
+		controller.getGameModelFacade().getGameModel().getBoard().getRobber().setLocation(hexLoc);
 		getView().placeRobber(hexLoc);
 		
 		getRobView().showModal();
+		
+		isFree = false;
+		allowDisconnected = false;
 	}
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
+		this.isFree = isFree;
+		this.allowDisconnected = allowDisconnected;
 		
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
+		
+		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		
+		boolean canCancel = true;
+		String status = controller.getGameModelFacade().getGameModel().getTurnTracker().getStatus();
+		if (status.equals("First Round") || status.equals("Second Round")) {
+			canCancel = false;
+		}
+		
+		getView().startDrop(pieceType, color, canCancel);
 	}
 	
 	public void cancelMove() {
-		
+		isFree = false;
+		allowDisconnected = false;
 	}
 	
 	public void playSoldierCard() {	
-		
+		startMove(PieceType.ROBBER, true, true);
 	}
 	
 	public void playRoadBuildingCard() {	
-		
+		startMove(PieceType.ROAD, true, false);
 	}
 	
-	public void robPlayer(RobPlayerInfo victim) {	
+	public void robPlayer(RobPlayerInfo victim) {
 		
+		HexLocation loc = controller.getGameModelFacade().getGameModel().getBoard().getRobber().getLocation();
+		RobPlayerInput input = new RobPlayerInput(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn(), loc, victim.getPlayerIndex());
+		try {
+			controller.updateGame(controller.getProxyServer().robPlayer(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
 	}
-	
 }
 

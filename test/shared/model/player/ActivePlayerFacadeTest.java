@@ -173,7 +173,7 @@ public class ActivePlayerFacadeTest {
 	@Test
 	public void testCanBuildRoad() {
 		// does not have the resources
-		assertFalse(player.getPlayerFacade().canBuildRoad());
+		assertFalse(player.getPlayerFacade().canBuildRoad(false));
 		
 		// has the resources
 		try {
@@ -181,7 +181,7 @@ public class ActivePlayerFacadeTest {
 		} catch (BankException e) {
 			return;
 		}
-		assertTrue(player.getPlayerFacade().canBuildRoad());
+		assertTrue(player.getPlayerFacade().canBuildRoad(false));
 		
 		// none left
 		try {
@@ -204,13 +204,13 @@ public class ActivePlayerFacadeTest {
 			return;
 		}
 		
-		assertFalse(player.getPlayerFacade().canBuildRoad());
+		assertFalse(player.getPlayerFacade().canBuildRoad(false));
 	}
 	
 	@Test
 	public void testCanBuildSettlement() {
 		// does not have the resources
-		assertFalse(player.getPlayerFacade().canBuildSettlement());
+		assertFalse(player.getPlayerFacade().canBuildSettlement(false));
 		
 		// has the resources
 		try {
@@ -218,7 +218,7 @@ public class ActivePlayerFacadeTest {
 		} catch (BankException e) {
 			return;
 		}
-		assertTrue(player.getPlayerFacade().canBuildSettlement());
+		assertTrue(player.getPlayerFacade().canBuildSettlement(false));
 		
 		// none left
 		try {
@@ -231,13 +231,13 @@ public class ActivePlayerFacadeTest {
 			return;
 		}
 		
-		assertFalse(player.getPlayerFacade().canBuildSettlement());
+		assertFalse(player.getPlayerFacade().canBuildSettlement(false));
 	}
 	
 	@Test
 	public void testCanBuildCity() {
 		// does not have the resources
-		assertFalse(player.getPlayerFacade().canBuildCity());
+		assertFalse(player.getPlayerFacade().canBuildCity(false));
 		
 		// has the resources
 		try {
@@ -245,7 +245,7 @@ public class ActivePlayerFacadeTest {
 		} catch (BankException e) {
 			return;
 		}
-		assertTrue(player.getPlayerFacade().canBuildCity());
+		assertTrue(player.getPlayerFacade().canBuildCity(false));
 		
 		try {
 			player.getCities().buildCity();
@@ -256,7 +256,7 @@ public class ActivePlayerFacadeTest {
 			return;
 		}
 		
-		assertFalse(player.getPlayerFacade().canBuildCity());
+		assertFalse(player.getPlayerFacade().canBuildCity(false));
 	}
 
 }

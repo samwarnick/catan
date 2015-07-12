@@ -16,34 +16,33 @@ public interface IPlayerFacade {
 	 * @param location the location of the vertex on the board
 	 * @pre the location is a valid location on the map
 	 * @post returns true if: 1) the player has at least one unplayed city
-	 *  2) the player has a settlement at that location
-	 *  3) the player has at least 2 wheat and 3 ore resource cards in their bank
-	 *  4) the player is the active player
+	 *  2) the player has at least 2 wheat and 3 ore resource cards in their bank or the city is free
+	 *  3) the player is the active player
 	 *  returns false if either 1 or 2 or 3 or 4 aren't satisfied.
 	 *  
 	 */
-	public boolean canBuildCity();
+	public boolean canBuildCity(boolean isFree);
 	/**
 	 * 
 	 * @pre none
 	 * @post returns true if:
 	 *  1) The player has at least one unplayed settlement
-	 *  2) The player has at least 1 wood, 1 brick, 1 sheep, 1 wheat
+	 *  2) The player has at least 1 wood, 1 brick, 1 sheep, 1 wheat or the settlement is free
 	 *  3) the player is the active player
 	 *  returns false if any of the constraints aren't met.
 	 */
-	public boolean canBuildSettlement();
+	public boolean canBuildSettlement(boolean isFree);
 	/**
 	 * 
 	 * @param location th
 	 * @pre the location is a valid location on the map
 	 * @post returns true if:
 	 *  1) the player has at least one unplayed road
-	 *  2) the player has at least 1 wood and 1 brick
+	 *  2) the player has at least 1 wood and 1 brick or the road is free
 	 *  3) the player is the active player
 	 *  returns false if any of the constraints aren't met
 	 */
-	public boolean canBuildRoad();
+	public boolean canBuildRoad(boolean isFree);
 	/**
 	 * @pre none
 	 * @post returns true if:

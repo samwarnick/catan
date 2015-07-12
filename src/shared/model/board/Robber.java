@@ -33,6 +33,10 @@ public class Robber {
 		return location;
 	}
 
+	public void setLocation(HexLocation location) {
+		this.location = location;
+	}
+
 	@Override
 	public String toString() {
 		return "Robber [location=" + location + "]";

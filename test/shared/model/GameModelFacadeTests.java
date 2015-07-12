@@ -158,54 +158,54 @@ public class GameModelFacadeTests {
 	@Test
 	public void testCanBuildRoad(){
 		//test whether an inactive player can build a valid road
-		boolean passed = GMF.canBuildRoad(p3, new EdgeLocation(new HexLocation(0,2), EdgeDirection.North));
+		boolean passed = GMF.canBuildRoad(p3, new EdgeLocation(new HexLocation(0,2), EdgeDirection.North), false, false);
 		assertTrue(!passed);
 		//test whether an active player can build a valid road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthWest));
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthWest), false, false);
 		assertTrue(passed);
 		//test whether an active player can build an invalid road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthWest));
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthWest), false, false);
 		assertTrue(!passed);
 		//test whether an active player can build upon an existent road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(1,1), EdgeDirection.North));
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(1,1), EdgeDirection.North), false, false);
 		assertTrue(!passed);
 		//test whether an active player can build upon his own existent road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.South));
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.South), false, false);
 		assertTrue(!passed);
 	}
 	
 	@Test
 	public void testCanBuildSettlement(){
 		//inactive player, valid location
-		boolean passed = GMF.canBuildSettlement(p1, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
+		boolean passed = GMF.canBuildSettlement(p1, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East), false, false);
 		assertTrue(!passed);
 		// active player, no roads near this vertex
-		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East));
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(-1,-1), VertexDirection.East), false, false);
 		assertTrue(!passed);
 		// active player valid location
-		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest));
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest), false, false);
 		assertTrue(passed);
 		// active player , settlement adjacent
-		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast));
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast), false, false);
 		assertTrue(!passed);
 		// active player, location already has settlement
-		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+		passed = GMF.canBuildSettlement(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East), false, false);
 		assertTrue(!passed);
 	}
 	
 	@Test
 	public void testCanBuildCity(){
 		//inactive player
-		boolean passed = GMF.canBuildCity(p1, new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast));
+		boolean passed = GMF.canBuildCity(p1, new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast), false, false);
 		assertTrue(!passed);
 		//active player, valid location
-		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East));
+		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.East), false, false);
 		assertTrue(passed);
 		//active player, invalid location
-		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest));
+		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(0,0), VertexDirection.SouthWest), false, false);
 		assertTrue(!passed);
 		//active player, someone else's settlement
-		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast));
+		passed = GMF.canBuildCity(p0, new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast), false, false);
 		assertTrue(!passed);
 	}
 	

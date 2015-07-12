@@ -51,11 +51,6 @@ public class MoveTest {
 			assertTrue(false);
 			e.printStackTrace();
 		}
-<<<<<<< HEAD:test/client/proxy/MoveTest.java
-		
-		assertFalse(error);
-=======
->>>>>>> MI4-FIXCC:src/shared/definitions/MoveTest.java
 	}
 	
 	@Test
@@ -72,7 +67,7 @@ public class MoveTest {
 	@Test
 	public void testPlayRoadBuilding(){
 		try {
-			ps.playRoadBuilding(new PlayRoadBuildingInput(null, 0, null, null));
+			ps.playRoadBuilding(new PlayRoadBuildingInput(0, null, null));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			assertTrue(false);

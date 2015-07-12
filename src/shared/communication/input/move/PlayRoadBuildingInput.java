@@ -15,7 +15,7 @@ public class PlayRoadBuildingInput extends MoveInput {
 	private Spot spot2;
 	private String type = "Road_Building";
 	
-	public PlayRoadBuildingInput(String method, int playerIndex, EdgeLocation location1, EdgeLocation location2) {
+	public PlayRoadBuildingInput(int playerIndex, EdgeLocation location1, EdgeLocation location2) {
 		super("/Road_Building", playerIndex);
 		spot1 = new Spot(location1.getHexLoc().getX(), location1.getHexLoc().getY(),
 				location1.getDir().toString().toLowerCase());
