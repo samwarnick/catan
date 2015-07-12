@@ -1,5 +1,6 @@
 package shared.communication.input.move;
 
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -9,21 +10,55 @@ import shared.locations.VertexLocation;
  */
 public class BuildSettlementInput extends MoveInput {
 
-	private boolean isFree;
-	private VertexLocation location;
+	private boolean free;
+	private Spot vertexLocation;
+	private String type = "buildSettlement";
 	
 	public BuildSettlementInput(int playerIndex, boolean isFree, VertexLocation location) {
-		super("buildSettlement", playerIndex);
-		this.isFree = isFree;
-		this.location = location;
+		super("/buildSettlement", playerIndex);
+		this.free = isFree;
+		this.vertexLocation = new Spot(location.getHexLoc().getX(), location.getHexLoc().getY(),
+				abbreviate(location.getDir()));
 	}
-
+	
 	public boolean isFree() {
-		return isFree;
+		return free;
 	}
 
-	public VertexLocation getLocation() {
-		return location;
+
+	public String getType() {
+		return type;
 	}
+
+	public void setFree(boolean free) {
+		this.free = free;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Spot getVertexLocation() {
+		return vertexLocation;
+	}
+
+	public void setVertexLocation(Spot vertexLocation) {
+		this.vertexLocation = vertexLocation;
+	}
+
+	private String abbreviate(VertexDirection e){
+		switch(e){
+		case East: return "E";
+		case NorthEast: return "NE";
+		case West: return "W";
+		case SouthEast: return "SE";
+		case NorthWest: return "NW";
+		case SouthWest: return "SW";
+		default: return "";
+		}
+	}
+
+
 	
 }
