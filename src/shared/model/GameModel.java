@@ -5,6 +5,7 @@ import java.util.List;
 
 import shared.model.bank.Bank;
 import shared.model.board.Board;
+import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
 /**
@@ -77,9 +78,19 @@ public class GameModel {
 	public List<Player> getPlayers() {
 		return players;
 	}
-
+	
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+	
+	public Player getPlayer(PlayerID id) {
+		for(Player player : players) {
+			if(player.getPlayerID().equals(id)) {
+				return player;
+			}
+		}
+		assert false;
+		return null;
 	}
 
 	public TurnTracker getTurnTracker() {

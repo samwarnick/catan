@@ -15,17 +15,17 @@ public class InactivePlayerFacade implements IPlayerFacade{
 		this.player = player;
 	}
 	@Override
-	public boolean canBuildCity() {
+	public boolean canBuildCity(boolean isFree) {
 		return false;
 	}
 
 	@Override
-	public boolean canBuildSettlement() {
+	public boolean canBuildSettlement(boolean isFree) {
 		return false;
 	}
 
 	@Override
-	public boolean canBuildRoad() {
+	public boolean canBuildRoad(boolean isFree) {
 		return false;
 	}
 

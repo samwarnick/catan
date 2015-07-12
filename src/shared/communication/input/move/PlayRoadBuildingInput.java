@@ -15,7 +15,7 @@ public class PlayRoadBuildingInput extends MoveInput {
 	private EdgeLocation spot2 = new EdgeLocation(new HexLocation(1,1), EdgeDirection.South);
 	private String type = "Road_Building";
 	
-	public PlayRoadBuildingInput(String method, int playerIndex, EdgeLocation location1, EdgeLocation location2) {
+	public PlayRoadBuildingInput(int playerIndex, EdgeLocation location1, EdgeLocation location2) {
 		super("/Road_Building", playerIndex);
 	}
 
