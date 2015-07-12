@@ -2,6 +2,7 @@ package client.controller;
 
 import java.util.List;
 
+import client.login.LoginController;
 import client.poller.Poller;
 import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
@@ -12,19 +13,19 @@ import shared.model.TooManyPlayersException;
 import shared.model.board.Board;
 import shared.model.player.Player;
 
-public class Controller {
+public class ModelController {
 
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 	private IServer proxyServer;
 	
-	public Controller(int gameID){
+	public ModelController(int gameID){
 		gameModelFacade = new GameModelFacade(gameID);
 		poller = new Poller(this);
 		proxyServer = ProxyServer.getInstance();
 	}
 	
-	public Controller(int gameID, IServer server){
+	public ModelController(int gameID, IServer server){
 		gameModelFacade = new GameModelFacade(gameID);
 		proxyServer = server;
 		poller = new Poller(this);

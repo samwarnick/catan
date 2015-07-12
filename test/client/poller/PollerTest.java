@@ -15,7 +15,7 @@ import shared.communication.input.GamesLoadInput;
 import shared.definitions.CatanColor;
 import shared.model.GameModel;
 import shared.model.player.Color;
-import client.controller.Controller;
+import client.controller.ModelController;
 import client.poller.Poller;
 import client.poller.UpdateGame;
 import client.proxy.MockProxyServer;
@@ -24,11 +24,11 @@ import client.proxy.ProxyServer;
 public class PollerTest {
 	boolean changed = false;
 	IServer proxy;
-	Controller controller;
+	ModelController controller;
 	
 	@Test
 	public void testPost() {
-		controller = new Controller(0, new MockProxyServer());
+		controller = new ModelController(0, new MockProxyServer());
 		GameModel game = new GameModel(3);//version3
 		controller.getGameModelFacade().setGameModel(game);
 		try {
