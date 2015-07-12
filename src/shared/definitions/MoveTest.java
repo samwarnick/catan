@@ -51,11 +51,6 @@ public class MoveTest {
 			assertTrue(false);
 			e.printStackTrace();
 		}
-<<<<<<< HEAD:test/client/proxy/MoveTest.java
-		
-		assertFalse(error);
-=======
->>>>>>> MI4-FIXCC:src/shared/definitions/MoveTest.java
 	}
 	
 	@Test
