@@ -33,7 +33,7 @@ import javax.swing.event.DocumentListener;
 public class LoginView extends OverlayView implements ILoginView
 {
 
-    private final int LABEL_TEXT_SIZE = 40;
+    private final int LABEL_TEXT_SIZE = 20;
     private final float SMALL_LABEL_TEXT_SIZE = 16.0F;
     private final float BIG_LABEL_TEXT_SIZE = LABEL_TEXT_SIZE * 1.5F;
     private final int BUTTON_TEXT_SIZE = 28;
