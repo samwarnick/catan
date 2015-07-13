@@ -18,7 +18,7 @@ import client.controller.ModelController;
 public class MapController extends client.base.Controller implements IMapController {
 	
 	private IRobView robView;
-	private ModelController controller;
+	//private ModelController controller;
 	private boolean isFree = false;
 	private boolean allowDisconnected = false;
 	
@@ -46,7 +46,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	
 	protected void initFromModel() {
 	
-		Board board = controller.getGameModelFacade().getGameModel().getBoard();
+		Board board = ModelController.getGameModelFacade().getGameModel().getBoard();
 		
 		//resource hexes
 		for(ResourceHex hex : board.getResourceHexes()) {
@@ -66,13 +66,13 @@ public class MapController extends client.base.Controller implements IMapControl
 		
 		//roads
 		for(Road road : board.getRoads()) {
-			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(road.getOwner()).getColor();
+			CatanColor color = ModelController.getGameModelFacade().getGameModel().getPlayer(road.getOwner()).getColor();
 			getView().placeRoad(road.getLocation(), color);
 		}
 		
 		//buildings
 		for(Vertex building : board.getBuildings()) {
-			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(building.getOwner()).getColor();
+			CatanColor color = ModelController.getGameModelFacade().getGameModel().getPlayer(building.getOwner()).getColor();
 			if(building.getClass() == Settlement.class) {
 				getView().placeSettlement(building.getLocation(), color);
 			}
@@ -88,34 +88,34 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 		// can this only be called from the active player???
-		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-		return controller.getGameModelFacade().canBuildRoad(controller.getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
+		PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		return ModelController.getGameModelFacade().canBuildRoad(ModelController.getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
 		// can this only be called from the active player???
-		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-		return controller.getGameModelFacade().canBuildSettlement(controller.getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
+		PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		return ModelController.getGameModelFacade().canBuildSettlement(ModelController.getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
 		// can this only be called from the active player???
-		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-		return controller.getGameModelFacade().canBuildCity(controller.getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
+		PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		return ModelController.getGameModelFacade().canBuildCity(ModelController.getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		return controller.getGameModelFacade().canPlaceRobber(hexLoc);
+		return ModelController.getGameModelFacade().canPlaceRobber(hexLoc);
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
 		try {			
 			//need to contact server?? what order with ResourceBar, which contacts server?
-			PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+			PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+			CatanColor color = ModelController.getGameModelFacade().getGameModel().getPlayer(id).getColor();
 			
 			BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
-			controller.updateGame(controller.getProxyServer().buildRoad(input));
+			ModelController.updateGame(ModelController.getProxyServer().buildRoad(input));
 			
 			// if updateGame will redraw whole map, then dont need this
 			getView().placeRoad(edgeLoc, color);
@@ -131,11 +131,11 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public void placeSettlement(VertexLocation vertLoc) {
 		try {
-			PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+			PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+			CatanColor color = ModelController.getGameModelFacade().getGameModel().getPlayer(id).getColor();
 			
 			BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
-			controller.updateGame(controller.getProxyServer().buildSettlement(input));
+			ModelController.updateGame(ModelController.getProxyServer().buildSettlement(input));
 			
 			getView().placeSettlement(vertLoc, color);
 		}
@@ -150,11 +150,11 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public void placeCity(VertexLocation vertLoc) {
 		try {
-			PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-			CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+			PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+			CatanColor color = ModelController.getGameModelFacade().getGameModel().getPlayer(id).getColor();
 			
 			BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
-			controller.updateGame(controller.getProxyServer().buildCity(input));
+			ModelController.updateGame(ModelController.getProxyServer().buildCity(input));
 			
 			getView().placeCity(vertLoc, color);
 		}
@@ -168,7 +168,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		controller.getGameModelFacade().getGameModel().getBoard().getRobber().setLocation(hexLoc);
+		ModelController.getGameModelFacade().getGameModel().getBoard().getRobber().setLocation(hexLoc);
 		getView().placeRobber(hexLoc);
 		
 		getRobView().showModal();
@@ -182,11 +182,11 @@ public class MapController extends client.base.Controller implements IMapControl
 		this.allowDisconnected = allowDisconnected;
 		
 		
-		PlayerID id = new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
-		CatanColor color = controller.getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		PlayerID id = new PlayerID(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn());
+		CatanColor color = ModelController.getGameModelFacade().getGameModel().getPlayer(id).getColor();
 		
 		boolean canCancel = true;
-		String status = controller.getGameModelFacade().getGameModel().getTurnTracker().getStatus();
+		String status = ModelController.getGameModelFacade().getGameModel().getTurnTracker().getStatus();
 		if (status.equals("First Round") || status.equals("Second Round")) {
 			canCancel = false;
 		}
@@ -209,10 +209,10 @@ public class MapController extends client.base.Controller implements IMapControl
 	
 	public void robPlayer(RobPlayerInfo victim) {
 		
-		HexLocation loc = controller.getGameModelFacade().getGameModel().getBoard().getRobber().getLocation();
-		RobPlayerInput input = new RobPlayerInput(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn(), loc, victim.getPlayerIndex());
+		HexLocation loc = ModelController.getGameModelFacade().getGameModel().getBoard().getRobber().getLocation();
+		RobPlayerInput input = new RobPlayerInput(ModelController.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn(), loc, victim.getPlayerIndex());
 		try {
-			controller.updateGame(controller.getProxyServer().robPlayer(input));
+			ModelController.updateGame(ModelController.getProxyServer().robPlayer(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
