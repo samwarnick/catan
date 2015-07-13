@@ -229,6 +229,7 @@ public class GameModelFacadeTests {
 	@Test
 	public void testCanMaritimeTrade(){
 		//inactive player
+		boolean error = false;
 		boolean passed = GMF.canMaritimeTrade(p3, 1, ResourceType.BRICK, ResourceType.ORE);
 		assertTrue(!passed);
 		//active player, valid trade
@@ -238,14 +239,16 @@ public class GameModelFacadeTests {
 		passed = GMF.canMaritimeTrade(p0, 2, ResourceType.BRICK, ResourceType.ORE);
 		assertTrue(!passed);
 		try {
-			p0.getTradeRatios().setRatio(new TradeRatio(ResourceType.BRICK, 1));
+			p0.getTradeRatios().setRatio(new TradeRatio(ResourceType.BRICK, 2));
 			//same trade with new Ratio
 			passed = GMF.canMaritimeTrade(p0, 2, ResourceType.BRICK, ResourceType.ORE);
 			assertTrue(passed);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			error = true;
 			e.printStackTrace();
 		}
+		
+		assertFalse(error);
 	}
 	
 	@Test

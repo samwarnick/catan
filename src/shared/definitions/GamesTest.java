@@ -8,13 +8,10 @@ import server.ServerException;
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesJoinInput;
 import shared.communication.input.GamesListInput;
-import shared.communication.input.GamesLoadInput;
-import shared.communication.input.GamesSaveInput;
 import shared.communication.input.UserLoginInput;
 import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
 public class GamesTest {
@@ -51,7 +48,6 @@ public class GamesTest {
 		try {
 			ps.createGame(new GamesCreateInput("x", true, true, true));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 		
@@ -63,7 +59,6 @@ public class GamesTest {
 		try {
 			ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			assertTrue(false);
 		}
@@ -75,7 +70,6 @@ public class GamesTest {
 //		try {
 //			ps.saveGame(new GamesSaveInput(0, "file"));
 //		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
 //			assertTrue(false);
 //		}
 //		
@@ -87,7 +81,6 @@ public class GamesTest {
 //		try {
 //			ps.loadGame(new GamesLoadInput("file"));
 //		} catch (ServerException e) {
-//			// TODO Auto-generated catch block
 //			assertTrue(false);
 //		}
 //		

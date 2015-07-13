@@ -1,6 +1,7 @@
 package client.devcards;
 
 import shared.definitions.ResourceType;
+
 import client.base.*;
 
 

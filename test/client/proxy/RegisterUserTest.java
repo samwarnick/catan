@@ -24,7 +24,7 @@ public class RegisterUserTest {
 	@Test
 	public void testRegisterUser(){
 		
-		boolean passed = false;
+		boolean passed = true;
 		
 		try {
 			ps.registerUser(new UserRegisterInput("ilovekittenswhotalk", "eros"));
@@ -40,13 +40,16 @@ public class RegisterUserTest {
 	
 	@Test
 	public void testLoginUser(){
+		
+		boolean passed = true;
+		
 		try {
 			ps.loginUser(new UserLoginInput("Sam", "sam"));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			assertTrue(false);
+			passed = false;
 		}
 		
+		assertTrue(passed);
 	}
 
 }

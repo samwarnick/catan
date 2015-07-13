@@ -1,6 +1,5 @@
 package client.proxy;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -62,20 +61,16 @@ public class ClientCommunicator {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
-			//url = new URL(URLPrefix+ PATH_PREFIX +method);
 			url = new URL(URLPrefix + method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	        conn.setRequestMethod(requestMethod);
 	        conn.setDoOutput(true);
 	        if(cookie!=null){
 	        	conn.setRequestProperty("Cookie", cookie);
-	        	// System.out.println(cookie);
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
 	        mapper.writeValue(conn.getOutputStream(), toPost);
-	        System.out.println(mapper.writeValueAsString(toPost));
-	        System.out.println(cookie);
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	        	if (conn.getHeaderField("Content-length").equals("7")) { // i.e. "success" in response body

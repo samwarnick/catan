@@ -10,7 +10,6 @@ import java.util.Map;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;

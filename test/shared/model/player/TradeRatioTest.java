@@ -12,21 +12,33 @@ public class TradeRatioTest {
 	@Test
 	public void testSetRatio() {
 		TradeRatio trade = new TradeRatio(ResourceType.BRICK);
+		boolean error = false;
 		try {
 			trade.setRatio(2);
 			assertEquals(trade.getRatio(), 2);
-			trade.setRatio(1);
-			assertTrue(false);
 		} catch (Exception e) {
-			
-		}
-		try {
-			trade.setRatio(5);
-			assertTrue(false);
-		} catch (Exception e) {
-
+			error = true;
 		}
 		
+		assertFalse(error);
+		
+		try {
+			trade.setRatio(1);
+		} catch (Exception e) {
+			error = true;
+		}
+		
+		assertTrue(error);
+		
+		error = false;
+		
+		try {
+			trade.setRatio(5);
+		} catch (Exception e) {
+			error = true;
+		}
+		
+		assertTrue(error);
 	}
 
 }
