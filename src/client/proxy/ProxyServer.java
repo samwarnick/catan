@@ -1,15 +1,17 @@
 package client.proxy;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import client.data.GameInfo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import client.data.GameInfo;
 import server.*;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
-import shared.model.Game;
 import shared.model.GameModel;
 import shared.model.JsonParser;
 
@@ -54,15 +56,26 @@ public class ProxyServer implements IServer {
 	@Override
 	public List<GameInfo> listGames(GamesListInput input)
 			throws ServerException {
-		
-		return JsonParser.gamesFromJson(clientCommunicator.post(input, "GET"));
-		 
+		JsonNode root = clientCommunicator.post(input, "POST");
+		if (!root.isMissingNode()) {
+			List<GameInfo> gameInfoList = new ArrayList<GameInfo>();
+			Iterator<JsonNode> iter = root.elements();
+			while (iter.hasNext()) {
+				JsonNode temp = iter.next();
+				gameInfoList.add(JsonParser.gameInfoFromJson(temp));
+			}
+			return gameInfoList;
+		}
+		return null; 
 	}
 
 	@Override
 	public GameInfo createGame(GamesCreateInput input) throws ServerException {
-		List<GameInfo> games = JsonParser.gamesFromJson(clientCommunicator.post(input, "POST"));
-		return games.get(0);
+		JsonNode root = clientCommunicator.post(input, "POST");
+		if (!root.isMissingNode()) {
+			return JsonParser.gameInfoFromJson(root);
+		}
+		return null;
 	}
 
 	@Override

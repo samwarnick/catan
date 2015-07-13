@@ -2,7 +2,6 @@ package shared.model.bank;
 
 
 import shared.definitions.DevCardType;
-import shared.definitions.ResourceType;
 
 /**
  * @author isaachartung
@@ -119,7 +118,6 @@ public class PlayerBank extends Bank {
 			newRoadBuild.setQuantity(0);
 			newYearOfPlenty.setQuantity(0);
 		} catch (BankException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -157,27 +155,22 @@ public class PlayerBank extends Bank {
 	}
 
 	public DevelopmentCard getNewSoldier() {
-		// TODO Auto-generated method stub
 		return newSoldier;
 	}
 
 	public DevelopmentCard getNewYearOfPlenty() {
-		// TODO Auto-generated method stub
 		return newYearOfPlenty;
 	}
 
 	public DevelopmentCard getNewRoadBuild() {
-		// TODO Auto-generated method stub
 		return newRoadBuild;
 	}
 
 	public DevelopmentCard getNewMonopoly() {
-		// TODO Auto-generated method stub
 		return newMonopoly;
 	}
 
 	public DevelopmentCard getNewMonument() {
-		// TODO Auto-generated method stub
 		return newMonument;
 	}
 	

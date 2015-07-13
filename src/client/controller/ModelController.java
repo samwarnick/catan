@@ -4,12 +4,14 @@ import java.util.List;
 
 import client.login.LoginController;
 import client.poller.Poller;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 import server.IServer;
+import server.ServerException;
+import shared.communication.input.move.DiscardCardsInput;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
+import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
 import shared.model.player.Player;
 
@@ -18,6 +20,7 @@ public class ModelController {
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 	private IServer proxyServer;
+	private int PlayerID;
 	
 	public ModelController(int gameID){
 		gameModelFacade = GameModelFacade.getInstance(gameID);
@@ -69,7 +72,7 @@ public class ModelController {
 		return proxyServer;
 	}
 
-
+	
 
 	public void setProxyServer(IServer proxyServer) {
 		this.proxyServer = proxyServer;
@@ -78,4 +81,13 @@ public class ModelController {
 	public void updateGame(GameModel gameModel){
 		gameModelFacade.setGameModel(gameModel);
 	}
+
+	public int getPlayerID() {
+		return PlayerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		PlayerID = playerID;
+	}
+	
 }

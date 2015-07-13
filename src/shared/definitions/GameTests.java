@@ -9,13 +9,10 @@ import shared.communication.input.GameCommandsGetInput;
 import shared.communication.input.GameModelVersionInput;
 import shared.communication.input.GameResetInput;
 import shared.communication.input.GamesJoinInput;
-import shared.communication.input.GamesLoadInput;
-import shared.communication.input.GamesSaveInput;
 import shared.communication.input.UserLoginInput;
 import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
 public class GameTests {
