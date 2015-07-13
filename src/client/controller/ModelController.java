@@ -3,25 +3,33 @@ package client.controller;
 import java.util.List;
 
 import client.login.LoginController;
+import client.maritime.MaritimeTradeController;
+import client.maritime.MaritimeTradeView;
 import client.poller.Poller;
 import client.proxy.ProxyServer;
 import server.IServer;
 import server.ServerException;
 import shared.communication.input.move.DiscardCardsInput;
+import shared.communication.input.move.MaritimeTradeInput;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
+import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
 public class ModelController {
 
+	private MaritimeTradeController maritimeController;
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
+
 	private int PlayerID;
 	private static ModelController instance = null;
 	private boolean testing = false;
+
+
 	
 	public static ModelController getInstance() {
 		if (instance == null) {
@@ -68,6 +76,8 @@ public class ModelController {
 
 	public void updateGame(GameModel gameModel){
 		gameModelFacade.setGameModel(gameModel);
+		maritimeController.getTradeView().enableMaritimeTrade(gameModelFacade.canFinishTurn(gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID))));
+		
 	}
 
 	public int getPlayerID() {
@@ -86,6 +96,12 @@ public class ModelController {
 		this.testing = testing;
 	}
 	
-	
+	public void maritimeTrade(MaritimeTradeInput input){
+		try {
+			gameModelFacade.setGameModel(ProxyServer.getInstance().maritimeTrade(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

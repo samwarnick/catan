@@ -1,5 +1,7 @@
 package shared.model.bank;
 
+import shared.definitions.ResourceType;
+
 /**
  * This class represents a collection of resource cards, each resource type represented by an integer.
  * 0 means the card amount will not change. A negative value means the player is gaining one or more of that card. A positive number means the player is losing one of more of that card.
@@ -28,6 +30,35 @@ public class ResourceHand {
 		this.sheep = sheep;
 		this.wheat = wheat;
 		this.ore = ore;
+	}
+	
+	public ResourceHand(ResourceType type){
+		brick = 0;
+		wood = 0;
+		sheep = 0;
+		wheat = 0;
+		ore = 0;
+		switch (type){
+		case BRICK:
+			brick = 1;
+			break;
+		case ORE:
+			ore = 1;
+			break;
+		case SHEEP:
+			sheep = 1;
+			break;
+		case WHEAT:
+			wheat = 1;
+			break;
+		case WOOD:
+			wood = 1;
+			break;
+		default:
+			break;
+			
+		
+		}
 	}
 
 	public int getBrick() {

@@ -2,12 +2,13 @@ package client.maritime;
 
 import java.util.ArrayList;
 
-import server.ServerException;
 import shared.communication.input.move.MaritimeTradeInput;
 import shared.definitions.*;
+import shared.model.bank.Bank;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
 import shared.model.player.Player;
+import shared.model.ratios.TradeRatio;
 import client.base.*;
 import client.controller.ModelController;
 
@@ -22,7 +23,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private ResourceType giveResource;
 	private int getAmount;
 	private int giveAmount;
-	private ModelController controller;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
@@ -47,9 +47,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void startTrade() {
 		ArrayList<ResourceType> selected = new ArrayList<ResourceType>();
-		Player activePlayer = controller.getGameModelFacade().getGameModel().getPlayer(new PlayerID(controller.getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn())); //need to change after find controller
+		Player activePlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn())); //need to change after find controller
 		ResourceType toConvert = ResourceType.WOOD;
-		if (controller.getGameModelFacade().getGameModel().getBank().hasRC(new ResourceHand(0,1,0,0,0))){
+		if (ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(new ResourceHand(0,1,0,0,0))){
 			
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.BRICK, toConvert))
 				selected.add(ResourceType.BRICK);
@@ -70,12 +70,10 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void makeTrade() {
-//		if (getResource != null && giveResource != null)
-//			try {
-//				controller.getProxyServer().maritimeTrade(new MaritimeTradeInput(getAmount, giveAmount, getResource, giveResource));
-//			} catch (ServerException e) {
-//				e.printStackTrace();
-//			}
+		if (getResource != null && giveResource != null)
+			
+			ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(getAmount, giveAmount, getResource, giveResource));
+			
 		getTradeOverlay().closeModal();
 	}
 
@@ -89,26 +87,100 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGetResource(ResourceType resource) {
+		ResourceHand rh = new ResourceHand();
+		switch (resource){
 		
-		getResource = resource;
+		case BRICK:
+			rh.setBrick(1);
+			break;
+		case ORE:
+			rh.setOre(1);
+			break;
+		case SHEEP:
+			rh.setSheep(1);
+			break;
+		case WHEAT:
+			rh.setWheat(1);
+			break;
+		case WOOD:
+			rh.setWood(1);
+			break;
+		default:
+			break;
+			
+		}
+		if(ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(rh))
+		{
+			getResource = resource;
+			getTradeOverlay().selectGetOption(resource, 1);
+		}
+		if(giveResource != null && getResource != null)
+		{
+			this.getTradeOverlay().setTradeEnabled(true);
+		}
+		else
+		{
+			getTradeOverlay().setTradeEnabled(false);
+		}
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
 
 		giveResource = resource;
+		Player Currentplayer = ModelController.getInstance().getGameModelFacade().getGameModel().getCurrentPlayer();
+		
+		TradeRatio ratio = Currentplayer.getTradeRatios().getTradeRatio(resource);
+		if(Currentplayer.getPlayerBank().hasRC(new ResourceHand(resource)))
+		{
+			giveResource = resource;
+		}
+
+		showGetOp();
+
+		getTradeOverlay().selectGiveOption(resource,ratio.getRatio());
+		if(giveResource!= null && getResource!= null)
+		{
+			this.getTradeOverlay().setTradeEnabled(true);
+		}
+		else
+		{
+			getTradeOverlay().setTradeEnabled(false);
+		}
+	}
+	
+	public void showGetOp()
+	{
+		Bank bank = ModelController.getInstance().getGameModelFacade().getGameModel().getBank();
+		ArrayList<ResourceType> resources = new ArrayList<ResourceType>();
+		if (bank.hasRC(new ResourceHand(ResourceType.BRICK)))
+			resources.add(ResourceType.BRICK);
+		if (bank.hasRC(new ResourceHand(ResourceType.WOOD)))
+			resources.add(ResourceType.WOOD);
+		if (bank.hasRC(new ResourceHand(ResourceType.SHEEP)))
+			resources.add(ResourceType.SHEEP);
+		if (bank.hasRC(new ResourceHand(ResourceType.WHEAT)))
+			resources.add(ResourceType.WHEAT);
+		if (bank.hasRC(new ResourceHand(ResourceType.ORE)))
+			resources.add(ResourceType.ORE);
+		getTradeOverlay().showGetOptions((ResourceType[])resources.toArray());
 	}
 
 	@Override
 	public void unsetGetValue() {
 
 		getResource = null;
+		showGetOp();
+		getTradeOverlay().setTradeEnabled(false);
 	}
 
 	@Override
 	public void unsetGiveValue() {
 
 		giveResource = null;
+		cancelTrade();
+		startTrade();
+		getTradeOverlay().setTradeEnabled(false);
 	}
 
 }

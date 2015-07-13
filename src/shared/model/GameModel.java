@@ -108,6 +108,10 @@ public class GameModel {
 	public void setBank(Bank bank) {
 		this.bank = bank;
 	}
+	
+	public Player getCurrentPlayer(){
+		return players.get(turnTracker.getCurrentTurn());
+	}
 
 	@Override
 	public int hashCode() {
