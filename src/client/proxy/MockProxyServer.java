@@ -3,6 +3,8 @@ package client.proxy;
 import java.io.File;
 import java.util.List;
 
+import client.data.GameInfo;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import server.IServer;
@@ -36,7 +38,6 @@ import shared.communication.input.move.PlayYearOfPlentyInput;
 import shared.communication.input.move.RobPlayerInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.communication.input.move.SendChatInput;
-import shared.model.Game;
 import shared.model.GameModel;
 import shared.model.JsonParser;
 
@@ -55,13 +56,13 @@ public class MockProxyServer implements IServer {
 	}
 
 	@Override
-	public List<Game> listGames(GamesListInput input)
+	public List<GameInfo> listGames(GamesListInput input)
 			throws ServerException {
 		return null;
 	}
 
 	@Override
-	public Game createGame(GamesCreateInput input) throws ServerException {
+	public GameInfo createGame(GamesCreateInput input) throws ServerException {
 		return null;
 	}
 

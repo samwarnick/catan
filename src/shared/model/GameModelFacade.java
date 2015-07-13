@@ -17,6 +17,22 @@ import shared.model.player.Player;
 public class GameModelFacade {
 
 	private GameModel gameModel;
+	private static GameModelFacade gameModelFacade = null;
+	
+	public static GameModelFacade getInstance(int gameid)
+	{
+		if(gameModelFacade == null)
+		{
+			gameModelFacade = new GameModelFacade(gameid);
+		}
+		return gameModelFacade;
+	}
+	
+	public static GameModelFacade getInstance()
+	{
+		return gameModelFacade;
+	}
+	
 	public GameModelFacade(int gameid){
 		gameModel = new GameModel(gameid);
 	}

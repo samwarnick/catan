@@ -2,6 +2,8 @@ package client.proxy;
 
 import java.util.List;
 
+import client.data.GameInfo;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import server.*;
@@ -50,7 +52,7 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public List<Game> listGames(GamesListInput input)
+	public List<GameInfo> listGames(GamesListInput input)
 			throws ServerException {
 		
 		return JsonParser.gamesFromJson(clientCommunicator.post(input, "GET"));
@@ -58,8 +60,8 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public Game createGame(GamesCreateInput input) throws ServerException {
-		List<Game> games = JsonParser.gamesFromJson(clientCommunicator.post(input, "POST"));
+	public GameInfo createGame(GamesCreateInput input) throws ServerException {
+		List<GameInfo> games = JsonParser.gamesFromJson(clientCommunicator.post(input, "POST"));
 		return games.get(0);
 	}
 

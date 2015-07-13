@@ -1,9 +1,18 @@
 package client.join;
 
+import java.util.List;
+
+import server.ServerException;
+import shared.communication.input.GamesCreateInput;
+import shared.communication.input.GamesJoinInput;
+import shared.communication.input.GamesListInput;
 import shared.definitions.CatanColor;
+import shared.model.GameModelFacade;
+import shared.model.board.PlayerID;
 import client.base.*;
 import client.data.*;
 import client.misc.*;
+import client.proxy.ProxyServer;
 
 
 /**
@@ -15,6 +24,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private ISelectColorView selectColorView;
 	private IMessageView messageView;
 	private IAction joinAction;
+	private GameInfo gameInfo;
 	
 	/**
 	 * JoinGameController constructor
@@ -89,47 +99,92 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		
+		PlayerID playerId = new PlayerID(GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
+		PlayerInfo localPlayer = new PlayerInfo();
+		localPlayer.setColor(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getColor());
+		//localPlayer.setId(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).get);  userId
+		localPlayer.setName(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getName());
+		localPlayer.setPlayerIndex(playerId.getPlayerid());
+		GamesListInput input = new GamesListInput();
+		List<client.data.GameInfo> games;
+		try {
+			games = ProxyServer.getInstance().listGames(input);
+			getJoinGameView().setGames((GameInfo[])games.toArray(), localPlayer);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getJoinGameView().showModal();
 	}
 
 	@Override
 	public void startCreateNewGame() {
-		
+		//add stuff?
 		getNewGameView().showModal();
 	}
 
 	@Override
 	public void cancelCreateNewGame() {
-		
+		//add stuff?
 		getNewGameView().closeModal();
 	}
 
 	@Override
 	public void createNewGame() {
-		
-		getNewGameView().closeModal();
+		boolean randomTiles = getNewGameView().getRandomlyPlaceHexes();
+        boolean randomNumbers = getNewGameView().getRandomlyPlaceNumbers();
+        boolean randomPorts = getNewGameView().getUseRandomPorts();
+        String title = getNewGameView().getTitle();
+		GamesCreateInput input = new GamesCreateInput(title, randomTiles, randomNumbers, randomPorts);
+		try {
+			if(ProxyServer.getInstance().createGame(input) != null)
+			{
+				PlayerID playerId = new PlayerID(GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
+	            getNewGameView().closeModal();
+	            PlayerInfo localPlayer = new PlayerInfo();
+	    		localPlayer.setColor(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getColor());
+	    		//localPlayer.setId(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).get);  userId
+	    		localPlayer.setName(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getName());
+	    		localPlayer.setPlayerIndex(playerId.getPlayerid());
+	    		GamesListInput gamesListInput = new GamesListInput();
+	    		GameInfo[] games = (GameInfo[])ProxyServer.getInstance().listGames(gamesListInput).toArray();
+	    		getJoinGameView().setGames(games, localPlayer);
+			}
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void startJoinGame(GameInfo game) {
-
+		gameInfo = game;
 		getSelectColorView().showModal();
 	}
 
 	@Override
 	public void cancelJoinGame() {
-	
 		getJoinGameView().closeModal();
 	}
 
 	@Override
 	public void joinGame(CatanColor color) {
-		
-		// If join succeeded
-		getSelectColorView().closeModal();
-		getJoinGameView().closeModal();
-		joinAction.execute();
+		int gameID = GameModelFacade.getInstance().getGameModel().getGameID();
+		GamesJoinInput input = new GamesJoinInput(gameID, color);
+		try {
+			if(ProxyServer.getInstance().joinGame(input))
+			{
+				// for each player give them an index
+				// and set the current players color
+				// If join succeeded
+				getSelectColorView().closeModal();
+				getJoinGameView().closeModal();
+				joinAction.execute();
+			}
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

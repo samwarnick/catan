@@ -16,6 +16,8 @@ import shared.locations.VertexLocation;
 import shared.model.bank.*;
 import shared.model.board.*;
 import shared.model.player.*;
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -35,11 +37,11 @@ public class JsonParser {
 		return null;
 	}
 	
-	public static List<Game> gamesFromJson(JsonNode rootNode){
+	public static List<GameInfo> gamesFromJson(JsonNode rootNode){
 		
-		List<Game> games = new ArrayList<Game>();
+		List<GameInfo> games = new ArrayList<GameInfo>();
 		JsonNode gamesNode = rootNode.path("game");
-		ArrayList<DisplayPlayer> players = new ArrayList<DisplayPlayer>();
+		ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>();
 		if (!gamesNode.isMissingNode()) {
 			Iterator<JsonNode> iter = gamesNode.elements();
 			while (iter.hasNext()) {
@@ -54,10 +56,10 @@ public class JsonParser {
 					String color = temp2.path("color").textValue();
 					String name = temp2.path("name").textValue();
 					int playerid = temp2.path("id").intValue();
-					DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
+					PlayerInfo tempPlayer = new PlayerInfo(name, color, playerid);
 					players.add(tempPlayer);
 				}
-				Game tempGame = new Game(id, title, players);
+				GameInfo tempGame = new GameInfo(id, title, players);
 				players.clear();
 				games.add(tempGame);
 			}
@@ -73,10 +75,10 @@ public class JsonParser {
 				String color = temp2.path("color").textValue();
 				String name = temp2.path("name").textValue();
 				int playerid = temp2.path("id").intValue();
-				DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
+				PlayerInfo tempPlayer = new PlayerInfo(name, color, playerid);
 				players.add(tempPlayer);
 			}
-			Game tempGame = new Game(id, title, players);
+			GameInfo tempGame = new GameInfo(id, title, players);
 			players.clear();
 			games.add(tempGame);
 		}
