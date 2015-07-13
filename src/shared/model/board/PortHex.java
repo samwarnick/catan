@@ -2,9 +2,7 @@ package shared.model.board;
 
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
-import shared.locations.VertexLocation;
 
 public class PortHex extends WaterHex {
 

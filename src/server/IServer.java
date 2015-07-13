@@ -2,9 +2,9 @@ package server;
 
 import java.util.List;
 
+import client.data.GameInfo;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
-import shared.model.Game;
 import shared.model.GameModel;
 
 /**
@@ -50,7 +50,7 @@ public interface IServer {
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error message.
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public List<Game> listGames(GamesListInput input) throws ServerException;  // list of GameModel?
+	public List<GameInfo> listGames(GamesListInput input) throws ServerException;  // list of GameModel?
 	
 	/**
 	 * Creates a new game on the server.
@@ -62,7 +62,7 @@ public interface IServer {
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
-	public Game createGame(GamesCreateInput input) throws ServerException; // GameModel?
+	public GameInfo createGame(GamesCreateInput input) throws ServerException; // GameModel?
 	
 	/**
 	 * Adds the player to the specified game and sets their catan.game cookie.

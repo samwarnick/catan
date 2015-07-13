@@ -5,14 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 import shared.definitions.*;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
 import shared.model.bank.*;
 import shared.model.board.*;
 import shared.model.player.*;
@@ -20,6 +15,9 @@ import shared.model.player.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 
 public class JsonParser {
 
@@ -35,52 +33,29 @@ public class JsonParser {
 		return null;
 	}
 	
-	public static List<Game> gamesFromJson(JsonNode rootNode){
+	public static GameInfo gameInfoFromJson(JsonNode rootNode){
 		
-		List<Game> games = new ArrayList<Game>();
-		JsonNode gamesNode = rootNode.path("game");
-		ArrayList<DisplayPlayer> players = new ArrayList<DisplayPlayer>();
-		if (!gamesNode.isMissingNode()) {
-			Iterator<JsonNode> iter = gamesNode.elements();
-			while (iter.hasNext()) {
-				JsonNode temp = iter.next();
-				String title = temp.path("title").textValue();
-				int id = temp.path("id").intValue();
-				JsonNode playersNode = temp.path("player");
-				Iterator<JsonNode> iter2 = playersNode.elements();
-				
-				while (iter2.hasNext()) {
-					JsonNode temp2 = iter2.next();
-					String color = temp2.path("color").textValue();
-					String name = temp2.path("name").textValue();
-					int playerid = temp2.path("id").intValue();
-					DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
-					players.add(tempPlayer);
-				}
-				Game tempGame = new Game(id, title, players);
-				players.clear();
-				games.add(tempGame);
-			}
+		String title = rootNode.path("title").textValue();
+		int id = rootNode.path("id").intValue();
+		JsonNode playersNode = rootNode.path("player");
+		Iterator<JsonNode> iter = playersNode.elements();
+		GameInfo game = new GameInfo();
+		game.setTitle(title);
+		game.setId(id);
+		
+		while (iter.hasNext()) {
+			JsonNode temp = iter.next();
+			String color = temp.path("color").textValue();
+			String name = temp.path("name").textValue();
+			int playerid = temp.path("id").intValue();
+			PlayerInfo tempPlayer = new PlayerInfo();
+			tempPlayer.setColor(getColor(color));
+			tempPlayer.setName(name);
+			tempPlayer.setId(playerid);
+			game.addPlayer(tempPlayer);
 		}
-		else {
-			String title = rootNode.path("title").textValue();
-			int id = rootNode.path("id").intValue();
-			JsonNode playersNode = rootNode.path("player");
-			Iterator<JsonNode> iter2 = playersNode.elements();
-			
-			while (iter2.hasNext()) {
-				JsonNode temp2 = iter2.next();
-				String color = temp2.path("color").textValue();
-				String name = temp2.path("name").textValue();
-				int playerid = temp2.path("id").intValue();
-				DisplayPlayer tempPlayer = new DisplayPlayer(name, color, playerid);
-				players.add(tempPlayer);
-			}
-			Game tempGame = new Game(id, title, players);
-			players.clear();
-			games.add(tempGame);
-		}
-		return games;
+		
+		return game;
 	}
 	
 	public static GameModel gameModelFromJson(JsonNode rootNode) {
@@ -185,7 +160,7 @@ public class JsonParser {
 				int y = location.path("y").intValue();
 				int num = temp.path("number").intValue();
 				if (resource != null) {
-					ResourceHex hex = new ResourceHex(getResourceType(resource), new HexLocation(x, y), num);
+					ResourceHex hex = new ResourceHex(getLandType(resource), new HexLocation(x, y), num);
 					resourceHexes.add(hex);
 				}
 				else {
@@ -415,19 +390,14 @@ public class JsonParser {
 	
 	// String to enum methods
 	
-	private static HexType getResourceType(String resource) {
-		if (resource != null) {
-			switch (resource) {
-			case "brick": return HexType.BRICK;
-			case "wood": return HexType.WOOD;
-			case "sheep": return HexType.SHEEP;
-			case "wheat": return HexType.WHEAT;
-			case "ore": return HexType.ORE;
-			default: return HexType.DESERT;
-			}
-		}
-		else {
-			return HexType.DESERT;
+	private static HexType getLandType(String resource) {
+		switch (resource) {
+		case "brick": return HexType.BRICK;
+		case "wood": return HexType.WOOD;
+		case "sheep": return HexType.SHEEP;
+		case "wheat": return HexType.WHEAT;
+		case "ore": return HexType.ORE;
+		default: return null;
 		}
 	}
 	
@@ -439,7 +409,7 @@ public class JsonParser {
 			case "sheep": return PortType.SHEEP;
 			case "wheat": return PortType.WHEAT;
 			case "ore": return PortType.ORE;
-			default: return PortType.THREE;
+			default: return null;
 			}
 		}
 		else {
