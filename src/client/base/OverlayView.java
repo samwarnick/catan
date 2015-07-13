@@ -62,7 +62,7 @@ public class OverlayView extends PanelView implements IOverlayView
 		Dimension prefSize = this.getPreferredSize();
 		
 		int widthDiff = (int)(winSize.getWidth() - prefSize.getWidth());
-		int heightDiff = (int)(winSize.getHeight() - prefSize.getHeight());
+		int heightDiff = (int)((winSize.getHeight() - prefSize.getHeight())/1.5);
 		
 		overlayPanel.add(this, BorderLayout.CENTER);
 		if(widthDiff / 2 > 0)

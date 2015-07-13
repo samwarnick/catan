@@ -18,6 +18,10 @@ public class GameModelFacade {
 
 	private GameModel gameModel;
 	private static GameModelFacade gameModelFacade = null;
+
+	public GameModelFacade(int gameid){
+		gameModel = new GameModel(gameid);
+	}
 	
 	public static GameModelFacade getInstance(int gameid)
 	{
@@ -31,10 +35,6 @@ public class GameModelFacade {
 	public static GameModelFacade getInstance()
 	{
 		return gameModelFacade;
-	}
-	
-	public GameModelFacade(int gameid){
-		gameModel = new GameModel(gameid);
 	}
 	
 	

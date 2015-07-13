@@ -79,7 +79,7 @@ public class ClientCommunicator {
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	        	if (conn.getHeaderField("Content-length").equals("7")) { // i.e. "success" in response body
-	        		if(toPost.getMethod().equals("/user/login")){
+	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie = precookie.substring(0, precookie.length()-8);
 	        		}

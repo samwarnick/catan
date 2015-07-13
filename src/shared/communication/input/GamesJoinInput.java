@@ -12,10 +12,10 @@ public class GamesJoinInput extends Input {
 	private int id;
 	private CatanColor color;
 	
-	public GamesJoinInput(int gameID, CatanColor color2) {
+	public GamesJoinInput(int gameID, CatanColor color) {
 		super("/games/join");
 		this.id = gameID;
-		this.color = color2;
+		this.color = color;
 	}
 
 	public int getId() {
