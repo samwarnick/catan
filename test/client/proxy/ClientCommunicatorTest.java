@@ -8,8 +8,6 @@ import server.ServerException;
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.UserLoginInput;
 import client.data.GameInfo;
-import client.data.PlayerInfo;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 
 public class ClientCommunicatorTest {

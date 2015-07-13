@@ -1,7 +1,5 @@
 package shared.communication.input.move;
 
-import shared.definitions.ResourceType;
-
 /**
  * This class contains the playMonopoly method name, the desired resource and the playerIndex for the player doing the action.
  * @author Matt

@@ -18,9 +18,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import client.data.GameInfo;
-import client.data.PlayerInfo;
-
 public class JsonParser {
 
 	public static JsonNode nodeFromFile(File file) {

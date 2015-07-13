@@ -23,7 +23,7 @@ public class GamesJoinInput extends Input {
 	}
 
 	public String getColor() {
-		return "red";
+		return color.toString().toLowerCase();
 	}
 
 }

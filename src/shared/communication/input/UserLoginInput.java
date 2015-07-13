@@ -1,7 +1,5 @@
 package shared.communication.input;
 
-import shared.model.user.*;
-
 /**
  * This class contains the userLogin method name, the username and the password for the user.
  * @author Matt

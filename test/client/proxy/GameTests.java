@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import server.ServerException;
-import shared.communication.input.GameCommandsGetInput;
 import shared.communication.input.GameModelVersionInput;
 import shared.communication.input.GameResetInput;
 import shared.communication.input.GamesJoinInput;

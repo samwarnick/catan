@@ -70,12 +70,12 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void makeTrade() {
-		if (getResource != null && giveResource != null)
-			try {
-				controller.getProxyServer().maritimeTrade(new MaritimeTradeInput(getAmount, giveAmount, getResource, giveResource));
-			} catch (ServerException e) {
-				e.printStackTrace();
-			}
+//		if (getResource != null && giveResource != null)
+//			try {
+//				controller.getProxyServer().maritimeTrade(new MaritimeTradeInput(getAmount, giveAmount, getResource, giveResource));
+//			} catch (ServerException e) {
+//				e.printStackTrace();
+//			}
 		getTradeOverlay().closeModal();
 	}
 

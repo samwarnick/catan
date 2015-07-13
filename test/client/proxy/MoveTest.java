@@ -3,9 +3,6 @@ package client.proxy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import static org.junit.Assert.*;
 
 import server.ServerException;

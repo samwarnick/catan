@@ -109,8 +109,6 @@ public class ProxyServer implements IServer {
 	@Override
 	public List<String> getGameCommands(GameCommandsGetInput input)
 			throws ServerException {
-		@SuppressWarnings("unchecked")
-		JsonNode toReturn = clientCommunicator.post(input, "GET");
 		// TODO
 		return null;
 	}

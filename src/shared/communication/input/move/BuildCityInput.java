@@ -1,6 +1,5 @@
 package shared.communication.input.move;
 
-import shared.locations.EdgeDirection;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 

@@ -1,8 +1,6 @@
 package shared.communication.input.move;
 
-import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
 
 /**
  * This class contains the playRoadBuilding method name, the locations for two new roads and the playerIndex for the player doing the action.

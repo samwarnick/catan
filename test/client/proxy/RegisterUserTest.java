@@ -4,13 +4,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 import server.ServerException;
 import shared.communication.input.UserLoginInput;
 import shared.communication.input.UserRegisterInput;
-import shared.model.user.Password;
-import shared.model.user.Username;
 
 public class RegisterUserTest {
 	

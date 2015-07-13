@@ -1,7 +1,5 @@
 package shared.communication.input;
 
-import shared.model.user.*;
-
 /**
  * This class contains the userRegister method name, the username and the password for the new user.
  * @author Matt
@@ -23,12 +21,9 @@ public class UserRegisterInput extends Input {
 		return username;
 	}
 
-
-
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setUsername(String username) {
 		this.username = username;
