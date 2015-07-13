@@ -20,9 +20,9 @@ public class ModelController {
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 	private int PlayerID;
-	private ModelController instance = null;
+	private static ModelController instance = null;
 	
-	public ModelController getInstance() {
+	public static ModelController getInstance() {
 		if (instance == null) {
 			// TODO
 			instance = new ModelController(0);
