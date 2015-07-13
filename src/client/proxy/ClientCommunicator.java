@@ -70,7 +70,9 @@ public class ClientCommunicator {
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.writeValue(conn.getOutputStream(), toPost);
+	        if (requestMethod != "GET") {
+		        mapper.writeValue(conn.getOutputStream(), toPost);
+	        }
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	        	if (conn.getHeaderField("Content-length").equals("7")) { // i.e. "success" in response body

@@ -2,6 +2,10 @@ package client.proxy;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.junit.Assert.*;
 
 import server.ServerException;
@@ -66,8 +70,11 @@ public class MoveTest {
 	@Test
 	public void testPlayRoadBuilding(){
 		try {
-			ps.playRoadBuilding(new PlayRoadBuildingInput(0, null, null));
+			PlayRoadBuildingInput input = new PlayRoadBuildingInput(0, new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North), 
+					new EdgeLocation(new HexLocation(0, 1), EdgeDirection.North));
+			ps.playRoadBuilding(input);
 		} catch (ServerException e) {
+			e.printStackTrace();
 			assertTrue(false);
 		}
 	}
@@ -78,7 +85,6 @@ public class MoveTest {
 		try {
 			ps.playMonopoly(new PlayMonopolyInput(0, "brick"));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -89,7 +95,6 @@ public class MoveTest {
 		try {
 			ps.playMonument(new PlayMonumentInput(0));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -99,7 +104,6 @@ public class MoveTest {
 		try {
 			ps.maritimeTrade(new MaritimeTradeInput(0, 1, ResourceType.BRICK, ResourceType.BRICK));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -108,9 +112,10 @@ public class MoveTest {
 	@Test
 	public void testRobPlayer() {
 		try {
-			ps.robPlayer(new RobPlayerInput(0, new HexLocation(1,1), 0));
+			RobPlayerInput input = new RobPlayerInput(0, new HexLocation(1,1), 3);
+			ps.robPlayer(input);
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			assertTrue(false);
 		}
 	}
@@ -121,7 +126,6 @@ public class MoveTest {
 		try {
 			ps.finishTurn(new FinishTurnInput(1));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -132,7 +136,6 @@ public class MoveTest {
 		try {
 			ps.buyDevCard(new BuyDevCardInput(1));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -141,9 +144,10 @@ public class MoveTest {
 	@Test
 	public void testPlaySoldier(){
 		try {
-			ps.playSoldier(new PlaySoldierInput(0, null, 0));
+			PlaySoldierInput input = new PlaySoldierInput(0, new HexLocation(1, 0), 2);
+			ps.playSoldier(input);
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			assertTrue(false);
 		}
 	}
@@ -153,7 +157,6 @@ public class MoveTest {
 		try {
 			ps.acceptTrade(new AcceptTradeInput(0,false));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -164,7 +167,6 @@ public class MoveTest {
 		try {
 			ps.discardCards(new DiscardCardsInput(1, new ResourceHand()));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -177,7 +179,6 @@ public class MoveTest {
 			ps.buildRoad(new BuildRoadInput(0,false,
 					new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -189,7 +190,6 @@ public class MoveTest {
 			ps.buildSettlement(new BuildSettlementInput(0,false,
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -201,7 +201,6 @@ public class MoveTest {
 			ps.buildCity(new BuildCityInput( 0,
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -212,7 +211,6 @@ public class MoveTest {
 		try {
 			ps.offerTrade(new OfferTradeInput(0, new ResourceHand(), 1));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}

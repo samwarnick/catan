@@ -9,25 +9,17 @@ import shared.locations.HexLocation;
  */
 public class RobPlayerInput extends MoveInput {
 
-	private HexLocation location;
 	private int victimIndex;
-	private String type = "robPlayer";
-	
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
+	private SoldierSpot location;
 
 	public RobPlayerInput(int playerIndex, HexLocation location, int victimIndex) {
 		super("/robPlayer", playerIndex);
-		this.location = location;
+		setType("robPlayer");
+		this.location = new SoldierSpot(Integer.toString(location.getX()), Integer.toString(location.getY()));
 		this.victimIndex = victimIndex;
 	}
 
-	public HexLocation getLocation() {
+	public SoldierSpot getLocation() {
 		return location;
 	}
 

@@ -9,24 +9,18 @@ import shared.locations.HexLocation;
  */
 public class PlaySoldierInput extends MoveInput {
 
-	private HexLocation location = new HexLocation(0,0);
 	private int victimIndex;
-	private String type = "Soldier";
+	private SoldierSpot location;
 	
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public PlaySoldierInput(int playerIndex, HexLocation location, int victimIndex) {
 		super("/Soldier", playerIndex);
+		setType("Soldier");
 		this.victimIndex = victimIndex;
+		this.location = new SoldierSpot(Integer.toString(location.getX()), Integer.toString(location.getY()));
 	}
 
-	public HexLocation getLocation() {
+	public SoldierSpot getLocation() {
 		return location;
 	}
 

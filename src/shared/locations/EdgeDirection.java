@@ -21,5 +21,25 @@ public enum EdgeDirection
 	{
 		return opposite;
 	}
+	
+	public String getAbbreviation() {
+		switch (this) {
+		case North:
+			return "N";
+		case NorthEast:
+			return "NE";
+		case NorthWest:
+			return "NW";
+		case South:
+			return "S";
+		case SouthEast:
+			return "SE";
+		case SouthWest:
+			return "SW";
+		default:
+			return null;
+		
+		}
+	}
 }
 

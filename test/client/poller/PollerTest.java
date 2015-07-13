@@ -7,7 +7,6 @@ import org.junit.Test;
 import server.IServer;
 import shared.model.GameModel;
 import client.controller.ModelController;
-import client.proxy.MockProxyServer;
 
 public class PollerTest {
 	boolean changed = false;
@@ -16,7 +15,8 @@ public class PollerTest {
 	
 	@Test
 	public void testPost() {
-		controller = new ModelController(0, new MockProxyServer());
+		controller = ModelController.getInstance();
+		controller.setTesting(true);
 		GameModel game = new GameModel(3);//version3
 		controller.getGameModelFacade().setGameModel(game);
 		try {
@@ -26,6 +26,7 @@ public class PollerTest {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		controller.setTesting(false);
 		
 		//change gameModel
 		//wait 2 seconds

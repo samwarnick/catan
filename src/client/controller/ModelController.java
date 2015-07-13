@@ -21,6 +21,7 @@ public class ModelController {
 	private Poller poller;
 	private int PlayerID;
 	private static ModelController instance = null;
+	private boolean testing = false;
 	
 	public static ModelController getInstance() {
 		if (instance == null) {
@@ -76,5 +77,15 @@ public class ModelController {
 	public void setPlayerID(int playerID) {
 		PlayerID = playerID;
 	}
+
+	public boolean isTesting() {
+		return testing;
+	}
+
+	public void setTesting(boolean testing) {
+		this.testing = testing;
+	}
+	
+	
 	
 }

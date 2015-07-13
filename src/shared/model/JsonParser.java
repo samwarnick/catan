@@ -349,7 +349,7 @@ public class JsonParser {
 			playerBank.setDC(odv);
 			playerBank.addNewDC(ndv);
 		} catch (BankException e) {
-			e.printStackTrace();
+			
 		}
 		
 		return playerBank;

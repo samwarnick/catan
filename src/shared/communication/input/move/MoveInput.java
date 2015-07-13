@@ -9,6 +9,7 @@ import shared.communication.input.Input;
  */
 public class MoveInput extends Input {
 
+	private String type;
 	private int playerIndex;
 	
 	public MoveInput(String method, int playerIndex) {
@@ -18,6 +19,14 @@ public class MoveInput extends Input {
 
 	public int getPlayerIndex() {
 		return playerIndex;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

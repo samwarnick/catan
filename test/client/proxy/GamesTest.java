@@ -36,6 +36,7 @@ public class GamesTest {
 		try {
 			ps.listGames(new GamesListInput());
 		} catch (ServerException e) {
+			e.printStackTrace();
 			assertTrue(false);
 		}
 		

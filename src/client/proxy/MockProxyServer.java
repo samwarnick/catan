@@ -18,6 +18,14 @@ import shared.model.JsonParser;
 public class MockProxyServer implements IServer {
 
 	private GameModel model;
+	private static MockProxyServer instance = null;
+	
+	public static MockProxyServer getInstance() {
+		if (instance == null) {
+			instance = new MockProxyServer();
+		}
+		return instance;
+	}
 	
 	@Override
 	public boolean loginUser(UserLoginInput input) throws ServerException {

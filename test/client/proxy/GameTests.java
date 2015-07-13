@@ -55,13 +55,13 @@ public class GameTests {
 		
 	}
 	
-	@Test
-	public void testGetGameCommands(){
-		try {
-			ps.getGameCommands(new GameCommandsGetInput());
-		} catch (ServerException e) {
-			assertTrue(false);
-		}
-		
-	}
+//	@Test
+//	public void testGetGameCommands(){
+//		try {
+//			ps.getGameCommands(new GameCommandsGetInput());
+//		} catch (ServerException e) {
+//			assertTrue(false);
+//		}
+//		
+//	}
 }
