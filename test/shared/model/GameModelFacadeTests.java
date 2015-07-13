@@ -1,11 +1,8 @@
 package shared.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -19,10 +16,7 @@ import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
-import shared.model.TurnTracker;
-import shared.model.bank.Bank;
 import shared.model.bank.BankException;
-import shared.model.bank.DevelopmentHand;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
 import shared.model.board.BoardFacade;
@@ -33,10 +27,8 @@ import shared.model.board.Robber;
 import shared.model.board.Settlement;
 import shared.model.board.Vertex;
 import shared.model.player.ActivePlayerFacade;
-import shared.model.player.Color;
 import shared.model.player.InactivePlayerFacade;
 import shared.model.player.Player;
-import shared.model.player.Roads;
 import shared.model.ratios.TradeRatio;
 
 public class GameModelFacadeTests {

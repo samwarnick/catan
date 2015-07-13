@@ -2,24 +2,12 @@ package client.poller;
 
 import static org.junit.Assert.*;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.junit.Test;
 
 import server.IServer;
-import server.ServerException;
-import shared.communication.input.GamesCreateInput;
-import shared.communication.input.GamesJoinInput;
-import shared.communication.input.GamesLoadInput;
-import shared.definitions.CatanColor;
 import shared.model.GameModel;
-import shared.model.player.Color;
 import client.controller.ModelController;
-import client.poller.Poller;
-import client.poller.UpdateGame;
 import client.proxy.MockProxyServer;
-import client.proxy.ProxyServer;
 
 public class PollerTest {
 	boolean changed = false;

@@ -1,20 +1,21 @@
-package shared.definitions;
+package client.proxy;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 import server.ServerException;
-import shared.communication.input.GamesCreateInput;
+import shared.communication.input.GameCommandsGetInput;
+import shared.communication.input.GameModelVersionInput;
+import shared.communication.input.GameResetInput;
 import shared.communication.input.GamesJoinInput;
-import shared.communication.input.GamesListInput;
 import shared.communication.input.UserLoginInput;
-import shared.model.player.Color;
+import shared.definitions.CatanColor;
 import shared.model.user.Password;
 import shared.model.user.Username;
 import client.proxy.ProxyServer;
 
-public class GamesTest {
+public class GameTests {
 
 	private static ProxyServer ps;
 	static Username user = new Username("Sam");
@@ -24,66 +25,43 @@ public class GamesTest {
 	public static void init(){
 		ps = ProxyServer.getInstance();
 		try {
+			//test login
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
-		//	ps.joinGame(new GamesJoinInput(0,Color.RED));
-		} catch (ServerException e) {
-			assertTrue(false);
-		}
-	}
-	
-	@Test
-	public void testListGames(){
-		try {
-			ps.listGames(new GamesListInput());
-		} catch (ServerException e) {
-			assertTrue(false);
-		}
-		
-	}
-
-	
-	@Test
-	public void testCreateGame(){
-		
-		try {
-			ps.createGame(new GamesCreateInput("x", true, true, true));
-		} catch (ServerException e) {
-			assertTrue(false);
-		}
-		
-	}
-
-	
-	@Test
-	public void testJoinGame(){
-		try {
-			ps.joinGame(new GamesJoinInput(0,Color.RED));
+			ps.joinGame(new GamesJoinInput(0,CatanColor.RED));
 		} catch (ServerException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
+	}
+	
+	@Test
+	public void testGetGameModelVersion(){
+
+		try {
+			ps.getGameModelVersion(new GameModelVersionInput(1));
+		} catch (ServerException e) {
+			assertTrue(false);
+		}
+	}
+
+	
+	@Test
+	public void testResetGame() {
+		try {
+			ps.resetGame(new GameResetInput(true));
+		} catch (ServerException e) {
+			assertTrue(false);
+		}
 		
 	}
 	
-//	@Test
-//	public void testSaveGame(){
-//		try {
-//			ps.saveGame(new GamesSaveInput(0, "file"));
-//		} catch (ServerException e) {
-//			assertTrue(false);
-//		}
-//		
-//	}
-//
-//	
-//	@Test
-//	public void testLoadGame() {
-//		try {
-//			ps.loadGame(new GamesLoadInput("file"));
-//		} catch (ServerException e) {
-//			assertTrue(false);
-//		}
-//		
-//	}
-	
+	@Test
+	public void testGetGameCommands(){
+		try {
+			ps.getGameCommands(new GameCommandsGetInput());
+		} catch (ServerException e) {
+			assertTrue(false);
+		}
+		
+	}
 }

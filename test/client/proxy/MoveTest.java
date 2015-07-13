@@ -1,4 +1,4 @@
-package shared.definitions;
+package client.proxy;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,6 +22,7 @@ import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
 import shared.communication.input.move.RobPlayerInput;
+import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -29,7 +30,6 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.model.bank.ResourceHand;
-import shared.model.player.Color;
 import shared.model.user.Password;
 import shared.model.user.Username;
 import client.proxy.ProxyServer;
@@ -46,7 +46,7 @@ public class MoveTest {
 		
 		try {
 			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
-			ps.joinGame(new GamesJoinInput(0,Color.RED));
+			ps.joinGame(new GamesJoinInput(0,CatanColor.RED));
 		} catch (ServerException e) {
 			assertTrue(false);
 			e.printStackTrace();
@@ -58,7 +58,6 @@ public class MoveTest {
 		try {
 			ps.playYearOfPlenty(new PlayYearOfPlentyInput(0, null, null));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
@@ -69,7 +68,6 @@ public class MoveTest {
 		try {
 			ps.playRoadBuilding(new PlayRoadBuildingInput(0, null, null));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			assertTrue(false);
 		}
 	}
