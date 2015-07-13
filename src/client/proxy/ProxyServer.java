@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import client.data.GameInfo;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import client.data.GameInfo;

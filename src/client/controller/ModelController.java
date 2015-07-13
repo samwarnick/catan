@@ -23,13 +23,13 @@ public class ModelController {
 	private int PlayerID;
 	
 	public ModelController(int gameID){
-		gameModelFacade = new GameModelFacade(gameID);
+		gameModelFacade = GameModelFacade.getInstance(gameID);
 		poller = new Poller(this);
 		proxyServer = ProxyServer.getInstance();
 	}
 	
 	public ModelController(int gameID, IServer server){
-		gameModelFacade = new GameModelFacade(gameID);
+		gameModelFacade = GameModelFacade.getInstance(gameID);
 		proxyServer = server;
 		poller = new Poller(this);
 	}

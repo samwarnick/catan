@@ -3,6 +3,8 @@ package client.proxy;
 import java.io.File;
 import java.util.List;
 
+import client.data.GameInfo;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import client.data.GameInfo;

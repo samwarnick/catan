@@ -18,6 +18,7 @@ public class GameModelFacade {
 
 	private GameModel gameModel;
 	private static GameModelFacade gameModelFacade = null;
+
 	public GameModelFacade(int gameid){
 		gameModel = new GameModel(gameid);
 	}

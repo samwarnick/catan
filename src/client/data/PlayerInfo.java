@@ -30,6 +30,31 @@ public class PlayerInfo
 		setColor(CatanColor.WHITE);
 	}
 	
+	public PlayerInfo(String nameIn, String colorIn, int playerid)
+	{
+		setName(nameIn);
+		setId(playerid);
+		//RED, ORANGE, YELLOW, BLUE, GREEN, PURPLE, PUCE, WHITE, BROWN;
+		if(colorIn.equals("red"))
+			color = CatanColor.RED;
+		if(colorIn.equals("orange"))
+			color = CatanColor.ORANGE;
+		if(colorIn.equals("yellow"))
+			color = CatanColor.YELLOW;
+		if(colorIn.equals("blue"))
+			color = CatanColor.BLUE;
+		if(colorIn.equals("green"))
+			color = CatanColor.GREEN;
+		if(colorIn.equals("purple"))
+			color = CatanColor.PURPLE;
+		if(colorIn.equals("puce"))
+			color = CatanColor.PUCE;
+		if(colorIn.equals("white"))
+			color = CatanColor.WHITE;
+		if(colorIn.equals("brown"))
+			color = CatanColor.BROWN;
+	}
+	
 	public int getId()
 	{
 		return id;

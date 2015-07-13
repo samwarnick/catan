@@ -2,7 +2,6 @@ package shared.communication.input;
 
 import shared.definitions.CatanColor;
 
-
 /**
  * This class contains the gamesJoin method name, the gameID and the Color for the new player.
  * @author Matt

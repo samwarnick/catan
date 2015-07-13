@@ -11,6 +11,8 @@ import shared.locations.*;
 import shared.model.bank.*;
 import shared.model.board.*;
 import shared.model.player.*;
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

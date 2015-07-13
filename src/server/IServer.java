@@ -20,7 +20,7 @@ public interface IServer {
 	 * Logs the caller into the server, and sets their catan.user HTTP cookie.
 	 * @param input contains username and password
 	 * @pre username AND password != null
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success” in the body.<br>
+	 * @post VALID:<br>1. The server returns an HTTP 200 success response with Success in the body.<br>
 	 * 2. The HTTP response headers set the catan.user cookie to contain the identity of the
 	 * logged­in player.<br><br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error message.
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
@@ -32,7 +32,7 @@ public interface IServer {
 	 * @param input contains username, password, and username
 	 * @pre username and password != null AND username not in use
 	 * @post VALID:<br>1. A new user account has been created with the specified username and password.<br>
-	 * 2.The server returns an HTTP 200 success response with “Success” in the body.<br>
+	 * 2.The server returns an HTTP 200 success response with Success in the body.<br>
 	 * 3. The HTTP response headers set the catan.user cookie to contain the identity of the
 	 * logged­in player.<br><br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error message.
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
@@ -73,10 +73,10 @@ public interface IServer {
 	 * <li>b. There is space in the game to add a new player<br>
 	 * 3. The specified game ID is valid<br>
 	 * 4. The specified color is valid (red, green, blue, yellow, puce, brown, white, purple, orange)<br>
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success” in the body.<br>
+	 * @post VALID:<br>1. The server returns an HTTP 200 success response with Success in the body.<br>
 	 * 2. The player is in the game with the specified color 
 	 * (i.e. calls to /games/list method will show the player in the game with the chosen color).<br>
-	 * 3. The server response includes the “Set­cookie” response header setting the catan.game HTTP cookie<br>
+	 * 3. The server response includes the Set�cookie response header setting the catan.game HTTP cookie<br>
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
@@ -90,7 +90,7 @@ public interface IServer {
 	 * @param input contains gameID and filename
 	 * @pre 1. The specified game ID is valid <br>
 	 * 2. The specified file name is valid (i.e., not null or empty)<br>
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success” in the body.<br>
+	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success in the body.<br>
 	 * 2. The current state of the specified game (including its ID) has been saved to the specified file name in the server’s saves/ directory<br>
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
@@ -104,7 +104,7 @@ public interface IServer {
 	 * using the /games/load method. Game files are saved to and loaded from the server's saves/ directory.
 	 * @param input contains filename
 	 * @pre A previously saved game file with the specified name exists in the server’s saves/ directory.
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success” in the body.<br>
+	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success� in the body.<br>
 	 * 2. The game in the specified file has been loaded into the server and its state restored (including its ID).<br>
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error<br>
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
@@ -113,20 +113,20 @@ public interface IServer {
 	
 	/**
 	 * Returns the current state of the game in JSON format.<br><br>
-	 * In addition to the current game state, the returned JSON also includes a “version” number for the client model. 
+	 * In addition to the current game state, the returned JSON also includes a “version� number for the client model. 
 	 * The next time /game/model is called, the version number from the previously retrieved model may optionally be included 
 	 * as a query parameter in the request (/game/model?version=N). The server will only return the full JSON game state if 
-	 * its version number is not equal to N. If it is equal to N, the server returns “true” to indicate that the caller already 
+	 * its version number is not equal to N. If it is equal to N, the server returns “true� to indicate that the caller already 
 	 * has the latest game state. This is merely an optimization. If the version number is not included in the request URL, 
 	 * the server will return the full game state.
 	 * @param input contains user, version number
 	 * @pre The caller has previously logged in to the server and joined a game
-	 * 2. If specified, the version number is included as the “version” query parameter in the request URL, and its value is a valid integer.
+	 * 2. If specified, the version number is included as the “version� query parameter in the request URL, and its value is a valid integer.
 	 * @post VALID:<br>1. The server returns an HTTP 200 success response.<br>
 	 * 2. The response body contains JSON data<br>
 	 * <li>a. The full client model JSON is returned if the caller does not provide a version number, 
 	 * or the provide version number does not match the version on the server<br>
-	 * <li>b. “true” (true in double quotes) is returned if the caller provided a version number, 
+	 * <li>b. “true� (true in double quotes) is returned if the caller provided a version number, 
 	 * and the version number matched the version number on the server<br>
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
@@ -194,7 +194,7 @@ public interface IServer {
 	 * Sets the server’s logging level.
 	 * @param input 
 	 * @pre The caller specifies a valid logging level. Valid values include: <pre>SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST</pre>
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success” in the body.<br>
+	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success� in the body.<br>
 	 * 2. The Server is using the specified logging level<br>
 	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
@@ -267,7 +267,7 @@ public interface IServer {
 	 * 5. Setup round: Must be placed by settlement owned by the player with no adjacent road
 	 * @post 1. You lost the resources required to build a road (1 wood, 1 brick; 1 road)<br>
 	 * 2. The road is on the map at the specified location<br>
-	 * 3. If applicable, “longest road” has been awarded to the player with the longest road
+	 * 3. If applicable, “longest road� has been awarded to the player with the longest road
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
 	public GameModel buildRoad(BuildRoadInput input) throws ServerException;
@@ -366,7 +366,7 @@ public interface IServer {
 	 * 2. If a player is being robbed (i.e., victimIndex != ­1), the player being robbed has resource cards
 	 * @post 1. The robber is in the new location<br>
 	 * 2. The player being robbed (if any) gave you one of his resource cards (randomly selected)<br>
-	 * 3. If applicable, “largest army” has been awarded to the player who has played the most soldier cards<br>
+	 * 3. If applicable, “largest army� has been awarded to the player who has played the most soldier cards<br>
 	 * 4. You are not allowed to play other development cards during this turn (except for monument cards, which may still be played)
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
@@ -390,7 +390,7 @@ public interface IServer {
 	 * 4. You have at least two unused roads
 	 * @post 1. You have two fewer unused roads<br>
 	 * 2. Two new roads appear on the map at the specified locations<br> 
-	 * 3. If applicable, “longest road” has been awarded to the player with the longest road
+	 * 3. If applicable, “longest road� has been awarded to the player with the longest road
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
 	public GameModel playRoadBuilding(PlayRoadBuildingInput input) throws ServerException;
