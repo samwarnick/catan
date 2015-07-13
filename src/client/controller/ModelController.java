@@ -19,18 +19,19 @@ public class ModelController {
 
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
-	private IServer proxyServer;
 	private int PlayerID;
+	private ModelController instance = null;
 	
-	public ModelController(int gameID){
-		gameModelFacade = GameModelFacade.getInstance(gameID);
-		poller = new Poller(this);
-		proxyServer = ProxyServer.getInstance();
+	public ModelController getInstance() {
+		if (instance == null) {
+			// TODO
+			instance = new ModelController(0);
+		}
+		return instance;
 	}
 	
-	public ModelController(int gameID, IServer server){
+	private ModelController(int gameID){
 		gameModelFacade = GameModelFacade.getInstance(gameID);
-		proxyServer = server;
 		poller = new Poller(this);
 	}
 	
@@ -59,23 +60,9 @@ public class ModelController {
 	public Poller getPoller() {
 		return poller;
 	}
-
-
-
+	
 	public void setPoller(Poller poller) {
 		this.poller = poller;
-	}
-
-
-
-	public IServer getProxyServer() {
-		return proxyServer;
-	}
-
-	
-
-	public void setProxyServer(IServer proxyServer) {
-		this.proxyServer = proxyServer;
 	}
 
 	public void updateGame(GameModel gameModel){
