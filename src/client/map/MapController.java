@@ -9,7 +9,7 @@ import shared.model.board.*;
 import client.base.*;
 import client.data.*;
 import server.ServerException;
-import client.controller.Controller;
+import client.controller.ModelController;
 
 
 /**
@@ -18,7 +18,7 @@ import client.controller.Controller;
 public class MapController extends client.base.Controller implements IMapController {
 	
 	private IRobView robView;
-	private Controller controller;
+	private ModelController controller;
 	private boolean isFree = false;
 	private boolean allowDisconnected = false;
 	
@@ -29,6 +29,7 @@ public class MapController extends client.base.Controller implements IMapControl
 		setRobView(robView);
 		
 		initFromModel();
+		
 	}
 	
 	public IMapView getView() {
