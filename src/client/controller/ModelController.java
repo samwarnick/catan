@@ -20,6 +20,7 @@ public class ModelController {
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 	private IServer proxyServer;
+	private int PlayerID;
 	
 	public ModelController(int gameID){
 		gameModelFacade = new GameModelFacade(gameID);
@@ -80,4 +81,13 @@ public class ModelController {
 	public void updateGame(GameModel gameModel){
 		gameModelFacade.setGameModel(gameModel);
 	}
+
+	public int getPlayerID() {
+		return PlayerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		PlayerID = playerID;
+	}
+	
 }
