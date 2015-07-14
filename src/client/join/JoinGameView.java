@@ -5,8 +5,13 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import server.ServerException;
+import shared.communication.input.GamesListInput;
 import client.base.*;
 import client.data.*;
+import client.proxy.ProxyServer;
+
+import java.util.ArrayList;
 
 /**
  * Implementation for the join game view, which lets the user select a game to
@@ -38,6 +43,8 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 
 	private GameInfo[] games;
 	private PlayerInfo localPlayer;
+	
+	private ProxyServer ps;
 
 	public JoinGameView()
 	{
@@ -88,6 +95,13 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 		gamePanel.add(name);
 		gamePanel.add(currentPlayer);
 		gamePanel.add(join);
+		
+		try {
+			games = convert(ps.listGames(new GamesListInput()));
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// This is the looped layout
 		if (games != null && games.length > 0)
@@ -205,5 +219,15 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 			}
 		}
 	};
+
+	private GameInfo[] convert(ArrayList<GameInfo> toConvert){
+		GameInfo[] temp = new GameInfo[toConvert.size()];
+		int index = 0;
+		for(GameInfo gf: toConvert){
+			temp[index] = gf;
+			index++;
+		}
+		return temp;
+	}
 }
 
