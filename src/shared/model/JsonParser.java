@@ -11,6 +11,7 @@ import shared.locations.*;
 import shared.model.bank.*;
 import shared.model.board.*;
 import shared.model.player.*;
+import client.communication.LogEntry;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 
@@ -65,9 +66,13 @@ public class JsonParser {
 		Bank bank = parseBank(rootNode.path("deck"), rootNode.path("bank"));
 		// players
 		List<Player> players = parsePlayers(rootNode.path("players"));
-		// turn tracker
-		TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
+		// turn tracker 
 		// go through players and find longest and largest
+		TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
+		// log
+		List<LogEntry> logs = parseLog(rootNode.path("log"), players);		
+		// chat
+		List<LogEntry> chats = parseLog(rootNode.path("chat"), players);	
 		// winner
 		// int winner = rootNode.path("winner").intValue();
 		// version
@@ -77,6 +82,8 @@ public class JsonParser {
 		gameModel.setBank(bank);
 		gameModel.setPlayers(players);
 		gameModel.setTurnTracker(tracker);
+		gameModel.setLogs(logs);
+		gameModel.setChats(chats);
 		gameModel.setGameVersion(version);
 			
 		return gameModel;
@@ -387,6 +394,24 @@ public class JsonParser {
 		return tracker;
 	}
 	
+	private static List<LogEntry> parseLog(JsonNode logNode, List<Player> players) {
+		List<LogEntry> log = new ArrayList<LogEntry>();
+		if (!logNode.isMissingNode()) {
+			JsonNode linesNode = logNode.path("lines");
+			if (!linesNode.isMissingNode()) {
+				Iterator<JsonNode> iter = linesNode.elements();
+				while (iter.hasNext()) {
+					JsonNode temp = iter.next();
+					String source = temp.path("source").textValue();
+					String message = temp.path("message").textValue();
+					CatanColor color = catanColorFromSource(source, players);
+					log.add(new LogEntry(color, message));
+				}
+			}
+		}
+		return log;
+	}
+	
 	// String to enum methods
 	
 	private static HexType getLandType(String resource) {
@@ -453,5 +478,14 @@ public class JsonParser {
 		case "brown": return CatanColor.BROWN;
 		default: return null;
 		}
+	}
+	
+	private static CatanColor catanColorFromSource(String source, List<Player> players) {
+		for (Player p: players) {
+			if (source.equals(p.getName())) {
+				return p.getColor();
+			}
+		}
+		return null;
 	}
 }
