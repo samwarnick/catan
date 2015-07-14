@@ -39,6 +39,14 @@ public class ModelController {
 		return instance;
 	}
 	
+	public static ModelController getInstance(int x) {
+		if (instance == null) {
+			// TODO
+			instance = new ModelController(x);
+		}
+		return instance;
+	}
+	
 	private ModelController(int gameID){
 		gameModelFacade = GameModelFacade.getInstance(gameID);
 		poller = new Poller(this);

@@ -217,6 +217,14 @@ public class ProxyServer implements IServer {
 			throws ServerException {
 		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 	}
+	
+	public int getPlayerId(){
+		return clientCommunicator.getPlayerId();
+	}
+	
+	public int getGameId(){
+		return clientCommunicator.getGameId();
+	}
 
 	
 

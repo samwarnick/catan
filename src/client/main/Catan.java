@@ -18,7 +18,7 @@ public class Catan extends JFrame
 {
 	
 	private CatanPanel catanPanel;
-	private	ModelController OC;
+	private static ProxyServer ps;
 	
 	public Catan()
 	{
@@ -59,10 +59,10 @@ public class Catan extends JFrame
 			public void run()
 			{
 				if(args.length==2){
-					ProxyServer.getInstance(args[0], Integer.parseInt(args[1]));
+					ps = ProxyServer.getInstance(args[0], Integer.parseInt(args[1]));
 				}
 				else{
-					ProxyServer.getInstance();
+					ps = ProxyServer.getInstance();
 				}
 				
 				new Catan();
@@ -85,6 +85,7 @@ public class Catan extends JFrame
 					@Override
 					public void execute()
 					{
+						ModelController.getInstance(ps.getGameId());
 						playerWaitingController.start();
 					}
 				});
