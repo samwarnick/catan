@@ -168,10 +168,10 @@ public class ModelController {
 //		return true;
 //	}
 //
-//	@Override
-//	public GameModel sendChat(SendChatInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
+	@Override
+	public GameModel sendChat(SendChatInput input) throws ServerException {
+		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+	}
 //
 //	@Override
 //	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException {
@@ -210,11 +210,6 @@ public class ModelController {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
-//	public GameModel maritimeTrade(MaritimeTradeInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
 //
 //	@Override
 //	public GameModel robPlayer(RobPlayerInput input) throws ServerException {
