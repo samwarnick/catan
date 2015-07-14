@@ -107,6 +107,10 @@ public class ModelController {
 		this.testing = testing;
 	}
 	
+	public Player getClientPlayer() {
+		return gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID));
+	}
+	
 	public void maritimeTrade(MaritimeTradeInput input){
 		try {
 			updateGame(ProxyServer.getInstance().maritimeTrade(input));
@@ -130,85 +134,83 @@ public class ModelController {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel resetGame(GameResetInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public List<String> getGameCommands(GameCommandsGetInput input)
 //			throws ServerException {
 //		// TODO
 //		return null;
 //	}
 //
-//	@Override
+//	 
 //	public GameModel postGameCommands(GameCommandsPostInput input)
 //			throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public boolean changeLogLevel(UtilChangeLogLevelInput input)
 //			throws ServerException {
 //		clientCommunicator.post(input, "POST");
 //		return true;
 //	}
 //
-//	@Override
-//	public GameModel sendChat(SendChatInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
+	public void sendChat(SendChatInput input){
+		try {
+			updateGame(ProxyServer.getInstance().sendChat(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 //
-//	@Override
+//	 
 //	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel discardCards(DiscardCardsInput input)
 //			throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel rollNumber(RollNumberInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel buildRoad(BuildRoadInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel buildSettlement(BuildSettlementInput input)
 //			throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel buildCity(BuildCityInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel offerTrade(OfferTradeInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
-//	public GameModel maritimeTrade(MaritimeTradeInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
 //
-//	@Override
+//	 
 //	public GameModel robPlayer(RobPlayerInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	@Override
+//	 
 //	public GameModel finishTurn(FinishTurnInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
@@ -221,8 +223,12 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
+//	 
+//	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException {
+//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+//	}
 //
-//	@Override
+//	 
 //	public GameModel playSoldier(PlaySoldierInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
@@ -236,7 +242,7 @@ public class ModelController {
 		}
 	}
 //
-//	@Override
+//	 
 //	public GameModel playRoadBuilding(PlayRoadBuildingInput input)
 //			throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
@@ -259,6 +265,14 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
+//	
+//	public int getPlayerId(){
+//		return clientCommunicator.getPlayerId();
+//	}
+//	
+//	public int getGameId(){
+//		return clientCommunicator.getGameId();
+//	}
 	
 	public void notifyListeners(){
 		for(ModelControllerListener M: listeners){

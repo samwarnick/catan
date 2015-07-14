@@ -1,20 +1,24 @@
 package client.communication;
 
 import java.util.*;
-import java.util.List;
 
 import client.base.*;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import shared.definitions.*;
 
 
 /**
  * Game history controller implementation
  */
-public class GameHistoryController extends Controller implements IGameHistoryController {
+public class GameHistoryController extends Controller implements IGameHistoryController, ModelControllerListener {
 
+	private ModelController MC;
+	
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
+		MC.getInstance();
 		
 		initFromModel();
 	}
@@ -42,6 +46,12 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		getView().setEntries(entries);
 	
 		//</temp>
+	}
+
+	@Override
+	public void ModelChanged() {
+		getView().setEntries();
+		
 	}
 	
 }

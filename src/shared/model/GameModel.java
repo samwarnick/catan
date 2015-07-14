@@ -3,6 +3,7 @@ package shared.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.communication.LogEntry;
 import shared.model.bank.Bank;
 import shared.model.board.Board;
 import shared.model.board.PlayerID;
@@ -21,6 +22,8 @@ public class GameModel {
 	private List<Player> players;
 	private TurnTracker turnTracker;
 	private Bank bank;
+	List<LogEntry> logs = new ArrayList<LogEntry>();
+	List<LogEntry>  chats = new ArrayList<LogEntry>();
 	
 	public GameModel(int gameID) {
 		this.gameID = gameID;
@@ -111,6 +114,22 @@ public class GameModel {
 	
 	public Player getCurrentPlayer(){
 		return players.get(turnTracker.getCurrentTurn());
+	}
+
+	public List<LogEntry> getLogs() {
+		return logs;
+	}
+
+	public List<LogEntry> getChats() {
+		return chats;
+	}
+
+	public void setLogs(List<LogEntry> logs) {
+		this.logs = logs;
+	}
+
+	public void setChats(List<LogEntry> chats) {
+		this.chats = chats;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import shared.model.board.PlayerID;
 import shared.model.player.Player;
 import client.base.*;
 import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import client.misc.*;
 
 
@@ -27,18 +28,6 @@ public class DiscardController extends Controller implements IDiscardController 
 		
 		super(view);
 		toDiscard = new ResourceHand(0, 0, 0, 0, 0);
-		PlayerID playerID = new PlayerID(ModelController.getInstance().getPlayerID());
-		Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(playerID);
-		int brick = player.getPlayerBank().getResourceStack(ResourceType.BRICK).getQuantity();
-		int wood = player.getPlayerBank().getResourceStack(ResourceType.WOOD).getQuantity();
-		int sheep = player.getPlayerBank().getResourceStack(ResourceType.SHEEP).getQuantity();
-		int wheat = player.getPlayerBank().getResourceStack(ResourceType.WHEAT).getQuantity();
-		int ore = player.getPlayerBank().getResourceStack(ResourceType.ORE).getQuantity();
-		view.setResourceMaxAmount(ResourceType.BRICK, brick);
-		view.setResourceMaxAmount(ResourceType.WOOD, wood);
-		view.setResourceMaxAmount(ResourceType.SHEEP, sheep);
-		view.setResourceMaxAmount(ResourceType.WHEAT, wheat);
-		view.setResourceMaxAmount(ResourceType.ORE, ore);
 		this.waitView = waitView;
 	}
 
