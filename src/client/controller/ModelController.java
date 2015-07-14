@@ -2,12 +2,10 @@ package client.controller;
 
 import java.util.List;
 
-import client.login.LoginController;
+import client.discard.DiscardController;
 import client.maritime.MaritimeTradeController;
-import client.maritime.MaritimeTradeView;
 import client.poller.Poller;
 import client.proxy.ProxyServer;
-import server.IServer;
 import server.ServerException;
 import shared.communication.input.move.DiscardCardsInput;
 import shared.communication.input.move.MaritimeTradeInput;
@@ -22,6 +20,7 @@ import shared.model.player.Player;
 public class ModelController {
 
 	private MaritimeTradeController maritimeController;
+	private DiscardController discardController;
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 
@@ -29,7 +28,7 @@ public class ModelController {
 	private static ModelController instance = null;
 	private boolean testing = false;
 
-
+	// get instances
 	
 	public static ModelController getInstance() {
 		if (instance == null) {
@@ -62,17 +61,15 @@ public class ModelController {
 		gameModelFacade.getGameModel().setBoard(new Board(randomHexes,randomNumbers,randomPorts));
 	}
 	
+	// getters and setters
+	
 	public GameModelFacade getGameModelFacade() {
 		return gameModelFacade;
 	}
 
-
-
 	public void setGameModelFacade(GameModelFacade gameModelFacade) {
 		this.gameModelFacade = gameModelFacade;
 	}
-
-
 
 	public Poller getPoller() {
 		return poller;
@@ -81,13 +78,7 @@ public class ModelController {
 	public void setPoller(Poller poller) {
 		this.poller = poller;
 	}
-
-	public void updateGame(GameModel gameModel){
-		gameModelFacade.setGameModel(gameModel);
-		maritimeController.getTradeView().enableMaritimeTrade(gameModelFacade.canFinishTurn(gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID))));
-		
-	}
-
+	
 	public int getPlayerID() {
 		return PlayerID;
 	}
@@ -95,7 +86,7 @@ public class ModelController {
 	public void setPlayerID(int playerID) {
 		PlayerID = playerID;
 	}
-
+	
 	public boolean isTesting() {
 		return testing;
 	}
@@ -104,9 +95,26 @@ public class ModelController {
 		this.testing = testing;
 	}
 	
+	// controller 
+
+	public void updateGame(GameModel gameModel){
+		gameModelFacade.setGameModel(gameModel);
+		maritimeController.getTradeView().enableMaritimeTrade(gameModelFacade.canFinishTurn(gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID))));
+		// TODO add updates to GUI here
+	}
+	
 	public void maritimeTrade(MaritimeTradeInput input){
 		try {
 			gameModelFacade.setGameModel(ProxyServer.getInstance().maritimeTrade(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void discard(ResourceHand toDiscard) {
+		DiscardCardsInput input = new DiscardCardsInput(PlayerID, toDiscard);
+		try {
+			updateGame(ProxyServer.getInstance().discardCards(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
