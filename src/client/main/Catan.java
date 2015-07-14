@@ -2,6 +2,7 @@ package client.main;
 
 import javax.swing.*;
 
+import shared.communication.input.GameModelVersionInput;
 import client.catan.*;
 import client.controller.ModelController;
 import client.login.*;
@@ -85,7 +86,8 @@ public class Catan extends JFrame
 					@Override
 					public void execute()
 					{
-						ModelController.getInstance(ps.getGameId());
+						ModelController.getInstance().getGameModelVersion(new GameModelVersionInput(-1));
+						ModelController.getInstance().startPoller();
 						playerWaitingController.start();
 					}
 				});
