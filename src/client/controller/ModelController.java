@@ -110,7 +110,7 @@ public class ModelController {
 	
 	public void maritimeTrade(MaritimeTradeInput input){
 		try {
-			gameModelFacade.setGameModel(ProxyServer.getInstance().maritimeTrade(input));
+			updateGame(ProxyServer.getInstance().maritimeTrade(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
