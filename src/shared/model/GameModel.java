@@ -22,8 +22,8 @@ public class GameModel {
 	private List<Player> players;
 	private TurnTracker turnTracker;
 	private Bank bank;
-	ArrayList<LogEntry> logs = new ArrayList<LogEntry>();
-	ArrayList<LogEntry>  chats = new ArrayList<LogEntry>();
+	List<LogEntry> logs = new ArrayList<LogEntry>();
+	List<LogEntry>  chats = new ArrayList<LogEntry>();
 	
 	public GameModel(int gameID) {
 		this.gameID = gameID;
@@ -116,19 +116,19 @@ public class GameModel {
 		return players.get(turnTracker.getCurrentTurn());
 	}
 
-	public ArrayList<LogEntry> getLogs() {
+	public List<LogEntry> getLogs() {
 		return logs;
 	}
 
-	public ArrayList<LogEntry> getChats() {
+	public List<LogEntry> getChats() {
 		return chats;
 	}
 
-	public void setLogs(ArrayList<LogEntry> logs) {
+	public void setLogs(List<LogEntry> logs) {
 		this.logs = logs;
 	}
 
-	public void setChats(ArrayList<LogEntry> chats) {
+	public void setChats(List<LogEntry> chats) {
 		this.chats = chats;
 	}
 

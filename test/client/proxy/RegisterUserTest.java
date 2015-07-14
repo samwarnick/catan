@@ -43,6 +43,7 @@ public class RegisterUserTest {
 		try {
 			ps.loginUser(new UserLoginInput("Sam", "sam"));
 		} catch (ServerException e) {
+			e.printStackTrace();
 			passed = false;
 		}
 		

@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import shared.definitions.ResourceType;
+import shared.model.bank.PlayerBank;
+import shared.model.player.Player;
+import client.controller.ModelController;
 import client.discard.DiscardController;
 import client.discard.DiscardView;
 import client.misc.WaitView;
@@ -81,26 +84,51 @@ public class CatanPanel extends JPanel
 //			 false, false);
 //			 }
 			
-			int state = 0;
-			
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 //				rollView.showModal();
 				
-				discardView.setResourceMaxAmount(ResourceType.WOOD, 1);
-				discardView.setResourceMaxAmount(ResourceType.BRICK, 0);
-				discardView.setResourceMaxAmount(ResourceType.SHEEP, 11);
-				discardView.setResourceMaxAmount(ResourceType.WHEAT, 1);
-				discardView.setResourceMaxAmount(ResourceType.ORE, 0);
+				Player clientPlayer = ModelController.getInstance().getClientPlayer();
 				
-				discardView.setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
-				discardView.setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
-				discardView.setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
+				int state = 1;
 				
-				discardView.setStateMessage("0/6");
-				
-				discardView.setDiscardButtonEnabled(true);
+				if ( clientPlayer != null && clientPlayer.getPlayerFacade().canDiscard()) {
+					state = 0;
+					
+					PlayerBank bank = clientPlayer.getPlayerBank();
+					int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
+					int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
+					int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
+					int wheat = bank.getResourceStack(ResourceType.WHEAT).getQuantity();
+					int ore = bank.getResourceStack(ResourceType.ORE).getQuantity();
+					
+					discardView.setResourceMaxAmount(ResourceType.WOOD, wood);
+					discardView.setResourceMaxAmount(ResourceType.BRICK, brick);
+					discardView.setResourceMaxAmount(ResourceType.SHEEP, sheep);
+					discardView.setResourceMaxAmount(ResourceType.WHEAT, wheat);
+					discardView.setResourceMaxAmount(ResourceType.ORE, ore);
+					
+					if (brick > 0) {
+						discardView.setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
+					}
+					if (wood > 0) {
+						discardView.setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
+					}
+					if (sheep > 0) {
+						discardView.setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
+					}
+					if (wheat > 0) {
+						discardView.setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
+					}
+					if (ore > 0) {
+						discardView.setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
+					}
+					
+					discardView.setStateMessage(String.format("%d/%d", 0, (brick+wood+sheep+wheat+ore)/2));
+					
+					discardView.setDiscardButtonEnabled(true);
+				}
 				
 				if(state == 0)
 				{

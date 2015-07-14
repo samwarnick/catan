@@ -3,6 +3,7 @@ package client.devcards;
 import shared.definitions.ResourceType;
 
 import client.base.*;
+import client.controller.ModelController;
 
 
 /**
@@ -54,7 +55,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void buyCard() {
-		
+		ModelController.getInstance().buyDevCard();
 		getBuyCardView().closeModal();
 	}
 
@@ -72,12 +73,12 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		
+		ModelController.getInstance().playMonopoly(resource);
 	}
 
 	@Override
 	public void playMonumentCard() {
-		
+		ModelController.getInstance().playMonument();
 	}
 
 	@Override
@@ -94,7 +95,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		
+		ModelController.getInstance().playYearOfPlenty(resource1, resource2);
 	}
 
 }

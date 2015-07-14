@@ -82,13 +82,16 @@ public class ClientCommunicator {
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie = precookie.substring(0, precookie.length()-8);
-	        			String temp = cookie.substring(10, cookie.length()-1);
-	        			playerId = Integer.parseInt(URLDecoder.decode(temp, "playerID"));
+	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
+	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
-	        			gameId = Integer.parseInt(precookie.substring(10, cookie.length()-1));
+	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+	        			int index = temp.lastIndexOf("catan.game=") + 11;
+	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
 	        		}
 	        		return null;
 	        	}
@@ -101,6 +104,7 @@ public class ClientCommunicator {
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new ServerException(e.getMessage());
 		}
 	}

@@ -3,35 +3,14 @@ package client.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import client.login.LoginController;
+import client.discard.DiscardController;
 import client.maritime.MaritimeTradeController;
-import client.maritime.MaritimeTradeView;
 import client.poller.Poller;
 import client.proxy.ProxyServer;
-import server.IServer;
 import server.ServerException;
-import shared.communication.input.GameCommandsGetInput;
-import shared.communication.input.GameCommandsPostInput;
-import shared.communication.input.GameModelVersionInput;
-import shared.communication.input.GameResetInput;
-import shared.communication.input.UtilChangeLogLevelInput;
-import shared.communication.input.move.AcceptTradeInput;
-import shared.communication.input.move.BuildCityInput;
-import shared.communication.input.move.BuildRoadInput;
-import shared.communication.input.move.BuildSettlementInput;
-import shared.communication.input.move.BuyDevCardInput;
-import shared.communication.input.move.DiscardCardsInput;
-import shared.communication.input.move.FinishTurnInput;
-import shared.communication.input.move.MaritimeTradeInput;
-import shared.communication.input.move.OfferTradeInput;
-import shared.communication.input.move.PlayMonopolyInput;
-import shared.communication.input.move.PlayMonumentInput;
-import shared.communication.input.move.PlayRoadBuildingInput;
-import shared.communication.input.move.PlaySoldierInput;
-import shared.communication.input.move.PlayYearOfPlentyInput;
-import shared.communication.input.move.RobPlayerInput;
-import shared.communication.input.move.RollNumberInput;
-import shared.communication.input.move.SendChatInput;
+import shared.communication.input.*;
+import shared.communication.input.move.*;
+import shared.definitions.ResourceType;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.JsonParser;
@@ -44,6 +23,7 @@ import shared.model.player.Player;
 public class ModelController {
 
 	private MaritimeTradeController maritimeController;
+	private DiscardController discardController;
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 
@@ -53,7 +33,7 @@ public class ModelController {
 	
 	private List<ModelControllerListener> listeners = new ArrayList<ModelControllerListener>();
 
-
+	// get instances
 	
 	public static ModelController getInstance() {
 		if (instance == null) {
@@ -67,8 +47,14 @@ public class ModelController {
 		gameModelFacade = GameModelFacade.getInstance(0);
 	}
 	
+<<<<<<< HEAD
 	public void startPoller(){
 		poller = new Poller(this);
+=======
+	private ModelController(int gameID){
+		gameModelFacade = GameModelFacade.getInstance(gameID);
+		// poller = new Poller(this);
+>>>>>>> sam-dev-controller
 	}
 	
 	public void startGame(List<Player> players, boolean randomHexes, boolean randomNumbers, boolean randomPorts){
@@ -81,17 +67,15 @@ public class ModelController {
 		gameModelFacade.getGameModel().setBoard(new Board(randomHexes,randomNumbers,randomPorts));
 	}
 	
+	// getters and setters
+	
 	public GameModelFacade getGameModelFacade() {
 		return gameModelFacade;
 	}
 
-
-
 	public void setGameModelFacade(GameModelFacade gameModelFacade) {
 		this.gameModelFacade = gameModelFacade;
 	}
-
-
 
 	public Poller getPoller() {
 		return poller;
@@ -115,13 +99,17 @@ public class ModelController {
 	public void setPlayerID(int playerID) {
 		PlayerID = playerID;
 	}
-
+	
 	public boolean isTesting() {
 		return testing;
 	}
 
 	public void setTesting(boolean testing) {
 		this.testing = testing;
+	}
+	
+	public Player getClientPlayer() {
+		return gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID));
 	}
 	
 	public void maritimeTrade(MaritimeTradeInput input){
@@ -132,14 +120,30 @@ public class ModelController {
 		}
 	}
 	
+<<<<<<< HEAD
 	 
 	public void getGameModelVersion(GameModelVersionInput input){
 		try {
 			updateGame(ProxyServer.getInstance().getGameModelVersion(input));
+=======
+	public void discard(ResourceHand toDiscard) {
+		DiscardCardsInput input = new DiscardCardsInput(PlayerID, toDiscard);
+		try {
+			updateGame(ProxyServer.getInstance().discardCards(input));
+>>>>>>> sam-dev-controller
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+//	@Override
+//	public GameModel getGameModelVersion(GameModelVersionInput input)
+//			throws ServerException {
+//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
+//	}
+>>>>>>> sam-dev-controller
 //
 //	 
 //	public GameModel resetGame(GameResetInput input) throws ServerException {
@@ -222,6 +226,14 @@ public class ModelController {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
+	public void buyDevCard() {
+		BuyDevCardInput input = new BuyDevCardInput(PlayerID);
+		try {
+			updateGame(ProxyServer.getInstance().buyDevCard(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 //	 
 //	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
@@ -232,11 +244,14 @@ public class ModelController {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	 
-//	public GameModel playYearOfPlenty(PlayYearOfPlentyInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
+	public void playYearOfPlenty(ResourceType resource1, ResourceType resource2) {
+		PlayYearOfPlentyInput input = new PlayYearOfPlentyInput(PlayerID, resource1, resource2);
+		try {
+			updateGame(ProxyServer.getInstance().playYearOfPlenty(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 //
 //	 
 //	public GameModel playRoadBuilding(PlayRoadBuildingInput input)
@@ -244,17 +259,23 @@ public class ModelController {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
 //	}
 //
-//	 
-//	public GameModel playMonopoly(PlayMonopolyInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel playMonument(PlayMonumentInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
+	public void playMonopoly(ResourceType resource) {
+		PlayMonopolyInput input = new PlayMonopolyInput(PlayerID, resource.toString().toLowerCase());
+		try {
+			updateGame(ProxyServer.getInstance().playMonopoly(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void playMonument() {
+		PlayMonumentInput input = new PlayMonumentInput(PlayerID);
+		try {
+			updateGame(ProxyServer.getInstance().playMonument(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 //	
 //	public int getPlayerId(){
 //		return clientCommunicator.getPlayerId();

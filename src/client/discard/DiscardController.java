@@ -1,12 +1,13 @@
 package client.discard;
 
-import shared.communication.input.move.DiscardCardsInput;
 import shared.definitions.*;
 import shared.model.bank.ResourceHand;
+import shared.model.board.PlayerID;
+import shared.model.player.Player;
 import client.base.*;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import client.misc.*;
-import client.proxy.ProxyServer;
-import server.ServerException;
 
 
 /**
@@ -44,22 +45,27 @@ public class DiscardController extends Controller implements IDiscardController 
 		case BRICK:
 			int brick = toDiscard.getBrick() - 1;
 			toDiscard.setBrick(brick);
+			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, -brick);
 			break;
 		case WOOD:
 			int wood = toDiscard.getWood() - 1;
 			toDiscard.setWood(wood);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, -wood);
 			break;
 		case SHEEP:
 			int sheep = toDiscard.getSheep() - 1;
 			toDiscard.setSheep(sheep);
+			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, -sheep);
 			break;
 		case ORE:
 			int ore = toDiscard.getOre() - 1;
 			toDiscard.setOre(ore);
+			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, -ore);
 			break;
 		case WHEAT:
 			int wheat = toDiscard.getWheat() - 1;
 			toDiscard.setWheat(wheat);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, -wheat);
 		default:
 			break;
 		}
@@ -71,22 +77,28 @@ public class DiscardController extends Controller implements IDiscardController 
 		case BRICK:
 			int brick = toDiscard.getBrick() + 1;
 			toDiscard.setBrick(brick);
+			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, -brick);
 			break;
 		case WOOD:
 			int wood = toDiscard.getWood() + 1;
 			toDiscard.setWood(wood);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, -wood);
 			break;
 		case SHEEP:
 			int sheep = toDiscard.getSheep() + 1;
 			toDiscard.setSheep(sheep);
+			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, -sheep);
 			break;
 		case ORE:
 			int ore = toDiscard.getOre() + 1;
 			toDiscard.setOre(ore);
+			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, -ore);
 			break;
 		case WHEAT:
 			int wheat = toDiscard.getWheat() + 1;
 			toDiscard.setWheat(wheat);
+			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, -wheat);
+			break;
 		default:
 			break;
 		}
@@ -94,14 +106,7 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void discard() {
-		// TODO
-		DiscardCardsInput input = new DiscardCardsInput(0, toDiscard);
-		try {
-			ProxyServer.getInstance().discardCards(input);
-			getDiscardView().closeModal();
-		} catch (ServerException e) {
-			e.printStackTrace();
-		}
+		ModelController.getInstance().discard(toDiscard);
 	}
 }
 
