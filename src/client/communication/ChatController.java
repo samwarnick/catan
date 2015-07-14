@@ -1,5 +1,6 @@
 package client.communication;
 
+import shared.communication.input.move.SendChatInput;
 import client.base.*;
 import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
@@ -26,13 +27,12 @@ public class ChatController extends Controller implements IChatController, Model
 
 	@Override
 	public void sendMessage(String message) {
-		//
+		MC.sendChat(new SendChatInput(MC.getPlayerID(), message));
 	}
 
 	@Override
 	public void ModelChanged() {
-		// TODO Auto-generated method stub
-		
+		getView().setEntries(MC.getGameModelFacade().getGameModel().getChats());
 	}
 
 }
