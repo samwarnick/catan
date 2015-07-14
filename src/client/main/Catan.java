@@ -58,7 +58,13 @@ public class Catan extends JFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run()
 			{
-				ProxyServer.getInstance(args[0], Integer.parseInt(args[1]));
+				if(args.length==2){
+					ProxyServer.getInstance(args[0], Integer.parseInt(args[1]));
+				}
+				else{
+					ProxyServer.getInstance();
+				}
+				
 				new Catan();
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();
