@@ -19,8 +19,8 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		
 		super(view);
 		MC.getInstance();
-		
-		initFromModel();
+		MC.addListener(this);
+		//initFromModel();
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 
 	@Override
 	public void ModelChanged() {
-		getView().setEntries();
+		getView().setEntries(MC.getGameModelFacade().getGameModel().getLogs());
 		
 	}
 	

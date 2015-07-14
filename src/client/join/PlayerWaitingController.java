@@ -7,6 +7,8 @@ import shared.communication.input.GameModelVersionInput;
 import shared.communication.input.GamesListInput;
 import shared.model.GameModelFacade;
 import client.base.*;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import client.proxy.ProxyServer;
 import client.data.PlayerInfo;
 
@@ -14,11 +16,16 @@ import client.data.PlayerInfo;
 /**
  * Implementation for the player waiting controller
  */
-public class PlayerWaitingController extends Controller implements IPlayerWaitingController {
+public class PlayerWaitingController extends Controller implements IPlayerWaitingController,
+																	ModelControllerListener{
+	
+	private ModelController MC;
 
 	public PlayerWaitingController(IPlayerWaitingView view) {
 
 		super(view);
+		MC = ModelController.getInstance();
+		MC.addListener(this);
 	}
 
 	@Override
@@ -51,6 +58,18 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 		// TEMPORARY
 		getView().closeModal();
+	}
+	
+	private void closeView(){
+		getView().closeModal();
+	}
+
+	@Override
+	public void ModelChanged() {
+		if(MC.getGameModelFacade().isGameFull()){
+			closeView();
+		}
+		
 	}
 
 }

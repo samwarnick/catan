@@ -1,12 +1,13 @@
 package shared.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
-
 import shared.model.bank.ResourceHand;
-
 import shared.model.player.Player;
 
 /**
@@ -198,5 +199,14 @@ public class GameModelFacade {
 	 */
 	public boolean canPlayDevCard(Player player){
 		return player.getPlayerFacade().canPlayCard();
+	}
+	
+	public boolean isGameFull(){
+		List<Player> temp = gameModel.getPlayers();
+		for(Player p: temp){
+			if(p == null) return false;
+		}
+		
+		return true;
 	}
 }

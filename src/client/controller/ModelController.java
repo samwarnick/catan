@@ -58,21 +58,16 @@ public class ModelController {
 	public static ModelController getInstance() {
 		if (instance == null) {
 			// TODO
-			instance = new ModelController(0);
+			instance = new ModelController();
 		}
 		return instance;
 	}
 	
-	public static ModelController getInstance(int x) {
-		if (instance == null) {
-			// TODO
-			instance = new ModelController(x);
-		}
-		return instance;
+	private ModelController(){
+		gameModelFacade = GameModelFacade.getInstance(0);
 	}
 	
-	private ModelController(int gameID){
-		gameModelFacade = GameModelFacade.getInstance(gameID);
+	public void startPoller(){
 		poller = new Poller(this);
 	}
 	
@@ -137,11 +132,14 @@ public class ModelController {
 		}
 	}
 	
-//	 
-//	public GameModel getGameModelVersion(GameModelVersionInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
-//	}
+	 
+	public void getGameModelVersion(GameModelVersionInput input){
+		try {
+			updateGame(ProxyServer.getInstance().getGameModelVersion(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 //
 //	 
 //	public GameModel resetGame(GameResetInput input) throws ServerException {
