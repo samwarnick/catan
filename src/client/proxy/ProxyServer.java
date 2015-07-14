@@ -54,11 +54,11 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public List<GameInfo> listGames(GamesListInput input)
+	public ArrayList<GameInfo> listGames(GamesListInput input)
 			throws ServerException {
 		JsonNode root = clientCommunicator.post(input, "GET");
 		if (!root.isMissingNode()) {
-			List<GameInfo> gameInfoList = new ArrayList<GameInfo>();
+			ArrayList<GameInfo> gameInfoList = new ArrayList<GameInfo>();
 			Iterator<JsonNode> iter = root.elements();
 			while (iter.hasNext()) {
 				JsonNode temp = iter.next();
