@@ -1,5 +1,6 @@
 package client.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import client.login.LoginController;
@@ -28,6 +29,8 @@ public class ModelController {
 	private int PlayerID;
 	private static ModelController instance = null;
 	private boolean testing = false;
+	
+	private List<ModelControllerListener> listeners = new ArrayList<ModelControllerListener>();
 
 
 	
@@ -85,6 +88,7 @@ public class ModelController {
 	public void updateGame(GameModel gameModel){
 		gameModelFacade.setGameModel(gameModel);
 		maritimeController.getTradeView().enableMaritimeTrade(gameModelFacade.canFinishTurn(gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID))));
+		notifyListeners();
 		
 	}
 
@@ -110,6 +114,22 @@ public class ModelController {
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void notifyListeners(){
+		for(ModelControllerListener M: listeners){
+			M.ModelChanged();
+		}
+	}
+	
+	public void addListener(ModelControllerListener e){
+		listeners.add(e);
+	}
+
+	public interface ModelControllerListener {
+		
+		public void ModelChanged();
+
 	}
 	
 }
