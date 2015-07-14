@@ -47,14 +47,8 @@ public class ModelController {
 		gameModelFacade = GameModelFacade.getInstance(0);
 	}
 	
-<<<<<<< HEAD
 	public void startPoller(){
 		poller = new Poller(this);
-=======
-	private ModelController(int gameID){
-		gameModelFacade = GameModelFacade.getInstance(gameID);
-		// poller = new Poller(this);
->>>>>>> sam-dev-controller
 	}
 	
 	public void startGame(List<Player> players, boolean randomHexes, boolean randomNumbers, boolean randomPorts){
@@ -120,30 +114,30 @@ public class ModelController {
 		}
 	}
 	
-<<<<<<< HEAD
 	 
 	public void getGameModelVersion(GameModelVersionInput input){
 		try {
 			updateGame(ProxyServer.getInstance().getGameModelVersion(input));
-=======
+		}
+		catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void discard(ResourceHand toDiscard) {
 		DiscardCardsInput input = new DiscardCardsInput(PlayerID, toDiscard);
 		try {
 			updateGame(ProxyServer.getInstance().discardCards(input));
->>>>>>> sam-dev-controller
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-=======
 	
 //	@Override
 //	public GameModel getGameModelVersion(GameModelVersionInput input)
 //			throws ServerException {
 //		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
 //	}
->>>>>>> sam-dev-controller
 //
 //	 
 //	public GameModel resetGame(GameResetInput input) throws ServerException {
