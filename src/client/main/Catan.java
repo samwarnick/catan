@@ -7,6 +7,7 @@ import client.controller.ModelController;
 import client.login.*;
 import client.join.*;
 import client.misc.*;
+import client.proxy.ProxyServer;
 import client.base.*;
 
 /**
@@ -57,6 +58,7 @@ public class Catan extends JFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run()
 			{
+				ProxyServer.getInstance(args[0], Integer.parseInt(args[1]));
 				new Catan();
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();

@@ -3,6 +3,7 @@ package client.proxy;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +27,8 @@ public class ClientCommunicator {
 	private int serverPort = 8081;
 	private String URLPrefix;
 	private String cookie = null;
+	private int playerId;
+	private int gameId;
 	
 	/**
 	 * 
@@ -79,10 +82,13 @@ public class ClientCommunicator {
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie = precookie.substring(0, precookie.length()-8);
+	        			String temp = cookie.substring(10, cookie.length()-1);
+	        			playerId = Integer.parseInt(URLDecoder.decode(temp, "playerID"));
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
+	        			gameId = Integer.parseInt(precookie.substring(10, cookie.length()-1));
 	        		}
 	        		return null;
 	        	}
@@ -97,5 +103,25 @@ public class ClientCommunicator {
 		} catch (IOException e) {
 			throw new ServerException(e.getMessage());
 		}
+	}
+
+
+	public int getPlayerId() {
+		return playerId;
+	}
+
+
+	public int getGameId() {
+		return gameId;
+	}
+
+
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+
+
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
 	}
 }
