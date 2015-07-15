@@ -69,6 +69,9 @@ import client.utils.FontUtils;
 @SuppressWarnings({"serial", "unused"})
 public class DiscardView extends OverlayView implements IDiscardView
 {
+	private int numToDiscard;
+	private int numCards;
+	
 	private final boolean TESTING = false;
 	
 	private final int LABEL_TEXT_SIZE = 20;
@@ -98,6 +101,8 @@ public class DiscardView extends OverlayView implements IDiscardView
 	
 	public DiscardView()
 	{
+		numToDiscard = 0;
+		numCards = 0;
 		this.initialize();
 	}
 	
@@ -207,6 +212,24 @@ public class DiscardView extends OverlayView implements IDiscardView
 		
 	}
 	
+	
+	
+	public int getNumToDiscard() {
+		return numToDiscard;
+	}
+
+	public void setNumToDiscard(int numToDiscard) {
+		this.numToDiscard = numToDiscard;
+	}
+
+	public int getNumCards() {
+		return numCards;
+	}
+
+	public void setNumCards(int numCards) {
+		this.numCards = numCards;
+	}
+
 	private void update()
 	{
 		for(ResourceType type : resourceList)
@@ -229,6 +252,7 @@ public class DiscardView extends OverlayView implements IDiscardView
 	@Override
 	public void setDiscardButtonEnabled(boolean enabled)
 	{
+		System.out.println("setting enabled to " + enabled);
 		discardButton.setEnabled(enabled);
 		this.update();
 	}
@@ -261,6 +285,7 @@ public class DiscardView extends OverlayView implements IDiscardView
 	{   
 
 		resources.get(resource).setMaxAmount(maxAmount);
+		numCards = numCards + maxAmount;
 		this.update();
 	}
 	
@@ -417,6 +442,9 @@ public class DiscardView extends OverlayView implements IDiscardView
 		public void setMaxAmount(int maxAmount)
 		{
 			this._maxAmount = maxAmount;
+			if (this._maxAmount > 0) {
+				this._canIncrease = true;
+			}
 			this.update();
 		}
 
@@ -616,16 +644,45 @@ public class DiscardView extends OverlayView implements IDiscardView
 						                  Resource.this.getType());
 						DiscardView.this.getController()
 										.increaseAmount(Resource.this.getType());
+						int temp = DiscardView.this.getNumToDiscard();
+						System.out.println(temp);
+						DiscardView.this.setNumToDiscard(temp + 1);
 						break;
 					case "DOWN":
 						System.out.printf("Decrease amount of %s\n",
 						                  Resource.this.getType());
 						DiscardView.this.getController()
 										.decreaseAmount(Resource.this.getType());
+						temp = DiscardView.this.getNumToDiscard();
+						System.out.println(temp);
+						DiscardView.this.setNumToDiscard(temp - 1);
 						break;
 					default:
 						break;
 				}
+				
+				Resource resource = DiscardView.this.resources.get(Resource.this.getType());
+				if (resource._discardAmount == resource._maxAmount) {
+					resource._canIncrease = false;
+				}
+				else {
+					resource._canIncrease = true;
+				}
+				if (resource._discardAmount > 0) {
+					resource._canDecrease = true;
+				}
+				else {
+					resource._canDecrease = false;
+				}
+				DiscardView.this.setStateMessage(String.format("%d/%d", DiscardView.this.getNumToDiscard(), DiscardView.this.getNumCards()/2));
+				if (DiscardView.this.getNumToDiscard() == (DiscardView.this.getNumCards()/2)) {
+					DiscardView.this.setDiscardButtonEnabled(true);
+				}
+				else
+				{
+					DiscardView.this.setDiscardButtonEnabled(false);
+				}
+				update();
 			}
 		};
 	}
