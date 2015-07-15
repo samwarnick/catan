@@ -1,7 +1,9 @@
 package client.devcards;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-
+import shared.model.bank.PlayerBank;
+import shared.model.player.Player;
 import client.base.*;
 import client.controller.ModelController;
 
@@ -55,12 +57,56 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void buyCard() {
-		ModelController.getInstance().buyDevCard();
 		getBuyCardView().closeModal();
+		ModelController.getInstance().buyDevCard();
 	}
 
 	@Override
 	public void startPlayCard() {
+		
+		// defaults
+		getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
+		getPlayCardView().setCardAmount(DevCardType.SOLDIER, 0);
+		getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+		getPlayCardView().setCardAmount(DevCardType.MONUMENT, 0);
+		getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
+		getPlayCardView().setCardAmount(DevCardType.MONOPOLY, 0);
+		getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
+		getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, 0);
+		getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
+		getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, 0);
+		
+		// get info from player
+		Player clientPlayer = ModelController.getInstance().getClientPlayer();
+		if ( clientPlayer != null) {
+			PlayerBank bank = clientPlayer.getPlayerBank();
+			int soldiers = bank.getDevStack(DevCardType.SOLDIER).getQuantity();
+			int monuments = bank.getDevStack(DevCardType.MONUMENT).getQuantity();
+			int monopoly = bank.getDevStack(DevCardType.MONOPOLY).getQuantity();
+			int yearOfPlenty = bank.getDevStack(DevCardType.YEAR_OF_PLENTY).getQuantity();
+			int roadBuilding = bank.getDevStack(DevCardType.ROAD_BUILD).getQuantity();
+			
+			if (soldiers > 0) {
+				getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
+				getPlayCardView().setCardAmount(DevCardType.SOLDIER, soldiers);
+			}
+			if (monuments > 0) {
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+				getPlayCardView().setCardAmount(DevCardType.MONUMENT, monuments);
+			}
+			if (monopoly > 0) {
+				getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
+				getPlayCardView().setCardAmount(DevCardType.MONOPOLY, monopoly);
+			}
+			if (yearOfPlenty > 0) {
+				getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
+				getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, yearOfPlenty);
+			}
+			if (roadBuilding > 0) {
+				getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
+				getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, roadBuilding);
+			}
+		}
 		
 		getPlayCardView().showModal();
 	}

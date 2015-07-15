@@ -143,7 +143,7 @@ public class JsonParser {
 		List<PortHex> ports = parsePorts(mapNode.path("ports"));
 		Robber robber = parseRobber(mapNode.path("robber"));
 		
-		//board.setDesertHex(resourceHexes.get(0));
+		board.setDesertHex(resourceHexes.get(0));
 		board.setResourceHexes(resourceHexes);
 		board.setRoads(roads);
 		board.setBuildings(buildings);
