@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.communication.LogEntry;
+import client.domestic.Trade;
 import shared.model.bank.Bank;
 import shared.model.board.Board;
 import shared.model.board.PlayerID;
@@ -22,6 +23,7 @@ public class GameModel {
 	private List<Player> players;
 	private TurnTracker turnTracker;
 	private Bank bank;
+	private Trade trade;
 	List<LogEntry> logs = new ArrayList<LogEntry>();
 	List<LogEntry>  chats = new ArrayList<LogEntry>();
 	
@@ -130,6 +132,16 @@ public class GameModel {
 
 	public void setChats(List<LogEntry> chats) {
 		this.chats = chats;
+	}
+	
+	
+
+	public Trade getTrade() {
+		return trade;
+	}
+
+	public void setTrade(Trade trade) {
+		this.trade = trade;
 	}
 
 	@Override

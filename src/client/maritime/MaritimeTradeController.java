@@ -49,10 +49,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		ArrayList<ResourceType> selected = new ArrayList<ResourceType>();
 		Player activePlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn())); //need to change after find controller
 		ResourceType toConvert = ResourceType.WOOD;
-		if (ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(new ResourceHand(0,1,0,0,0))){
+		if (ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(new ResourceHand(0,1,0,0,0)) && activePlayer.getPlayerFacade() != null){
 			
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.BRICK, toConvert))
+			{
 				selected.add(ResourceType.BRICK);
+				System.out.println("made it here");
+			}
+				
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.WOOD, toConvert))
 				selected.add(ResourceType.WOOD);
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.SHEEP, toConvert))
@@ -62,17 +66,25 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.ORE, toConvert))
 				selected.add(ResourceType.ORE);
 		}
-		getTradeOverlay().showGiveOptions((ResourceType[])selected.toArray());
+		ResourceType[] ResourceArray = new ResourceType[selected.size()];
+		for (int i = 0;i < selected.size();i++){
+			ResourceArray[i] = selected.get(i);
+		}
+		tradeOverlay.reset();
+		getTradeOverlay().showGiveOptions(ResourceArray);
 
 		getTradeOverlay().setTradeEnabled(false);
+		
 		getTradeOverlay().showModal();
+		
 	}
 
 	@Override
 	public void makeTrade() {
+		Player player = null;
 		if (getResource != null && giveResource != null)
-			
-			ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(getAmount, giveAmount, getResource, giveResource));
+			player = ModelController.getInstance().getClientPlayer();
+			ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(player.getPlayerID().getPlayerid(), player.getTradeRatios().getTradeRatio(giveResource).getRatio(), getResource, giveResource));
 			
 		getTradeOverlay().closeModal();
 	}
@@ -87,28 +99,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGetResource(ResourceType resource) {
-		ResourceHand rh = new ResourceHand();
-		switch (resource){
+		ResourceHand rh = new ResourceHand(resource);
 		
-		case BRICK:
-			rh.setBrick(1);
-			break;
-		case ORE:
-			rh.setOre(1);
-			break;
-		case SHEEP:
-			rh.setSheep(1);
-			break;
-		case WHEAT:
-			rh.setWheat(1);
-			break;
-		case WOOD:
-			rh.setWood(1);
-			break;
-		default:
-			break;
-			
-		}
 		if(ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(rh))
 		{
 			getResource = resource;
@@ -163,7 +155,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			resources.add(ResourceType.WHEAT);
 		if (bank.hasRC(new ResourceHand(ResourceType.ORE)))
 			resources.add(ResourceType.ORE);
-		getTradeOverlay().showGetOptions((ResourceType[])resources.toArray());
+		ResourceType[] resourceArray = new ResourceType[resources.size()];
+		for (int i = 0;i < resources.size();i++){
+			resourceArray[i] = resources.get(i);
+		}
+		getTradeOverlay().showGetOptions(resourceArray);
 	}
 
 	@Override
@@ -178,7 +174,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void unsetGiveValue() {
 
 		giveResource = null;
-		cancelTrade();
 		startTrade();
 		getTradeOverlay().setTradeEnabled(false);
 	}

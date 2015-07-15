@@ -113,6 +113,14 @@ public class ModelController {
 		}
 	}
 	
+	public void sendTrade(OfferTradeInput input){
+		try {
+			updateGame(ProxyServer.getInstance().offerTrade(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	 
 	public void getGameModelVersion(GameModelVersionInput input){
 		try {

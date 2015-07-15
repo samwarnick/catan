@@ -101,6 +101,12 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			
 			// get each resource and set value and enable buttons
 			PlayerBank bank = clientPlayer.getPlayerBank();
+			try {
+				bank.modifyRC(new ResourceHand(4,0,4,0,0));
+				clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
+			} catch (BankException e) {
+				e.printStackTrace();
+			}
 			int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
 			int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
 			int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
