@@ -43,11 +43,9 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 	
 	public void initFromModel() {
-		System.out.println("initialize map");
 		Board board = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard();
 		
 		if (board != null) {
-			System.out.println("board is not null");
 			//resource hexes
 			for (ResourceHex hex : board.getResourceHexes()) {
 				getView().addHex(hex.getLocation(), hex.getLandType());
@@ -93,18 +91,21 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 		// can this only be called from the active player???
+		System.out.println("canPlaceRoad");
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
 		// can this only be called from the active player???
+		System.out.println("canPlaceSettlement");
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
 		// can this only be called from the active player???
+		System.out.println("canPlaceCity");
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildCity(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
