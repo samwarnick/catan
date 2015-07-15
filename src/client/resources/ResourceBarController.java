@@ -5,8 +5,12 @@ import java.util.*;
 import client.base.*;
 import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.model.bank.BankException;
 import shared.model.bank.PlayerBank;
+import shared.model.bank.ResourceHand;
+import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 
 
@@ -16,6 +20,7 @@ import shared.model.player.Player;
 public class ResourceBarController extends Controller implements IResourceBarController, ModelControllerListener {
 
 	private Map<ResourceBarElement, IAction> elementActions;
+	int count = 0;
 	
 	public ResourceBarController(IResourceBarView view) {
 
@@ -80,6 +85,20 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player clientPlayer = ModelController.getInstance().getClientPlayer();
 		if ( clientPlayer != null) {
 			
+			
+			// TODO for testing
+			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
+			if (count == 0) {
+				try {
+					clientPlayer.getPlayerBank().modifyRC(new ResourceHand(2, 2, 2, 2, 2));
+					clientPlayer.getPlayerBank().addDC(DevCardType.SOLDIER);
+				} catch (BankException e) {
+					e.printStackTrace();
+				}
+			}
+			count++;
+			//
+			
 			// get each resource and set value and enable buttons
 			PlayerBank bank = clientPlayer.getPlayerBank();
 			int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
@@ -106,23 +125,17 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			getView().setElementAmount(ResourceBarElement.SOLDIERS, soldiers);
 			
 			// enable only if has resources
-			
-			if (brick >= 1 && wood >= 1) {
+			if (clientPlayer.getPlayerFacade().canBuildRoad(false)) {
 				getView().setElementEnabled(ResourceBarElement.ROAD, true);
 			}
-			if (brick >= 1 && wood >= 1 && wheat >= 1 && sheep >= 1) {
+			if (clientPlayer.getPlayerFacade().canBuildSettlement(false)) {
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
 			}
-			if (wheat >= 2 && ore >= 3) {
+			if (clientPlayer.getPlayerFacade().canBuildCity(false)) {
 				getView().setElementEnabled(ResourceBarElement.CITY, true);
 			}
-			if (wheat >= 1 && sheep >= 1 && ore >= 1) {
+			if (ModelController.getInstance().getGameModelFacade().canBuyDevCard(clientPlayer)) {
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
-			}
-			
-			int numDevCards = clientPlayer.getPlayerBank().getNumDevCards();
-			if (numDevCards > 0) {
-				getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
 			}
 		}
 	}
