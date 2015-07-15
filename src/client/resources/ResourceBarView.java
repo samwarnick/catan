@@ -155,14 +155,14 @@ public class ResourceBarView extends PanelView implements IResourceBarView
 		ResourceElement buyDevCard = new ResourceElement(ResourceBarElement.BUY_CARD, true);
 		
 		road.setElementImage(roadImage);
-		road.setEnabled(true);
+		road.setEnabled(false);
 		settlement.setElementImage(settlementImage);
-		settlement.setEnabled(true);
+		settlement.setEnabled(false);
 		city.setElementImage(cityImage);
-		city.setEnabled(true);
+		city.setEnabled(false);
 		buyDevCard.setElementImage(buyDevCardImage);
 		buyDevCard.setElementCount(-1);
-		buyDevCard.setEnabled(true);
+		buyDevCard.setEnabled(false);
 		
 		// This resource is clickable
 		ResourceElement playDevCard = new ResourceElement(ResourceBarElement.PLAY_CARD, true);

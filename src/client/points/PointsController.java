@@ -1,12 +1,15 @@
 package client.points;
 
 import client.base.*;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
+import shared.model.player.Player;
 
 
 /**
  * Implementation for the points controller
  */
-public class PointsController extends Controller implements IPointsController {
+public class PointsController extends Controller implements IPointsController, ModelControllerListener {
 
 	private IGameFinishedView finishedView;
 	
@@ -19,6 +22,8 @@ public class PointsController extends Controller implements IPointsController {
 	public PointsController(IPointsView view, IGameFinishedView finishedView) {
 		
 		super(view);
+		
+		ModelController.getInstance().addListener(this);
 		
 		setFinishedView(finishedView);
 		
@@ -38,9 +43,15 @@ public class PointsController extends Controller implements IPointsController {
 	}
 
 	private void initFromModel() {
-		//<temp>		
-		getPointsView().setPoints(5);
-		//</temp>
+		getPointsView().setPoints(0);
+	}
+
+	@Override
+	public void ModelChanged() {
+		Player clientPlayer = ModelController.getInstance().getClientPlayer();
+		if ( clientPlayer != null) {
+			getPointsView().setPoints(clientPlayer.getVictoryPoints().getTotalVictoryPoints());
+		}
 	}
 	
 }
