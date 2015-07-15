@@ -29,8 +29,27 @@ public class Board {
 	
 	public Board() {
 		resourceHexes = new ArrayList<ResourceHex>();
-		waterHexes = new ArrayList<WaterHex>();
 		ports = new ArrayList<PortHex>();
+		waterHexes = new ArrayList<WaterHex>();
+		// hard code water hexes
+		waterHexes.add(new WaterHex(new HexLocation(-3, 0)));
+		waterHexes.add(new WaterHex(new HexLocation(-3, 1)));
+		waterHexes.add(new WaterHex(new HexLocation(-3, 2)));
+		waterHexes.add(new WaterHex(new HexLocation(-3, 3)));
+		waterHexes.add(new WaterHex(new HexLocation(-2, -1)));
+		waterHexes.add(new WaterHex(new HexLocation(-2, 3)));
+		waterHexes.add(new WaterHex(new HexLocation(-1, -2)));
+		waterHexes.add(new WaterHex(new HexLocation(-1, 3)));
+		waterHexes.add(new WaterHex(new HexLocation(0, -3)));
+		waterHexes.add(new WaterHex(new HexLocation(0, 3)));
+		waterHexes.add(new WaterHex(new HexLocation(1, -3)));
+		waterHexes.add(new WaterHex(new HexLocation(1, 2)));
+		waterHexes.add(new WaterHex(new HexLocation(2, -3)));
+		waterHexes.add(new WaterHex(new HexLocation(2, 1)));
+		waterHexes.add(new WaterHex(new HexLocation(3, -3)));
+		waterHexes.add(new WaterHex(new HexLocation(3, -2)));
+		waterHexes.add(new WaterHex(new HexLocation(3, -1)));
+		waterHexes.add(new WaterHex(new HexLocation(3, 0)));
 	}
 	
 	public Board(boolean randHexes, boolean randPorts, boolean randNums) {
