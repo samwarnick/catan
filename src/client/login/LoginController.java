@@ -73,7 +73,7 @@ public class LoginController extends Controller implements ILoginController {
 
 	@Override
 	public void start() {
-		
+		System.out.println("here");
 		getLoginView().showModal();
 	}
 

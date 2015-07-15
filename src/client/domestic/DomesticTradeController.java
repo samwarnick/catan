@@ -49,12 +49,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
-		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
-		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
-		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
-		playerSheep = thisPlayer.getPlayerBank().getSheep().getQuantity();
-		playerWheat = thisPlayer.getPlayerBank().getWheat().getQuantity();
-		playerOre = thisPlayer.getPlayerBank().getOre().getQuantity();
+		
 	}
 	
 	public IDomesticTradeView getTradeView() {
@@ -88,6 +83,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void startTrade() {
+		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
+		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
+		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
+		playerSheep = thisPlayer.getPlayerBank().getSheep().getQuantity();
+		playerWheat = thisPlayer.getPlayerBank().getWheat().getQuantity();
+		playerOre = thisPlayer.getPlayerBank().getOre().getQuantity();
 		tradeOverlay.setResourceSelectionEnabled(true);
 		//TODO
 		getTradeOverlay().showModal();

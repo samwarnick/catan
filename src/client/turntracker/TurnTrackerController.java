@@ -25,7 +25,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		super(view);
 		
-		initFromModel();
 	}
 	
 	@Override

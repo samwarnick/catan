@@ -18,7 +18,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
-		MC.getInstance();
+		MC = ModelController.getInstance();
 		MC.addListener(this);
 		//initFromModel();
 	}

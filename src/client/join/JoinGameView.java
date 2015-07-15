@@ -97,7 +97,7 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 		gamePanel.add(join);
 		
 		try {
-			games = convert(ps.listGames(new GamesListInput()));
+			games = convert(ProxyServer.getInstance().listGames(new GamesListInput()));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
