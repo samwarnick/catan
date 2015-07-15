@@ -128,16 +128,16 @@
  		<jar jarfile="${java.dist}/catan-client.jar" basedir="${java.build}">
 			<manifest>
 				<attribute name="Main-Class" value="client.main.Catan"/>
-				<attribute name="Class-Path" 
-					value="lib/gson-2.2.4.jar" />
+				<attribute name="Class-Path" value="lib/gson-2.2.4.jar" />
 			</manifest>
+ 			<zipgroupfileset dir="${java.lib}" includes="**/*.jar"/>
 		</jar>
  		<jar jarfile="${java.dist}/catan-server.jar" basedir="${java.build}">
 			<manifest>
 				<attribute name="Main-Class" value="PUT THE NAME OF YOUR SERVER'S MAIN CLASS HERE"/>
-				<attribute name="Class-Path" 
-					value="lib/gson-2.2.4.jar" />
+				<attribute name="Class-Path" value="lib/gson-2.2.4.jar" />
 			</manifest>
+ 			<zipgroupfileset dir="${java.lib}" includes="**/*.jar"/>
 		</jar>
 	</target>
 	
