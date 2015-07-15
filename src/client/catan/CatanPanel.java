@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import shared.definitions.ResourceType;
+import shared.model.bank.BankException;
 import shared.model.bank.PlayerBank;
+import shared.model.bank.ResourceHand;
 import shared.model.player.Player;
 import client.controller.ModelController;
 import client.discard.DiscardController;
@@ -90,11 +92,13 @@ public class CatanPanel extends JPanel
 //				rollView.showModal();
 				
 				Player clientPlayer = ModelController.getInstance().getClientPlayer();
-				
-				int state = 1;
+				try {
+					clientPlayer.getPlayerBank().modifyRC(new ResourceHand(3, 3, 3, 3, 3));
+				} catch (BankException e1) {
+					e1.printStackTrace();
+				}
 				
 				if ( clientPlayer != null && clientPlayer.getPlayerFacade().canDiscard()) {
-					state = 0;
 					
 					PlayerBank bank = clientPlayer.getPlayerBank();
 					int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
@@ -109,36 +113,15 @@ public class CatanPanel extends JPanel
 					discardView.setResourceMaxAmount(ResourceType.WHEAT, wheat);
 					discardView.setResourceMaxAmount(ResourceType.ORE, ore);
 					
-					if (brick > 0) {
-						discardView.setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
-					}
-					if (wood > 0) {
-						discardView.setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
-					}
-					if (sheep > 0) {
-						discardView.setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
-					}
-					if (wheat > 0) {
-						discardView.setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
-					}
-					if (ore > 0) {
-						discardView.setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
-					}
 					
-					discardView.setStateMessage(String.format("%d/%d", 0, (brick+wood+sheep+wheat+ore)/2));
 					
-					discardView.setDiscardButtonEnabled(true);
-				}
-				
-				if(state == 0)
-				{
+					discardView.setStateMessage(String.format("%d/%d", 0, ((brick+wood+sheep+wheat+ore)/2)));
+					
 					discardView.showModal();
-					state = 1;
 				}
-				else if(state == 1)
+				else 
 				{
 					discardWaitView.showModal();
-					state = 2;
 				}
 			}
 		});
