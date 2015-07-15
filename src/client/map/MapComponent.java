@@ -642,7 +642,8 @@ public class MapComponent extends JComponent
 		
 		for (Map.Entry<HexLocation, Integer> entry : numbers.entrySet())
 		{
-			
+			System.out.println(entry.getValue());
+			System.out.println(entry.getKey());
 			BufferedImage numImage = getNumberImage(entry.getValue());
 			
 			Point2D hexCenter = getHexPoint(entry.getKey());

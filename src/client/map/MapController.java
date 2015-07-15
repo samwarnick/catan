@@ -8,12 +8,13 @@ import client.data.*;
 import client.proxy.ProxyServer;
 import server.ServerException;
 import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 
 
 /**
  * Implementation for the map controller
  */
-public class MapController extends client.base.Controller implements IMapController {
+public class MapController extends client.base.Controller implements IMapController, ModelControllerListener {
 	
 	private IRobView robView;
 	private boolean isFree = false;
@@ -25,8 +26,8 @@ public class MapController extends client.base.Controller implements IMapControl
 		
 		setRobView(robView);
 		
-//		initFromModel();
-		
+		initFromModel();
+		ModelController.getInstance().addListener(this);
 	}
 	
 	public IMapView getView() {
@@ -41,46 +42,53 @@ public class MapController extends client.base.Controller implements IMapControl
 		this.robView = robView;
 	}
 	
-	protected void initFromModel() {
-	
+	public void initFromModel() {
+		System.out.println("initialize map");
 		Board board = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard();
 		
-		//resource hexes
-		for(ResourceHex hex : board.getResourceHexes()) {
-			getView().addHex(hex.getLocation(), hex.getLandType());
-			getView().addNumber(hex.getLocation(), hex.getNumberToken());
-		}
-		
-		//ports
-		for(PortHex port : board.getPorts()) {
-			getView().addPort(new EdgeLocation(port.getLocation(), port.getOrientation()), port.getPortType());
-		}
-		
-		//water hexes
-		for(WaterHex hex : board.getWaterHexes()) {
-			getView().addHex(hex.getLocation(), hex.getLandType());
-		}
-		
-		//roads
-		for(Road road : board.getRoads()) {
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(road.getOwner()).getColor();
-			getView().placeRoad(road.getLocation(), color);
-		}
-		
-		//buildings
-		for(Vertex building : board.getBuildings()) {
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(building.getOwner()).getColor();
-			if(building.getClass() == Settlement.class) {
-				getView().placeSettlement(building.getLocation(), color);
+		if (board != null) {
+			System.out.println("board is not null");
+			//resource hexes
+			for (ResourceHex hex : board.getResourceHexes()) {
+				getView().addHex(hex.getLocation(), hex.getLandType());
+				getView().addNumber(hex.getLocation(), hex.getNumberToken());
 			}
-			else if(building.getClass() == City.class) {
-				getView().placeCity(building.getLocation(), color);
+			//ports
+			for (PortHex port : board.getPorts()) {
+				getView().addPort(new EdgeLocation(port.getLocation(), port.getOrientation()), port.getPortType());
+			}
+			//water hexes
+			for (WaterHex hex : board.getWaterHexes()) {
+				getView().addHex(hex.getLocation(), hex.getLandType());
+			}
+			if (board.getRoads() != null) {
+				//roads
+				for (Road road : board.getRoads()) {
+					CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel()
+							.getPlayer(road.getOwner()).getColor();
+					getView().placeRoad(road.getLocation(), color);
+				} 
+			}
+			if (board.getBuildings() != null) {
+				//buildings
+				for (Vertex building : board.getBuildings()) {
+					CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel()
+							.getPlayer(building.getOwner()).getColor();
+					if (building.getClass() == Settlement.class) {
+						getView().placeSettlement(building.getLocation(), color);
+					} else if (building.getClass() == City.class) {
+						getView().placeCity(building.getLocation(), color);
+					}
+				} 
+			}
+			//desert and robber
+			if (board.getDesertHex() != null) {
+				getView().addHex(board.getDesertHex().getLocation(), board.getDesertHex().getLandType());				
+			}
+			if (board.getRobber() != null) {
+				getView().placeRobber(board.getRobber().getLocation());				
 			}
 		}
-		
-		//desert and robber
-		getView().addHex(board.getDesertHex().getLocation(), board.getDesertHex().getLandType());
-		getView().placeRobber(board.getRobber().getLocation());
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
@@ -213,5 +221,11 @@ public class MapController extends client.base.Controller implements IMapControl
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void ModelChanged() {
+		initFromModel();
+		
 	}
 }
