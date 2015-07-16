@@ -42,6 +42,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private Integer sheepStatus = 0;
 	private Integer wheatStatus = 0;
 	private Integer oreStatus = 0;
+	private PlayerInfo[] playerinfos;
 
 	/**
 	 * DomesticTradeController constructor
@@ -95,7 +96,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void startTrade() {
 		List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-		PlayerInfo[] playerinfos = new PlayerInfo[4];
+		playerinfos = new PlayerInfo[4];
 		for (int i = 0;i < players.size();i++){
 			Player player = players.get(i);
 			playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
@@ -292,16 +293,20 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void sendTradeOffer() {
 		//update the server to tell the person to show their overlay
 		GameModelFacade.getInstance().getGameModel().getTurnTracker().setStatus("Trading");
-		GameModelFacade.getInstance().getGameModel().setTrade(new Trade(brickStatus,woodStatus,sheepStatus,wheatStatus,oreStatus,brickNum,woodNum,sheepNum,wheatNum,oreNum,GameModelFacade.getInstance().getGameModel().getPlayers().get(playerIndex).getName()));
-		ModelController.getInstance().sendTrade(new OfferTradeInput(playerIndex,new ResourceHand(brickNum,woodNum,sheepNum,wheatNum,oreNum),ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()));
-		getTradeOverlay().closeModal();
+		ModelController.getInstance().sendTrade(new OfferTradeInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(),new ResourceHand(brickNum * brickStatus,woodNum * woodStatus,sheepNum * sheepStatus,wheatNum * wheatStatus,oreNum * oreStatus),playerIndex));
+		if (getTradeOverlay().isModalShowing())
+			getTradeOverlay().closeModal();
+		System.out.println(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver() + " " + ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
+
 		getWaitOverlay().showModal();
 	}
 
 	@Override
 	public void setPlayerToTradeWith(int playerIndex) {
 
-		this.playerIndex = playerIndex;
+		this.playerIndex = playerIndex + 1;
+		if (this.playerIndex == 4)
+			this.playerIndex = 0;
 		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1))
 		{
 			if (playerIndex != -1)
@@ -487,7 +492,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		ArrayList<Integer> statuses = new ArrayList<Integer>();
 		ArrayList<Integer> amounts = new ArrayList<Integer>();
 		Trade trade = GameModelFacade.getInstance().getGameModel().getTrade();
-		trade = new Trade(1,1,0,0,-1,1,1,0,0,2,"Brooke");
 		amounts.add(trade.getBrickNum());
 		amounts.add(trade.getWoodNum());
 		amounts.add(trade.getSheepNum());
@@ -541,14 +545,17 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		@Override
 		public void ModelChanged() {
 			System.out.println("I'm in the domestic");
+			System.out.println(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
+
 			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
+
 				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
 					getTradeView().enableDomesticTrade(true);
 				}
 				else
 					getTradeView().enableDomesticTrade(false);
-				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus().equals("Trading") && 
-						ModelController.getInstance().getClientPlayer().getName().equals(GameModelFacade.getInstance().getGameModel().getTrade().getPlayerName())){
+				if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
+					System.out.println("I'm starting it!");
 					startTradeAnswer();
 					
 				}

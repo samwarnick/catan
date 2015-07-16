@@ -14,22 +14,22 @@ public class Trade {
 	private Integer sheepNum=0;
 	private Integer wheatNum = 0;
 	private Integer oreNum = 0;
-	private String playerName;
-	public Trade(Integer woodStatus, Integer brickStatus, Integer sheepStatus,
-			Integer wheatStatus, Integer oreStatus, Integer woodNum,
-			Integer brickNum, Integer sheepNum, Integer wheatNum, Integer oreNum,String PlayerName) {
+	private int sender;
+	private int receiver;
+	public Trade(Integer woodNum,Integer brickNum, Integer sheepNum, Integer wheatNum, Integer oreNum,int sender,int receiver) {
 		super();
-		this.woodStatus = woodStatus;
-		this.brickStatus = brickStatus;
-		this.sheepStatus = sheepStatus;
-		this.wheatStatus = wheatStatus;
-		this.oreStatus = oreStatus;
+		this.woodStatus = woodNum.compareTo(0);
+		this.brickStatus = brickNum.compareTo(0);
+		this.sheepStatus = sheepNum.compareTo(0);
+		this.wheatStatus = wheatNum.compareTo(0);
+		this.oreStatus = oreNum.compareTo(0);
 		this.woodNum = woodNum;
 		this.brickNum = brickNum;
 		this.sheepNum = sheepNum;
 		this.wheatNum = wheatNum;
 		this.oreNum = oreNum;
-		playerName = PlayerName;
+		this.sender = sender;
+		this.receiver = receiver;
 	}
 	public Integer getWoodStatus() {
 		return woodStatus;
@@ -91,12 +91,19 @@ public class Trade {
 	public void setOreNum(Integer oreNum) {
 		this.oreNum = oreNum;
 	}
-	public String getPlayerName() {
-		return playerName;
+	public int getSender() {
+		return sender;
 	}
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setSender(int sender) {
+		this.sender = sender;
 	}
+	public int getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(int receiver) {
+		this.receiver = receiver;
+	}
+	
 	
 	
 	
