@@ -14,6 +14,7 @@ import shared.model.player.*;
 import client.communication.LogEntry;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import client.domestic.Trade;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -69,6 +70,8 @@ public class JsonParser {
 		// turn tracker 
 		// go through players and find longest and largest
 		TurnTracker tracker = parseTracker(rootNode.path("turnTracker"), players);
+		// tradeOffer
+		Trade trade = parseTradeOffer(rootNode.path("tradeOffer"));
 		// log
 		List<LogEntry> logs = parseLog(rootNode.path("log"), players);		
 		// chat
@@ -78,6 +81,7 @@ public class JsonParser {
 		// version
 		int version = rootNode.path("version").intValue();
 		// set up board
+		gameModel.setTrade(trade);
 		gameModel.setBoard(board);
 		gameModel.setBank(bank);
 		gameModel.setPlayers(players);
@@ -359,6 +363,26 @@ public class JsonParser {
 		}
 		
 		return playerBank;
+	}
+	
+	private static Trade parseTradeOffer(JsonNode tradeNode){
+		Trade trade = null;
+		if (!tradeNode.isMissingNode())
+		{
+			int sender = tradeNode.path("sender").intValue();
+			int receiver = tradeNode.path("receiver").intValue();
+			JsonNode offerNode = tradeNode.path("offer");
+			if (!offerNode.isMissingNode())
+			{
+				int brick = offerNode.path("brick").intValue();
+				int wood = offerNode.path("wood").intValue();
+				int sheep = offerNode.path("sheep").intValue();
+				int wheat = offerNode.path("wheat").intValue();
+				int ore = offerNode.path("ore").intValue();
+				trade = new Trade(brick,wood,sheep,wheat,ore,sender,receiver);
+			}
+		}
+		return trade;
 	}
 	
 	private static TurnTracker parseTracker(JsonNode trackerNode, List<Player> players) {
