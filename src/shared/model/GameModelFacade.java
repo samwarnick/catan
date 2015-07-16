@@ -204,7 +204,11 @@ public class GameModelFacade {
 	public boolean isGameFull(){
 		List<Player> temp = gameModel.getPlayers();
 		for(Player p: temp){
-			if(p == null) return false;
+			if(p == null) {
+				return false;
+			}
+			System.out.println(p.getName());
+				
 		}
 		
 		return true;

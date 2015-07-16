@@ -81,7 +81,6 @@ public class ModelController {
 
 	public void updateGame(GameModel gameModel){
 		gameModelFacade.setGameModel(gameModel);
-		maritimeController.getTradeView().enableMaritimeTrade(gameModelFacade.canFinishTurn(gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID))));
 		notifyListeners();
 		
 	}

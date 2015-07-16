@@ -101,15 +101,19 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public void start() {
 		PlayerID playerId = new PlayerID(GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
 		PlayerInfo localPlayer = new PlayerInfo();
-		localPlayer.setColor(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getColor());
+		//localPlayer.setColor(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getColor());
 		//localPlayer.setId(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).get);  userId
-		localPlayer.setName(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getName());
-		localPlayer.setPlayerIndex(playerId.getPlayerid());
+		//localPlayer.setName(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getName());
+		//localPlayer.setPlayerIndex(playerId.getPlayerid());
 		GamesListInput input = new GamesListInput();
 		List<client.data.GameInfo> games;
 		try {
 			games = ProxyServer.getInstance().listGames(input);
-			getJoinGameView().setGames((GameInfo[])games.toArray(), localPlayer);
+			GameInfo[] gameArray = new GameInfo[games.size()];
+			for (int i = 0;i < games.size();i++){
+				gameArray[i] = games.get(i);
+			}
+			getJoinGameView().setGames(gameArray, localPlayer);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
