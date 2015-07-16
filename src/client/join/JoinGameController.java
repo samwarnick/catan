@@ -99,7 +99,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		PlayerID playerId = new PlayerID(GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
 		PlayerInfo localPlayer = new PlayerInfo();
 		//localPlayer.setColor(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getColor());
 		//localPlayer.setId(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).get);  userId

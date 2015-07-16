@@ -27,8 +27,8 @@ public class ClientCommunicator {
 	private int serverPort = 8081;
 	private String URLPrefix;
 	private String cookie = null;
-	private int playerId;
-	private int gameId;
+	private int playerId = -1;
+	private int gameId = -1;
 	
 	/**
 	 * 
@@ -75,7 +75,6 @@ public class ClientCommunicator {
 	        ObjectMapper mapper = new ObjectMapper();
 	        if (requestMethod != "GET") {
 		        mapper.writeValue(conn.getOutputStream(), toPost);
-		        System.out.println(mapper.writeValueAsString(toPost));
 	        }
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {

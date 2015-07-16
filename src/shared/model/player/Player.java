@@ -1,5 +1,6 @@
 package shared.model.player;
 
+import client.data.PlayerInfo;
 import shared.definitions.CatanColor;
 import shared.model.bank.PlayerBank;
 import shared.model.board.PlayerID;
@@ -182,5 +183,9 @@ public class Player {
 
 	public boolean getHasDiscarded() {
 		return hasDiscared;
+	}
+	
+	public PlayerInfo getPlayerInfo() {
+		return new PlayerInfo(name, color, playerID.getPlayerid());
 	}
 }
