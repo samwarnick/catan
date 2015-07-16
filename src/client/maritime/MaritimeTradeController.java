@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import shared.communication.input.move.MaritimeTradeInput;
 import shared.definitions.*;
+import shared.model.GameModelFacade;
 import shared.model.bank.Bank;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
+import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 import shared.model.ratios.TradeRatio;
 import client.base.*;
 import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 
 
 /**
@@ -27,7 +30,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
 		super(tradeView);
-
+		ModelController.getInstance().addListener(modelListener);
 		setTradeOverlay(tradeOverlay);
 	}
 	
@@ -176,6 +179,22 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		startTrade();
 		getTradeOverlay().setTradeEnabled(false);
 	}
+	
+	private ModelControllerListener modelListener = new ModelControllerListener() {
+
+		@Override
+		public void ModelChanged() {
+
+			if (ModelController.getInstance().getClientPlayer() != null){
+
+				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
+					getTradeView().enableMaritimeTrade(true);
+				}
+				else
+					getTradeView().enableMaritimeTrade(false);
+			}		
+		}
+	};
 
 }
 
