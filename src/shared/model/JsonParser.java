@@ -47,16 +47,19 @@ public class JsonParser {
 		while (iter.hasNext()) {
 			JsonNode temp = iter.next();
 			if (!temp.isMissingNode()) {
-				String color = temp.path("color").textValue();
 				String name = temp.path("name").textValue();
-				int playerid = temp.path("id").intValue();
-				PlayerInfo tempPlayer = new PlayerInfo();
-				if (color != null) {
-					tempPlayer.setColor(getColor(color));
+				if (name == null) {
+					game.addPlayer(null);
 				}
-				tempPlayer.setName(name);
-				tempPlayer.setId(playerid);
-				game.addPlayer(tempPlayer);
+				else {
+					String color = temp.path("color").textValue();
+					int playerid = temp.path("id").intValue();
+					PlayerInfo tempPlayer = new PlayerInfo();
+					tempPlayer.setColor(getColor(color));
+					tempPlayer.setName(name);
+					tempPlayer.setId(playerid);
+					game.addPlayer(tempPlayer);
+				}
 			}
 		}
 		
