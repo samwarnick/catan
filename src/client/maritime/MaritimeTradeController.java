@@ -21,8 +21,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private IMaritimeTradeOverlay tradeOverlay;
 	private ResourceType getResource;
 	private ResourceType giveResource;
-	private int getAmount;
-	private int giveAmount;
+
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
