@@ -8,12 +8,13 @@ import client.data.*;
 import client.proxy.ProxyServer;
 import server.ServerException;
 import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 
 
 /**
  * Implementation for the map controller
  */
-public class MapController extends client.base.Controller implements IMapController {
+public class MapController extends client.base.Controller implements IMapController, ModelControllerListener {
 	
 	private IRobView robView;
 	private boolean isFree = false;
@@ -25,8 +26,8 @@ public class MapController extends client.base.Controller implements IMapControl
 		
 		setRobView(robView);
 		
-//		initFromModel();
-		
+		initFromModel();
+		ModelController.getInstance().addListener(this);
 	}
 	
 	public IMapView getView() {
@@ -41,62 +42,64 @@ public class MapController extends client.base.Controller implements IMapControl
 		this.robView = robView;
 	}
 	
-	protected void initFromModel() {
-	
+	public void initFromModel() {
 		Board board = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard();
 		
-		//resource hexes
-		for(ResourceHex hex : board.getResourceHexes()) {
-			getView().addHex(hex.getLocation(), hex.getLandType());
-			getView().addNumber(hex.getLocation(), hex.getNumberToken());
-		}
-		
-		//ports
-		for(PortHex port : board.getPorts()) {
-			getView().addPort(new EdgeLocation(port.getLocation(), port.getOrientation()), port.getPortType());
-		}
-		
-		//water hexes
-		for(WaterHex hex : board.getWaterHexes()) {
-			getView().addHex(hex.getLocation(), hex.getLandType());
-		}
-		
-		//roads
-		for(Road road : board.getRoads()) {
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(road.getOwner()).getColor();
-			getView().placeRoad(road.getLocation(), color);
-		}
-		
-		//buildings
-		for(Vertex building : board.getBuildings()) {
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(building.getOwner()).getColor();
-			if(building.getClass() == Settlement.class) {
-				getView().placeSettlement(building.getLocation(), color);
+		if (board != null) {
+			//resource hexes
+			for (ResourceHex hex : board.getResourceHexes()) {
+				getView().addHex(hex.getLocation(), hex.getLandType());
+				getView().addNumber(hex.getLocation(), hex.getNumberToken());
 			}
-			else if(building.getClass() == City.class) {
-				getView().placeCity(building.getLocation(), color);
+			//ports
+			for (PortHex port : board.getPorts()) {
+				getView().addPort(new EdgeLocation(port.getLocation(), port.getOrientation()), port.getPortType());
+			}
+			//water hexes
+			for (WaterHex hex : board.getWaterHexes()) {
+				getView().addHex(hex.getLocation(), hex.getLandType());
+			}
+			if (board.getRoads() != null) {
+				//roads
+				for (Road road : board.getRoads()) {
+					CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel()
+							.getPlayer(road.getOwner()).getColor();
+					getView().placeRoad(road.getLocation(), color);
+				} 
+			}
+			if (board.getBuildings() != null) {
+				//buildings
+				for (Vertex building : board.getBuildings()) {
+					CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel()
+							.getPlayer(building.getOwner()).getColor();
+					if (building.getClass() == Settlement.class) {
+						getView().placeSettlement(building.getLocation(), color);
+					} else if (building.getClass() == City.class) {
+						getView().placeCity(building.getLocation(), color);
+					}
+				} 
+			}
+			//desert and robber
+			if (board.getDesertHex() != null) {
+				getView().addHex(board.getDesertHex().getLocation(), board.getDesertHex().getLandType());				
+			}
+			if (board.getRobber() != null) {
+				getView().placeRobber(board.getRobber().getLocation());				
 			}
 		}
-		
-		//desert and robber
-		getView().addHex(board.getDesertHex().getLocation(), board.getDesertHex().getLandType());
-		getView().placeRobber(board.getRobber().getLocation());
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		// can this only be called from the active player???
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		// can this only be called from the active player???
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		// can this only be called from the active player???
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildCity(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
@@ -105,63 +108,34 @@ public class MapController extends client.base.Controller implements IMapControl
 		return ModelController.getInstance().getGameModelFacade().canPlaceRobber(hexLoc);
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) {
-		try {			
-			//need to contact server?? what order with ResourceBar, which contacts server?
-			PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+	public void placeRoad(EdgeLocation edgeLoc) {			
+		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 			
-			BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().buildRoad(input));
-			
-			// if updateGame will redraw whole map, then dont need this
-			getView().placeRoad(edgeLoc, color);
-		} 
-		catch (ServerException e) {
-			e.printStackTrace();
-		}
-		finally {
-			isFree = false;
-			allowDisconnected = false;			
-		}
+		BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
+		ModelController.getInstance().buildRoad(input);
+		
+		isFree = false;
+		allowDisconnected = false;
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		try {
-			PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 			
-			BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().buildSettlement(input));
-			
-			getView().placeSettlement(vertLoc, color);
-		}
-		catch (ServerException e) {
-			e.printStackTrace();
-		}
-		finally {
-			isFree = false;
-			allowDisconnected = false;			
-		}
+		BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
+		ModelController.getInstance().buildSettlement(input);
+		
+		isFree = false;
+		allowDisconnected = false;
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		try {
-			PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 			
-			BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().buildCity(input));
+		BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
+		ModelController.getInstance().buildCity(input);
 			
-			getView().placeCity(vertLoc, color);
-		}
-		catch (ServerException e) {
-			e.printStackTrace();
-		}
-		finally {
-			isFree = false;
-			allowDisconnected = false;			
-		}
+		isFree = false;
+		allowDisconnected = false;			
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
@@ -213,5 +187,11 @@ public class MapController extends client.base.Controller implements IMapControl
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void ModelChanged() {
+		initFromModel();
+		
 	}
 }

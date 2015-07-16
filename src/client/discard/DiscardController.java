@@ -27,6 +27,7 @@ public class DiscardController extends Controller implements IDiscardController 
 	public DiscardController(IDiscardView view, IWaitView waitView) {
 		
 		super(view);
+		view.setDiscardButtonEnabled(false);
 		toDiscard = new ResourceHand(0, 0, 0, 0, 0);
 		this.waitView = waitView;
 	}

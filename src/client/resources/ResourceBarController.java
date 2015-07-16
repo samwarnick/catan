@@ -86,7 +86,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		if ( clientPlayer != null) {
 			
 			
-			// TODO for testing
+
 //			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 //			if (count == 0) {
 //				try {
@@ -97,8 +97,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 //				}
 //			}
 //			count++;
-			//
-			
+
 			// get each resource and set value and enable buttons
 			PlayerBank bank = clientPlayer.getPlayerBank();
 //			try {
@@ -130,7 +129,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			getView().setElementAmount(ResourceBarElement.CITY, cities);
 			getView().setElementAmount(ResourceBarElement.SOLDIERS, soldiers);
 			
-			// enable only if has resources
+			// enable only if canDo are true
 			if (clientPlayer.getPlayerFacade().canBuildRoad(false)) {
 				getView().setElementEnabled(ResourceBarElement.ROAD, true);
 			}

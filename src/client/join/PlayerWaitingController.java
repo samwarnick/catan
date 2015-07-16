@@ -52,13 +52,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 		getView().showModal();
 	}
-
-	@Override
-	public void addAI() {
-
-		// TEMPORARY
-		getView().closeModal();
-	}
 	
 	private void closeView(){
 		getView().closeModal();
@@ -69,6 +62,12 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		if(MC.getGameModelFacade().isGameFull()){
 			closeView();
 		}
+		
+	}
+
+	@Override
+	public void addAI() {
+		// TODO Auto-generated method stub
 		
 	}
 

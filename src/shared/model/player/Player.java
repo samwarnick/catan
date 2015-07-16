@@ -41,6 +41,7 @@ public class Player {
 		this.name = name;
 		this.tradeRatios = new TradeRatios();
 		this.playerID = new PlayerID(playerID);
+		this.playerFacade = new InactivePlayerFacade(this); // by default, they are inactive
 	}
 	
 	

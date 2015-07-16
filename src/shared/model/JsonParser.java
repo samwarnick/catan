@@ -140,19 +140,21 @@ public class JsonParser {
 	private static Board parseBoard(JsonNode mapNode) {
 				
 		Board board = new Board();
-		List<ResourceHex> resourceHexes = parseHexes(mapNode.path("hexes"));
-		List<Road> roads = parseRoads(mapNode.path("roads"));
-		List<Vertex> buildings = parseCities(mapNode.path("cities"));
-		buildings.addAll(parseSettlements(mapNode.path("settlements")));
-		List<PortHex> ports = parsePorts(mapNode.path("ports"));
-		Robber robber = parseRobber(mapNode.path("robber"));
-		
-		board.setDesertHex(resourceHexes.get(0));
-		board.setResourceHexes(resourceHexes);
-		board.setRoads(roads);
-		board.setBuildings(buildings);
-		board.setPorts(ports);
-		board.setRobber(robber);
+		if (!mapNode.isMissingNode()) {
+			List<ResourceHex> resourceHexes = parseHexes(mapNode.path("hexes"));
+			List<Road> roads = parseRoads(mapNode.path("roads"));
+			List<Vertex> buildings = parseCities(mapNode.path("cities"));
+			buildings.addAll(parseSettlements(mapNode.path("settlements")));
+			List<PortHex> ports = parsePorts(mapNode.path("ports"));
+			Robber robber = parseRobber(mapNode.path("robber"));
+			board.setDesertHex(resourceHexes.get(0));
+			resourceHexes.remove(0);
+			board.setResourceHexes(resourceHexes);
+			board.setRoads(roads);
+			board.setBuildings(buildings);
+			board.setPorts(ports);
+			board.setRobber(robber);
+		}
 		return board;
 	}
 	
