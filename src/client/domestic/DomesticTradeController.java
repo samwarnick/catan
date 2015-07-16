@@ -554,11 +554,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				}
 				else
 					getTradeView().enableDomesticTrade(false);
-				if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
-					System.out.println("I'm starting it!");
-					startTradeAnswer();
-					
+				if (GameModelFacade.getInstance().getGameModel().getTrade() != null){
+					if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
+						System.out.println("I'm starting it!");
+						startTradeAnswer();
+						
+					}
 				}
+				
 			}
 			
 					
