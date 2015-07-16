@@ -87,26 +87,26 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			
 			
 			// TODO for testing
-			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
-			if (count == 0) {
-				try {
-					clientPlayer.getPlayerBank().modifyRC(new ResourceHand(2, 2, 2, 2, 2));
-					clientPlayer.getPlayerBank().addDC(DevCardType.SOLDIER);
-				} catch (BankException e) {
-					e.printStackTrace();
-				}
-			}
-			count++;
+//			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
+//			if (count == 0) {
+//				try {
+//					clientPlayer.getPlayerBank().modifyRC(new ResourceHand(2, 2, 2, 2, 2));
+//					clientPlayer.getPlayerBank().addDC(DevCardType.SOLDIER);
+//				} catch (BankException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			count++;
 			//
 			
 			// get each resource and set value and enable buttons
 			PlayerBank bank = clientPlayer.getPlayerBank();
-			try {
-				bank.modifyRC(new ResourceHand(4,0,4,0,0));
-				clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
-			} catch (BankException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				bank.modifyRC(new ResourceHand(4,0,4,0,0));
+//				clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
+//			} catch (BankException e) {
+//				e.printStackTrace();
+//			}
 			int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
 			int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
 			int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
