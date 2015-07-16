@@ -85,14 +85,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player clientPlayer = ModelController.getInstance().getClientPlayer();
 		if ( clientPlayer != null) {
 			
-			
-<<<<<<< HEAD
 			// TODO for testing
 			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 			
 			// get each resource and set value and enable buttons
-			PlayerBank bank = clientPlayer.getPlayerBank();
-=======
 
 //			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 //			if (count == 0) {
@@ -113,7 +109,6 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 //			} catch (BankException e) {
 //				e.printStackTrace();
 //			}
->>>>>>> master
 			int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
 			int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
 			int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();

@@ -2,11 +2,8 @@ package client.discard;
 
 import shared.definitions.*;
 import shared.model.bank.ResourceHand;
-import shared.model.board.PlayerID;
-import shared.model.player.Player;
 import client.base.*;
 import client.controller.ModelController;
-import client.controller.ModelController.ModelControllerListener;
 import client.misc.*;
 
 
