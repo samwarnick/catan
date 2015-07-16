@@ -85,7 +85,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player clientPlayer = ModelController.getInstance().getClientPlayer();
 		if ( clientPlayer != null) {
 			
+			// TODO for testing
+			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 			
+			// get each resource and set value and enable buttons
 
 //			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 //			if (count == 0) {
@@ -132,15 +135,23 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			// enable only if canDo are true
 			if (clientPlayer.getPlayerFacade().canBuildRoad(false)) {
 				getView().setElementEnabled(ResourceBarElement.ROAD, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.ROAD, false);
 			}
 			if (clientPlayer.getPlayerFacade().canBuildSettlement(false)) {
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
 			}
 			if (clientPlayer.getPlayerFacade().canBuildCity(false)) {
 				getView().setElementEnabled(ResourceBarElement.CITY, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.CITY, false);
 			}
 			if (ModelController.getInstance().getGameModelFacade().canBuyDevCard(clientPlayer)) {
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 			}
 		}
 	}

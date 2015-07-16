@@ -92,12 +92,6 @@ public class CatanPanel extends JPanel
 //				rollView.showModal();
 				
 				Player clientPlayer = ModelController.getInstance().getClientPlayer();
-				try {
-					clientPlayer.getPlayerBank().modifyRC(new ResourceHand(3, 3, 3, 3, 3));
-				} catch (BankException e1) {
-					e1.printStackTrace();
-				}
-				
 				if ( clientPlayer != null && clientPlayer.getPlayerFacade().canDiscard()) {
 					
 					PlayerBank bank = clientPlayer.getPlayerBank();
@@ -107,14 +101,15 @@ public class CatanPanel extends JPanel
 					int wheat = bank.getResourceStack(ResourceType.WHEAT).getQuantity();
 					int ore = bank.getResourceStack(ResourceType.ORE).getQuantity();
 					
+					discardView = new DiscardView();
+					discardView.setController(new DiscardController(discardView, discardWaitView));
+					
 					discardView.setResourceMaxAmount(ResourceType.WOOD, wood);
 					discardView.setResourceMaxAmount(ResourceType.BRICK, brick);
 					discardView.setResourceMaxAmount(ResourceType.SHEEP, sheep);
 					discardView.setResourceMaxAmount(ResourceType.WHEAT, wheat);
 					discardView.setResourceMaxAmount(ResourceType.ORE, ore);
-					
-					
-					
+
 					discardView.setStateMessage(String.format("%d/%d", 0, ((brick+wood+sheep+wheat+ore)/2)));
 					
 					discardView.showModal();

@@ -252,7 +252,6 @@ public class DiscardView extends OverlayView implements IDiscardView
 	@Override
 	public void setDiscardButtonEnabled(boolean enabled)
 	{
-		System.out.println("setting enabled to " + enabled);
 		discardButton.setEnabled(enabled);
 		this.update();
 	}
@@ -637,22 +636,16 @@ public class DiscardView extends OverlayView implements IDiscardView
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				int toDisard = DiscardView.this.getNumToDiscard();
 				switch(e.getActionCommand())
 				{
 					case "UP":
-						System.out.printf("Increase amount of %s\n",
-						                  Resource.this.getType());
-						DiscardView.this.getController()
-										.increaseAmount(Resource.this.getType());
-						int temp = DiscardView.this.getNumToDiscard();
-						System.out.println(temp);
-						DiscardView.this.setNumToDiscard(temp + 1);
+						DiscardView.this.getController().increaseAmount(Resource.this.getType());
+						DiscardView.this.setNumToDiscard(++toDisard);
 						break;
 					case "DOWN":
 						DiscardView.this.getController().decreaseAmount(Resource.this.getType());
-						temp = DiscardView.this.getNumToDiscard();
-						System.out.println(temp);
-						DiscardView.this.setNumToDiscard(temp - 1);
+						DiscardView.this.setNumToDiscard(--toDisard);
 						break;
 					default:
 						break;
