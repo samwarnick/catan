@@ -86,27 +86,11 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		if ( clientPlayer != null) {
 			
 			
-//			// TODO for testing
-//			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
-//			if (count == 0) {
-//				try {
-//					clientPlayer.getPlayerBank().modifyRC(new ResourceHand(2, 2, 2, 2, 2));
-//					clientPlayer.getPlayerBank().addDC(DevCardType.SOLDIER);
-//				} catch (BankException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			count++;
-//			//
+			// TODO for testing
+			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 			
 			// get each resource and set value and enable buttons
 			PlayerBank bank = clientPlayer.getPlayerBank();
-			try {
-				bank.modifyRC(new ResourceHand(4,0,4,0,0));
-				clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
-			} catch (BankException e) {
-				e.printStackTrace();
-			}
 			int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
 			int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
 			int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
@@ -133,15 +117,23 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			// enable only if canDo are true
 			if (clientPlayer.getPlayerFacade().canBuildRoad(false)) {
 				getView().setElementEnabled(ResourceBarElement.ROAD, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.ROAD, false);
 			}
 			if (clientPlayer.getPlayerFacade().canBuildSettlement(false)) {
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
 			}
 			if (clientPlayer.getPlayerFacade().canBuildCity(false)) {
 				getView().setElementEnabled(ResourceBarElement.CITY, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.CITY, false);
 			}
 			if (ModelController.getInstance().getGameModelFacade().canBuyDevCard(clientPlayer)) {
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 			}
 		}
 	}

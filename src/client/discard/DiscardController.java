@@ -44,29 +44,29 @@ public class DiscardController extends Controller implements IDiscardController 
 	public void increaseAmount(ResourceType resource) {
 		switch (resource) {
 		case BRICK:
-			int brick = toDiscard.getBrick() - 1;
+			int brick = toDiscard.getBrick() + 1;
 			toDiscard.setBrick(brick);
-			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, -brick);
+			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, brick);
 			break;
 		case WOOD:
-			int wood = toDiscard.getWood() - 1;
+			int wood = toDiscard.getWood() + 1;
 			toDiscard.setWood(wood);
-			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, -wood);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, wood);
 			break;
 		case SHEEP:
-			int sheep = toDiscard.getSheep() - 1;
+			int sheep = toDiscard.getSheep() + 1;
 			toDiscard.setSheep(sheep);
-			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, -sheep);
+			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, sheep);
 			break;
 		case ORE:
-			int ore = toDiscard.getOre() - 1;
+			int ore = toDiscard.getOre() + 1;
 			toDiscard.setOre(ore);
-			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, -ore);
+			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, ore);
 			break;
 		case WHEAT:
-			int wheat = toDiscard.getWheat() - 1;
+			int wheat = toDiscard.getWheat() + 1;
 			toDiscard.setWheat(wheat);
-			getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, -wheat);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, wheat);
 		default:
 			break;
 		}
@@ -76,29 +76,29 @@ public class DiscardController extends Controller implements IDiscardController 
 	public void decreaseAmount(ResourceType resource) {
 		switch (resource) {
 		case BRICK:
-			int brick = toDiscard.getBrick() + 1;
+			int brick = toDiscard.getBrick() - 1;
 			toDiscard.setBrick(brick);
-			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, -brick);
+			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, brick);
 			break;
 		case WOOD:
-			int wood = toDiscard.getWood() + 1;
+			int wood = toDiscard.getWood() - 1;
 			toDiscard.setWood(wood);
-			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, -wood);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, wood);
 			break;
 		case SHEEP:
-			int sheep = toDiscard.getSheep() + 1;
+			int sheep = toDiscard.getSheep() - 1;
 			toDiscard.setSheep(sheep);
-			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, -sheep);
+			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, sheep);
 			break;
 		case ORE:
-			int ore = toDiscard.getOre() + 1;
+			int ore = toDiscard.getOre() - 1;
 			toDiscard.setOre(ore);
-			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, -ore);
+			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, ore);
 			break;
 		case WHEAT:
-			int wheat = toDiscard.getWheat() + 1;
+			int wheat = toDiscard.getWheat() - 1;
 			toDiscard.setWheat(wheat);
-			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, -wheat);
+			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, wheat);
 			break;
 		default:
 			break;

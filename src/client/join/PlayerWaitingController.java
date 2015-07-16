@@ -62,7 +62,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		if(MC.getGameModelFacade().isGameFull()){
 			closeView();
 		}
-		
 	}
 
 	@Override
