@@ -95,7 +95,12 @@ public class ModelController {
 	}
 	
 	public Player getClientPlayer() {
-		return gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID));
+		if (gameModelFacade.getGameModel().getPlayers()!= null){
+			return gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID));
+
+		}
+		else
+			return null;
 	}
 	
 	public void maritimeTrade(MaritimeTradeInput input){
