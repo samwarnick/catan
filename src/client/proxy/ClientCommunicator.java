@@ -75,6 +75,7 @@ public class ClientCommunicator {
 	        ObjectMapper mapper = new ObjectMapper();
 	        if (requestMethod != "GET") {
 		        mapper.writeValue(conn.getOutputStream(), toPost);
+		        System.out.println(mapper.writeValueAsString(toPost));
 	        }
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {

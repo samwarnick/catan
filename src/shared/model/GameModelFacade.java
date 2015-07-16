@@ -207,7 +207,7 @@ public class GameModelFacade {
 			if(p == null) {
 				return false;
 			}
-			System.out.println(p.getName());
+			//System.out.println(p.getName());
 				
 		}
 		
