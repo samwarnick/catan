@@ -19,6 +19,7 @@ public class ChatView extends PanelView implements IChatView {
     private JPanel inputPanel;
     private JButton sendChatBtn;
     private PlaceholderTextField chatTextInput;
+    private int chats;
 
     /**
      * Creates a new chat view component.
@@ -32,6 +33,8 @@ public class ChatView extends PanelView implements IChatView {
         chatTextInput = new PlaceholderTextField();
         chatTextInput.setPlaceholder("Send a message!");
         chatTextInput.setPreferredSize(new Dimension(260, 20));
+        
+        chats = 0;
         
         // Register the listeners
         EventListener listener = new EventListener();
@@ -76,6 +79,7 @@ public class ChatView extends PanelView implements IChatView {
 
     @Override
     public void setEntries(final List<LogEntry> entries) {
+    	if(entries!=null && entries.size()>chats)
         chatPanel.setEntries(entries);
     }
     

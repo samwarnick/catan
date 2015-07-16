@@ -173,8 +173,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void joinGame(CatanColor color) {
-		int gameID = GameModelFacade.getInstance().getGameModel().getGameID();
-		GamesJoinInput input = new GamesJoinInput(gameID, color);
+		GamesJoinInput input = new GamesJoinInput(gameInfo.getId(), color);
 		try {
 			if(ProxyServer.getInstance().joinGame(input))
 			{

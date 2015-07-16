@@ -16,6 +16,7 @@ public class GameHistoryView extends PanelView implements IGameHistoryView
 	
 	private LogComponent logPanel;
 	private JScrollPane logScroll;
+	private int logs;
 	
 	public GameHistoryView()
 	{
@@ -26,6 +27,8 @@ public class GameHistoryView extends PanelView implements IGameHistoryView
 		logPanel = new LogComponent();
 		
 		logScroll = new JScrollPane(logPanel);
+		
+		logs = 0;
 		
 		this.add(logScroll, BorderLayout.CENTER);
 	}
@@ -45,14 +48,17 @@ public class GameHistoryView extends PanelView implements IGameHistoryView
 		// calculations in LogComponent. Therefore, we call
 		// invokeLater.
 		
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run()
-			{
+//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//			public void run()
+//			{
+				if(entries!=null && entries.size()>logs){
+				logs = entries.size();
 				logPanel.setEntries(entries);
 				JScrollBar vertical = logScroll.getVerticalScrollBar();
 				vertical.setValue(vertical.getMaximum());
-			}
-		});
+				}
+//			}
+//		});
 	}
 	
 }
