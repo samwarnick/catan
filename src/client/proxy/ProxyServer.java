@@ -8,7 +8,6 @@ import client.data.GameInfo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import client.data.GameInfo;
 import server.*;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
@@ -80,6 +79,7 @@ public class ProxyServer implements IServer {
 
 	@Override
 	public boolean joinGame(GamesJoinInput input) throws ServerException {
+		System.out.println("Join Game");
 		clientCommunicator.post(input, "POST");
 		return true;
 	}

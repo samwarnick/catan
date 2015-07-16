@@ -544,7 +544,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		@Override
 		public void ModelChanged() {
-			System.out.println("I'm in the domestic");
+			// System.out.println("I'm in the domestic");
 
 			if (ModelController.getInstance().getClientPlayer() != null){
 

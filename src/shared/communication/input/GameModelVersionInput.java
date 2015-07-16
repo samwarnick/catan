@@ -10,7 +10,7 @@ public class GameModelVersionInput extends Input {
 	private int version;
 	
 	public GameModelVersionInput (int version) {
-		super(String.format("/game/model?version=%d", version));
+		super(String.format("/game/model", version));
 		this.version = version;
 	}
 
