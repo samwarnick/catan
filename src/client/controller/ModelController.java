@@ -82,7 +82,6 @@ public class ModelController {
 	public void updateGame(GameModel gameModel){
 		gameModelFacade.setGameModel(gameModel);
 		notifyListeners();
-		
 	}
 
 	public int getPlayerID() {

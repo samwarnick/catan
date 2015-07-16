@@ -208,7 +208,7 @@ public class GameModelFacade {
 				return false;
 			}
 			System.out.println(p.getName());
-				
+			System.out.println("I'm in the GMF");
 		}
 		
 		return true;
