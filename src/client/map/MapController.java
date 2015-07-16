@@ -90,22 +90,16 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		// can this only be called from the active player???
-		System.out.println("canPlaceRoad");
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		// can this only be called from the active player???
-		System.out.println("canPlaceSettlement");
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		// can this only be called from the active player???
-		System.out.println("canPlaceCity");
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildCity(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
 	}
@@ -114,63 +108,34 @@ public class MapController extends client.base.Controller implements IMapControl
 		return ModelController.getInstance().getGameModelFacade().canPlaceRobber(hexLoc);
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) {
-		try {			
-			//need to contact server?? what order with ResourceBar, which contacts server?
-			PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+	public void placeRoad(EdgeLocation edgeLoc) {			
+		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 			
-			BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().buildRoad(input));
-			
-			// if updateGame will redraw whole map, then dont need this
-			getView().placeRoad(edgeLoc, color);
-		} 
-		catch (ServerException e) {
-			e.printStackTrace();
-		}
-		finally {
-			isFree = false;
-			allowDisconnected = false;			
-		}
+		BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
+		ModelController.getInstance().buildRoad(input);
+		
+		isFree = false;
+		allowDisconnected = false;
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		try {
-			PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 			
-			BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().buildSettlement(input));
-			
-			getView().placeSettlement(vertLoc, color);
-		}
-		catch (ServerException e) {
-			e.printStackTrace();
-		}
-		finally {
-			isFree = false;
-			allowDisconnected = false;			
-		}
+		BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
+		ModelController.getInstance().buildSettlement(input);
+		
+		isFree = false;
+		allowDisconnected = false;
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		try {
-			PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 			
-			BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().buildCity(input));
+		BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
+		ModelController.getInstance().buildCity(input);
 			
-			getView().placeCity(vertLoc, color);
-		}
-		catch (ServerException e) {
-			e.printStackTrace();
-		}
-		finally {
-			isFree = false;
-			allowDisconnected = false;			
-		}
+		isFree = false;
+		allowDisconnected = false;			
 	}
 
 	public void placeRobber(HexLocation hexLoc) {

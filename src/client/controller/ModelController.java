@@ -188,20 +188,31 @@ public class ModelController {
 //	}
 //
 //	 
-//	public GameModel buildRoad(BuildRoadInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel buildSettlement(BuildSettlementInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel buildCity(BuildCityInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
+	public void buildRoad(BuildRoadInput input) {
+		try {
+			updateGame(ProxyServer.getInstance().buildRoad(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	 
+	public void buildSettlement(BuildSettlementInput input) {
+		try {
+			updateGame(ProxyServer.getInstance().buildSettlement(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	 
+	public void buildCity(BuildCityInput input) {
+		try  {
+			updateGame(ProxyServer.getInstance().buildCity(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
 //
 //	 
 //	public GameModel offerTrade(OfferTradeInput input) throws ServerException {
