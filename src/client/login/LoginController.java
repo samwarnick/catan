@@ -131,8 +131,8 @@ public class LoginController extends Controller implements ILoginController {
 		}
 		
 		try {
-			ps.registerUser(new UserRegisterInput(getLoginView().getLoginUsername(),
-											getLoginView().getLoginPassword()));
+			ps.registerUser(new UserRegisterInput(getLoginView().getRegisterUsername(),
+											getLoginView().getRegisterPassword()));
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			success = false;
