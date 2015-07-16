@@ -3,8 +3,6 @@ package client.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import client.discard.DiscardController;
-import client.maritime.MaritimeTradeController;
 import client.poller.Poller;
 import client.proxy.ProxyServer;
 import server.ServerException;
@@ -13,7 +11,6 @@ import shared.communication.input.move.*;
 import shared.definitions.ResourceType;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
-import shared.model.JsonParser;
 import shared.model.TooManyPlayersException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
@@ -22,8 +19,6 @@ import shared.model.player.Player;
 
 public class ModelController {
 
-	private MaritimeTradeController maritimeController;
-	private DiscardController discardController;
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 
@@ -37,7 +32,6 @@ public class ModelController {
 	
 	public static ModelController getInstance() {
 		if (instance == null) {
-			// TODO
 			instance = new ModelController();
 		}
 		return instance;

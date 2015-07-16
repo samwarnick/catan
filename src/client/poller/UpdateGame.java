@@ -37,6 +37,7 @@ public class UpdateGame extends TimerTask{
 		}
 		if (serverModel != null)
 		{
+			System.out.println(serverModel.getPlayers().size());
 			controller.updateGame(serverModel);
 		}
 	}

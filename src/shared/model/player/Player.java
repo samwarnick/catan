@@ -44,7 +44,6 @@ public class Player {
 		this.playerFacade = new InactivePlayerFacade(this); // by default, they are inactive
 	}
 	
-	
 	public Player() {
 	}
 

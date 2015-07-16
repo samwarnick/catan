@@ -1,6 +1,5 @@
 package shared.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import shared.definitions.ResourceType;
@@ -207,13 +206,8 @@ public class GameModelFacade {
 			if(p == null) {
 				return false;
 			}
-<<<<<<< HEAD
 			System.out.println(p.getName());
 			System.out.println("I'm in the GMF");
-=======
-			//System.out.println(p.getName());
-				
->>>>>>> Isaac-controllers
 		}
 		
 		return true;
