@@ -150,7 +150,7 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 		//Add all the above
 		this.add(gamePanel, BorderLayout.CENTER);
 
-		tempJoinButton = new JButton("Temporary Join Button");
+		tempJoinButton = new JButton("Refresh");
 		tempJoinButton.addActionListener(actionListener);
 		Font buttonFont = tempJoinButton.getFont();
 		buttonFont = buttonFont.deriveFont(buttonFont.getStyle(), BUTTON_TEXT_SIZE);
@@ -193,7 +193,7 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 			}
 			else if (e.getSource() == tempJoinButton)
 			{
-				getController().startJoinGame(null);
+				getController().start();
 			}
 			else
 			{
