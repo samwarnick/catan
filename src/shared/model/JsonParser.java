@@ -322,6 +322,9 @@ public class JsonParser {
 			String name = playerNode.path("name").textValue();
 			String color = playerNode.path("color").textValue();
 			
+			if (name == null) {
+				return null;
+			}
 			Player player = new Player(getColor(color), name, playerIndex);
 			player.setPlayerBank(playerBank);
 			player.setRoads(new Roads(roads));
