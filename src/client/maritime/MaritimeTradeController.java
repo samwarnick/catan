@@ -47,9 +47,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void startTrade() {
 		ArrayList<ResourceType> selected = new ArrayList<ResourceType>();
-		Player activePlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getCurrentPlayer(); //need to change after find controller
+		Player activePlayer = ModelController.getInstance().getClientPlayer(); //need to change after find controller
 		ResourceType toConvert = ResourceType.WOOD;
-		if (activePlayer.getPlayerFacade() != null){
+		if (activePlayer != null){
 			
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.BRICK, toConvert))
 			{
