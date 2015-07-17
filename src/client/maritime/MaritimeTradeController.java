@@ -49,7 +49,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void startTrade() {
 		ArrayList<ResourceType> selected = new ArrayList<ResourceType>();
-		Player activePlayer = ModelController.getInstance().getClientPlayer(); //need to change after find controller
+		Player activePlayer = ModelController.getInstance().getClientPlayer(); 
+		//sets which options will be enabled
 		ResourceType toConvert = ResourceType.WOOD;
 		if (activePlayer != null){
 			
@@ -83,6 +84,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void makeTrade() {
 		Player player = null;
+		//sends the trade to the database and closes the modal window
 		if (getResource != null && giveResource != null)
 			player = ModelController.getInstance().getClientPlayer();
 		ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(player.getPlayerID().getPlayerid(), player.getTradeRatios().getTradeRatio(giveResource).getRatio(), getResource, giveResource));
@@ -93,7 +95,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void cancelTrade() {
-
+		//resets the values
 		unsetGetValue();
 		unsetGiveValue();
 		getTradeOverlay().closeModal();
@@ -102,11 +104,13 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void setGetResource(ResourceType resource) {
 		ResourceHand rh = new ResourceHand(resource);
+		//makes sure the bank has that resource and selects it
 		if(ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(rh))
 		{
 			getResource = resource;
 			getTradeOverlay().selectGetOption(resource, 1);
 		}
+		//enables the trade button if both a get and a give resource are selected (they should be at this point)
 		if(giveResource != null && getResource != null)
 		{
 			this.getTradeOverlay().setTradeEnabled(true);
@@ -128,7 +132,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		{
 			giveResource = resource;
 		}
-
+		//calculates which options the bank has and which ratio the player can trade at
 		showGetOp();
 
 		getTradeOverlay().selectGiveOption(resource,ratio.getRatio());
@@ -141,6 +145,10 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			getTradeOverlay().setTradeEnabled(false);
 		}
 	}
+	
+	/**
+	 * calculates which options should be grayed out for the player to receive
+	 */
 	
 	public void showGetOp()
 	{
@@ -180,28 +188,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	}
 
 	private ModelControllerListener modelListener = new ModelControllerListener() {
-
 		@Override
-		public void ModelChanged() {
-
-			
-
+		public void ModelChanged(){
 			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
-
-
-
 					getTradeView().enableMaritimeTrade(true);
 				}
 				else
-					getTradeView().enableMaritimeTrade(false);
-
-				
-				
+					getTradeView().enableMaritimeTrade(false);	
 			}
-
-	
 		};
-	
-
 }
 
