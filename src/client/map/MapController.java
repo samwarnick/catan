@@ -91,17 +91,17 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), edgeLoc, isFree, allowDisconnected);
+		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getClientPlayer(), edgeLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
+		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getClientPlayer(), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-		return ModelController.getInstance().getGameModelFacade().canBuildCity(ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id), vertLoc, isFree, allowDisconnected);
+		return ModelController.getInstance().getGameModelFacade().canBuildCity(ModelController.getInstance().getClientPlayer(), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
@@ -154,7 +154,7 @@ public class MapController extends client.base.Controller implements IMapControl
 		
 		
 		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-		CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id).getColor();
+		CatanColor color = ModelController.getInstance().getClientPlayer().getColor();
 		
 		boolean canCancel = true;
 		String status = ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getStatus();
