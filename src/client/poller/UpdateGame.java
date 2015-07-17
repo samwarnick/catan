@@ -18,7 +18,7 @@ public class UpdateGame extends TimerTask{
 	
 	@Override
 	public void run() {
-		System.out.println("POLLING");
+		//System.out.println("POLLING");
 		GameModel serverModel = null;
 		if (ModelController.getInstance().isTesting()) {
 			try {
@@ -30,19 +30,17 @@ public class UpdateGame extends TimerTask{
 		else {
 			try {
 				serverModel = ProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion()));
-				System.out.println(serverModel.toString());
+				if (serverModel.getTrade() != null)
+					System.out.println(serverModel.getTrade().toString());
 			} catch (ServerException e) {
 				e.printStackTrace();
 			}
 		}
 		if (serverModel != null)
 		{
-<<<<<<< HEAD
+
 			ModelController.getInstance().updateGame(serverModel);
-=======
-			System.out.println(serverModel.getPlayers().size());
-			controller.updateGame(serverModel);
->>>>>>> master
+
 		}
 	}
 }

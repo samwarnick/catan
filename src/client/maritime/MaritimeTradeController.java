@@ -178,39 +178,30 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		startTrade();
 		getTradeOverlay().setTradeEnabled(false);
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> master
+
 	private ModelControllerListener modelListener = new ModelControllerListener() {
 
 		@Override
 		public void ModelChanged() {
-<<<<<<< HEAD
+
 			
 
 			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
 
-				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()){
-=======
 
-			if (ModelController.getInstance().getClientPlayer() != null){
 
-				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
->>>>>>> master
 					getTradeView().enableMaritimeTrade(true);
 				}
 				else
 					getTradeView().enableMaritimeTrade(false);
-<<<<<<< HEAD
+
 				
 				
 			}
-=======
-			}		
->>>>>>> master
-		}
-	};
+
+	
+		};
+	
 
 }
 

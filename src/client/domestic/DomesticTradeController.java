@@ -470,7 +470,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void acceptTrade(boolean willAccept) {
-		
+		if (willAccept){
+			//make a method in the main controller to do this...
+		}
 		getAcceptOverlay().closeModal();
 	}
 	
@@ -503,11 +505,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		statuses.add(trade.getWheatStatus());
 		statuses.add(trade.getOreStatus());
 		for (int i = 0;i < statuses.size();i++){
-			if (statuses.get(i) == 1){
-				acceptOverlay.addGetResource(Resources.get(i), amounts.get(i));
+			if (statuses.get(i) == -1){
+				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
-			else if (statuses.get(i) == -1){
-				acceptOverlay.addGiveResource(Resources.get(i), amounts.get(i));
+			else if (statuses.get(i) == 1){
+				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
 		}
 		/*if (trade.getBrickStatus() == 1)
@@ -544,12 +546,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		@Override
 		public void ModelChanged() {
-<<<<<<< HEAD
+
 			System.out.println("Current Turn: " + GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
 			System.out.println("PlayerID: " +ModelController.getInstance().getClientPlayer().toString());
-=======
-			System.out.println("I'm in the domestic");
->>>>>>> master
+
 
 			if (ModelController.getInstance().getClientPlayer() != null){
 
@@ -559,9 +559,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				else
 					getTradeView().enableDomesticTrade(false);
 				if (GameModelFacade.getInstance().getGameModel().getTrade() != null){
+					System.out.println("HERE ARE THE IODS" +ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() + GameModelFacade.getInstance().getGameModel().getTrade().getReceiver());
 					if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
 						System.out.println("I'm starting it!");
-						startTradeAnswer();
+						if (!acceptOverlay.isModalShowing())
+							startTradeAnswer();
 						
 					}
 				}

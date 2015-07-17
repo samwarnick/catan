@@ -184,7 +184,7 @@ public class Player {
 	public boolean getHasDiscarded() {
 		return hasDiscared;
 	}
-<<<<<<< HEAD
+
 
 
 	@Override
@@ -194,10 +194,10 @@ public class Player {
 	}
 	
 	
-=======
+
 	
 	public PlayerInfo getPlayerInfo() {
 		return new PlayerInfo(name, color, playerID.getPlayerid());
 	}
->>>>>>> master
+
 }

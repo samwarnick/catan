@@ -3,7 +3,6 @@ package client.poller;
 import java.util.Timer;
 
 
-import client.controller.ModelController;
 
 public class Poller {
 
@@ -11,7 +10,7 @@ public class Poller {
 	
 	public Poller(){
 		timer = new Timer();
-		timer.schedule(new UpdateGame(), 1000, 1000);
+		timer.schedule(new UpdateGame(), 5000, 5000);
 	}
 	
 	
