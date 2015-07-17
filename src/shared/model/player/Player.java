@@ -1,5 +1,6 @@
 package shared.model.player;
 
+import client.data.PlayerInfo;
 import shared.definitions.CatanColor;
 import shared.model.bank.PlayerBank;
 import shared.model.board.PlayerID;
@@ -43,7 +44,6 @@ public class Player {
 		this.playerID = new PlayerID(playerID);
 		this.playerFacade = new InactivePlayerFacade(this); // by default, they are inactive
 	}
-	
 	
 	public Player() {
 	}
@@ -184,6 +184,7 @@ public class Player {
 	public boolean getHasDiscarded() {
 		return hasDiscared;
 	}
+<<<<<<< HEAD
 
 
 	@Override
@@ -193,4 +194,10 @@ public class Player {
 	}
 	
 	
+=======
+	
+	public PlayerInfo getPlayerInfo() {
+		return new PlayerInfo(name, color, playerID.getPlayerid());
+	}
+>>>>>>> master
 }

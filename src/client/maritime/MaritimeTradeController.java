@@ -8,6 +8,7 @@ import shared.model.GameModelFacade;
 import shared.model.bank.Bank;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
+import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 import shared.model.ratios.TradeRatio;
 import client.base.*;
@@ -50,7 +51,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		ArrayList<ResourceType> selected = new ArrayList<ResourceType>();
 		Player activePlayer = ModelController.getInstance().getClientPlayer(); //need to change after find controller
 		ResourceType toConvert = ResourceType.WOOD;
-		if (activePlayer.getPlayerFacade() != null){
+		if (activePlayer != null){
 			
 			if (activePlayer.getPlayerFacade().canMaritimeTrade(1, ResourceType.BRICK, toConvert))
 			{
@@ -177,22 +178,37 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		startTrade();
 		getTradeOverlay().setTradeEnabled(false);
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> master
 	private ModelControllerListener modelListener = new ModelControllerListener() {
 
 		@Override
 		public void ModelChanged() {
+<<<<<<< HEAD
 			
 
 			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
 
 				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()){
+=======
+
+			if (ModelController.getInstance().getClientPlayer() != null){
+
+				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
+>>>>>>> master
 					getTradeView().enableMaritimeTrade(true);
 				}
 				else
 					getTradeView().enableMaritimeTrade(false);
+<<<<<<< HEAD
 				
 				
 			}
+=======
+			}		
+>>>>>>> master
 		}
 	};
 

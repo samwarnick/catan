@@ -37,7 +37,12 @@ public class UpdateGame extends TimerTask{
 		}
 		if (serverModel != null)
 		{
+<<<<<<< HEAD
 			ModelController.getInstance().updateGame(serverModel);
+=======
+			System.out.println(serverModel.getPlayers().size());
+			controller.updateGame(serverModel);
+>>>>>>> master
 		}
 	}
 }
