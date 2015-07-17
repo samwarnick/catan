@@ -116,7 +116,8 @@ public class PlayerWaitingView extends OverlayView implements IPlayerWaitingView
 		//set header label indicating how many players are still needed
 		String labelText = "";
 		if(value.length == NUMBER_OF_PLAYERS){
-			labelText = "This game is ready to go!";
+			this.closeModal();
+			//labelText = "This game is ready to go!";
 			//addAiButton.setEnabled(false);
 		}
 		else{

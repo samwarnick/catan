@@ -7,15 +7,24 @@ package shared.communication.input.move;
  */
 public class SendChatInput extends MoveInput {
 
-	private String message;
+	private String content;
+	private String type = "sendChat";
 	
 	public SendChatInput(int playerIndex, String message) {
-		super("sendChat", playerIndex);
-		this.message = message;
+		super("/sendChat", playerIndex);
+		this.content = message;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getContent() {
+		return content;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

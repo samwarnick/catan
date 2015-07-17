@@ -34,11 +34,11 @@ public class JsonParser {
 		return null;
 	}
 	
-	public static GameInfo gameInfoFromJson(JsonNode rootNode){
+	public static GameInfo gameInfoFromJson(JsonNode gameNode){
 		
-		String title = rootNode.path("title").textValue();
-		int id = rootNode.path("id").intValue();
-		JsonNode playersNode = rootNode.path("player");
+		String title = gameNode.path("title").textValue();
+		int id = gameNode.path("id").intValue();
+		JsonNode playersNode = gameNode.path("players");
 		Iterator<JsonNode> iter = playersNode.elements();
 		GameInfo game = new GameInfo();
 		game.setTitle(title);
@@ -46,14 +46,21 @@ public class JsonParser {
 		
 		while (iter.hasNext()) {
 			JsonNode temp = iter.next();
-			String color = temp.path("color").textValue();
-			String name = temp.path("name").textValue();
-			int playerid = temp.path("id").intValue();
-			PlayerInfo tempPlayer = new PlayerInfo();
-			tempPlayer.setColor(getColor(color));
-			tempPlayer.setName(name);
-			tempPlayer.setId(playerid);
-			game.addPlayer(tempPlayer);
+			if (!temp.isMissingNode()) {
+				String name = temp.path("name").textValue();
+				if (name == null) {
+					game.addPlayer(null);
+				}
+				else {
+					String color = temp.path("color").textValue();
+					int playerid = temp.path("id").intValue();
+					PlayerInfo tempPlayer = new PlayerInfo();
+					tempPlayer.setColor(getColor(color));
+					tempPlayer.setName(name);
+					tempPlayer.setId(playerid);
+					game.addPlayer(tempPlayer);
+				}
+			}
 		}
 		
 		return game;
@@ -315,6 +322,9 @@ public class JsonParser {
 			String name = playerNode.path("name").textValue();
 			String color = playerNode.path("color").textValue();
 			
+			if (name == null) {
+				return null;
+			}
 			Player player = new Player(getColor(color), name, playerIndex);
 			player.setPlayerBank(playerBank);
 			player.setRoads(new Roads(roads));

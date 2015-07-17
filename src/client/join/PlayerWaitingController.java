@@ -40,7 +40,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		List<client.data.GameInfo> gameList;
 		try {
 			gameList = ProxyServer.getInstance().listGames(gameIn);
-	        int gameIndex =  GameModelFacade.getInstance().getGameModel().getGameID();
+	        int gameIndex =  ProxyServer.getInstance().getGameId();
 	        PlayerInfo[] players = new PlayerInfo[gameList.get(gameIndex).getPlayers().size()];
 	        players = gameList.get(gameIndex).getPlayers().toArray(players);
 
@@ -60,9 +60,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void ModelChanged() {
 		if(MC.getGameModelFacade().isGameFull()){
-			closeView();
+			//closeView();
 		}
-		
 	}
 
 	@Override

@@ -7,6 +7,9 @@
     <property name="port.arg" value="8081"/>
     <property name="web.arg" value="gameplay"/>
     <property name="options.arg" value="ug"/>
+	
+	<property name="host" value="localhost"/>
+	<property name="port" value="8081"/>
      
     <!-- Input folders -->
     <property name="java.src.dir" value="src"/>
@@ -141,9 +144,15 @@
 		</jar>
 	</target>
 	
+	<!-- ant our-client {-Dhost=<SERVER_HOST>} {-Dport=<SERVER_PORT_NUMBER>} -->
+	<!-- EXAMPLE: ant server-passoff -Dhost=testserver.cs.byu.edu -Dport=39640 -->
+	<!-- If host and/or port number are omitted, default values are used. -->
+	<!-- EXAMPLE: ant our-client -->
 	<target name="our-client" depends="package" description="compiles, packages, and runs the student client">
 		<java jar="${java.dist}/catan-client.jar" dir="${java.dist}" fork="yes">
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
+			<arg value="${host}"/>
+			<arg value="${port}"/>
 			<assertions>
 				<enable/>
 			</assertions>

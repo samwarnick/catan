@@ -1,7 +1,8 @@
 package client.devcards;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-
+import shared.model.bank.DevelopmentHand;
 import client.base.*;
 import client.controller.ModelController;
 
@@ -61,6 +62,46 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
+		
+		System.out.println("start play dev card");
+		
+		int soldiers = ModelController.getInstance().getClientPlayer().getPlayerBank().getDevStack(DevCardType.SOLDIER).getQuantity();
+		int monuments = ModelController.getInstance().getClientPlayer().getPlayerBank().getDevStack(DevCardType.MONUMENT).getQuantity();
+		int monopoly = ModelController.getInstance().getClientPlayer().getPlayerBank().getDevStack(DevCardType.MONOPOLY).getQuantity();
+		int yearOfPlenty = ModelController.getInstance().getClientPlayer().getPlayerBank().getDevStack(DevCardType.YEAR_OF_PLENTY).getQuantity();
+		int roadBuild = ModelController.getInstance().getClientPlayer().getPlayerBank().getDevStack(DevCardType.ROAD_BUILD).getQuantity();
+		
+		getPlayCardView().setCardAmount(DevCardType.SOLDIER, soldiers);
+		getPlayCardView().setCardAmount(DevCardType.MONUMENT, monuments);
+		getPlayCardView().setCardAmount(DevCardType.MONOPOLY, monopoly);
+		getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, yearOfPlenty);
+		getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, roadBuild);
+		
+		if (soldiers > 0) {
+			getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
+		} else {
+			getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
+		}
+		if (monuments > 0) {
+			getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+		} else {
+			getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+		}
+		if (monopoly > 0) {
+			getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
+		} else {
+			getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
+		}
+		if (yearOfPlenty > 0) {
+			getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
+		} else {
+			getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
+		}
+		if (roadBuild > 0) {
+			getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
+		} else {
+			getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
+		}
 		
 		getPlayCardView().showModal();
 	}

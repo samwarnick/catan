@@ -27,8 +27,8 @@ public class ClientCommunicator {
 	private int serverPort = 8081;
 	private String URLPrefix;
 	private String cookie = null;
-	private int playerId;
-	private int gameId;
+	private int playerId = -1;
+	private int gameId = -1;
 	
 	/**
 	 * 
@@ -63,6 +63,7 @@ public class ClientCommunicator {
 	public JsonNode post(Input toPost, String requestMethod) throws ServerException {
 		try {
 			String method = toPost.getMethod();
+			System.out.println(method);
 	        URL url;
 			url = new URL(URLPrefix + method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -75,6 +76,9 @@ public class ClientCommunicator {
 	        ObjectMapper mapper = new ObjectMapper();
 	        if (requestMethod != "GET") {
 		        mapper.writeValue(conn.getOutputStream(), toPost);
+		        System.out.println(mapper.writeValueAsString(toPost));
+		        System.out.printf("this is the cookie: %s\n", cookie);
+		        System.out.printf("this is the gameID: %d\n", gameId);
 	        }
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -92,6 +96,7 @@ public class ClientCommunicator {
 	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
 	        			int index = temp.lastIndexOf("catan.game=") + 11;
 	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
+	        			 System.out.printf("this is the gameID: %d\n", gameId);
 	        		}
 	        		return null;
 	        	}
