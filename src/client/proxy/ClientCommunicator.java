@@ -76,7 +76,7 @@ public class ClientCommunicator {
 	        ObjectMapper mapper = new ObjectMapper();
 	        if (requestMethod != "GET") {
 		        mapper.writeValue(conn.getOutputStream(), toPost);
-		        // System.out.println(mapper.writeValueAsString(toPost));
+		        System.out.println(mapper.writeValueAsString(toPost));
 		        // System.out.printf("this is the cookie: %s\n", cookie);
 //		        System.out.printf("this is the gameID: %d\n", gameId);
 	        }

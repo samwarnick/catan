@@ -529,6 +529,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		public void ModelChanged() {
 			System.out.println("Current Turn: " + GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
 			System.out.println("PlayerID: " +ModelController.getInstance().getClientPlayer().toString());
+			System.out.println("THIS IS THE STATUS" + GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus());
 			if (ModelController.getInstance().getClientPlayer() != null){
 
 				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()){

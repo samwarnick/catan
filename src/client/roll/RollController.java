@@ -6,6 +6,8 @@ import server.ServerException;
 import shared.communication.input.move.RollNumberInput;
 import shared.model.GameModelFacade;
 import client.base.*;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import client.proxy.ProxyServer;
 
 
@@ -25,7 +27,7 @@ public class RollController extends Controller implements IRollController {
 	public RollController(IRollView view, IRollResultView resultView) {
 
 		super(view);
-		
+		ModelController.getInstance().addListener(modelListener);
 		setResultView(resultView);
 	}
 	
@@ -47,15 +49,23 @@ public class RollController extends Controller implements IRollController {
 		int  diceTotal = rand.nextInt(6) + rand.nextInt(6) + 2;
 		int currentPlayerIndex = GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn();
 		RollNumberInput input = new RollNumberInput(currentPlayerIndex ,diceTotal);
-		try {
-			ProxyServer.getInstance().rollNumber(input);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ModelController.getInstance().rollDice(input);
 		getResultView().setRollValue(diceTotal);
 		getResultView().showModal();
 	}
+	
+	private ModelControllerListener modelListener = new ModelControllerListener() {
+
+		@Override
+		public void ModelChanged() {
+			if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus().equals("Rolling") 
+					&& ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() == GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn()){
+				if (!getRollView().isModalShowing())
+					getRollView().showModal();
+			}
+			
+		}
+	};
 
 }
 

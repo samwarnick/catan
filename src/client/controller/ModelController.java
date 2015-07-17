@@ -115,6 +115,14 @@ public class ModelController {
 
 	}
 	
+	public void rollDice(RollNumberInput input){
+		try {
+			updateGame(ProxyServer.getInstance().rollNumber(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void domesticTrade(AcceptTradeInput input){
 		try {
 			updateGame(ProxyServer.getInstance().acceptTrade(input));
