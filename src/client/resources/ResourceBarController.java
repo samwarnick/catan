@@ -5,11 +5,8 @@ import java.util.*;
 import client.base.*;
 import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
-import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-import shared.model.bank.BankException;
 import shared.model.bank.PlayerBank;
-import shared.model.bank.ResourceHand;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 
@@ -152,6 +149,11 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
 			} else {
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+			}
+			if (clientPlayer.getPlayerFacade().canPlayCard()) {
+				getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
+			} else {
+				getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
 			}
 		}
 	}

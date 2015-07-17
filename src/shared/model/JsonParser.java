@@ -15,6 +15,7 @@ import client.communication.LogEntry;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.domestic.Trade;
+import client.proxy.ProxyServer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -96,6 +97,7 @@ public class JsonParser {
 		gameModel.setLogs(logs);
 		gameModel.setChats(chats);
 		gameModel.setGameVersion(version);
+		gameModel.setGameID(ProxyServer.getInstance().getGameId());
 			
 		return gameModel;
 	}

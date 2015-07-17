@@ -150,37 +150,6 @@ public class ModelController {
 		}
 	}
 	
-//	@Override
-//	public GameModel getGameModelVersion(GameModelVersionInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
-//	}
-//
-//	 
-//	public GameModel resetGame(GameResetInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public List<String> getGameCommands(GameCommandsGetInput input)
-//			throws ServerException {
-//		// TODO
-//		return null;
-//	}
-//
-//	 
-//	public GameModel postGameCommands(GameCommandsPostInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public boolean changeLogLevel(UtilChangeLogLevelInput input)
-//			throws ServerException {
-//		clientCommunicator.post(input, "POST");
-//		return true;
-//	}
-//
 	public void sendChat(SendChatInput input){
 		try {
 			updateGame(ProxyServer.getInstance().sendChat(input));
@@ -188,24 +157,7 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-//
-//	 
-//	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel discardCards(DiscardCardsInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel rollNumber(RollNumberInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
+	
 	public void buildRoad(BuildRoadInput input) {
 		try {
 			updateGame(ProxyServer.getInstance().buildRoad(input));
@@ -231,23 +183,7 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-//
-//	 
-//	public GameModel offerTrade(OfferTradeInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//
-//	 
-//	public GameModel robPlayer(RobPlayerInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel finishTurn(FinishTurnInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
+
 	public void buyDevCard() {
 		BuyDevCardInput input = new BuyDevCardInput(PlayerID);
 		try {
@@ -256,16 +192,7 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-//	 
-//	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
-//	 
-//	public GameModel playSoldier(PlaySoldierInput input) throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
+
 	public void playYearOfPlenty(ResourceType resource1, ResourceType resource2) {
 		PlayYearOfPlentyInput input = new PlayYearOfPlentyInput(PlayerID, resource1, resource2);
 		try {
@@ -274,13 +201,7 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-//
-//	 
-//	public GameModel playRoadBuilding(PlayRoadBuildingInput input)
-//			throws ServerException {
-//		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-//	}
-//
+
 	public void playMonopoly(ResourceType resource) {
 		PlayMonopolyInput input = new PlayMonopolyInput(PlayerID, resource.toString().toLowerCase());
 		try {
@@ -298,14 +219,6 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-//	
-//	public int getPlayerId(){
-//		return clientCommunicator.getPlayerId();
-//	}
-//	
-//	public int getGameId(){
-//		return clientCommunicator.getGameId();
-//	}
 	
 	public void notifyListeners(){
 		for(ModelControllerListener M: listeners){
