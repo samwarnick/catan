@@ -532,7 +532,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			System.out.println("THIS IS THE STATUS" + GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus());
 			if (ModelController.getInstance().getClientPlayer() != null){
 
-				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()){
+				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() 
+						&& GameModelFacade.getInstance().getGameModel().getPlayers().get(3) != null){
 					getTradeView().enableDomesticTrade(true);
 				}
 				else

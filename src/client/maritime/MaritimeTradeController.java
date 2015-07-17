@@ -96,8 +96,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void cancelTrade() {
 		//resets the values
-		unsetGetValue();
-		unsetGiveValue();
+		getTradeOverlay().reset();
 		getTradeOverlay().closeModal();
 	}
 
@@ -190,7 +189,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private ModelControllerListener modelListener = new ModelControllerListener() {
 		@Override
 		public void ModelChanged(){
-			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
+			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null
+					&& GameModelFacade.getInstance().getGameModel().getPlayers().get(3) != null){
 					getTradeView().enableMaritimeTrade(true);
 				}
 				else
