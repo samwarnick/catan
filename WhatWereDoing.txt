@@ -1,7 +1,24 @@
-Spencer:  Maritime trade, Domestic Trade
-Isaac:  Login, game history, chat, game hub
-Matt:  THE MAP
-Jordan: roll, turn tracker, player waiting, join game.
-Sam: Dev Card, discard, resource bar
+Spencer: Roll
+Isaac: Game hub
+Matt: 
+Jordan: Game hub, turn tracker
+Sam: 
 
 TODO:
+
+Roll
+TurnTracker
+PlayerWaiting
+JoinGame
+Maritime trade
+Domestic Trade
+
+"FINISHED": (Need testing)
+
+ResourceController
+DiscardController
+DevCardController
+Login
+Chat
+GameHistory
+TheMap
