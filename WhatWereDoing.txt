@@ -2,7 +2,7 @@ Spencer: Roll
 Isaac: Game hub
 Matt: 
 Jordan: Game hub, turn tracker
-Sam: 
+Sam: ModelController set active player facade 
 
 TODO:
 
@@ -16,7 +16,7 @@ Domestic Trade
 "FINISHED": (Need testing)
 
 ResourceController
-DiscardController
+DiscardController // implement listener update model
 DevCardController
 Login
 Chat
