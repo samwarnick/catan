@@ -26,8 +26,10 @@ public class ModelController {
 	private DiscardController discardController;
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
+	private Player clientPlayer;
 
 	private int PlayerID;
+	private String playerName;
 	private static ModelController instance = null;
 	private boolean testing = false;
 	
@@ -48,7 +50,7 @@ public class ModelController {
 	}
 	
 	public void startPoller(){
-		poller = new Poller(this);
+		poller = new Poller();
 	}
 	
 	public void startGame(List<Player> players, boolean randomHexes, boolean randomNumbers, boolean randomPorts){
@@ -84,6 +86,16 @@ public class ModelController {
 		notifyListeners();
 		
 	}
+	
+	
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 
 	public int getPlayerID() {
 		return PlayerID;
@@ -102,7 +114,10 @@ public class ModelController {
 	}
 	
 	public Player getClientPlayer() {
-		return gameModelFacade.getGameModel().getPlayer(new PlayerID(PlayerID));
+		if (clientPlayer == null){
+			clientPlayer = gameModelFacade.getGameModel().getPlayer(playerName);
+		}
+		return clientPlayer;
 	}
 	
 	public void maritimeTrade(MaritimeTradeInput input){

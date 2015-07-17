@@ -39,4 +39,11 @@ public class PlayerID {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "PlayerID [playerid=" + playerid + "]";
+	}
+	
+	
 }

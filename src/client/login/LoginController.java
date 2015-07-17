@@ -1,6 +1,7 @@
 package client.login;
 
 import client.base.*;
+import client.controller.ModelController;
 import client.misc.*;
 import client.proxy.ProxyServer;
 
@@ -100,6 +101,7 @@ public class LoginController extends Controller implements ILoginController {
 		}
 		// If log in succeeded
 		if(success){
+			ModelController.getInstance().setPlayerName(getLoginView().getLoginUsername());
 		getLoginView().closeModal();
 		loginAction.execute();
 		}

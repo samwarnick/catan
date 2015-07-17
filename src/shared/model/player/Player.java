@@ -184,4 +184,13 @@ public class Player {
 	public boolean getHasDiscarded() {
 		return hasDiscared;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Player [color=" + color + ", name=" + name + ", playerID="
+				+ playerID + "]";
+	}
+	
+	
 }

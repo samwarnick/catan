@@ -10,6 +10,7 @@ import shared.definitions.CatanColor;
 import shared.model.GameModelFacade;
 import shared.model.board.PlayerID;
 import client.base.*;
+import client.controller.ModelController;
 import client.data.*;
 import client.misc.*;
 import client.proxy.ProxyServer;
@@ -174,6 +175,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void joinGame(CatanColor color) {
 		int gameID = GameModelFacade.getInstance().getGameModel().getGameID();
+		System.out.println("THIS IS THE GAME ID: " + gameID);
 		GamesJoinInput input = new GamesJoinInput(gameID, color);
 		try {
 			if(ProxyServer.getInstance().joinGame(input))
@@ -184,6 +186,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 				getSelectColorView().setColorEnabled(color, false);
 				getSelectColorView().closeModal();
 				getJoinGameView().closeModal();
+				ModelController.getInstance().startPoller();
 				joinAction.execute();
 			}
 		} catch (ServerException e) {

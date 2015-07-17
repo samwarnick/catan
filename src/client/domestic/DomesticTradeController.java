@@ -96,13 +96,13 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void startTrade() {
 		List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-		playerinfos = new PlayerInfo[4];
+		playerinfos = new PlayerInfo[players.size()];
 		for (int i = 0;i < players.size();i++){
 			Player player = players.get(i);
 			playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
 		}
 		tradeOverlay.setPlayers(playerinfos);
-		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
+		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
 		playerSheep = thisPlayer.getPlayerBank().getSheep().getQuantity();
@@ -544,21 +544,24 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		@Override
 		public void ModelChanged() {
-			System.out.println("I'm in the domestic");
-			System.out.println(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
+			System.out.println("Current Turn: " + GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
+			System.out.println("PlayerID: " +ModelController.getInstance().getClientPlayer().toString());
 
 			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
 
-				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
+				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()){
 					getTradeView().enableDomesticTrade(true);
 				}
 				else
 					getTradeView().enableDomesticTrade(false);
-				if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
-					System.out.println("I'm starting it!");
-					startTradeAnswer();
-					
+				if (GameModelFacade.getInstance().getGameModel().getTrade() != null){
+					if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
+						System.out.println("I'm starting it!");
+						startTradeAnswer();
+						
+					}
 				}
+				
 			}
 			
 					
