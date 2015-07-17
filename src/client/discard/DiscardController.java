@@ -1,16 +1,18 @@
 package client.discard;
 
 import shared.definitions.*;
+import shared.model.GameModelFacade;
 import shared.model.bank.ResourceHand;
 import client.base.*;
 import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import client.misc.*;
 
 
 /**
  * Discard controller implementation
  */
-public class DiscardController extends Controller implements IDiscardController {
+public class DiscardController extends Controller implements IDiscardController, ModelControllerListener {
 
 	private IWaitView waitView;
 	private ResourceHand toDiscard;
@@ -24,6 +26,7 @@ public class DiscardController extends Controller implements IDiscardController 
 	public DiscardController(IDiscardView view, IWaitView waitView) {
 		
 		super(view);
+		ModelController.getInstance().addListener(this);
 		view.setDiscardButtonEnabled(false);
 		toDiscard = new ResourceHand(0, 0, 0, 0, 0);
 		this.waitView = waitView;
@@ -105,6 +108,23 @@ public class DiscardController extends Controller implements IDiscardController 
 	@Override
 	public void discard() {
 		ModelController.getInstance().discard(toDiscard);
+	}
+
+	@Override
+	public void ModelChanged() {
+		GameModelFacade facade = ModelController.getInstance().getGameModelFacade();
+		if (facade != null) {
+			String status = facade.getGameModel().getTurnTracker().getStatus();
+			if (status.equals("Discarding")) {
+				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().canDiscard()) {
+					// show discard view if they can discard
+					getDiscardView().showModal();
+				} else {
+					// show wait view if they cannot discard
+					getWaitView().showModal();
+				}
+			}
+		}
 	}
 }
 

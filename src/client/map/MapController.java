@@ -3,6 +3,7 @@ package client.map;
 import shared.communication.input.move.*;
 import shared.definitions.*;
 import shared.locations.*;
+import shared.model.GameModelFacade;
 import shared.model.board.*;
 import client.data.*;
 import client.proxy.ProxyServer;
@@ -193,5 +194,14 @@ public class MapController extends client.base.Controller implements IMapControl
 	public void ModelChanged() {
 		initFromModel();
 		
+		GameModelFacade facade = ModelController.getInstance().getGameModelFacade();
+		if (facade != null) {
+			String status = facade.getGameModel().getTurnTracker().getStatus();
+			if (status.equals("Robbing")) {
+				// TODO robView needs more initialization?
+				startMove(PieceType.ROBBER, true, true);
+				getRobView().showModal();
+			}
+		}
 	}
 }

@@ -15,6 +15,7 @@ import shared.model.TooManyPlayersException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
 import shared.model.board.PlayerID;
+import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 
 public class ModelController {
@@ -76,7 +77,17 @@ public class ModelController {
 	}
 
 	public void updateGame(GameModel gameModel){
+		// replace model
 		gameModelFacade.setGameModel(gameModel);
+		
+		// if you are current player, set playerFacade to ActivePlayerFacade
+		Player clientPlayer = getClientPlayer();
+		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
+		Player currentPlayer = gameModelFacade.getGameModel().getPlayers().get(current);
+		if (clientPlayer.getName().equals(currentPlayer.getName())) {
+			System.out.println("I'm active");
+			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
+		}
 		notifyListeners();
 	}
 	

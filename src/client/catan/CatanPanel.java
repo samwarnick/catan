@@ -63,8 +63,8 @@ public class CatanPanel extends JPanel
 		rollView.setController(rollController);
 		rollResultView.setController(rollController);
 		
-		JButton testButton = new JButton("Test");
-		testButton.addActionListener(new ActionListener() {
+//		JButton testButton = new JButton("Test");
+//		testButton.addActionListener(new ActionListener() {
 			
 //			 @Override
 //			 public void actionPerformed(ActionEvent e) {
@@ -86,41 +86,41 @@ public class CatanPanel extends JPanel
 //			 false, false);
 //			 }
 			
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-//				rollView.showModal();
-				
-				Player clientPlayer = ModelController.getInstance().getClientPlayer();
-				if ( clientPlayer != null && clientPlayer.getPlayerFacade().canDiscard()) {
-					
-					PlayerBank bank = clientPlayer.getPlayerBank();
-					int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
-					int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
-					int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
-					int wheat = bank.getResourceStack(ResourceType.WHEAT).getQuantity();
-					int ore = bank.getResourceStack(ResourceType.ORE).getQuantity();
-					
-					discardView = new DiscardView();
-					discardView.setController(new DiscardController(discardView, discardWaitView));
-					
-					discardView.setResourceMaxAmount(ResourceType.WOOD, wood);
-					discardView.setResourceMaxAmount(ResourceType.BRICK, brick);
-					discardView.setResourceMaxAmount(ResourceType.SHEEP, sheep);
-					discardView.setResourceMaxAmount(ResourceType.WHEAT, wheat);
-					discardView.setResourceMaxAmount(ResourceType.ORE, ore);
-
-					discardView.setStateMessage(String.format("%d/%d", 0, ((brick+wood+sheep+wheat+ore)/2)));
-					
-					discardView.showModal();
-				}
-				else 
-				{
-					discardWaitView.showModal();
-				}
-			}
-		});
-		this.add(testButton, BorderLayout.SOUTH);
+//			@Override
+//			public void actionPerformed(ActionEvent e)
+//			{
+////				rollView.showModal();
+//				
+//				Player clientPlayer = ModelController.getInstance().getClientPlayer();
+//				if ( clientPlayer != null && clientPlayer.getPlayerFacade().canDiscard()) {
+//					
+//					PlayerBank bank = clientPlayer.getPlayerBank();
+//					int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
+//					int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
+//					int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
+//					int wheat = bank.getResourceStack(ResourceType.WHEAT).getQuantity();
+//					int ore = bank.getResourceStack(ResourceType.ORE).getQuantity();
+//					
+//					discardView = new DiscardView();
+//					discardView.setController(new DiscardController(discardView, discardWaitView));
+//					
+//					discardView.setResourceMaxAmount(ResourceType.WOOD, wood);
+//					discardView.setResourceMaxAmount(ResourceType.BRICK, brick);
+//					discardView.setResourceMaxAmount(ResourceType.SHEEP, sheep);
+//					discardView.setResourceMaxAmount(ResourceType.WHEAT, wheat);
+//					discardView.setResourceMaxAmount(ResourceType.ORE, ore);
+//
+//					discardView.setStateMessage(String.format("%d/%d", 0, ((brick+wood+sheep+wheat+ore)/2)));
+//					
+//					discardView.showModal();
+//				}
+//				else 
+//				{
+//					discardWaitView.showModal();
+//				}
+//			}
+//		});
+//		this.add(testButton, BorderLayout.SOUTH);
 	}
 	
 }
