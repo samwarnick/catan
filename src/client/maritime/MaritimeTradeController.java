@@ -24,8 +24,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private IMaritimeTradeOverlay tradeOverlay;
 	private ResourceType getResource;
 	private ResourceType giveResource;
-	private int getAmount;
-	private int giveAmount;
+
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
@@ -179,22 +178,30 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		startTrade();
 		getTradeOverlay().setTradeEnabled(false);
 	}
-	
+
 	private ModelControllerListener modelListener = new ModelControllerListener() {
 
 		@Override
 		public void ModelChanged() {
 
-			if (ModelController.getInstance().getClientPlayer() != null){
+			
 
-				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
+			if (ModelController.getInstance().getClientPlayer().getPlayerFacade() != null){
+
+
+
 					getTradeView().enableMaritimeTrade(true);
 				}
 				else
 					getTradeView().enableMaritimeTrade(false);
-			}		
-		}
-	};
+
+				
+				
+			}
+
+	
+		};
+	
 
 }
 

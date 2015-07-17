@@ -88,6 +88,16 @@ public class GameModel {
 		this.players = players;
 	}
 	
+	public Player getPlayer(String playerName){
+		for(Player player : players) {
+			if(player.getName().equals(playerName)) {
+				return player;
+			}
+		}
+		assert false;
+		return null;
+	}
+	
 	public Player getPlayer(PlayerID id) {
 		for(Player player : players) {
 			if(player.getPlayerID().equals(id)) {
@@ -192,6 +202,16 @@ public class GameModel {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "GameModel [gameID=" + gameID + ", gameVersion=" + gameVersion
+				+ ", board=" + board + ", players=" + players
+				+ ", turnTracker=" + turnTracker + ", bank=" + bank
+				+ ", trade=" + trade + "]";
+	}
+	
+	
 	
 	
 }

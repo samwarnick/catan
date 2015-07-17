@@ -103,6 +103,16 @@ public class Trade {
 	public void setReceiver(int receiver) {
 		this.receiver = receiver;
 	}
+	@Override
+	public String toString() {
+		return "Trade [woodStatus=" + woodStatus + ", brickStatus="
+				+ brickStatus + ", sheepStatus=" + sheepStatus
+				+ ", wheatStatus=" + wheatStatus + ", oreStatus=" + oreStatus
+				+ ", woodNum=" + woodNum + ", brickNum=" + brickNum
+				+ ", sheepNum=" + sheepNum + ", wheatNum=" + wheatNum
+				+ ", oreNum=" + oreNum + ", sender=" + sender + ", receiver="
+				+ receiver + "]";
+	}
 	
 	
 	

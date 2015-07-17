@@ -96,13 +96,13 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void startTrade() {
 		List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-		playerinfos = new PlayerInfo[4];
+		playerinfos = new PlayerInfo[players.size()];
 		for (int i = 0;i < players.size();i++){
 			Player player = players.get(i);
 			playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
 		}
 		tradeOverlay.setPlayers(playerinfos);
-		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
+		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
 		playerSheep = thisPlayer.getPlayerBank().getSheep().getQuantity();
@@ -470,7 +470,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void acceptTrade(boolean willAccept) {
-		
+		if (willAccept){
+			//make a method in the main controller to do this...
+		}
 		getAcceptOverlay().closeModal();
 	}
 	
@@ -503,11 +505,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		statuses.add(trade.getWheatStatus());
 		statuses.add(trade.getOreStatus());
 		for (int i = 0;i < statuses.size();i++){
-			if (statuses.get(i) == 1){
-				acceptOverlay.addGetResource(Resources.get(i), amounts.get(i));
+			if (statuses.get(i) == -1){
+				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
-			else if (statuses.get(i) == -1){
-				acceptOverlay.addGiveResource(Resources.get(i), amounts.get(i));
+			else if (statuses.get(i) == 1){
+				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
 		}
 		/*if (trade.getBrickStatus() == 1)
@@ -544,19 +546,24 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		@Override
 		public void ModelChanged() {
-			System.out.println("I'm in the domestic");
+
+			System.out.println("Current Turn: " + GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
+			System.out.println("PlayerID: " +ModelController.getInstance().getClientPlayer().toString());
+
 
 			if (ModelController.getInstance().getClientPlayer() != null){
 
-				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().getClass().equals(new ActivePlayerFacade(new Player()).getClass())){
+				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()){
 					getTradeView().enableDomesticTrade(true);
 				}
 				else
 					getTradeView().enableDomesticTrade(false);
 				if (GameModelFacade.getInstance().getGameModel().getTrade() != null){
+					System.out.println("HERE ARE THE IODS" +ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() + GameModelFacade.getInstance().getGameModel().getTrade().getReceiver());
 					if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
 						System.out.println("I'm starting it!");
-						startTradeAnswer();
+						if (!acceptOverlay.isModalShowing())
+							startTradeAnswer();
 						
 					}
 				}

@@ -11,34 +11,36 @@ import client.proxy.ProxyServer;
 
 public class UpdateGame extends TimerTask{
 
-	private ModelController controller;
 	
-	public UpdateGame(ModelController control){
+	public UpdateGame(){
 		super();
-		controller = control;
 	}
 	
 	@Override
 	public void run() {
+		//System.out.println("POLLING");
 		GameModel serverModel = null;
-		if (controller.isTesting()) {
+		if (ModelController.getInstance().isTesting()) {
 			try {
-				serverModel = MockProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(controller.getGameModelFacade().getGameModel().getGameVersion()));
+				serverModel = MockProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion()));
 			} catch (ServerException e) {
 				e.printStackTrace();
 			}
 		}
 		else {
 			try {
-				serverModel = ProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(controller.getGameModelFacade().getGameModel().getGameVersion()));
+				serverModel = ProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion()));
+				if (serverModel.getTrade() != null)
+					System.out.println(serverModel.getTrade().toString());
 			} catch (ServerException e) {
 				e.printStackTrace();
 			}
 		}
 		if (serverModel != null)
 		{
-			System.out.println(serverModel.getPlayers().size());
-			controller.updateGame(serverModel);
+
+			ModelController.getInstance().updateGame(serverModel);
+
 		}
 	}
 }
