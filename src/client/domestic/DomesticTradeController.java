@@ -3,6 +3,7 @@ package client.domestic;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.communication.input.move.AcceptTradeInput;
 import shared.communication.input.move.OfferTradeInput;
 import shared.definitions.*;
 import shared.model.GameModelFacade;
@@ -41,6 +42,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private Integer wheatStatus = 0;
 	private Integer oreStatus = 0;
 	private PlayerInfo[] playerinfos;
+	private boolean playersSet = false;
 
 	/**
 	 * DomesticTradeController constructor
@@ -93,13 +95,17 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void startTrade() {
-		List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-		playerinfos = new PlayerInfo[players.size()];
-		for (int i = 0;i < players.size();i++){
-			Player player = players.get(i);
-			playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
+		if (!playersSet){
+			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
+			playerinfos = new PlayerInfo[players.size()];
+			for (int i = 0;i < players.size();i++){
+				Player player = players.get(i);
+				playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
+			}
+			tradeOverlay.setPlayers(playerinfos);
+			playersSet = true;
 		}
-		tradeOverlay.setPlayers(playerinfos);
+		
 		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
@@ -293,6 +299,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
 		System.out.println(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver() + " " + ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
+		tradeOverlay.reset();
 		getWaitOverlay().showModal();
 	}
 
@@ -464,8 +471,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void acceptTrade(boolean willAccept) {
-		if (willAccept){
-		}
+		
+		ModelController.getInstance().domesticTrade(new AcceptTradeInput(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver(), willAccept));
+		System.out.println(willAccept);
 		getAcceptOverlay().closeModal();
 	}
 	
@@ -473,6 +481,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		acceptOverlay.setController(this);
 		acceptOverlay.setPlayerName(GameModelFacade.getInstance().getGameModel().getCurrentPlayer().getName());
 		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
+		playerIndex = thisPlayer.getPlayerID().getPlayerid();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
 		playerSheep = thisPlayer.getPlayerBank().getSheep().getQuantity();
@@ -535,7 +544,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 							startTradeAnswer();
 					}
 				}	
-			}		
+				else{
+					if (getWaitOverlay().isModalShowing())
+						getWaitOverlay().closeModal();
+				}
+			}
+			
 		}
 	};
 

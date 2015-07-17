@@ -115,6 +115,14 @@ public class ModelController {
 
 	}
 	
+	public void domesticTrade(AcceptTradeInput input){
+		try {
+			updateGame(ProxyServer.getInstance().acceptTrade(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void maritimeTrade(MaritimeTradeInput input){
 		try {
 			updateGame(ProxyServer.getInstance().maritimeTrade(input));
