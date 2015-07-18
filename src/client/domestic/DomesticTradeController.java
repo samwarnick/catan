@@ -295,7 +295,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void sendTradeOffer() {
 		//update the server to tell the person to show their overlay
 		GameModelFacade.getInstance().getGameModel().getTurnTracker().setStatus("Trading");
-		ModelController.getInstance().sendTrade(new OfferTradeInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(),new ResourceHand(brickNum * brickStatus,woodNum * woodStatus,sheepNum * sheepStatus,wheatNum * wheatStatus,oreNum * oreStatus),playerIndex));
+		ModelController.getInstance().sendTrade(new OfferTradeInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(),new ResourceHand(brickNum * brickStatus, woodNum * woodStatus,sheepNum * sheepStatus,wheatNum * wheatStatus,oreNum * oreStatus),playerIndex));
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
 		System.out.println(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver() + " " + ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
@@ -478,6 +478,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 	
 	public void startTradeAnswer(){
+		acceptOverlay.reset();
 		acceptOverlay.setController(this);
 		acceptOverlay.setPlayerName(GameModelFacade.getInstance().getGameModel().getCurrentPlayer().getName());
 		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
