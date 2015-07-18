@@ -190,7 +190,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		@Override
 		public void ModelChanged(){
 			if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() 
-					&& GameModelFacade.getInstance().getGameModel().getPlayers().get(3) != null){
+					&& GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus().equals("Playing")){
 					getTradeView().enableMaritimeTrade(true);
 				}
 				else
