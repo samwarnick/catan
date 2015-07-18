@@ -5,6 +5,7 @@ import shared.definitions.*;
 import shared.locations.*;
 import shared.model.GameModelFacade;
 import shared.model.board.*;
+import shared.model.player.Player;
 import client.data.*;
 import client.proxy.ProxyServer;
 import server.ServerException;
@@ -20,6 +21,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	private IRobView robView;
 	private boolean isFree = false;
 	private boolean allowDisconnected = false;
+	private boolean isSettingUp = false;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -91,17 +93,14 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getClientPlayer(), edgeLoc, isFree, allowDisconnected);
+		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getClientPlayer(), edgeLoc, isFree, allowDisconnected, isSettingUp);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getClientPlayer(), vertLoc, isFree, allowDisconnected);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		return ModelController.getInstance().getGameModelFacade().canBuildCity(ModelController.getInstance().getClientPlayer(), vertLoc, isFree, allowDisconnected);
 	}
 
@@ -110,29 +109,39 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {			
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			
-		BuildRoadInput input = new BuildRoadInput(id.getPlayerid(), isFree, edgeLoc);
+		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
+		BuildRoadInput input = new BuildRoadInput(id, isFree, edgeLoc);
 		ModelController.getInstance().buildRoad(input);
 		
 		isFree = false;
 		allowDisconnected = false;
+		if (isSettingUp) {
+//			ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().incrementTurn();
+			FinishTurnInput endInput = new FinishTurnInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
+			try {
+				ProxyServer.getInstance().finishTurn(endInput);
+			} catch (ServerException e) {
+				e.printStackTrace();
+			}
+			isSettingUp = false;
+		}
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			
-		BuildSettlementInput input = new BuildSettlementInput(id.getPlayerid(), isFree, vertLoc);
+		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
+		BuildSettlementInput input = new BuildSettlementInput(id, isFree, vertLoc);
 		ModelController.getInstance().buildSettlement(input);
 		
 		isFree = false;
 		allowDisconnected = false;
+		if (isSettingUp) {
+			startMove(PieceType.ROAD, true, false);
+		}
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
-			
-		BuildCityInput input = new BuildCityInput(id.getPlayerid(), vertLoc);
+		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
+		BuildCityInput input = new BuildCityInput(id, vertLoc);
 		ModelController.getInstance().buildCity(input);
 			
 		isFree = false;
@@ -153,13 +162,11 @@ public class MapController extends client.base.Controller implements IMapControl
 		this.isFree = isFree;
 		this.allowDisconnected = allowDisconnected;
 		
-		
-		PlayerID id = new PlayerID(ModelController.getInstance().getPlayerID());
 		CatanColor color = ModelController.getInstance().getClientPlayer().getColor();
 		
 		boolean canCancel = true;
 		String status = ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getStatus();
-		if (status.equals("First Round") || status.equals("Second Round")) {
+		if (status.equals("FirstRound") || status.equals("SecondRound")) {
 			canCancel = false;
 		}
 		
@@ -177,6 +184,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	
 	public void playRoadBuildingCard() {	
 		startMove(PieceType.ROAD, true, false);
+//		startMove(PieceType.ROAD, true, false);
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
@@ -197,6 +205,18 @@ public class MapController extends client.base.Controller implements IMapControl
 		GameModelFacade facade = ModelController.getInstance().getGameModelFacade();
 		if (facade != null) {
 			String status = facade.getGameModel().getTurnTracker().getStatus();
+			
+			Player clientPlayer = ModelController.getInstance().getClientPlayer();
+			int current = facade.getGameModel().getTurnTracker().getCurrentTurn();
+			Player currentPlayer = facade.getGameModel().getPlayers().get(current);
+
+			
+			if ((status.equals("FirstRound") || status.equals("SecondRound")) && clientPlayer.getName().equals(currentPlayer.getName()) && !isSettingUp) {
+				System.out.println("I'm active and in the mapController and setting up in first two rounds");
+				isSettingUp = true;
+				startMove(PieceType.SETTLEMENT, true, true);
+			}
+			
 			if (status.equals("Robbing")) {
 				// TODO robView needs more initialization?
 				startMove(PieceType.ROBBER, true, true);

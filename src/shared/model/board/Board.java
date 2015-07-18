@@ -281,7 +281,7 @@ public class Board {
 		assert !numIt.hasNext();
 		assert resourceHexes.size() == 18;
 		assert ports.size() == 9;
-		assert waterHexes.size() == 9;
+		assert waterHexes.size() == 18;
 		assert desertHex != null;
 		
 		

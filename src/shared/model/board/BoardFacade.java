@@ -33,7 +33,7 @@ public class BoardFacade {
 	 * @pre none
 	 * @post returns true if there is no existing road at the location and if the player has an adjacent road.  false otherwise
 	 */
-	public boolean canBuildRoad(Player player, EdgeLocation location, boolean allowDisconnected) {
+	public boolean canBuildRoad(Player player, EdgeLocation location, boolean allowDisconnected, boolean isSettingUp) {
 		EdgeLocation ambiguity = location.getAmbiguousEdge();
 		
 		List<Road> roads = board.getRoads();
@@ -45,21 +45,42 @@ public class BoardFacade {
 		}
 		
 		if (!allowDisconnected) {
-			// check for adjacent road belonging to player
-			List<EdgeLocation> edges = location.getAdjacentEdges();
-			List<EdgeLocation> adjacents = location.getAdjacentEdges();
-			for (EdgeLocation edge : edges) {
-				adjacents.add(edge.getAmbiguousEdge());
-			}
-			for (Road road : roads) {
-				for (EdgeLocation adjacentEdge : adjacents) {
-					if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())) {
-						return true;
+			// check for adjacent settlement or city belonging to player
+			List<Vertex> buildings = board.getBuildings();
+			for (Vertex building : buildings) {
+				if (building.getOwner().equals(player.getPlayerID())) {
+					List<EdgeLocation> edges = building.getLocation().getAdjacentEdges();
+					List<EdgeLocation> adjacents = building.getLocation().getAdjacentEdges();
+					for (EdgeLocation edge : edges) {
+						adjacents.add(edge.getAmbiguousEdge());
+					}
+					for (EdgeLocation adjacentEdge : adjacents) {
+						if (adjacentEdge.equals(location)) {
+							return true;
+						}
 					}
 				}
-			} 
+				
+			}
+			
+			if (!isSettingUp) {
+				// check for adjacent road belonging to player
+				List<EdgeLocation> edges = location.getAdjacentEdges();
+				List<EdgeLocation> adjacents = location.getAdjacentEdges();
+				for (EdgeLocation edge : edges) {
+					adjacents.add(edge.getAmbiguousEdge());
+				}
+				for (Road road : roads) {
+					for (EdgeLocation adjacentEdge : adjacents) {
+						if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())) {
+							return true;
+						}
+					}
+				} 
+			}
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/**
@@ -107,8 +128,9 @@ public class BoardFacade {
 					}
 				}
 			} 
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/**
