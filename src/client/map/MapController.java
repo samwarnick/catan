@@ -193,12 +193,13 @@ public class MapController extends client.base.Controller implements IMapControl
 	public void robPlayer(RobPlayerInfo victim) {
 		
 		HexLocation loc = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getRobber().getLocation();
-		RobPlayerInput input = new RobPlayerInput(ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn(), loc, victim.getPlayerIndex());
+		RobPlayerInput input = new RobPlayerInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(), loc, victim.getPlayerIndex());
 		try {
 			ModelController.getInstance().updateGame(ProxyServer.getInstance().robPlayer(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
+		getRobView().closeModal();
 	}
 
 	@Override
@@ -223,7 +224,6 @@ public class MapController extends client.base.Controller implements IMapControl
 			if (status.equals("Robbing")) {
 				// TODO robView needs more initialization?
 				startMove(PieceType.ROBBER, true, true);
-				getRobView().showModal();
 			}
 		}
 	}
