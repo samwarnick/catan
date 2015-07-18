@@ -94,9 +94,9 @@ public class GameModelFacade {
 	 * @pre none
 	 * @post returns true if both the location is valid and the player can build the road otherwise false
 	 */
-	public boolean canBuildRoad(Player player,EdgeLocation location,boolean isFree,boolean allowDisconnected, boolean isSettingUp){
+	public boolean canBuildRoad(Player player,EdgeLocation location,boolean isFree,boolean allowDisconnected, boolean isSettingUp, VertexLocation settlement){
 		return player.getPlayerFacade().canBuildRoad(isFree)
-				&& gameModel.getBoard().getBoardFacade().canBuildRoad(player, location, allowDisconnected, isSettingUp);
+				&& gameModel.getBoard().getBoardFacade().canBuildRoad(player, location, allowDisconnected, isSettingUp, settlement);
 	}
 	/**
 	 * 

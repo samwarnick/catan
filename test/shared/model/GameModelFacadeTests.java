@@ -150,19 +150,19 @@ public class GameModelFacadeTests {
 	@Test
 	public void testCanBuildRoad(){
 		//test whether an inactive player can build a valid road
-		boolean passed = GMF.canBuildRoad(p3, new EdgeLocation(new HexLocation(0,2), EdgeDirection.North), false, false, false);
+		boolean passed = GMF.canBuildRoad(p3, new EdgeLocation(new HexLocation(0,2), EdgeDirection.North), false, false, false, null);
 		assertTrue(!passed);
 		//test whether an active player can build a valid road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthWest), false, false, false);
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthWest), false, false, false, null);
 		assertTrue(passed);
 		//test whether an active player can build an invalid road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthWest), false, false, false);
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.NorthWest), false, false, false, null);
 		assertTrue(!passed);
 		//test whether an active player can build upon an existent road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(1,1), EdgeDirection.North), false, false, false);
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(1,1), EdgeDirection.North), false, false, false, null);
 		assertTrue(!passed);
 		//test whether an active player can build upon his own existent road
-		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.South), false, false, false);
+		passed = GMF.canBuildRoad(p0, new EdgeLocation(new HexLocation(0,0), EdgeDirection.South), false, false, false, null);
 		assertTrue(!passed);
 	}
 	

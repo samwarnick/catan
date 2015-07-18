@@ -65,14 +65,14 @@ public class BoardFacadeTest {
 		hexLocation = new HexLocation(0,1);
 		EdgeLocation locationInvalid = new EdgeLocation(hexLocation, EdgeDirection.South); // not attached to anything
 		
-		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid, false, false));
+		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid, false, false, null));
 		road = new Road(player1.getPlayerID(), locationValid);
 		roads.add(road);
 		board.setRoads(roads);
-		assertFalse(board.getBoardFacade().canBuildRoad(player1, locationValid, false, false));
-		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationValid, false, false));
-		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid2, false, false));
-		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationInvalid, false, false));
+		assertFalse(board.getBoardFacade().canBuildRoad(player1, locationValid, false, false, null));
+		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationValid, false, false, null));
+		assertTrue(board.getBoardFacade().canBuildRoad(player1, locationValid2, false, false, null));
+		assertFalse(board.getBoardFacade().canBuildRoad(player2, locationInvalid, false, false, null));
 	}
 	
 	//if it doesn't boarder any other settlements or cities and is empty

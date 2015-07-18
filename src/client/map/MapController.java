@@ -22,6 +22,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	private boolean isFree = false;
 	private boolean allowDisconnected = false;
 	private boolean isSettingUp = false;
+	private VertexLocation settlement = null;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -93,10 +94,11 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getClientPlayer(), edgeLoc, isFree, allowDisconnected, isSettingUp);
+		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getClientPlayer(), edgeLoc, isFree, allowDisconnected, isSettingUp, settlement);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
+		System.out.println(vertLoc.toString());
 		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getClientPlayer(), vertLoc, isFree, allowDisconnected);
 	}
 
@@ -116,7 +118,6 @@ public class MapController extends client.base.Controller implements IMapControl
 		isFree = false;
 		allowDisconnected = false;
 		if (isSettingUp) {
-//			ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().incrementTurn();
 			FinishTurnInput endInput = new FinishTurnInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
 			try {
 				ProxyServer.getInstance().finishTurn(endInput);
@@ -124,6 +125,7 @@ public class MapController extends client.base.Controller implements IMapControl
 				e.printStackTrace();
 			}
 			isSettingUp = false;
+			settlement = null;
 		}
 	}
 
@@ -135,6 +137,7 @@ public class MapController extends client.base.Controller implements IMapControl
 		isFree = false;
 		allowDisconnected = false;
 		if (isSettingUp) {
+			settlement = vertLoc;
 			startMove(PieceType.ROAD, true, false);
 		}
 	}
