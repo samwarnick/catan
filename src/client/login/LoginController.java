@@ -74,15 +74,12 @@ public class LoginController extends Controller implements ILoginController {
 
 	@Override
 	public void start() {
-		System.out.println("here");
 		getLoginView().showModal();
 	}
 
 	@Override
 	public void signIn() {
-		
-		System.out.println("you got here");
-		
+				
 		boolean success = true;
 		// TODO: log in user
 		if(getLoginView().getLoginUsername().trim().equals("")||

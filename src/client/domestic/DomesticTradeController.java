@@ -247,7 +247,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				if (playerWheat >= wheatNum + 1)
 				{
 					wheatNum++;
-					System.out.println("Player: " + playerWheat + "\nGame: " + wheatNum);
 					tradeOverlay.setResourceAmount(resource, wheatNum.toString());
 				}
 				if (wheatNum == playerWheat){
@@ -298,7 +297,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		ModelController.getInstance().sendTrade(new OfferTradeInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(),new ResourceHand(brickNum * brickStatus, woodNum * woodStatus,sheepNum * sheepStatus,wheatNum * wheatStatus,oreNum * oreStatus),playerIndex));
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
-		System.out.println(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver() + " " + ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
 		tradeOverlay.reset();
 		getWaitOverlay().showModal();
 	}
@@ -473,7 +471,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void acceptTrade(boolean willAccept) {
 		
 		ModelController.getInstance().domesticTrade(new AcceptTradeInput(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver(), willAccept));
-		System.out.println(willAccept);
 		getAcceptOverlay().closeModal();
 	}
 	
@@ -528,9 +525,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		@Override
 		public void ModelChanged() {
-			System.out.println("Current Turn: " + GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
-			System.out.println("PlayerID: " +ModelController.getInstance().getClientPlayer().toString());
-			System.out.println("THIS IS THE STATUS" + GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus());
 			if (ModelController.getInstance().getClientPlayer() != null){
 
 				if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn() == ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() 
@@ -540,9 +534,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				else
 					getTradeView().enableDomesticTrade(false);
 				if (GameModelFacade.getInstance().getGameModel().getTrade() != null){
-					System.out.println("HERE ARE THE IODS" +ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() + GameModelFacade.getInstance().getGameModel().getTrade().getReceiver());
 					if (ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid()==GameModelFacade.getInstance().getGameModel().getTrade().getReceiver()){
-						System.out.println("I'm starting it!");
 						if (!acceptOverlay.isModalShowing())
 							startTradeAnswer();
 					}
