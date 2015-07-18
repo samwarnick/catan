@@ -344,6 +344,10 @@ public class Board {
 		this.resourceHexes = resourceHexes;
 	}
 
+	public Map<HexLocation, ResourceHex> getResourceHexesMap() {
+		return resourceHexesMap;
+	}
+
 	public List<WaterHex> getWaterHexes() {
 		return waterHexes;
 	}
