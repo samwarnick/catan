@@ -122,7 +122,6 @@ public class ModelController {
 	}
 	
 	public Player getClientPlayer() {
-
 		if (clientPlayer == null){
 			clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
 		}
