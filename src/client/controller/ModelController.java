@@ -88,7 +88,7 @@ public class ModelController {
 		
 		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
 		Player currentPlayer = gameModelFacade.getGameModel().getPlayers().get(current);
-		if (clientPlayer.getName().equals(currentPlayer.getName())) {
+		if (clientPlayer!=null && clientPlayer.getName().equals(currentPlayer.getName())) {
 			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 		}
 		
