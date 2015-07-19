@@ -213,5 +213,16 @@ public class HexLocation
 		
 		return false;
 	}
+	
+	public ArrayList<VertexLocation> getVertices() {
+		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
+		vertices.add(new VertexLocation(this, VertexDirection.East));
+		vertices.add(new VertexLocation(this, VertexDirection.NorthEast));
+		vertices.add(new VertexLocation(this, VertexDirection.SouthEast));
+		vertices.add(new VertexLocation(this, VertexDirection.West));
+		vertices.add(new VertexLocation(this, VertexDirection.NorthWest));
+		vertices.add(new VertexLocation(this, VertexDirection.SouthWest));
+		return vertices;
+	}
 }
 

@@ -9,6 +9,10 @@ import shared.model.player.Player;
 import client.data.*;
 import client.proxy.ProxyServer;
 import server.ServerException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
 
@@ -23,6 +27,8 @@ public class MapController extends client.base.Controller implements IMapControl
 	private boolean allowDisconnected = false;
 	private boolean isSettingUp = false;
 	private VertexLocation settlement = null;
+	private boolean isRobbing = false;
+	private HexLocation robber = null;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -98,7 +104,6 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		System.out.println(vertLoc.toString());
 		return ModelController.getInstance().getGameModelFacade().canBuildSettlement(ModelController.getInstance().getClientPlayer(), vertLoc, isFree, allowDisconnected);
 	}
 
@@ -152,9 +157,29 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getRobber().setLocation(hexLoc);
-		getView().placeRobber(hexLoc);
+		robber = hexLoc;
 		
+		ArrayList<PlayerID> playerIDs = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getPlayersOnHex(hexLoc);
+		ArrayList<Player> players = new ArrayList<Player>();
+		for (PlayerID id : playerIDs) {
+			Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id);
+			if (!player.equals(ModelController.getInstance().getClientPlayer()) && ModelController.getInstance().getGameModelFacade().canRobPlayer(player, robber)){
+				players.add(player);
+			}
+		}
+		
+		RobPlayerInfo[] robInfo = new RobPlayerInfo[players.size()];
+		for (int i = 0; i < players.size(); i++) {
+			Player player = players.get(i);
+			RobPlayerInfo info = new RobPlayerInfo();
+			info.setId(player.getPlayerID().getPlayerid());
+			info.setPlayerIndex(player.getPlayerID().getPlayerid());
+			info.setName(player.getName());
+			info.setColor(player.getColor());
+			info.setNumCards(player.getPlayerBank().getNumResourceCards());
+			robInfo[i] = info;
+		}
+		getRobView().setPlayers(robInfo);
 		getRobView().showModal();
 		
 		isFree = false;
@@ -191,14 +216,14 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
-		
-		HexLocation loc = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getRobber().getLocation();
-		RobPlayerInput input = new RobPlayerInput(ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn(), loc, victim.getPlayerIndex());
+		RobPlayerInput input = new RobPlayerInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(), robber, victim.getPlayerIndex());
 		try {
 			ModelController.getInstance().updateGame(ProxyServer.getInstance().robPlayer(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
+		isRobbing = false;
+		robber = null;
 	}
 
 	@Override
@@ -215,15 +240,14 @@ public class MapController extends client.base.Controller implements IMapControl
 
 			
 			if ((status.equals("FirstRound") || status.equals("SecondRound")) && clientPlayer.getName().equals(currentPlayer.getName()) && !isSettingUp) {
-				System.out.println("I'm active and in the mapController and setting up in first two rounds");
 				isSettingUp = true;
 				startMove(PieceType.SETTLEMENT, true, true);
 			}
-			
-			if (status.equals("Robbing")) {
-				// TODO robView needs more initialization?
+			else if (status.equals("Robbing") && !isRobbing) {
+				facade.getGameModel().getTurnTracker().setStatus("Robbing");
+				isRobbing = true;
 				startMove(PieceType.ROBBER, true, true);
-				getRobView().showModal();
+//				getRobView().showModal();
 			}
 		}
 	}

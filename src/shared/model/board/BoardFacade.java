@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import client.controller.ModelController;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -268,4 +269,45 @@ public class BoardFacade {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param location
+	 * @pre none
+	 * @post returns true if this location is a valid resourceHex
+	 */
+	public boolean canPlaceRobber(HexLocation location) {
+		// if robber is already at this location return false
+		if (board.getRobber().getLocation().equals(location)) {
+			return false;
+		}
+		
+		// if location is valid resource hex return true
+		List<ResourceHex> resources = board.getResourceHexes();
+		for (ResourceHex hex : resources) {
+			if (hex.getLocation().equals(location)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<PlayerID> getPlayersOnHex(HexLocation location) {
+		List<VertexLocation> vertices = location.getVertices();
+		List<VertexLocation> allVertices = new ArrayList<VertexLocation>(vertices);
+		for (VertexLocation vertex : vertices) {
+			allVertices.addAll(vertex.getAmbiguousVertices());
+		}
+		
+		ArrayList<PlayerID> players = new ArrayList<PlayerID>();
+		
+		List<Vertex> buildings = board.getBuildings();
+		for (Vertex building : buildings) {
+			for (VertexLocation vertex : allVertices) {
+				if (building.getLocation().equals(vertex)){
+					players.add(building.getOwner());
+				}
+			}
+		}
+		return players;
+	}
 }
