@@ -132,6 +132,17 @@ public class ModelController {
 
 	}
 	
+	// moves
+	
+	public void finishTurn() {
+		FinishTurnInput input = new FinishTurnInput(clientPlayer.getPlayerID().getPlayerid());
+		try {
+			updateGame(ProxyServer.getInstance().finishTurn(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void rollDice(RollNumberInput input){
 		try {
 			updateGame(ProxyServer.getInstance().rollNumber(input));
