@@ -16,7 +16,7 @@ public class Trade {
 	private Integer oreNum = 0;
 	private int sender;
 	private int receiver;
-	public Trade(Integer woodNum,Integer brickNum, Integer sheepNum, Integer wheatNum, Integer oreNum,int sender,int receiver) {
+	public Trade(Integer brickNum,Integer woodNum, Integer sheepNum, Integer wheatNum, Integer oreNum,int sender,int receiver) {
 		super();
 		this.woodStatus = woodNum.compareTo(0);
 		this.brickStatus = brickNum.compareTo(0);

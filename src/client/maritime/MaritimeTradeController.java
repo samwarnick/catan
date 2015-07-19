@@ -87,7 +87,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		//sends the trade to the database and closes the modal window
 		if (getResource != null && giveResource != null)
 			player = ModelController.getInstance().getClientPlayer();
-		ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(player.getPlayerID().getPlayerid(), player.getTradeRatios().getTradeRatio(giveResource).getRatio(), getResource, giveResource));
+		ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(player.getPlayerID().getPlayerid(), player.getTradeRatios().getTradeRatio(giveResource).getRatio(), giveResource, getResource));
 			
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
@@ -102,6 +102,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGetResource(ResourceType resource) {
+		getResource = resource;
+
 		ResourceHand rh = new ResourceHand(resource);
 		//makes sure the bank has that resource and selects it
 		if(ModelController.getInstance().getGameModelFacade().getGameModel().getBank().hasRC(rh))
@@ -122,7 +124,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
-
 		giveResource = resource;
 		Player Currentplayer = ModelController.getInstance().getGameModelFacade().getGameModel().getCurrentPlayer();
 		

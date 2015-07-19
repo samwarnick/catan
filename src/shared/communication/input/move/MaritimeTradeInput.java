@@ -10,14 +10,16 @@ import shared.definitions.ResourceType;
 public class MaritimeTradeInput extends MoveInput {
 
 	private int ratio;
-	private String inputResource = "wood";
-	private String outputResource = "brick";
+	private String inputResource;
+	private String outputResource;
 	private String type = "maritimeTrade";
 	
 	public MaritimeTradeInput(int playerIndex, int ratio, ResourceType inputResource,
 			ResourceType outpurResource) {
 		super("/maritimeTrade", playerIndex);
 		this.ratio = ratio;
+		this.inputResource = inputResource.toString().toLowerCase();
+		this.outputResource = outpurResource.toString().toLowerCase();
 	}
 
 	public int getRatio() {

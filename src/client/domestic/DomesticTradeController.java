@@ -95,6 +95,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void startTrade() {
+		
 		if (!playersSet){
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
 			playerinfos = new PlayerInfo[players.size()];
@@ -105,7 +106,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			tradeOverlay.setPlayers(playerinfos);
 			playersSet = true;
 		}
-		
+		reset();
 		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
@@ -179,7 +180,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		//if it is to send, make sure it can't go above their num.
 		switch (resource){
 		case BRICK:
-			if (brickStatus == -1)
+			if (brickStatus == 1)
 			{
 				if (playerBrick >= brickNum + 1)
 				{
@@ -200,7 +201,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			break;
 		case ORE:
-			if (oreStatus == -1)
+			if (oreStatus == 1)
 			{
 				if (playerOre >= oreNum + 1)
 				{
@@ -221,7 +222,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			break;
 		case SHEEP:
-			if (sheepStatus == -1)
+			if (sheepStatus == 1)
 			{
 				if (playerSheep >= sheepNum + 1)
 				{
@@ -242,7 +243,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			break;
 		case WHEAT:
-			if (wheatStatus == -1)
+			if (wheatStatus == 1)
 			{
 				if (playerWheat >= wheatNum + 1)
 				{
@@ -263,7 +264,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			break;
 		case WOOD:
-			if (woodStatus == -1)
+			if (woodStatus == 1)
 			{
 				if (playerWood >= woodNum + 1)
 				{
@@ -297,7 +298,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		ModelController.getInstance().sendTrade(new OfferTradeInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(),new ResourceHand(brickNum * brickStatus, woodNum * woodStatus,sheepNum * sheepStatus,wheatNum * wheatStatus,oreNum * oreStatus),playerIndex));
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
-		tradeOverlay.reset();
+		reset();
 		getWaitOverlay().showModal();
 	}
 
@@ -326,23 +327,23 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		//changes the gui, and sets the resource to receive
 		switch (resource){
 		case BRICK:
-			brickStatus = 1;
+			brickStatus = -1;
 			tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			break;
 		case ORE:
-			oreStatus = 1;
+			oreStatus = -1;
 			tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			break;
 		case SHEEP:
-			sheepStatus = 1;
+			sheepStatus = -1;
 			tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			break;
 		case WHEAT:
-			wheatStatus = 1;
+			wheatStatus = -1;
 			tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			break;
 		case WOOD:
-			woodStatus = 1;
+			woodStatus = -1;
 			tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			break;
 		default:
@@ -368,35 +369,35 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		//changes the gui and sets the resource to send
 		switch (resource){
 		case BRICK:
-			brickStatus = -1;
+			brickStatus = 1;
 			if (playerBrick > 0)
 				tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			else
 				tradeOverlay.setResourceAmountChangeEnabled(resource, false, false);
 			break;
 		case ORE:
-			oreStatus = -1;
+			oreStatus = 1;
 			if (playerOre > 0)
 				tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			else
 				tradeOverlay.setResourceAmountChangeEnabled(resource, false, false);
 			break;
 		case SHEEP:
-			sheepStatus = -1;
+			sheepStatus = 1;
 			if (playerSheep > 0)
 				tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			else
 				tradeOverlay.setResourceAmountChangeEnabled(resource, false, false);
 			break;
 		case WHEAT:
-			wheatStatus = -1;
+			wheatStatus = 1;
 			if (playerWheat > 0)
 				tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			else
 				tradeOverlay.setResourceAmountChangeEnabled(resource, false, false);
 			break;
 		case WOOD:
-			woodStatus = -1;
+			woodStatus = 1;
 			if (playerWood > 0)
 				tradeOverlay.setResourceAmountChangeEnabled(resource, true, false);
 			else
@@ -463,7 +464,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void cancelTrade() {
 		//change things back to 0.  done by the start trade.
-		getTradeOverlay().reset();
+		reset();
 		getTradeOverlay().closeModal();
 	}
 
@@ -474,8 +475,30 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		getAcceptOverlay().closeModal();
 	}
 	
+	private void reset(){
+		getTradeOverlay().reset();
+		getAcceptOverlay().reset();
+		playerIndex = -1;
+		woodNum = 0;
+		brickNum = 0;
+		sheepNum=0;
+		wheatNum = 0;
+		oreNum = 0;
+		playerWood = 0;
+		playerBrick = 0;
+		playerSheep = 0;
+		playerWheat = 0;
+		playerOre = 0;
+		woodStatus = 0;
+		brickStatus = 0;
+		sheepStatus = 0;
+		wheatStatus = 0;
+		oreStatus = 0;
+		
+	}
+	
 	public void startTradeAnswer(){
-		acceptOverlay.reset();
+		reset();
 		acceptOverlay.setController(this);
 		acceptOverlay.setPlayerName(GameModelFacade.getInstance().getGameModel().getCurrentPlayer().getName());
 		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
@@ -505,10 +528,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		statuses.add(trade.getWheatStatus());
 		statuses.add(trade.getOreStatus());
 		for (int i = 0;i < statuses.size();i++){
-			if (statuses.get(i) == -1){
+			if (statuses.get(i) == 1){
 				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
-			else if (statuses.get(i) == 1){
+			else if (statuses.get(i) == -1){
 				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
 		}
