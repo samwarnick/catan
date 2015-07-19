@@ -304,7 +304,9 @@ public class BoardFacade {
 		for (Vertex building : buildings) {
 			for (VertexLocation vertex : allVertices) {
 				if (building.getLocation().equals(vertex)){
-					players.add(building.getOwner());
+					if (!players.contains(building.getOwner())) {
+						players.add(building.getOwner());
+					}
 				}
 			}
 		}

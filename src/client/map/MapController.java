@@ -242,7 +242,7 @@ public class MapController extends client.base.Controller implements IMapControl
 				startMove(PieceType.SETTLEMENT, true, true);
 			}
 
-			else if (status.equals("Robbing") && !isRobbing) {
+			else if (status.equals("Robbing") && clientPlayer.getName().equals(currentPlayer.getName()) && !isRobbing) {
 				facade.getGameModel().getTurnTracker().setStatus("Robbing");
 				isRobbing = true;
 				startMove(PieceType.ROBBER, true, true);
