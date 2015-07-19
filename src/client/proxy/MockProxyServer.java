@@ -8,14 +8,14 @@ import client.data.GameInfo;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import client.data.GameInfo;
-import server.IServer;
+import server.IServerFacade;
 import server.ServerException;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.model.GameModel;
 import shared.model.JsonParser;
 
-public class MockProxyServer implements IServer {
+public class MockProxyServer implements IServerFacade {
 
 	private GameModel model;
 	private static MockProxyServer instance = null;

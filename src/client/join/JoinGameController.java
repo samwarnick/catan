@@ -116,7 +116,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			}
 			getJoinGameView().setGames(gameArray, localPlayer);
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		getJoinGameView().showModal();
@@ -124,13 +123,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void startCreateNewGame() {
-		//add stuff?
 		getNewGameView().showModal();
 	}
 
 	@Override
 	public void cancelCreateNewGame() {
-		//add stuff?
 		getNewGameView().closeModal();
 	}
 
@@ -144,13 +141,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		try {
 			if(ProxyServer.getInstance().createGame(input) != null)
 			{
-//				PlayerID playerId = new PlayerID(GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn());
-//	            getNewGameView().closeModal();
-//	            PlayerInfo localPlayer = new PlayerInfo();
-//	    		localPlayer.setColor(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getColor());
-//	    		//localPlayer.setId(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).get);  userId
-//	    		localPlayer.setName(GameModelFacade.getInstance().getGameModel().getPlayer(playerId).getName());
-//	    		localPlayer.setPlayerIndex(playerId.getPlayerid());
 	    		GamesListInput gamesListInput = new GamesListInput();
 	    		List<GameInfo> gamesList = ProxyServer.getInstance().listGames(gamesListInput);
 	    		GameInfo[] games = new GameInfo[gamesList.size()];
@@ -161,7 +151,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	    		getNewGameView().closeModal();
 			}
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

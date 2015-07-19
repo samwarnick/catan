@@ -12,7 +12,7 @@ import shared.model.GameModel;
  * @author samwarnick
  * All inputs contain the method they are calling (i.e. /user/login)
  */
-public interface IServer {
+public interface IServerFacade {
 
 	// USER
 	

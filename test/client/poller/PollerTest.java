@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import server.IServer;
+import server.IServerFacade;
 import shared.model.GameModel;
 import client.controller.ModelController;
 
 public class PollerTest {
 	boolean changed = false;
-	IServer proxy;
+	IServerFacade proxy;
 	ModelController controller;
 	
 	@Test

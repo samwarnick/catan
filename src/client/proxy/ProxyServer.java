@@ -14,7 +14,7 @@ import shared.communication.input.move.*;
 import shared.model.GameModel;
 import shared.model.JsonParser;
 
-public class ProxyServer implements IServer {
+public class ProxyServer implements IServerFacade {
 
 	private static ClientCommunicator clientCommunicator = null;
 	private static ProxyServer instance = null;

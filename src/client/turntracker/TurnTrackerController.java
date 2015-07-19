@@ -107,14 +107,23 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
+			if (phase == Phase.first) {
+				initializePlayers(players);
+			}
 			updatePlayers(players, clientPlayer, currentPlayerIndex);
+		}
+	}
+	
+	private void initializePlayers(List<Player> players) {
+		for (int i = 0; i < players.size(); i++) {
+			Player p = players.get(i);
+			getView().initializePlayer(i, p.getName(), p.getColor());
 		}
 	}
 	
 	private void updatePlayers(List<Player> players, Player clientPlayer, int currentPlayerIndex) {
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
-			getView().initializePlayer(i, p.getName(), p.getColor());
 			int victoryPoints = p.getVictoryPoints().getPublicVictoryPoints();
 			if (clientPlayer.getName().equals(p.getName())) {
 				victoryPoints = p.getVictoryPoints().getTotalVictoryPoints();

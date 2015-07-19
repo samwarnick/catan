@@ -101,7 +101,6 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 		try {
 			games = convert(ProxyServer.getInstance().listGames(new GamesListInput()));
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -121,11 +120,10 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 				int count = 0;
 				for (int j = 0; j < game.getPlayers().size(); j++) {
 					if (game.getPlayers().get(j) != null) {
-						if (j < game.getPlayers().size() - 1) {
-							players = players + game.getPlayers().get(j).getName() + ", ";
-						} else {
-							players = players + game.getPlayers().get(j).getName();
-						}
+						players = players + game.getPlayers().get(j).getName();
+						if (j < game.getPlayers().size() - 1 && game.getPlayers().get(j+1) != null) {
+							players = players + ", ";
+						} 
 						count++;
 					}
 				}
