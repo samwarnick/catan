@@ -63,7 +63,6 @@ public class ClientCommunicator {
 	public JsonNode post(Input toPost, String requestMethod) throws ServerException {
 		try {
 			String method = toPost.getMethod();
-			// System.out.println(method);
 	        URL url;
 			url = new URL(URLPrefix + method);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -76,9 +75,6 @@ public class ClientCommunicator {
 	        ObjectMapper mapper = new ObjectMapper();
 	        if (requestMethod != "GET") {
 		        mapper.writeValue(conn.getOutputStream(), toPost);
-		        System.out.println(mapper.writeValueAsString(toPost));
-		        // System.out.printf("this is the cookie: %s\n", cookie);
-//		        System.out.printf("this is the gameID: %d\n", gameId);
 	        }
 	        conn.getOutputStream().close();
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -89,7 +85,6 @@ public class ClientCommunicator {
 	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
 	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
 	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
-//	        			System.out.printf("this is the playerID: %d\n", playerId);
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
@@ -97,7 +92,6 @@ public class ClientCommunicator {
 	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
 	        			int index = temp.lastIndexOf("catan.game=") + 11;
 	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
-//	        			System.out.printf("this is the gameID: %d\n", gameId);
 	        		}
 	        		return null;
 	        	}

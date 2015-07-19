@@ -168,8 +168,8 @@ public class GameModelFacade {
 	 * @post returns true if the location is a new one for the robber otherwise false and current turn status is Robbing
 	 */
 	public boolean canPlaceRobber(HexLocation location) {
-		return gameModel.getBoard().getRobber().getLocation().equals(location)
-				&& gameModel.getTurnTracker().getStatus().equals("Robbing");
+		return gameModel.getBoard().getBoardFacade().canPlaceRobber(location);
+//				&& gameModel.getTurnTracker().getStatus().equals("Robbing");
 	}
 	/**
 	 * 
@@ -206,8 +206,6 @@ public class GameModelFacade {
 			if(p == null) {
 				return false;
 			}
-			// System.out.println(p.getName());
-			// System.out.println("I'm in the GMF");
 		}
 		
 		return true;

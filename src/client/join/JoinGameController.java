@@ -171,35 +171,27 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		gameInfo = game;
 		GamesListInput gameIn = new GamesListInput();
 		List<client.data.GameInfo> gameList;
-		System.out.println("startJoinGame");
 		try {
 			gameList = ProxyServer.getInstance().listGames(gameIn);
 			int gameIndex =  game.getId();
 	        List<PlayerInfo> players = new ArrayList<PlayerInfo>();
 	        players = gameList.get(gameIndex).getPlayers();
-	        System.out.println(players.size());
 			for(PlayerInfo p: players)
 			{
-				System.out.println("looping");
 				if(p != null)
 				{
 					if(!p.getName().equals(ModelController.getInstance().getPlayerName())) 
 					//always returns the same persons ID/ how do i get the current player's id
 					{
-						System.out.println(ModelController.getInstance().getPlayerName());
-						System.out.println(p.getName());
-						System.out.println(p.getColor().toString());
 						CatanColor color = p.getColor();
 						getSelectColorView().setColorEnabled(color, false);
 					}
 				}
 			}
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
        
-		System.out.println("out of loop");
 		getSelectColorView().showModal();
 	}
 
@@ -212,7 +204,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public void joinGame(CatanColor color) {
 
 		int gameID = GameModelFacade.getInstance().getGameModel().getGameID();
-		System.out.println("THIS IS THE GAME ID: " + gameID);
 
 		GamesJoinInput input = new GamesJoinInput(gameInfo.getId(), color);
 
@@ -229,7 +220,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 				joinAction.execute();
 			}
 		} catch (ServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

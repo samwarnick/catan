@@ -71,7 +71,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	        	{
 	        		count++;
 	        		playerInfos.add(p);
-	        		System.out.println(p.getName());
 	        	}
 	        }
 	        numberOfCurrentPlayers = count;
