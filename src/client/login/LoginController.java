@@ -143,6 +143,7 @@ public class LoginController extends Controller implements ILoginController {
 		// If register succeeded
 		if(success){
 			getLoginView().closeModal();
+			ModelController.getInstance().setPlayerName(this.getLoginView().getRegisterUsername().trim());
 			loginAction.execute();
 			}
 		else{

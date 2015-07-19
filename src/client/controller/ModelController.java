@@ -88,7 +88,7 @@ public class ModelController {
 		
 		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
 		Player currentPlayer = gameModelFacade.getGameModel().getPlayers().get(current);
-		if (clientPlayer.getName().equals(currentPlayer.getName())) {
+		if (clientPlayer!=null && clientPlayer.getName().equals(currentPlayer.getName())) {
 			clientPlayer.setPlayerFacade(new ActivePlayerFacade(clientPlayer));
 		}
 		
@@ -122,7 +122,6 @@ public class ModelController {
 	}
 	
 	public Player getClientPlayer() {
-
 		if (clientPlayer == null){
 			clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
 		}
@@ -131,6 +130,17 @@ public class ModelController {
 		}
 		return clientPlayer;
 
+	}
+	
+	// moves
+	
+	public void finishTurn() {
+		FinishTurnInput input = new FinishTurnInput(clientPlayer.getPlayerID().getPlayerid());
+		try {
+			updateGame(ProxyServer.getInstance().finishTurn(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void rollDice(RollNumberInput input){

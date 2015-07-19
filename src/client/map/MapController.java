@@ -194,7 +194,7 @@ public class MapController extends client.base.Controller implements IMapControl
 		
 		boolean canCancel = true;
 		String status = ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getStatus();
-		if (status.equals("FirstRound") || status.equals("SecondRound")) {
+		if (status.equals("FirstRound") || status.equals("SecondRound") || status.equals("Robbing")) {
 			canCancel = false;
 		}
 		
@@ -212,7 +212,6 @@ public class MapController extends client.base.Controller implements IMapControl
 	
 	public void playRoadBuildingCard() {	
 		startMove(PieceType.ROAD, true, false);
-//		startMove(PieceType.ROAD, true, false);
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
@@ -237,12 +236,12 @@ public class MapController extends client.base.Controller implements IMapControl
 			Player clientPlayer = ModelController.getInstance().getClientPlayer();
 			int current = facade.getGameModel().getTurnTracker().getCurrentTurn();
 			Player currentPlayer = facade.getGameModel().getPlayers().get(current);
-
 			
 			if ((status.equals("FirstRound") || status.equals("SecondRound")) && clientPlayer.getName().equals(currentPlayer.getName()) && !isSettingUp) {
 				isSettingUp = true;
 				startMove(PieceType.SETTLEMENT, true, true);
 			}
+
 			else if (status.equals("Robbing") && !isRobbing) {
 				facade.getGameModel().getTurnTracker().setStatus("Robbing");
 				isRobbing = true;

@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import client.base.IAction;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
+import shared.model.player.Player;
 
 
 @SuppressWarnings("serial")

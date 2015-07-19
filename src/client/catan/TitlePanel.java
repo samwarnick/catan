@@ -4,10 +4,13 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import shared.definitions.*;
+import shared.model.player.Player;
 
 @SuppressWarnings("serial")
-public class TitlePanel extends JPanel
+public class TitlePanel extends JPanel implements ModelControllerListener
 {
 	private JLabel titleLabel;
 	
@@ -24,12 +27,24 @@ public class TitlePanel extends JPanel
 		titleLabel.setFont(newFont);
 		
 		this.add(titleLabel, BorderLayout.CENTER);
+		
+		ModelController.getInstance().addListener(this);
 	}
 	
 	public void setLocalPlayerColor(CatanColor value)
 	{
 		this.setBackground(value.getJavaColor());
 		titleLabel.setBackground(value.getJavaColor());
+	}
+
+	@Override
+	public void ModelChanged() {
+		Player clientPlayer = ModelController.getInstance().getClientPlayer();
+		if ( clientPlayer != null) {
+			Color color = clientPlayer.getColor().getJavaColor();
+			setBackground(color);
+			titleLabel.setBackground(color);
+		}
 	}
 	
 }
