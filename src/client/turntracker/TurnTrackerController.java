@@ -1,19 +1,18 @@
 package client.turntracker;
 
-import server.ServerException;
-import shared.communication.input.move.FinishTurnInput;
 import shared.definitions.CatanColor;
 import shared.model.GameModelFacade;
 import shared.model.board.PlayerID;
 import shared.model.player.Player;
 import client.base.*;
-import client.proxy.ProxyServer;
+import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 
 
 /**
  * Implementation for the turn tracker controller
  */
-public class TurnTrackerController extends Controller implements ITurnTrackerController {
+public class TurnTrackerController extends Controller implements ITurnTrackerController, ModelControllerListener {
 	
 	public enum Phase {first, second, playing, discarding, trading};
 
@@ -25,6 +24,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		super(view);
 		
+		ModelController.getInstance().addListener(this);
+		
 	}
 	
 	@Override
@@ -35,13 +36,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	@Override
 	public void endTurn() {
-		FinishTurnInput input = new FinishTurnInput(currentPlayerIndex);
-		try {
-			ProxyServer.getInstance().finishTurn(input);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ModelController.getInstance().finishTurn();
 		currentPlayerIndex++;
 		if(currentPlayerIndex == 4)
 		{
@@ -56,7 +51,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 		}
 		initFromModel();
-		getView().updateGameState("Waiting for other players", false);
+		// getView().updateGameState("Waiting for other players", false);
 	}
 	
 	public void changePhase(Phase newPhase)
@@ -76,5 +71,23 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
             CatanColor color = currentPlayer.getColor();
             getView().setLocalPlayerColor(color);
      //   }
+	}
+
+	@Override
+	public void ModelChanged() {
+		Player clientPlayer = ModelController.getInstance().getClientPlayer();
+		if (clientPlayer != null) {
+			currentPlayerIndex = ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn();
+			// set title bar color
+			getView().setLocalPlayerColor(clientPlayer.getColor());
+			
+			// set finish 
+			if (clientPlayer.getPlayerFacade().canFinishTurn()) {
+				getView().updateGameState("Finish Turn", true);
+			}
+			else {
+				getView().updateGameState("Waiting for other Players", false);
+			}
+		}
 	}
 }
