@@ -26,6 +26,7 @@ public class GameModel {
 	private Trade trade;
 	List<LogEntry> logs = new ArrayList<LogEntry>();
 	List<LogEntry>  chats = new ArrayList<LogEntry>();
+	private int winner = -1;
 	
 	public GameModel(int gameID) {
 		this.gameID = gameID;
@@ -151,6 +152,14 @@ public class GameModel {
 
 	public void setTrade(Trade trade) {
 		this.trade = trade;
+	}
+
+	public int getWinner() {
+		return winner;
+	}
+
+	public void setWinner(int winner) {
+		this.winner = winner;
 	}
 
 	@Override

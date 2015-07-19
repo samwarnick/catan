@@ -85,7 +85,7 @@ public class JsonParser {
 		// chat
 		List<LogEntry> chats = parseLog(rootNode.path("chat"), players);	
 		// winner
-		// int winner = rootNode.path("winner").intValue();
+		int winner = rootNode.path("winner").intValue();
 		// version
 		int version = rootNode.path("version").intValue();
 		// set up board
@@ -98,6 +98,7 @@ public class JsonParser {
 		gameModel.setChats(chats);
 		gameModel.setGameVersion(version);
 		gameModel.setGameID(ProxyServer.getInstance().getGameId());
+		gameModel.setWinner(winner);
 			
 		return gameModel;
 	}
