@@ -30,7 +30,6 @@ public class AllTests {
 				"shared.model.bank.BankTest",
 				"shared.model.bank.PlayerBankTest",
 				"shared.model.board.BoardFacadeTest",
-				"shared.model.board.BoardTest",
 				"shared.model.board.RobberTest",
 				"shared.model.player.ActivePlayerFacadeTest",
 				"shared.model.player.CitiesTest",

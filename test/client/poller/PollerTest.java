@@ -17,6 +17,7 @@ public class PollerTest {
 	public void testPost() {
 		controller = ModelController.getInstance();
 		controller.setTesting(true);
+		controller.setPoller(new Poller());
 		GameModel game = new GameModel(3);//version3
 		controller.getGameModelFacade().setGameModel(game);
 		try {

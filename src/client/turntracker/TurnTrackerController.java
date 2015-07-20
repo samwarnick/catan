@@ -21,7 +21,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	int currentPlayerIndex = 0;
 	Phase phase = Phase.first;
-	
+	boolean initialized = false;
 
 	public TurnTrackerController(ITurnTrackerView view) {
 		
@@ -107,8 +107,9 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-			if (phase == Phase.first) {
+			if (!initialized) {
 				initializePlayers(players);
+				initialized = true;
 			}
 			updatePlayers(players, clientPlayer, currentPlayerIndex);
 		}
