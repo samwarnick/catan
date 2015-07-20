@@ -254,15 +254,15 @@ public class GameModelFacadeTests {
 		passed = GMF.canRobPlayer(p1, new HexLocation(1,0));
 		assertTrue(!passed); 
 		passed = GMF.canRobPlayer(p2, new HexLocation(1,0));
-		assertTrue(passed);
+		assertTrue(!passed);
 		passed = GMF.canRobPlayer(p3, new HexLocation(1,0));
-		assertTrue(passed);
+		assertTrue(!passed);
 		//inactive player, invalid hex
 		passed = GMF.canRobPlayer(p2, new HexLocation(2,0));
-		assertTrue(!passed);
+		assertTrue(passed);
 		//inactive player, invalid hex
 		passed = GMF.canRobPlayer(p2, new HexLocation(1,1));
-		assertTrue(!passed);
+		assertTrue(passed);
 		//Change status of turntracker, disabling all robbing
 		GMF.getGameModel().getTurnTracker().setStatus("NotRobbing");
 		//valid players and hexes * 2
