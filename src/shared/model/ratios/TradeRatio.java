@@ -36,7 +36,7 @@ public class TradeRatio {
 			this.ratio = ratio;
 		}
 		else
-			throw new Exception();
+			throw new Exception("Invalid trade ratio");
 	}
 	
 	public String toString() {

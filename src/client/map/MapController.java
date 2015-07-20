@@ -139,6 +139,12 @@ public class MapController extends client.base.Controller implements IMapControl
 		BuildSettlementInput input = new BuildSettlementInput(id, isFree, vertLoc);
 		ModelController.getInstance().buildSettlement(input);
 		
+		
+		
+		ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getRatiosForPlayer(ModelController.getInstance().getClientPlayer());
+		
+		
+		
 		isFree = false;
 		allowDisconnected = false;
 		if (isSettingUp) {
@@ -159,7 +165,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	public void placeRobber(HexLocation hexLoc) {
 		robber = hexLoc;
 		
-		ArrayList<PlayerID> playerIDs = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getPlayersOnHex(hexLoc);
+		List<PlayerID> playerIDs = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getPlayersOnHex(hexLoc);
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (PlayerID id : playerIDs) {
 			Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id);

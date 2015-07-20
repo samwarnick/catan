@@ -2,15 +2,16 @@ package shared.model.board;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 
-import client.controller.ModelController;
+import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.model.player.Player;
+import shared.model.ratios.*;
 /**
  * 
  * @author Spencer Krieger
@@ -291,7 +292,7 @@ public class BoardFacade {
 		return false;
 	}
 	
-	public ArrayList<PlayerID> getPlayersOnHex(HexLocation location) {
+	public List<PlayerID> getPlayersOnHex(HexLocation location) {
 		List<VertexLocation> vertices = location.getVertices();
 		List<VertexLocation> allVertices = new ArrayList<VertexLocation>(vertices);
 		for (VertexLocation vertex : vertices) {
@@ -311,5 +312,68 @@ public class BoardFacade {
 			}
 		}
 		return players;
+	}
+	
+	public TradeRatios getRatiosForPlayer(Player player) {
+		List<PortHex> ports = board.getPorts();
+		List<Vertex> buildings = board.getBuildings();
+		
+		TradeRatios ratios = new TradeRatios();
+		TradeRatio brick = ratios.getTradeRatio(ResourceType.BRICK);
+		TradeRatio ore = ratios.getTradeRatio(ResourceType.ORE);
+		TradeRatio sheep = ratios.getTradeRatio(ResourceType.SHEEP);
+		TradeRatio wheat = ratios.getTradeRatio(ResourceType.WHEAT);
+		TradeRatio wood = ratios.getTradeRatio(ResourceType.WOOD);
+		
+		for (Vertex building : buildings) {
+			if (building.getOwner().equals(player.getPlayerID())) {
+				for (PortHex port : ports) {
+					for (VertexLocation vertex : port.getVertices()) {
+						if (vertex.equals(building.getLocation())) {
+							try {
+								switch (port.getPortType()) {
+								case BRICK:
+									brick.setRatio(2);
+									break;
+								case ORE:
+									ore.setRatio(2);
+									break;
+								case SHEEP:
+									sheep.setRatio(2);
+									break;
+								case WHEAT:
+									wheat.setRatio(2);
+									break;
+								case WOOD:
+									wood.setRatio(2);
+									break;
+								case THREE:
+									if (brick.getRatio() > 3) brick.setRatio(3);
+									if (wheat.getRatio() > 3) wheat.setRatio(3);
+									if (ore.getRatio() > 3) ore.setRatio(3);
+									if (wood.getRatio() > 3) wood.setRatio(3);
+									if (sheep.getRatio() > 3) sheep.setRatio(3);
+									break;
+								default:
+									break;
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return ratios;
+		
+		// create TradeRatios object
+
+		// for each building
+			// if owned by player
+				// for each port get vertices
+				// if same loc as building set trade ratio for type
+		
 	}
 }
