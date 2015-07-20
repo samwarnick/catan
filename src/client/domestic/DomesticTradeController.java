@@ -504,7 +504,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		acceptOverlay.setController(this);
 		acceptOverlay.setPlayerName(GameModelFacade.getInstance().getGameModel().getCurrentPlayer().getName());
 		reset();
-		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid()));
+		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerIndex = thisPlayer.getPlayerID().getPlayerid();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
