@@ -10,6 +10,8 @@ import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.JsonParser;
@@ -199,7 +201,8 @@ public class ModelController {
 		}
 	}
 	
-	public void buildRoad(BuildRoadInput input) {
+	public void buildRoad(boolean isFree, EdgeLocation edgeLoc) {
+		BuildRoadInput input = new BuildRoadInput(PlayerID, isFree, edgeLoc);
 		try {
 			updateGame(ProxyServer.getInstance().buildRoad(input));
 		} catch (ServerException e) {
@@ -208,7 +211,8 @@ public class ModelController {
 	}
 
 	 
-	public void buildSettlement(BuildSettlementInput input) {
+	public void buildSettlement(boolean isFree, VertexLocation vertLoc) {
+		BuildSettlementInput input = new BuildSettlementInput(PlayerID, isFree, vertLoc);
 		try {
 			updateGame(ProxyServer.getInstance().buildSettlement(input));
 		} catch (ServerException e) {
@@ -217,7 +221,8 @@ public class ModelController {
 	}
 
 	 
-	public void buildCity(BuildCityInput input) {
+	public void buildCity(VertexLocation vertLoc) {
+		BuildCityInput input = new BuildCityInput(PlayerID, vertLoc);
 		try  {
 			updateGame(ProxyServer.getInstance().buildCity(input));
 		} catch (ServerException e) {
@@ -243,6 +248,15 @@ public class ModelController {
 		}
 	}
 
+	public void robPlayer(HexLocation loc, int victim) {
+		RobPlayerInput input = new RobPlayerInput(PlayerID, loc, victim);
+		try {
+			updateGame(ProxyServer.getInstance().robPlayer(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void playMonopoly(ResourceType resource) {
 		PlayMonopolyInput input = new PlayMonopolyInput(PlayerID, resource.toString().toLowerCase());
 		try {
@@ -265,6 +279,15 @@ public class ModelController {
 		PlayRoadBuildingInput input = new PlayRoadBuildingInput(PlayerID, road1, road2);
 		try {
 			updateGame(ProxyServer.getInstance().playRoadBuilding(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void playSoldier(HexLocation loc, int victim) {
+		PlaySoldierInput input = new PlaySoldierInput(PlayerID, loc, victim);
+		try {
+			updateGame(ProxyServer.getInstance().playSoldier(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}

@@ -31,6 +31,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	private HexLocation robber = null;
 	private boolean isRoadBuildingCard = false;
 	private EdgeLocation firstRoad = null;
+	private boolean isSoldierCard = false;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -119,9 +120,7 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public void placeRoad(EdgeLocation edgeLoc) {			
 		if (!isRoadBuildingCard) {
-			int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-			BuildRoadInput input = new BuildRoadInput(id, isFree, edgeLoc);
-			ModelController.getInstance().buildRoad(input);
+			ModelController.getInstance().buildRoad(isFree, edgeLoc);
 		}
 		else {
 			if (firstRoad == null) {
@@ -148,15 +147,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-		BuildSettlementInput input = new BuildSettlementInput(id, isFree, vertLoc);
-		ModelController.getInstance().buildSettlement(input);
-		
-		
-		
-		ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getRatiosForPlayer(ModelController.getInstance().getClientPlayer());
-		
-		
+		ModelController.getInstance().buildSettlement(isFree, vertLoc);		
 		
 		isFree = false;
 		allowDisconnected = false;
@@ -167,9 +158,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-		BuildCityInput input = new BuildCityInput(id, vertLoc);
-		ModelController.getInstance().buildCity(input);
+		ModelController.getInstance().buildCity(vertLoc);
 			
 		isFree = false;
 		allowDisconnected = false;			
@@ -227,6 +216,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	
 	public void playSoldierCard() {	
 		isRobbing = true;
+		isSoldierCard = true;
 		startMove(PieceType.ROBBER, true, true);
 	}
 	
@@ -236,11 +226,12 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
-		RobPlayerInput input = new RobPlayerInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(), robber, victim.getPlayerIndex());
-		try {
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().robPlayer(input));
-		} catch (ServerException e) {
-			e.printStackTrace();
+		if (!isSoldierCard) {
+			ModelController.getInstance().robPlayer(robber, victim.getId());
+		}
+		else {
+			ModelController.getInstance().playSoldier(robber, victim.getId());
+			isSoldierCard = false;
 		}
 		isRobbing = false;
 		robber = null;
