@@ -139,8 +139,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         String title = getNewGameView().getTitle();
 		GamesCreateInput input = new GamesCreateInput(title, randomTiles, randomNumbers, randomPorts);
 		try {
-			if(ProxyServer.getInstance().createGame(input) != null)
+			GameInfo newGame = ProxyServer.getInstance().createGame(input);
+			if(newGame != null)
 			{
+				GamesJoinInput joinInput = new GamesJoinInput(newGame.getId(), CatanColor.RED);
+				ProxyServer.getInstance().joinGame(joinInput);
 	    		GamesListInput gamesListInput = new GamesListInput();
 	    		List<GameInfo> gamesList = ProxyServer.getInstance().listGames(gamesListInput);
 	    		GameInfo[] games = new GameInfo[gamesList.size()];
