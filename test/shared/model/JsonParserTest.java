@@ -22,14 +22,11 @@ import shared.model.bank.DevelopmentCard;
 import shared.model.bank.PlayerBank;
 import shared.model.bank.ResourceCard;
 import shared.model.board.Board;
-import shared.model.board.Hex;
-import shared.model.board.PlayerID;
 import shared.model.board.PortHex;
 import shared.model.board.ResourceHex;
 import shared.model.board.Road;
 import shared.model.board.Robber;
 import shared.model.board.Vertex;
-import shared.model.board.WaterHex;
 import shared.model.player.Cities;
 import shared.model.player.LargestArmy;
 import shared.model.player.LongestRoad;
@@ -39,9 +36,7 @@ import shared.model.player.Settlements;
 import shared.model.player.VictoryPoints;
 import shared.model.ratios.TradeRatios;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class JsonParserTest {
@@ -74,6 +69,7 @@ public class JsonParserTest {
 	{
 		//resourceHexes
 		List<ResourceHex> resourceHexes = board.getResourceHexes();
+		assertEquals(18, resourceHexes.size());
 		testResourceHexes(resourceHexes);
 		//portHexes
 		List<PortHex> portHexes = board.getPorts();
@@ -244,9 +240,7 @@ public class JsonParserTest {
 	private void testResourceHexes(List<ResourceHex> resourceHexes)
 	{
 		int i = 0;
-		assertEquals(resourceHexes.get(i).getLocation().getX(), 0);
-		assertEquals(resourceHexes.get(i).getLocation().getY(), -2);
-		i++;
+		
 		assertEquals(resourceHexes.get(i).getLocation().getX(), 1);
 		assertEquals(resourceHexes.get(i).getLocation().getY(), -2);
 		assertEquals(resourceHexes.get(i).getLandType(), HexType.BRICK);
