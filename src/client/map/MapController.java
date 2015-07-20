@@ -103,6 +103,10 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+		if (firstRoad != null) {
+			PlayerID id = ModelController.getInstance().getClientPlayer().getPlayerID();
+			ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getRoads().add(new Road(id, firstRoad));
+		}
 		return ModelController.getInstance().getGameModelFacade().canBuildRoad(ModelController.getInstance().getClientPlayer(), edgeLoc, isFree, allowDisconnected, isSettingUp, settlement);
 	}
 
@@ -121,28 +125,32 @@ public class MapController extends client.base.Controller implements IMapControl
 	public void placeRoad(EdgeLocation edgeLoc) {			
 		if (!isRoadBuildingCard) {
 			ModelController.getInstance().buildRoad(isFree, edgeLoc);
+			
+			isFree = false;
+			allowDisconnected = false;
+			if (isSettingUp) {
+				FinishTurnInput endInput = new FinishTurnInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
+				try {
+					ProxyServer.getInstance().finishTurn(endInput);
+				} catch (ServerException e) {
+					e.printStackTrace();
+				}
+				isSettingUp = false;
+				settlement = null;
+			}
 		}
 		else {
 			if (firstRoad == null) {
 				firstRoad = edgeLoc;
+				getView().placeRoad(edgeLoc, ModelController.getInstance().getClientPlayer().getColor());
+				startMove(PieceType.ROAD, true, false);
 			}
 			else {
 				ModelController.getInstance().playRoadBuilding(firstRoad, edgeLoc);
 				isRoadBuildingCard = false;
+				isFree = false;
+				allowDisconnected = false;
 			}
-		}
-		
-		isFree = false;
-		allowDisconnected = false;
-		if (isSettingUp) {
-			FinishTurnInput endInput = new FinishTurnInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid());
-			try {
-				ProxyServer.getInstance().finishTurn(endInput);
-			} catch (ServerException e) {
-				e.printStackTrace();
-			}
-			isSettingUp = false;
-			settlement = null;
 		}
 	}
 
@@ -202,7 +210,7 @@ public class MapController extends client.base.Controller implements IMapControl
 		
 		boolean canCancel = true;
 		String status = ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getStatus();
-		if (status.equals("FirstRound") || status.equals("SecondRound") || status.equals("Robbing")) {
+		if (status.equals("FirstRound") || status.equals("SecondRound") || status.equals("Robbing") || isRoadBuildingCard) {
 			canCancel = false;
 		}
 		

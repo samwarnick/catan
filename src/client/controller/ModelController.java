@@ -209,7 +209,7 @@ public class ModelController {
 	}
 	
 	public void buildRoad(boolean isFree, EdgeLocation edgeLoc) {
-		BuildRoadInput input = new BuildRoadInput(PlayerID, isFree, edgeLoc);
+		BuildRoadInput input = new BuildRoadInput(clientPlayer.getPlayerID().getPlayerid(), isFree, edgeLoc);
 		try {
 			updateGame(ProxyServer.getInstance().buildRoad(input));
 		} catch (ServerException e) {
@@ -219,7 +219,7 @@ public class ModelController {
 
 	 
 	public void buildSettlement(boolean isFree, VertexLocation vertLoc) {
-		BuildSettlementInput input = new BuildSettlementInput(PlayerID, isFree, vertLoc);
+		BuildSettlementInput input = new BuildSettlementInput(clientPlayer.getPlayerID().getPlayerid(), isFree, vertLoc);
 		try {
 			updateGame(ProxyServer.getInstance().buildSettlement(input));
 		} catch (ServerException e) {
@@ -229,7 +229,7 @@ public class ModelController {
 
 	 
 	public void buildCity(VertexLocation vertLoc) {
-		BuildCityInput input = new BuildCityInput(PlayerID, vertLoc);
+		BuildCityInput input = new BuildCityInput(clientPlayer.getPlayerID().getPlayerid(), vertLoc);
 		try  {
 			updateGame(ProxyServer.getInstance().buildCity(input));
 		} catch (ServerException e) {
@@ -257,7 +257,7 @@ public class ModelController {
 	}
 
 	public void robPlayer(HexLocation loc, int victim) {
-		RobPlayerInput input = new RobPlayerInput(PlayerID, loc, victim);
+		RobPlayerInput input = new RobPlayerInput(clientPlayer.getPlayerID().getPlayerid(), loc, victim);
 		try {
 			updateGame(ProxyServer.getInstance().robPlayer(input));
 		} catch (ServerException e) {
@@ -293,7 +293,7 @@ public class ModelController {
 	}
 	
 	public void playSoldier(HexLocation loc, int victim) {
-		PlaySoldierInput input = new PlaySoldierInput(PlayerID, loc, victim);
+		PlaySoldierInput input = new PlaySoldierInput(clientPlayer.getPlayerID().getPlayerid(), loc, victim);
 		try {
 			updateGame(ProxyServer.getInstance().playSoldier(input));
 		} catch (ServerException e) {
