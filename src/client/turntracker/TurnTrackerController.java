@@ -20,6 +20,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	public enum Phase {first, second, playing, discarding, trading};
 
 	int currentPlayerIndex = 0;
+	int numberOfPlayers = 0;
 	Phase phase = Phase.first;
 	boolean initialized = false;
 
@@ -117,19 +118,25 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 				initializePlayers(players);
 				initialized = true;
 			}
+			else if(numberOfPlayers != 4)
+			{
+				initializePlayers(players);
+			}
 			updatePlayers(players, clientPlayer, currentPlayerIndex);
 		}
 	}
 	
 	private void initializePlayers(List<Player> players) {
+		int count = 0;
 		for (int i = 0; i < players.size(); i++) {
-
 			Player p = players.get(i);
 			if(p != null)
 			{
+				count++;
 				getView().initializePlayer(i, p.getName(), p.getColor());
 			}
 		}
+		numberOfPlayers = count;
 	}
 	
 	private void updatePlayers(List<Player> players, Player clientPlayer, int currentPlayerIndex) {
