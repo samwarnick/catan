@@ -171,10 +171,5 @@
     <target name="make-tester-zip" depends="package" description="makes a zip file for your testing team">
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
-    
-  <target name="make-passoff-zip" depends="package" description="makes a zip file for your testing team">
-    <zip destfile="./passoff.zip" basedir="/" />
-  </target>
-  
 </project>
 
