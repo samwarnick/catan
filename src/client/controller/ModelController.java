@@ -9,8 +9,10 @@ import server.ServerException;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
+import shared.model.JsonParser;
 import shared.model.TooManyPlayersException;
 import shared.model.bank.PlayerBank;
 import shared.model.bank.ResourceHand;
@@ -254,6 +256,15 @@ public class ModelController {
 		PlayMonumentInput input = new PlayMonumentInput(PlayerID);
 		try {
 			updateGame(ProxyServer.getInstance().playMonument(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void playRoadBuilding(EdgeLocation road1, EdgeLocation road2) {
+		PlayRoadBuildingInput input = new PlayRoadBuildingInput(PlayerID, road1, road2);
+		try {
+			updateGame(ProxyServer.getInstance().playRoadBuilding(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}

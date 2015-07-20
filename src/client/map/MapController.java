@@ -29,6 +29,8 @@ public class MapController extends client.base.Controller implements IMapControl
 	private VertexLocation settlement = null;
 	private boolean isRobbing = false;
 	private HexLocation robber = null;
+	private boolean isRoadBuildingCard = false;
+	private EdgeLocation firstRoad = null;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -116,9 +118,20 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {			
-		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-		BuildRoadInput input = new BuildRoadInput(id, isFree, edgeLoc);
-		ModelController.getInstance().buildRoad(input);
+		if (!isRoadBuildingCard) {
+			int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
+			BuildRoadInput input = new BuildRoadInput(id, isFree, edgeLoc);
+			ModelController.getInstance().buildRoad(input);
+		}
+		else {
+			if (firstRoad == null) {
+				firstRoad = edgeLoc;
+			}
+			else {
+				ModelController.getInstance().playRoadBuilding(firstRoad, edgeLoc);
+				isRoadBuildingCard = false;
+			}
+		}
 		
 		isFree = false;
 		allowDisconnected = false;
@@ -213,10 +226,12 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 	
 	public void playSoldierCard() {	
+		isRobbing = true;
 		startMove(PieceType.ROBBER, true, true);
 	}
 	
-	public void playRoadBuildingCard() {	
+	public void playRoadBuildingCard() {
+		isRoadBuildingCard = true;
 		startMove(PieceType.ROAD, true, false);
 	}
 	
@@ -249,7 +264,7 @@ public class MapController extends client.base.Controller implements IMapControl
 			}
 
 			else if (status.equals("Robbing") && clientPlayer.getName().equals(currentPlayer.getName()) && !isRobbing) {
-				facade.getGameModel().getTurnTracker().setStatus("Robbing");
+//				facade.getGameModel().getTurnTracker().setStatus("Robbing");
 				isRobbing = true;
 				startMove(PieceType.ROBBER, true, true);
 //				getRobView().showModal();
