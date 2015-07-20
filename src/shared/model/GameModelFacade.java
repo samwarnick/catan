@@ -210,4 +210,12 @@ public class GameModelFacade {
 		
 		return true;
 	}
+	
+	public Player getWinner() {
+		int winner = gameModel.getWinner();
+		if (winner != -1) {
+			return gameModel.getPlayers().get(winner);
+		}
+		return null;
+	}
 }

@@ -87,6 +87,7 @@ public class ModelController {
 		{
 			clientPlayer = getClientPlayer();
 			PlayerID = clientPlayer.getPlayerID().getPlayerid();
+			playerName = clientPlayer.getName();
 		}
 		
 		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
@@ -126,6 +127,7 @@ public class ModelController {
 	
 	public Player getClientPlayer() {
 		clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
+		System.out.println(clientPlayer.getName());
 		return clientPlayer;
 	}
 	

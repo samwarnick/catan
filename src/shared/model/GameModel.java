@@ -95,7 +95,6 @@ public class GameModel {
 				return player;
 			}
 		}
-		assert false;
 		return null;
 	}
 	

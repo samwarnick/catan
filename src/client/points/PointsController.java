@@ -52,6 +52,17 @@ public class PointsController extends Controller implements IPointsController, M
 		if ( clientPlayer != null) {
 			getPointsView().setPoints(clientPlayer.getVictoryPoints().getTotalVictoryPoints());
 		}
+		Player winner = ModelController.getInstance().getGameModelFacade().getWinner();
+		if (winner != null) {
+			boolean isLocalPlayer = false;
+			if (clientPlayer.getName().equals(winner.getName())) {
+				isLocalPlayer = true;
+			}
+			getFinishedView().setWinner(winner.getName(), isLocalPlayer);
+			if (!getFinishedView().isModalShowing()) {
+				getFinishedView().showModal();
+			}
+		}
 	}
 	
 }
