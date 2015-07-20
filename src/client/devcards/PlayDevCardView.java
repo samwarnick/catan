@@ -158,6 +158,7 @@ public class PlayDevCardView extends OverlayView implements IPlayDevCardView {
 				}
 				else if (devCards.getSelectedDevCard() == DevCardType.YEAR_OF_PLENTY) {
 					closeModal();
+					System.out.println("Playing YofP");
 					getController().playYearOfPlentyCard(resCard1.getSelectedResourceCard(),
 														resCard2.getSelectedResourceCard());
 				}

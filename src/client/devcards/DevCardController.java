@@ -2,7 +2,6 @@ package client.devcards;
 
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-import shared.model.bank.DevelopmentHand;
 import shared.model.player.Player;
 import client.base.*;
 import client.controller.ModelController;
@@ -63,7 +62,6 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
-		
 		
 		Player clientPlayer = ModelController.getInstance().getClientPlayer();
 		if (clientPlayer != null) {
@@ -139,6 +137,8 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
+		System.out.printf("%s:%s", "resource1", resource1.toString());
+		System.out.printf("%s:%s", "resource2", resource2.toString());
 		ModelController.getInstance().playYearOfPlenty(resource1, resource2);
 	}
 

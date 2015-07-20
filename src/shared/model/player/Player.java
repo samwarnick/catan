@@ -26,6 +26,7 @@ public class Player {
 	private TradeRatios tradeRatios;
 	private IPlayerFacade playerFacade;
 	private PlayerID playerID;
+	private int uniqueID;
 	
 	private boolean hasPlayedCard = false;
 	private boolean hasDiscared = false;
@@ -185,16 +186,19 @@ public class Player {
 		return hasDiscared;
 	}
 
+	public int getUniqueID() {
+		return uniqueID;
+	}
 
+	public void setUniqueID(int uniqueID) {
+		this.uniqueID = uniqueID;
+	}
 
 	@Override
 	public String toString() {
 		return "Player [color=" + color + ", name=" + name + ", playerID="
 				+ playerID + "]";
 	}
-	
-	
-
 	
 	public PlayerInfo getPlayerInfo() {
 		return new PlayerInfo(name, color, playerID.getPlayerid());

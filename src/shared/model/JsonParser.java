@@ -320,7 +320,7 @@ public class JsonParser {
 			int monuments = playerNode.path("monuments").intValue();
 			boolean playedDevCard = playerNode.path("playedDevCard").booleanValue();
 			boolean discared = playerNode.path("discared").booleanValue();
-			// int playerID = playerNode.path("playerID").intValue();
+			int uniqueID = playerNode.path("playerID").intValue();
 			int playerIndex = playerNode.path("playerIndex").intValue();
 			String name = playerNode.path("name").textValue();
 			String color = playerNode.path("color").textValue();
@@ -338,6 +338,7 @@ public class JsonParser {
 			player.setVictoryPoints(new VictoryPoints(monuments+victoryPoints, victoryPoints));
 			player.setHasPlayedCard(playedDevCard);
 			player.setHasDiscared(discared);
+			player.setUniqueID(uniqueID);
 			return player;
 		}
 		return null;

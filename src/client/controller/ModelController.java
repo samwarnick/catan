@@ -85,7 +85,7 @@ public class ModelController {
 		// if you are current player, set playerFacade to ActivePlayerFacade
 		if (!testing)
 		{
-			clientPlayer = getClientPlayer();
+			clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
 			PlayerID = clientPlayer.getPlayerID().getPlayerid();
 			playerName = clientPlayer.getName();
 		}
@@ -126,8 +126,6 @@ public class ModelController {
 	}
 	
 	public Player getClientPlayer() {
-		clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
-		System.out.println(clientPlayer.getName());
 		return clientPlayer;
 	}
 	

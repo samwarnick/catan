@@ -214,7 +214,11 @@ public class GameModelFacade {
 	public Player getWinner() {
 		int winner = gameModel.getWinner();
 		if (winner != -1) {
-			return gameModel.getPlayers().get(winner);
+			for (Player p: gameModel.getPlayers()) {
+				if (p.getUniqueID() == winner) {
+					return p;
+				}
+			}
 		}
 		return null;
 	}

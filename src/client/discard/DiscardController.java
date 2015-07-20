@@ -100,7 +100,7 @@ public class DiscardController extends Controller implements IDiscardController,
 		case WHEAT:
 			int wheat = toDiscard.getWheat() - 1;
 			toDiscard.setWheat(wheat);
-			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, wheat);
+			getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, wheat);
 			break;
 		default:
 			break;
@@ -121,9 +121,9 @@ public class DiscardController extends Controller implements IDiscardController,
 			if (status.equals("Discarding")) {
 				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().canDiscard()) {
 					toDiscard = new ResourceHand(0, 0, 0, 0, 0);
+					setUpDiscardView();
 					// show discard view if they can discard
 					if (!getDiscardView().isModalShowing()) {
-						setUpDiscardView();
 						getDiscardView().showModal();
 					}
 				} else {
@@ -144,6 +144,8 @@ public class DiscardController extends Controller implements IDiscardController,
 		int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
 		int wheat = bank.getResourceStack(ResourceType.WHEAT).getQuantity();
 		int ore = bank.getResourceStack(ResourceType.ORE).getQuantity();
+		int total = brick+wood+sheep+wheat+ore;
+		int half = total/2;
 		
 		getDiscardView().setResourceMaxAmount(ResourceType.WOOD, wood);
 		getDiscardView().setResourceMaxAmount(ResourceType.BRICK, brick);
@@ -157,7 +159,7 @@ public class DiscardController extends Controller implements IDiscardController,
 		getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, 0);
 		getDiscardView().setResourceDiscardAmount(ResourceType.ORE, 0);
 
-		getDiscardView().setStateMessage(String.format("%d/%d", 0, ((brick+wood+sheep+wheat+ore)/2)));
+		getDiscardView().setStateMessage(String.format("%d/%d", 0, half));
 		getDiscardView().setDiscardButtonEnabled(false);
 	}
 }
