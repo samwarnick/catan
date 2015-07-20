@@ -30,8 +30,6 @@ public class UpdateGame extends TimerTask{
 		else {
 			try {
 				serverModel = ProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion()));
-				if (serverModel.getTrade() != null)
-					System.out.println(serverModel.getTrade().toString());
 			} catch (ServerException e) {
 				e.printStackTrace();
 			}

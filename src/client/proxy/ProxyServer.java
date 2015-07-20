@@ -79,7 +79,6 @@ public class ProxyServer implements IServerFacade {
 
 	@Override
 	public boolean joinGame(GamesJoinInput input) throws ServerException {
-		System.out.println("Join Game");
 		clientCommunicator.post(input, "POST");
 		return true;
 	}

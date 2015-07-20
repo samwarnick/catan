@@ -82,9 +82,10 @@ public class ModelController {
 		GameModelFacade.getInstance().setGameModel(gameModel);
 		
 		// if you are current player, set playerFacade to ActivePlayerFacade
-		Player clientPlayer = getClientPlayer();
-		
-		System.out.println("THIS IS THE STATUS: " + GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus());
+		if (!testing)
+		{
+			Player clientPlayer = getClientPlayer();
+		}
 		
 		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
 		Player currentPlayer = gameModelFacade.getGameModel().getPlayers().get(current);
@@ -122,14 +123,8 @@ public class ModelController {
 	}
 	
 	public Player getClientPlayer() {
-		if (clientPlayer == null){
-			clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
-		}
-		else {
-			clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
-		}
+		clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
 		return clientPlayer;
-
 	}
 	
 	// moves

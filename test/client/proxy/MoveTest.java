@@ -109,7 +109,7 @@ public class MoveTest {
 	@Test
 	public void testRobPlayer() {
 		try {
-			RobPlayerInput input = new RobPlayerInput(0, new HexLocation(1,1), 3);
+			RobPlayerInput input = new RobPlayerInput(0, new HexLocation(1,1), 2);
 			ps.robPlayer(input);
 		} catch (ServerException e) {
 			e.printStackTrace();

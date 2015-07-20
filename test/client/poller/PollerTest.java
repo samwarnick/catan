@@ -21,7 +21,7 @@ public class PollerTest {
 		GameModel game = new GameModel(3);//version3
 		controller.getGameModelFacade().setGameModel(game);
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(5500);
 			GameModel game2 = controller.getGameModelFacade().getGameModel();
 			assertEquals(4, game2.getGameVersion());
 		} catch (InterruptedException e) {

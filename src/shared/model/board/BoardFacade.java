@@ -75,8 +75,8 @@ public class BoardFacade {
 		boolean adjIsRes = false;
 		boolean adjIsWater = false;
 		HexLocation adj = location.getHexLoc().getNeighborLoc(EdgeDirection.North);
-		if (board.getRobber().getLocation().equals(location.getHexLoc())) locIsRes = true;
-		if (board.getRobber().getLocation().equals(adj)) adjIsRes = true;
+		if (board.getRobber() != null && board.getRobber().getLocation().equals(location.getHexLoc())) locIsRes = true;
+		if (board.getRobber() != null && board.getRobber().getLocation().equals(adj)) adjIsRes = true;
 		for (ResourceHex resHex : resources) {
 			if (resHex.getLocation().equals(location.getHexLoc())) {
 				locIsRes = true;
@@ -184,8 +184,8 @@ public class BoardFacade {
 		boolean adjIsRes = false;
 		boolean adjIsWater = false;
 		HexLocation adj = location.getHexLoc().getNeighborLoc(EdgeDirection.North);
-		if (board.getRobber().getLocation().equals(location.getHexLoc())) locIsRes = true;
-		if (board.getRobber().getLocation().equals(adj)) adjIsRes = true;
+		if (board.getRobber() != null && board.getRobber().getLocation().equals(location.getHexLoc())) locIsRes = true;
+		if (board.getRobber() != null && board.getRobber().getLocation().equals(adj)) adjIsRes = true;
 		for (ResourceHex resHex : resources) {
 			if (resHex.getLocation().equals(location.getHexLoc())) {
 				locIsRes = true;
