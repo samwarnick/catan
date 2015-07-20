@@ -89,12 +89,6 @@ public class ModelController {
 			PlayerID = clientPlayer.getPlayerID().getPlayerid();
 		}
 		
-		System.out.printf("%s: %d\n", "Soldiers", clientPlayer.getPlayerBank().getNewSoldier().getQuantity());
-		System.out.printf("%s: %d\n", "Monuments", clientPlayer.getPlayerBank().getNewMonument().getQuantity());
-		System.out.printf("%s: %d\n", "Monopoloy", clientPlayer.getPlayerBank().getNewMonopoly().getQuantity());
-		System.out.printf("%s: %d\n", "YearOfPlenty", clientPlayer.getPlayerBank().getNewYearOfPlenty().getQuantity());
-		System.out.printf("%s: %d\n", "RoadBuilding", clientPlayer.getPlayerBank().getNewRoadBuild().getQuantity());
-		
 		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
 		Player currentPlayer = gameModelFacade.getGameModel().getPlayers().get(current);
 		if (clientPlayer!=null && clientPlayer.getName().equals(currentPlayer.getName())) {
