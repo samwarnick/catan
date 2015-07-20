@@ -84,14 +84,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			// set title bar color
 			getView().setLocalPlayerColor(clientPlayer.getColor());
 			
-			// set finish 
-			if (clientPlayer.getPlayerFacade().canFinishTurn()) {
-				getView().updateGameState("Finish Turn", true);
-			}
-			else {
-				getView().updateGameState("Waiting for other Players", false);
-			}
-			
 			String status = ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getStatus();
 			if (status.equals("Playing")) {
 				changePhase(Phase.playing);
@@ -104,6 +96,20 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			if (status.equals("SecondRound")) {
 				changePhase(Phase.second);
+			}
+			if (status.equals("Trading")) {
+				changePhase(Phase.trading);
+			}
+			
+			// set finish 
+			if (status.equals("Rolling")) {
+				getView().updateGameState("Roll the Dice", false);
+			}
+			else if (clientPlayer.getPlayerFacade().canFinishTurn() && phase != Phase.first && phase != Phase.second) {
+				getView().updateGameState("Finish Turn", true);
+			}
+			else {
+				getView().updateGameState("Waiting for other Players", false);
 			}
 			
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();

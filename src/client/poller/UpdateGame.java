@@ -36,7 +36,9 @@ public class UpdateGame extends TimerTask{
 		}
 		if (serverModel != null)
 		{
-			ModelController.getInstance().updateGame(serverModel);
+			if (ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion() < serverModel.getGameVersion()) {
+				ModelController.getInstance().updateGame(serverModel);
+			}
 		}
 	}
 }

@@ -221,12 +221,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
-		RobPlayerInput input = new RobPlayerInput(ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid(), robber, victim.getPlayerIndex());
-		try {
-			ModelController.getInstance().updateGame(ProxyServer.getInstance().robPlayer(input));
-		} catch (ServerException e) {
-			e.printStackTrace();
-		}
+		ModelController.getInstance().playSoldier(robber, victim.getId());
 		isRobbing = false;
 		robber = null;
 	}

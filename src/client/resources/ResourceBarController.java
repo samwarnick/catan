@@ -130,7 +130,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			} else {
 				getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 			}
-			if (clientPlayer.getPlayerFacade().canPlayCard()) {
+			if (clientPlayer.getPlayerFacade().canPlayCard() && !clientPlayer.getHasPlayedCard()) {
 				getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
 			} else {
 				getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);

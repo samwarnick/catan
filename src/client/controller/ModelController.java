@@ -9,6 +9,8 @@ import server.ServerException;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
@@ -84,8 +86,15 @@ public class ModelController {
 		// if you are current player, set playerFacade to ActivePlayerFacade
 		if (!testing)
 		{
-			Player clientPlayer = getClientPlayer();
+			clientPlayer = getClientPlayer();
+			PlayerID = clientPlayer.getPlayerID().getPlayerid();
 		}
+		
+		System.out.printf("%s: %d\n", "Soldiers", clientPlayer.getPlayerBank().getNewSoldier().getQuantity());
+		System.out.printf("%s: %d\n", "Monuments", clientPlayer.getPlayerBank().getNewMonument().getQuantity());
+		System.out.printf("%s: %d\n", "Monopoloy", clientPlayer.getPlayerBank().getNewMonopoly().getQuantity());
+		System.out.printf("%s: %d\n", "YearOfPlenty", clientPlayer.getPlayerBank().getNewYearOfPlenty().getQuantity());
+		System.out.printf("%s: %d\n", "RoadBuilding", clientPlayer.getPlayerBank().getNewRoadBuild().getQuantity());
 		
 		int current = gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn();
 		Player currentPlayer = gameModelFacade.getGameModel().getPlayers().get(current);
@@ -224,6 +233,7 @@ public class ModelController {
 	}
 
 	public void buyDevCard() {
+		System.out.println("Buying Dev Card");
 		BuyDevCardInput input = new BuyDevCardInput(PlayerID);
 		try {
 			updateGame(ProxyServer.getInstance().buyDevCard(input));
@@ -254,6 +264,25 @@ public class ModelController {
 		PlayMonumentInput input = new PlayMonumentInput(PlayerID);
 		try {
 			updateGame(ProxyServer.getInstance().playMonument(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void playSoldier(HexLocation location, int victimIndex) {
+		PlaySoldierInput input = new PlaySoldierInput(gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn(), location, victimIndex);
+		try {
+			updateGame(ProxyServer.getInstance().playSoldier(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void playRoadBuilding(EdgeLocation location1, EdgeLocation location2) {
+		PlayRoadBuildingInput input = new PlayRoadBuildingInput(getClientPlayer().getPlayerID().getPlayerid(), 
+				location1, location2);
+		try {
+			updateGame(ProxyServer.getInstance().playRoadBuilding(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}

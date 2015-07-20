@@ -2,7 +2,9 @@ package client.discard;
 
 import shared.definitions.*;
 import shared.model.GameModelFacade;
+import shared.model.bank.PlayerBank;
 import shared.model.bank.ResourceHand;
+import shared.model.player.Player;
 import client.base.*;
 import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
@@ -107,6 +109,7 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	@Override
 	public void discard() {
+		getDiscardView().closeModal();
 		ModelController.getInstance().discard(toDiscard);
 	}
 
@@ -118,13 +121,43 @@ public class DiscardController extends Controller implements IDiscardController,
 			if (status.equals("Discarding")) {
 				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().canDiscard()) {
 					// show discard view if they can discard
-					getDiscardView().showModal();
+					if (!getDiscardView().isModalShowing()) {
+						setUpDiscardView();
+						getDiscardView().showModal();
+					}
 				} else {
 					// show wait view if they cannot discard
-					getWaitView().showModal();
+					if (!getWaitView().isModalShowing()) {
+						getWaitView().showModal();
+					}
 				}
 			}
 		}
+	}
+	
+	private void setUpDiscardView() {
+		Player clientPlayer = ModelController.getInstance().getClientPlayer();
+		PlayerBank bank = clientPlayer.getPlayerBank();
+		int brick = bank.getResourceStack(ResourceType.BRICK).getQuantity();
+		int wood = bank.getResourceStack(ResourceType.WOOD).getQuantity();
+		int sheep = bank.getResourceStack(ResourceType.SHEEP).getQuantity();
+		int wheat = bank.getResourceStack(ResourceType.WHEAT).getQuantity();
+		int ore = bank.getResourceStack(ResourceType.ORE).getQuantity();
+		
+		getDiscardView().setResourceMaxAmount(ResourceType.WOOD, wood);
+		getDiscardView().setResourceMaxAmount(ResourceType.BRICK, brick);
+		getDiscardView().setResourceMaxAmount(ResourceType.SHEEP, sheep);
+		getDiscardView().setResourceMaxAmount(ResourceType.WHEAT, wheat);
+		getDiscardView().setResourceMaxAmount(ResourceType.ORE, ore);
+		
+		getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, 0);
+		getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, 0);
+		getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, 0);
+		getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, 0);
+		getDiscardView().setResourceDiscardAmount(ResourceType.ORE, 0);
+
+		getDiscardView().setStateMessage(String.format("%d/%d", 0, ((brick+wood+sheep+wheat+ore)/2)));
+		getDiscardView().setDiscardButtonEnabled(false);
 	}
 }
 
