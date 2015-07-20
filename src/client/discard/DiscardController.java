@@ -120,6 +120,7 @@ public class DiscardController extends Controller implements IDiscardController,
 			String status = facade.getGameModel().getTurnTracker().getStatus();
 			if (status.equals("Discarding")) {
 				if (ModelController.getInstance().getClientPlayer().getPlayerFacade().canDiscard()) {
+					toDiscard = new ResourceHand(0, 0, 0, 0, 0);
 					// show discard view if they can discard
 					if (!getDiscardView().isModalShowing()) {
 						setUpDiscardView();

@@ -1,4 +1,4 @@
-﻿<project name="Demo Server" default="server" basedir=".">
+<project name="Demo Server" default="server" basedir=".">
 
 	<!-- PROPERTIES -->
 	<!-- ********** -->	
@@ -145,7 +145,7 @@
 	</target>
 	
 	<!-- ant our-client {-Dhost=<SERVER_HOST>} {-Dport=<SERVER_PORT_NUMBER>} -->
-	<!-- EXAMPLE: ant server-passoff -Dhost=testserver.cs.byu.edu -Dport=39640 -->
+	<!-- EXAMPLE: ant our-client -Dhost=testserver.cs.byu.edu -Dport=39640 -->
 	<!-- If host and/or port number are omitted, default values are used. -->
 	<!-- EXAMPLE: ant our-client -->
 	<target name="our-client" depends="package" description="compiles, packages, and runs the student client">
@@ -171,6 +171,10 @@
     <target name="make-tester-zip" depends="package" description="makes a zip file for your testing team">
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
+    
+  <target name="make-passoff-zip" depends="package" description="makes a zip file for your testing team">
+    <zip destfile="./passoff.zip" basedir="/" />
+  </target>
   
 </project>
 
