@@ -11,13 +11,12 @@ import shared.communication.input.move.*;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import shared.model.GameModel;
 import shared.model.GameModelFacade;
 import shared.model.TooManyPlayersException;
-import shared.model.bank.PlayerBank;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
-import shared.model.board.PlayerID;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 
@@ -206,7 +205,8 @@ public class ModelController {
 		}
 	}
 	
-	public void buildRoad(BuildRoadInput input) {
+	public void buildRoad(boolean isFree, EdgeLocation edgeLoc) {
+		BuildRoadInput input = new BuildRoadInput(PlayerID, isFree, edgeLoc);
 		try {
 			updateGame(ProxyServer.getInstance().buildRoad(input));
 		} catch (ServerException e) {
@@ -215,7 +215,8 @@ public class ModelController {
 	}
 
 	 
-	public void buildSettlement(BuildSettlementInput input) {
+	public void buildSettlement(boolean isFree, VertexLocation vertLoc) {
+		BuildSettlementInput input = new BuildSettlementInput(PlayerID, isFree, vertLoc);
 		try {
 			updateGame(ProxyServer.getInstance().buildSettlement(input));
 		} catch (ServerException e) {
@@ -224,7 +225,8 @@ public class ModelController {
 	}
 
 	 
-	public void buildCity(BuildCityInput input) {
+	public void buildCity(VertexLocation vertLoc) {
+		BuildCityInput input = new BuildCityInput(PlayerID, vertLoc);
 		try  {
 			updateGame(ProxyServer.getInstance().buildCity(input));
 		} catch (ServerException e) {
@@ -251,6 +253,15 @@ public class ModelController {
 		}
 	}
 
+	public void robPlayer(HexLocation loc, int victim) {
+		RobPlayerInput input = new RobPlayerInput(PlayerID, loc, victim);
+		try {
+			updateGame(ProxyServer.getInstance().robPlayer(input));
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void playMonopoly(ResourceType resource) {
 		PlayMonopolyInput input = new PlayMonopolyInput(PlayerID, resource.toString().toLowerCase());
 		try {
@@ -269,20 +280,19 @@ public class ModelController {
 		}
 	}
 	
-	public void playSoldier(HexLocation location, int victimIndex) {
-		PlaySoldierInput input = new PlaySoldierInput(gameModelFacade.getGameModel().getTurnTracker().getCurrentTurn(), location, victimIndex);
+	public void playRoadBuilding(EdgeLocation road1, EdgeLocation road2) {
+		PlayRoadBuildingInput input = new PlayRoadBuildingInput(PlayerID, road1, road2);
 		try {
-			updateGame(ProxyServer.getInstance().playSoldier(input));
+			updateGame(ProxyServer.getInstance().playRoadBuilding(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void playRoadBuilding(EdgeLocation location1, EdgeLocation location2) {
-		PlayRoadBuildingInput input = new PlayRoadBuildingInput(getClientPlayer().getPlayerID().getPlayerid(), 
-				location1, location2);
+	public void playSoldier(HexLocation loc, int victim) {
+		PlaySoldierInput input = new PlaySoldierInput(PlayerID, loc, victim);
 		try {
-			updateGame(ProxyServer.getInstance().playRoadBuilding(input));
+			updateGame(ProxyServer.getInstance().playSoldier(input));
 		} catch (ServerException e) {
 			e.printStackTrace();
 		}

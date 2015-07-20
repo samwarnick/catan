@@ -11,6 +11,7 @@ import shared.model.board.PlayerID;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.Player;
 import shared.model.ratios.TradeRatio;
+import shared.model.ratios.TradeRatios;
 import client.base.*;
 import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
@@ -87,7 +88,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		//sends the trade to the database and closes the modal window
 		if (getResource != null && giveResource != null)
 			player = ModelController.getInstance().getClientPlayer();
-		ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(player.getPlayerID().getPlayerid(), player.getTradeRatios().getTradeRatio(giveResource).getRatio(), giveResource, getResource));
+		ModelController.getInstance().maritimeTrade(new MaritimeTradeInput(player.getPlayerID().getPlayerid(), GameModelFacade.getInstance().getGameModel().getBoard().getBoardFacade().getRatiosForPlayer(player).getTradeRatio(giveResource).getRatio(), giveResource, getResource));
 			
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
@@ -126,8 +127,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGiveResource(ResourceType resource) {
 		giveResource = resource;
 		Player Currentplayer = ModelController.getInstance().getGameModelFacade().getGameModel().getCurrentPlayer();
+		TradeRatios ratios = GameModelFacade.getInstance().getGameModel().getBoard().getBoardFacade().getRatiosForPlayer(Currentplayer);
 		
-		TradeRatio ratio = Currentplayer.getTradeRatios().getTradeRatio(resource);
+		TradeRatio ratio = ratios.getTradeRatio(resource);
 		if(Currentplayer.getPlayerBank().hasRC(new ResourceHand(resource)))
 		{
 			giveResource = resource;

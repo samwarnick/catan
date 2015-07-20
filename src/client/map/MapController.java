@@ -29,6 +29,9 @@ public class MapController extends client.base.Controller implements IMapControl
 	private VertexLocation settlement = null;
 	private boolean isRobbing = false;
 	private HexLocation robber = null;
+	private boolean isRoadBuildingCard = false;
+	private EdgeLocation firstRoad = null;
+	private boolean isSoldierCard = false;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -116,9 +119,18 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {			
-		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-		BuildRoadInput input = new BuildRoadInput(id, isFree, edgeLoc);
-		ModelController.getInstance().buildRoad(input);
+		if (!isRoadBuildingCard) {
+			ModelController.getInstance().buildRoad(isFree, edgeLoc);
+		}
+		else {
+			if (firstRoad == null) {
+				firstRoad = edgeLoc;
+			}
+			else {
+				ModelController.getInstance().playRoadBuilding(firstRoad, edgeLoc);
+				isRoadBuildingCard = false;
+			}
+		}
 		
 		isFree = false;
 		allowDisconnected = false;
@@ -135,15 +147,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-		BuildSettlementInput input = new BuildSettlementInput(id, isFree, vertLoc);
-		ModelController.getInstance().buildSettlement(input);
-		
-		
-		
-		ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getRatiosForPlayer(ModelController.getInstance().getClientPlayer());
-		
-		
+		ModelController.getInstance().buildSettlement(isFree, vertLoc);		
 		
 		isFree = false;
 		allowDisconnected = false;
@@ -154,9 +158,7 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		int id = ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid();
-		BuildCityInput input = new BuildCityInput(id, vertLoc);
-		ModelController.getInstance().buildCity(input);
+		ModelController.getInstance().buildCity(vertLoc);
 			
 		isFree = false;
 		allowDisconnected = false;			
@@ -213,15 +215,24 @@ public class MapController extends client.base.Controller implements IMapControl
 	}
 	
 	public void playSoldierCard() {	
+		isRobbing = true;
+		isSoldierCard = true;
 		startMove(PieceType.ROBBER, true, true);
 	}
 	
-	public void playRoadBuildingCard() {	
+	public void playRoadBuildingCard() {
+		isRoadBuildingCard = true;
 		startMove(PieceType.ROAD, true, false);
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
-		ModelController.getInstance().playSoldier(robber, victim.getId());
+		if (!isSoldierCard) {
+			ModelController.getInstance().robPlayer(robber, victim.getId());
+		}
+		else {
+			ModelController.getInstance().playSoldier(robber, victim.getId());
+			isSoldierCard = false;
+		}
 		isRobbing = false;
 		robber = null;
 	}
@@ -244,7 +255,7 @@ public class MapController extends client.base.Controller implements IMapControl
 			}
 
 			else if (status.equals("Robbing") && clientPlayer.getName().equals(currentPlayer.getName()) && !isRobbing) {
-				facade.getGameModel().getTurnTracker().setStatus("Robbing");
+//				facade.getGameModel().getTurnTracker().setStatus("Robbing");
 				isRobbing = true;
 				startMove(PieceType.ROBBER, true, true);
 //				getRobView().showModal();

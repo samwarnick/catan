@@ -123,23 +123,30 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	
 	private void initializePlayers(List<Player> players) {
 		for (int i = 0; i < players.size(); i++) {
+
 			Player p = players.get(i);
-			getView().initializePlayer(i, p.getName(), p.getColor());
+			if(p != null)
+			{
+				getView().initializePlayer(i, p.getName(), p.getColor());
+			}
 		}
 	}
 	
 	private void updatePlayers(List<Player> players, Player clientPlayer, int currentPlayerIndex) {
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
-			int victoryPoints = p.getVictoryPoints().getPublicVictoryPoints();
-			if (clientPlayer.getName().equals(p.getName())) {
-				victoryPoints = p.getVictoryPoints().getTotalVictoryPoints();
+			if(p != null)
+			{
+				int victoryPoints = p.getVictoryPoints().getPublicVictoryPoints();
+				if (clientPlayer.getName().equals(p.getName())) {
+					victoryPoints = p.getVictoryPoints().getTotalVictoryPoints();
+				}
+				boolean highlight = false;
+				if (i == currentPlayerIndex) {
+					highlight = true;
+				}
+				getView().updatePlayer(i, victoryPoints, highlight, p.hasLargestArmy(), p.hasLongestRoad());
 			}
-			boolean highlight = false;
-			if (i == currentPlayerIndex) {
-				highlight = true;
-			}
-			getView().updatePlayer(i, victoryPoints, highlight, p.hasLargestArmy(), p.hasLongestRoad());
 		}
 	}
 }

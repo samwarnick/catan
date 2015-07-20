@@ -96,16 +96,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void startTrade() {
 		
-		if (!playersSet){
-			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-			playerinfos = new PlayerInfo[players.size()];
-			for (int i = 0;i < players.size();i++){
-				Player player = players.get(i);
-				playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
-			}
-			tradeOverlay.setPlayers(playerinfos);
-			playersSet = true;
-		}
+		
 		reset();
 		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
@@ -476,6 +467,17 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 	
 	private void reset(){
+		if (!playersSet){
+			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
+			playerinfos = new PlayerInfo[players.size()];
+			for (int i = 0;i < players.size();i++){
+				Player player = players.get(i);
+				if (player.getPlayerID().getPlayerid() != ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid())
+					playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
+			}
+			tradeOverlay.setPlayers(playerinfos);
+			playersSet = true;
+		}
 		getTradeOverlay().reset();
 		getAcceptOverlay().reset();
 		playerIndex = -1;
@@ -498,9 +500,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 	
 	public void startTradeAnswer(){
-		reset();
+		
 		acceptOverlay.setController(this);
 		acceptOverlay.setPlayerName(GameModelFacade.getInstance().getGameModel().getCurrentPlayer().getName());
+		reset();
 		Player thisPlayer = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(new PlayerID(ModelController.getInstance().getPlayerID()));
 		playerIndex = thisPlayer.getPlayerID().getPlayerid();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
