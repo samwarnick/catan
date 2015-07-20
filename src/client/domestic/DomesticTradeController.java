@@ -98,7 +98,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		
 		
 		reset();
-		Player thisPlayer = ModelController.getInstance().getClientPlayer();
+		Player thisPlayer = ModelController.getInstance().getClientStartingPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
 		playerSheep = thisPlayer.getPlayerBank().getSheep().getQuantity();
@@ -469,10 +469,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private void reset(){
 		if (!playersSet){
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
+			players.remove(ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid());
 			playerinfos = new PlayerInfo[players.size()];
 			for (int i = 0;i < players.size();i++){
 				Player player = players.get(i);
-				if (player.getPlayerID().getPlayerid() != ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid())
 					playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
 			}
 			tradeOverlay.setPlayers(playerinfos);

@@ -135,6 +135,15 @@ public class ModelController {
 		return clientPlayer;
 	}
 	
+	public Player getClientStartingPlayer(){
+		if (clientPlayer == null){
+			clientPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(playerName);
+
+		}
+		
+		return clientPlayer;
+	}
+	
 	// moves
 	
 	public void finishTurn() {

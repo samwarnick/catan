@@ -50,7 +50,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void startTrade() {
 		ArrayList<ResourceType> selected = new ArrayList<ResourceType>();
-		Player activePlayer = ModelController.getInstance().getClientPlayer(); 
+		Player activePlayer = ModelController.getInstance().getClientStartingPlayer(); 
 		//sets which options will be enabled
 		ResourceType toConvert = ResourceType.WOOD;
 		if (activePlayer != null){
