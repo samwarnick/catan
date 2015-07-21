@@ -201,7 +201,9 @@ public class MapController extends client.base.Controller implements IMapControl
 			robInfo[i] = info;
 		}
 		getRobView().setPlayers(robInfo);
-		getRobView().showModal();
+		if (!getRobView().isModalShowing()) {
+			getRobView().showModal();
+		}
 		
 		isFree = false;
 		allowDisconnected = false;
@@ -268,10 +270,8 @@ public class MapController extends client.base.Controller implements IMapControl
 			}
 
 			else if (status.equals("Robbing") && clientPlayer.getName().equals(currentPlayer.getName()) && !isRobbing) {
-//				facade.getGameModel().getTurnTracker().setStatus("Robbing");
 				isRobbing = true;
 				startMove(PieceType.ROBBER, true, true);
-//				getRobView().showModal();
 			}
 		}
 	}

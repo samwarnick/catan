@@ -51,7 +51,9 @@ public class RollController extends Controller implements IRollController {
 		RollNumberInput input = new RollNumberInput(currentPlayerIndex, diceTotal);
 		ModelController.getInstance().rollDice(input);
 		getResultView().setRollValue(diceTotal);
-		getResultView().showModal();
+		if (!getResultView().isModalShowing()) {
+			getResultView().showModal();
+		}
 	}
 	
 	private ModelControllerListener modelListener = new ModelControllerListener() {
