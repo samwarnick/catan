@@ -548,6 +548,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		for (int i = 0;i < statuses.size();i++){
 			if (statuses.get(i) == 1){
 				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
+				
+			}
+			else if (statuses.get(i) == -1){
+				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
 				switch (Resources.get(i)){
 				case BRICK:
 					rh.setBrick(Math.abs(amounts.get(i)));
@@ -567,10 +571,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				default:
 					break;
 				}
-			}
-			else if (statuses.get(i) == -1){
-				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
-				
 			}
 		}
 		if (thisPlayer.getPlayerBank().hasRC(rh)){
