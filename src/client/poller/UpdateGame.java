@@ -18,7 +18,7 @@ public class UpdateGame extends TimerTask{
 	
 	@Override
 	public void run() {
-		//System.out.println("POLLING");
+//		System.out.println("POLLING");
 		GameModel serverModel = null;
 		if (ModelController.getInstance().isTesting()) {
 			try {
@@ -36,9 +36,7 @@ public class UpdateGame extends TimerTask{
 		}
 		if (serverModel != null)
 		{
-			if (ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion() < serverModel.getGameVersion()) {
-				ModelController.getInstance().updateGame(serverModel);
-			}
+			ModelController.getInstance().updateGame(serverModel);
 		}
 	}
 }

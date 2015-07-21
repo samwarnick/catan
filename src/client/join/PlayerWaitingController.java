@@ -14,6 +14,7 @@ import client.controller.ModelController;
 import client.controller.ModelController.ModelControllerListener;
 import client.proxy.ProxyServer;
 import client.data.PlayerInfo;
+import client.poller.Poller;
 
 
 /**
@@ -40,6 +41,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 	@Override
 	public void start() {
+		ModelController.getInstance().setPoller(new Poller());
 		GamesListInput gameIn = new GamesListInput();
 		List<client.data.GameInfo> gameList;
 		int count = 0;
@@ -107,6 +109,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 				count++;
 			}
 		}
+		System.out.println("Count: " + count);
 		if(count != numberOfCurrentPlayers)
 		{
 			closeView();

@@ -5,8 +5,10 @@ import java.awt.*;
 import javax.swing.*;
 
 import shared.definitions.*;
+import shared.model.player.Player;
 import client.base.*;
 import client.catan.*;
+import client.controller.ModelController;
 import client.utils.ImageUtils;
 
 
