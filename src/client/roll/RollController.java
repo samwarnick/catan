@@ -66,7 +66,7 @@ public class RollController extends Controller implements IRollController {
 					getRollView().showModal();
 				}
 			} else {
-				if (!getRollView().isModalShowing()) {
+				if (getRollView().isModalShowing()) {
 					getRollView().closeModal();
 				}
 			}
