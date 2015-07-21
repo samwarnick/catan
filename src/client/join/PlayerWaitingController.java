@@ -109,7 +109,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 				count++;
 			}
 		}
-		System.out.println("Count: " + count);
 		if(count != numberOfCurrentPlayers)
 		{
 			closeView();
