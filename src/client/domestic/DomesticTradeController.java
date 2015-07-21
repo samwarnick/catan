@@ -43,6 +43,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private Integer oreStatus = 0;
 	private PlayerInfo[] playerinfos;
 	private boolean playersSet = false;
+	private int thisPlayerIndex = -1;
 
 	/**
 	 * DomesticTradeController constructor
@@ -296,7 +297,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void setPlayerToTradeWith(int playerIndex) {
 		//I'm not sure why this has to be +1, but that is how it works
-		this.playerIndex = playerIndex + 1;
+		if (playerIndex < thisPlayerIndex){
+			this.playerIndex = playerIndex;
+		}
+		else
+			this.playerIndex = playerIndex + 1;
 		if (this.playerIndex == 4)
 			this.playerIndex = 0;
 		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1))
@@ -470,6 +475,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		if (!playersSet){
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
 			players.remove(ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid());
+			thisPlayerIndex = ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid();
 			playerinfos = new PlayerInfo[players.size()];
 			for (int i = 0;i < players.size();i++){
 				Player player = players.get(i);
@@ -530,15 +536,35 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		statuses.add(trade.getSheepStatus());
 		statuses.add(trade.getWheatStatus());
 		statuses.add(trade.getOreStatus());
+		ResourceHand rh = new ResourceHand();
 		for (int i = 0;i < statuses.size();i++){
-			if (statuses.get(i) == 1){
+			if (statuses.get(i) == -1){
 				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
-			else if (statuses.get(i) == -1){
+			else if (statuses.get(i) == 1){
 				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
+				switch (Resources.get(i)){
+				case BRICK:
+					rh.setBrick(amounts.get(i));
+					break;
+				case ORE:
+					rh.setOre(amounts.get(i));
+					break;
+				case SHEEP:
+					rh.setSheep(amounts.get(i));
+					break;
+				case WHEAT:
+					rh.setWheat(amounts.get(i));
+					break;
+				case WOOD:
+					rh.setWood(amounts.get(i));
+					break;
+				default:
+					break;
+				}
 			}
 		}
-		if (thisPlayer.getPlayerBank().hasRC(new ResourceHand(playerBrick,playerWood,playerSheep,playerWheat,playerOre))){
+		if (thisPlayer.getPlayerBank().hasRC(rh)){
 			acceptOverlay.setAcceptEnabled(true);
 		}
 		else
