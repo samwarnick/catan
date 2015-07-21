@@ -137,8 +137,6 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		System.out.printf("%s:%s", "resource1", resource1.toString());
-		System.out.printf("%s:%s", "resource2", resource2.toString());
 		ModelController.getInstance().playYearOfPlenty(resource1, resource2);
 	}
 

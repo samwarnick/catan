@@ -57,7 +57,7 @@ public class MoveTest {
 	@Test
 	public void testPlayYearOfPlenty(){
 		try {
-			ps.playYearOfPlenty(new PlayYearOfPlentyInput(0, null, null));
+			ps.playYearOfPlenty(new PlayYearOfPlentyInput(0, ResourceType.WHEAT, ResourceType.WOOD));
 		} catch (ServerException e) {
 			assertTrue(false);
 		}

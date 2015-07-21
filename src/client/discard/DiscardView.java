@@ -68,10 +68,7 @@ import client.utils.FontUtils;
  */
 @SuppressWarnings({"serial", "unused"})
 public class DiscardView extends OverlayView implements IDiscardView
-{
-	private int numToDiscard;
-	private int numCards;
-	
+{	
 	private final boolean TESTING = false;
 	
 	private final int LABEL_TEXT_SIZE = 20;
@@ -101,8 +98,6 @@ public class DiscardView extends OverlayView implements IDiscardView
 	
 	public DiscardView()
 	{
-		numToDiscard = 0;
-		numCards = 0;
 		this.initialize();
 	}
 	
@@ -211,24 +206,6 @@ public class DiscardView extends OverlayView implements IDiscardView
 		this.add(discardButtonPanel, BorderLayout.SOUTH);
 		
 	}
-	
-	
-	
-	public int getNumToDiscard() {
-		return numToDiscard;
-	}
-
-	public void setNumToDiscard(int numToDiscard) {
-		this.numToDiscard = numToDiscard;
-	}
-
-	public int getNumCards() {
-		return numCards;
-	}
-
-	public void setNumCards(int numCards) {
-		this.numCards = numCards;
-	}
 
 	private void update()
 	{
@@ -267,6 +244,18 @@ public class DiscardView extends OverlayView implements IDiscardView
 	@Override
 	public void setResourceDiscardAmount(ResourceType resource, int amount)
 	{
+		if (amount == 0) {
+			resources.get(resource).setDecrease(false);
+		}
+		else {
+			resources.get(resource).setDecrease(true);
+		}
+		if (amount == resources.get(resource).getMaxAmount()) {
+			resources.get(resource).setIncrease(false);
+		}
+		else {
+			resources.get(resource).setIncrease(true);
+		}
 		resources.get(resource).setDiscardAmount(amount);
 		this.update();
 	}
@@ -282,9 +271,7 @@ public class DiscardView extends OverlayView implements IDiscardView
 	@Override
 	public void setResourceMaxAmount(ResourceType resource, int maxAmount)
 	{   
-
 		resources.get(resource).setMaxAmount(maxAmount);
-		numCards = numCards + maxAmount;
 		this.update();
 	}
 	
@@ -636,16 +623,13 @@ public class DiscardView extends OverlayView implements IDiscardView
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				int toDisard = DiscardView.this.getNumToDiscard();
 				switch(e.getActionCommand())
 				{
 					case "UP":
 						DiscardView.this.getController().increaseAmount(Resource.this.getType());
-						DiscardView.this.setNumToDiscard(++toDisard);
 						break;
 					case "DOWN":
 						DiscardView.this.getController().decreaseAmount(Resource.this.getType());
-						DiscardView.this.setNumToDiscard(--toDisard);
 						break;
 					default:
 						break;
@@ -664,14 +648,7 @@ public class DiscardView extends OverlayView implements IDiscardView
 				else {
 					resource._canDecrease = false;
 				}
-				DiscardView.this.setStateMessage(String.format("%d/%d", DiscardView.this.getNumToDiscard(), DiscardView.this.getNumCards()/2));
-				if (DiscardView.this.getNumToDiscard() == (DiscardView.this.getNumCards()/2)) {
-					DiscardView.this.setDiscardButtonEnabled(true);
-				}
-				else
-				{
-					DiscardView.this.setDiscardButtonEnabled(false);
-				}
+			
 				update();
 			}
 		};

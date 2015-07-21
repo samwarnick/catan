@@ -238,7 +238,6 @@ public class ModelController {
 	}
 
 	public void buyDevCard() {
-		System.out.println("Buying Dev Card");
 		BuyDevCardInput input = new BuyDevCardInput(PlayerID);
 		try {
 			updateGame(ProxyServer.getInstance().buyDevCard(input));
