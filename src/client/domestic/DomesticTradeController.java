@@ -550,19 +550,19 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
 				switch (Resources.get(i)){
 				case BRICK:
-					rh.setBrick(amounts.get(i));
+					rh.setBrick(Math.abs(amounts.get(i)));
 					break;
 				case ORE:
-					rh.setOre(amounts.get(i));
+					rh.setOre(Math.abs(amounts.get(i)));
 					break;
 				case SHEEP:
-					rh.setSheep(amounts.get(i));
+					rh.setSheep(Math.abs(amounts.get(i)));
 					break;
 				case WHEAT:
-					rh.setWheat(amounts.get(i));
+					rh.setWheat(Math.abs(amounts.get(i)));
 					break;
 				case WOOD:
-					rh.setWood(amounts.get(i));
+					rh.setWood(Math.abs(amounts.get(i)));
 					break;
 				default:
 					break;
