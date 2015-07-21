@@ -114,11 +114,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-			if (!initialized) {
-				initializePlayers(players);
-				initialized = true;
-			}
-			else if(numberOfPlayers != 4)
+			if(numberOfPlayers != 4)
 			{
 				initializePlayers(players);
 			}
