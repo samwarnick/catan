@@ -98,7 +98,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void startTrade() {
 		
 		
-		reset();
+		resetTrade();
 		Player thisPlayer = ModelController.getInstance().getClientStartingPlayer();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
 		playerBrick = thisPlayer.getPlayerBank().getBrick().getQuantity();
@@ -290,7 +290,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		ModelController.getInstance().sendTrade(new OfferTradeInput(ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid(),new ResourceHand(brickNum * brickStatus, woodNum * woodStatus,sheepNum * sheepStatus,wheatNum * wheatStatus,oreNum * oreStatus),playerIndex));
 		if (getTradeOverlay().isModalShowing())
 			getTradeOverlay().closeModal();
-		reset();
+		resetTrade();
 		getWaitOverlay().showModal();
 	}
 
@@ -455,7 +455,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void cancelTrade() {
 		//change things back to 0.  done by the start trade.
-		reset();
+		resetTrade();
 		getTradeOverlay().closeModal();
 	}
 
@@ -466,7 +466,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		getAcceptOverlay().closeModal();
 	}
 	
-	private void reset(){
+	private void resetTrade(){
 		if (!playersSet){
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
 			int playerid = ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid();
@@ -493,6 +493,51 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			playersSet = true;
 		}
 		getTradeOverlay().reset();
+		playerIndex = -1;
+		woodNum = 0;
+		brickNum = 0;
+		sheepNum=0;
+		wheatNum = 0;
+		oreNum = 0;
+		playerWood = 0;
+		playerBrick = 0;
+		playerSheep = 0;
+		playerWheat = 0;
+		playerOre = 0;
+		woodStatus = 0;
+		brickStatus = 0;
+		sheepStatus = 0;
+		wheatStatus = 0;
+		oreStatus = 0;
+		
+	}
+	
+	private void resetAccept(){
+		if (!playersSet){
+			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
+			int playerid = ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid();
+			thisPlayerIndex = ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid();
+			playerinfos = new PlayerInfo[players.size() - 1];
+			boolean gotThePlayer = false;
+			for (int i = 0;i < players.size();i++){
+				Player player = players.get(i);
+				if (playerid != i){
+					if (gotThePlayer){
+						playerinfos[i-1] = new PlayerInfo(player.getName(),player.getColor(),i);
+						playerinfos[i-1].setPlayerIndex(i);
+					}
+					else{
+						playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),i);
+						playerinfos[i].setPlayerIndex(i);
+					}
+				}
+				else{
+					gotThePlayer = true;
+				}
+			}
+			tradeOverlay.setPlayers(playerinfos);
+			playersSet = true;
+		}
 		getAcceptOverlay().reset();
 		playerIndex = -1;
 		woodNum = 0;
@@ -517,7 +562,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		
 		acceptOverlay.setController(this);
 		acceptOverlay.setPlayerName(GameModelFacade.getInstance().getGameModel().getCurrentPlayer().getName());
-		reset();
+		resetAccept();
 		Player thisPlayer = ModelController.getInstance().getClientPlayer();
 		playerIndex = thisPlayer.getPlayerID().getPlayerid();
 		playerWood = thisPlayer.getPlayerBank().getWood().getQuantity();
