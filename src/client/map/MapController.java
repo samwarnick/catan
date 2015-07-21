@@ -263,12 +263,11 @@ public class MapController extends client.base.Controller implements IMapControl
 			Player clientPlayer = ModelController.getInstance().getClientPlayer();
 			int current = facade.getGameModel().getTurnTracker().getCurrentTurn();
 			Player currentPlayer = facade.getGameModel().getPlayers().get(current);
-			
+
 			if ((status.equals("FirstRound") || status.equals("SecondRound")) && clientPlayer.getName().equals(currentPlayer.getName()) && !isSettingUp) {
 				isSettingUp = true;
 				startMove(PieceType.SETTLEMENT, true, true);
 			}
-
 			else if (status.equals("Robbing") && clientPlayer.getName().equals(currentPlayer.getName()) && !isRobbing) {
 				isRobbing = true;
 				startMove(PieceType.ROBBER, true, true);

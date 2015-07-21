@@ -61,9 +61,14 @@ public class RollController extends Controller implements IRollController {
 		@Override
 		public void ModelChanged() {
 			if (GameModelFacade.getInstance().getGameModel().getTurnTracker().getStatus().equals("Rolling") 
-					&& ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() == GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn()){
-				if (!getRollView().isModalShowing())
+					&& ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() == ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn()){
+				if (!getRollView().isModalShowing()) {
 					getRollView().showModal();
+				}
+			} else {
+				if (!getRollView().isModalShowing()) {
+					getRollView().closeModal();
+				}
 			}
 		}
 	};
