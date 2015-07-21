@@ -546,10 +546,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		statuses.add(trade.getOreStatus());
 		ResourceHand rh = new ResourceHand();
 		for (int i = 0;i < statuses.size();i++){
-			if (statuses.get(i) == -1){
+			if (statuses.get(i) == 1){
 				acceptOverlay.addGetResource(Resources.get(i), Math.abs(amounts.get(i)));
 			}
-			else if (statuses.get(i) == 1){
+			else if (statuses.get(i) == -1){
 				acceptOverlay.addGiveResource(Resources.get(i), Math.abs(amounts.get(i)));
 				switch (Resources.get(i)){
 				case BRICK:
