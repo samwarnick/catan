@@ -215,7 +215,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			e.printStackTrace();
 		}
 	}
-
 }
 
 
