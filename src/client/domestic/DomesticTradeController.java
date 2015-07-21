@@ -574,6 +574,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 		}
 		if (thisPlayer.getPlayerBank().hasRC(rh)){
+			System.out.println(rh.toString());
 			acceptOverlay.setAcceptEnabled(true);
 		}
 		else

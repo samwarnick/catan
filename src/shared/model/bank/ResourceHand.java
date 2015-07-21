@@ -100,5 +100,12 @@ public class ResourceHand {
 	public void setOre(int ore) {
 		this.ore = ore;
 	}
+
+	@Override
+	public String toString() {
+		return "ResourceHand [brick=" + brick + ", wood=" + wood + ", sheep="
+				+ sheep + ", wheat=" + wheat + ", ore=" + ore + "]";
+	}
+	
 	
 }
