@@ -75,9 +75,14 @@ public class MapController extends client.base.Controller implements IMapControl
 			if (board.getRoads() != null) {
 				//roads
 				for (Road road : board.getRoads()) {
-					CatanColor color = ModelController.getInstance().getGameModelFacade().getGameModel()
-							.getPlayer(road.getOwner()).getColor();
-					getView().placeRoad(road.getLocation(), color);
+					PlayerID id = road.getOwner();
+					Player player = ModelController.getInstance().getGameModelFacade().getGameModel()
+							.getPlayer(id);
+					if(player!=null){
+						CatanColor color = player.getColor();
+						getView().placeRoad(road.getLocation(), color);
+					}
+					else System.out.printf("this is the bad id: %d", id.getPlayerid());
 				} 
 			}
 			if (board.getBuildings() != null) {
