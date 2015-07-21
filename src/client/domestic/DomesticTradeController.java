@@ -297,13 +297,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void setPlayerToTradeWith(int playerIndex) {
 		//I'm not sure why this has to be +1, but that is how it works
-		if (playerIndex < thisPlayerIndex){
-			this.playerIndex = playerIndex;
-		}
-		else
-			this.playerIndex = playerIndex + 1;
-		if (this.playerIndex == 4)
-			this.playerIndex = 0;
+		System.out.println("PlayerIndex: " + playerIndex);
+		this.playerIndex = playerIndex;
 		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1))
 		{
 			if (playerIndex != -1)
@@ -474,12 +469,25 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private void reset(){
 		if (!playersSet){
 			List<Player> players = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers();
-			players.remove(ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid());
+			int playerid = ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid();
 			thisPlayerIndex = ModelController.getInstance().getClientStartingPlayer().getPlayerID().getPlayerid();
-			playerinfos = new PlayerInfo[players.size()];
+			playerinfos = new PlayerInfo[players.size() - 1];
+			boolean gotThePlayer = false;
 			for (int i = 0;i < players.size();i++){
 				Player player = players.get(i);
-					playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),player.getPlayerID().getPlayerid());
+				if (playerid != i){
+					if (gotThePlayer){
+						playerinfos[i-1] = new PlayerInfo(player.getName(),player.getColor(),i);
+						playerinfos[i-1].setPlayerIndex(i);
+					}
+					else{
+						playerinfos[i] = new PlayerInfo(player.getName(),player.getColor(),i);
+						playerinfos[i].setPlayerIndex(i);
+					}
+				}
+				else{
+					gotThePlayer = true;
+				}
 			}
 			tradeOverlay.setPlayers(playerinfos);
 			playersSet = true;
