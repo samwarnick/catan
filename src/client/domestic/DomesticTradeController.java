@@ -463,7 +463,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void acceptTrade(boolean willAccept) {
 		
 		ModelController.getInstance().domesticTrade(new AcceptTradeInput(GameModelFacade.getInstance().getGameModel().getTrade().getReceiver(), willAccept));
-		getAcceptOverlay().closeModal();
+		if (getAcceptOverlay().isModalShowing())
+			getAcceptOverlay().closeModal();
 	}
 	
 	private void resetTrade(){
@@ -624,7 +625,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 		else
 			acceptOverlay.setAcceptEnabled(false);
-		getAcceptOverlay().showModal();
+		if (!getAcceptOverlay().isModalShowing())
+			getAcceptOverlay().showModal();
 		
 	}
 	
