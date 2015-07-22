@@ -64,97 +64,166 @@ public class EdgeLocation
 		return ambiguity;
 	}
 	
-	public ArrayList<EdgeLocation> getAdjacentEdges() {
+	public VertexLocation getLeftVertex() {
+		switch(dir) {
+		case North:
+			return new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		case NorthEast:
+			return new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		case NorthWest:
+			return new VertexLocation(hexLoc, VertexDirection.West);
+		case South:
+			return new VertexLocation(hexLoc, VertexDirection.SouthWest);
+		case SouthEast:
+			return new VertexLocation(hexLoc, VertexDirection.SouthEast);
+		case SouthWest:
+			return new VertexLocation(hexLoc, VertexDirection.West);
+		default:
+			return null;
+		}
+	}
+	
+	public VertexLocation getRightVertex() {
+		switch(dir) {
+		case North:
+			return new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		case NorthEast:
+			return new VertexLocation(hexLoc, VertexDirection.East);
+		case NorthWest:
+			return new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		case South:
+			return new VertexLocation(hexLoc, VertexDirection.SouthEast);
+		case SouthEast:
+			return new VertexLocation(hexLoc, VertexDirection.East);
+		case SouthWest:
+			return new VertexLocation(hexLoc, VertexDirection.SouthWest);
+		default:
+			return null;
+		}
+	}
+	
+	public ArrayList<EdgeLocation> getLeftAdjacentEdges() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
-		HexLocation newLoc3;
-		HexLocation newLoc4;
 		EdgeDirection newDir1;
 		EdgeDirection newDir2;
-		EdgeDirection newDir3;
-		EdgeDirection newDir4;
 		
 		switch(dir) {
-		case NorthWest: newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
-						newDir1 = EdgeDirection.South;
-						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir2 = EdgeDirection.SouthWest;
-						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir3 = EdgeDirection.North;
-						newLoc4 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
-						newDir4 = EdgeDirection.NorthEast;
-						break;
+		case NorthWest: 
+			newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
+			newDir1 = EdgeDirection.South;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir2 = EdgeDirection.SouthWest;
+			break;
 						
-		case North: 	newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
-						newDir1 = EdgeDirection.SouthWest;
-						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir2 = EdgeDirection.NorthWest;
-						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir3 = EdgeDirection.NorthEast;
-						newLoc4 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
-						newDir4 = EdgeDirection.SouthEast;
-						break;
+		case North: 
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+			newDir1 = EdgeDirection.SouthWest;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir2 = EdgeDirection.NorthWest;
+			break;
 						
-		case NorthEast:	newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
-						newDir1 = EdgeDirection.NorthWest;
-						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir2 = EdgeDirection.North;
-						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir3 = EdgeDirection.SouthEast;
-						newLoc4 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
-						newDir4 = EdgeDirection.South;
-						break;
+		case NorthEast:	
+			newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
+			newDir1 = EdgeDirection.NorthWest;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir2 = EdgeDirection.North;
+			break;
 						
-		case SouthEast: newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
-						newDir1 = EdgeDirection.North;
-						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir2 = EdgeDirection.NorthEast;
-						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir3 = EdgeDirection.South;
-						newLoc4 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
-						newDir4 = EdgeDirection.SouthWest;
-						break;
+		case SouthEast: 
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir1 = EdgeDirection.South;
+			newLoc2 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
+			newDir2 = EdgeDirection.SouthWest;
+			break;
 						
-		case South:		newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
-						newDir1 = EdgeDirection.NorthEast;
-						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir2 = EdgeDirection.SouthEast;
-						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir3 = EdgeDirection.SouthWest;
-						newLoc4 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
-						newDir4 = EdgeDirection.NorthWest;
-						break;
+		case South:		
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir1 = EdgeDirection.SouthWest;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
+			newDir2 = EdgeDirection.NorthWest;
+			break;
 						
-		case SouthWest:	newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
-						newDir1 = EdgeDirection.SouthEast;
-						newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir2 = EdgeDirection.South;
-						newLoc3 = new HexLocation(hexLoc.getX(), hexLoc.getY());
-						newDir3 = EdgeDirection.NorthWest;
-						newLoc4 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
-						newDir4 = EdgeDirection.North;
-						break;
+		case SouthWest:	
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir1 = EdgeDirection.NorthWest;
+			newLoc2 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
+			newDir2 = EdgeDirection.North;
+			break;
 						
-		default:		newLoc1 = null;
-						newDir1 = null;
-						newLoc2 = null;
-						newDir2 = null;
-						newLoc3 = null;
-						newDir3 = null;
-						newLoc4 = null;
-						newDir4 = null;
+		default:
+			newLoc1 = null;
+			newDir1 = null;
+			newLoc2 = null;
+			newDir2 = null;
 		}
 		
 		EdgeLocation adjacent1 = new EdgeLocation(newLoc1, newDir1);
 		EdgeLocation adjacent2 = new EdgeLocation(newLoc2, newDir2);
-		EdgeLocation adjacent3 = new EdgeLocation(newLoc3, newDir3);
-		EdgeLocation adjacent4 = new EdgeLocation(newLoc4, newDir4);
 		
 		ArrayList<EdgeLocation> adjacentEdges = new ArrayList<EdgeLocation>();
 		adjacentEdges.add(adjacent1);
 		adjacentEdges.add(adjacent2);
-		adjacentEdges.add(adjacent3);
-		adjacentEdges.add(adjacent4);
+		
+		return adjacentEdges;
+	}
+	
+	public ArrayList<EdgeLocation> getRightAdjacentEdges() {
+		HexLocation newLoc1;
+		HexLocation newLoc2;
+		EdgeDirection newDir1;
+		EdgeDirection newDir2;
+		
+		switch(dir) {
+		case NorthWest:
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir1 = EdgeDirection.North;
+			newLoc2 = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
+			newDir2 = EdgeDirection.NorthEast;
+			break;
+		case North:
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir1 = EdgeDirection.NorthEast;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+			newDir2 = EdgeDirection.SouthEast;
+			break;
+		case NorthEast:
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir1 = EdgeDirection.SouthEast;
+			newLoc2 = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
+			newDir2 = EdgeDirection.South;
+			break;
+		case South:
+			newLoc1 = new HexLocation(hexLoc.getX(), hexLoc.getY()+1);
+			newDir1 = EdgeDirection.NorthEast;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir2 = EdgeDirection.SouthEast;
+			break;
+		case SouthEast:
+			newLoc1 = new HexLocation(hexLoc.getX()+1, hexLoc.getY());
+			newDir1 = EdgeDirection.North;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir2 = EdgeDirection.NorthEast;
+			break;
+		case SouthWest:
+			newLoc1 = new HexLocation(hexLoc.getX()-1, hexLoc.getY()+1);
+			newDir1 = EdgeDirection.SouthEast;
+			newLoc2 = new HexLocation(hexLoc.getX(), hexLoc.getY());
+			newDir2 = EdgeDirection.South;
+			break;
+		default:
+			newLoc1 = null;
+			newDir1 = null;
+			newLoc2 = null;
+			newDir2 = null;
+		}
+		
+		EdgeLocation adjacent1 = new EdgeLocation(newLoc1, newDir1);
+		EdgeLocation adjacent2 = new EdgeLocation(newLoc2, newDir2);
+		
+		ArrayList<EdgeLocation> adjacentEdges = new ArrayList<EdgeLocation>();
+		adjacentEdges.add(adjacent1);
+		adjacentEdges.add(adjacent2);
 		
 		return adjacentEdges;
 	}

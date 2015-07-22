@@ -136,18 +136,67 @@ public class BoardFacade {
 			
 			if (!isSettingUp) {
 				// check for adjacent road belonging to player
-				List<EdgeLocation> edges = location.getAdjacentEdges();
-				List<EdgeLocation> adjacents = location.getAdjacentEdges();
+				// check left vertex and edges
+				List<VertexLocation> leftVertices = new ArrayList<VertexLocation>();
+				leftVertices.add(location.getLeftVertex());
+				leftVertices.addAll(location.getLeftVertex().getAmbiguousVertices());
+				boolean hasOpponentBuilding = false;
+				for (Vertex building : buildings) {
+					for (VertexLocation left : leftVertices) {
+						if (building.getLocation().equals(left) && !building.getOwner().equals(player.getPlayerID())) {
+							hasOpponentBuilding = true;
+						}
+					}
+				}
+				
+				List<EdgeLocation> edges = location.getLeftAdjacentEdges();
+				List<EdgeLocation> adjacents = location.getLeftAdjacentEdges();
 				for (EdgeLocation edge : edges) {
 					adjacents.add(edge.getAmbiguousEdge());
 				}
 				for (Road road : roads) {
 					for (EdgeLocation adjacentEdge : adjacents) {
 						if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())) {
-							return true;
+							if (hasOpponentBuilding) {
+								return false;
+							}
+							else {
+								return true;								
+							}
 						}
 					}
-				} 
+				}
+				
+				// check right vertex and edges
+				List<VertexLocation> rightVertices = new ArrayList<VertexLocation>();
+				rightVertices.add(location.getRightVertex());
+				rightVertices.addAll(location.getRightVertex().getAmbiguousVertices());
+				hasOpponentBuilding = false;
+				for (Vertex building : buildings) {
+					for (VertexLocation right : rightVertices) {
+						if (building.getLocation().equals(right) && !building.getOwner().equals(player.getPlayerID())) {
+							hasOpponentBuilding = true;
+						}
+					}
+				}
+				
+				edges = location.getRightAdjacentEdges();
+				adjacents = location.getRightAdjacentEdges();
+				for (EdgeLocation edge : edges) {
+					adjacents.add(edge.getAmbiguousEdge());
+				}
+				for (Road road : roads) {
+					for (EdgeLocation adjacentEdge : adjacents) {
+						if (road.getLocation().equals(adjacentEdge) && road.getOwner().equals(player.getPlayerID())) {
+							if (hasOpponentBuilding) {
+								return false;
+							}
+							else {
+								return true;								
+							}
+						}
+					}
+				}
 			}
 			return false;
 		}
