@@ -52,7 +52,6 @@ public class RollController extends Controller implements IRollController {
 		ModelController.getInstance().rollDice(input);
 		getResultView().setRollValue(diceTotal);
 		if (!getResultView().isModalShowing()) {
-			getRollView().closeModal();
 			getResultView().showModal();
 		}
 	}
