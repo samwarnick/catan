@@ -123,10 +123,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			
 			if(numPlayers == 4 && !initialized)
 			{
+				System.out.println("initializing");
 				initializePlayers(players);
 				initialized = true;
 			}
 			if (initialized) {
+				System.out.println("updating");
 				updatePlayers(players, clientPlayer, currentPlayerIndex);
 			}
 		}

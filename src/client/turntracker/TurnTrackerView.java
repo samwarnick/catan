@@ -127,6 +127,15 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 		else
 			playerPanel[playerIndex].setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 		
+		Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers().get(playerIndex);
+		if (playerPanel[playerIndex].getBackground() != player.getColor().getJavaColor()) {
+			System.out.println("don't match");
+			playerPanel[playerIndex].setBackground(player.getColor().getJavaColor());
+			for (Component c: playerPanel[playerIndex].getComponents()) {
+				c.setBackground(player.getColor().getJavaColor());
+			}
+		}
+		
 	}
 
 	@Override
