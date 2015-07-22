@@ -52,6 +52,7 @@ public class RollController extends Controller implements IRollController {
 		ModelController.getInstance().rollDice(input);
 		getResultView().setRollValue(diceTotal);
 		if (!getResultView().isModalShowing()) {
+			getRollView().closeModal();
 			getResultView().showModal();
 		}
 	}
@@ -64,10 +65,6 @@ public class RollController extends Controller implements IRollController {
 					&& ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() == ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn()){
 				if (!getRollView().isModalShowing()) {
 					getRollView().showModal();
-				}
-			} else {
-				if (getRollView().isModalShowing()) {
-					getRollView().closeModal();
 				}
 			}
 		}
