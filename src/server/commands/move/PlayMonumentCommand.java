@@ -10,6 +10,7 @@ public class PlayMonumentCommand implements ICommand {
 	
 	
 	/**
+	 * @param input is a valid PlayMonumentInput object
 	 * @pre The player must have enough monument cards for the player to have 10 victory points
 	 * @post The player gained a victory point. The method returns a not null GameModel
 	 * @return The GameModel after executing the changes

@@ -4,15 +4,15 @@ import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.model.GameModel;
 
-public class PlayMonopolyCommand implements ICommand {
+public class OfferTradeCommand implements ICommand {
 
 	private GameModel model;
 	
 	
 	/**
-	 * @param input is a valid PlayMonopolyInput object
-	 * @pre None
-	 * @post All other players have given all of the specified resource to 
+	 * @param input is a valid OfferTradeInput object
+	 * @pre The offering player must have the resources being offered in the specified quantities.
+	 * @post The trade is stored in the server model and offered to the other player.
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
@@ -24,5 +24,5 @@ public class PlayMonopolyCommand implements ICommand {
 	public void setModel(GameModel model) {
 		this.model = model;
 	}
-	
+
 }

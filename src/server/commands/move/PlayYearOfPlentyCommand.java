@@ -4,15 +4,15 @@ import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.model.GameModel;
 
-public class PlayMonopolyCommand implements ICommand {
+public class PlayYearOfPlentyCommand implements ICommand {
 
 	private GameModel model;
 	
 	
 	/**
-	 * @param input is a valid PlayMonopolyInput object
-	 * @pre None
-	 * @post All other players have given all of the specified resource to 
+	 * @param input is a valid PlayYearOfPlentyInput object
+	 * @pre The two specified resources are available in the bank
+	 * @post The player gained one of each of the two specified resources
 	 * @return The GameModel after executing the changes
 	 */
 	@Override

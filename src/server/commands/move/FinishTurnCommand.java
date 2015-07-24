@@ -4,15 +4,15 @@ import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.model.GameModel;
 
-public class PlayMonopolyCommand implements ICommand {
+public class FinishTurnCommand implements ICommand {
 
 	private GameModel model;
 	
 	
 	/**
-	 * @param input is a valid PlayMonopolyInput object
+	 * @param input is a valid FinishTurnInput object
 	 * @pre None
-	 * @post All other players have given all of the specified resource to 
+	 * @post The cards in the player's new development card hand are moved to the old development card hand. The player is now inactive and the next player becomes active. 
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
@@ -24,5 +24,4 @@ public class PlayMonopolyCommand implements ICommand {
 	public void setModel(GameModel model) {
 		this.model = model;
 	}
-	
 }

@@ -4,15 +4,15 @@ import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.model.GameModel;
 
-public class PlayMonopolyCommand implements ICommand {
+public class PlaySoldierCommand implements ICommand {
 
 	private GameModel model;
 	
 	
 	/**
-	 * @param input is a valid PlayMonopolyInput object
-	 * @pre None
-	 * @post All other players have given all of the specified resource to 
+	 * @param input is a valid PlaySoldierInput object
+	 * @pre The specified location is not the current location of the robber. The victim player has at least one resource.
+	 * @post The robber is placed in the specified location. If a player is being robbed
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
