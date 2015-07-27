@@ -84,45 +84,9 @@ public class ProxyServer implements IServerFacade {
 	}
 
 	@Override
-	public boolean saveGame(GamesSaveInput input) throws ServerException {
-		clientCommunicator.post(input, "POST");
-		return true;
-	}
-
-	@Override
-	public GameModel loadGame(GamesLoadInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-	}
-
-	@Override
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
 		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
-	}
-
-	@Override
-	public GameModel resetGame(GameResetInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-	}
-
-	@Override
-	public List<String> getGameCommands(GameCommandsGetInput input)
-			throws ServerException {
-		// TODO
-		return null;
-	}
-
-	@Override
-	public GameModel postGameCommands(GameCommandsPostInput input)
-			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
-	}
-
-	@Override
-	public boolean changeLogLevel(UtilChangeLogLevelInput input)
-			throws ServerException {
-		clientCommunicator.post(input, "POST");
-		return true;
 	}
 
 	@Override

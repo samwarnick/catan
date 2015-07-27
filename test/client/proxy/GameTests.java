@@ -42,25 +42,4 @@ public class GameTests {
 			assertTrue(false);
 		}
 	}
-
-	
-	@Test
-	public void testResetGame() {
-		try {
-			ps.resetGame(new GameResetInput(true));
-		} catch (ServerException e) {
-			assertTrue(false);
-		}
-		
-	}
-	
-//	@Test
-//	public void testGetGameCommands(){
-//		try {
-//			ps.getGameCommands(new GameCommandsGetInput());
-//		} catch (ServerException e) {
-//			assertTrue(false);
-//		}
-//		
-//	}
 }

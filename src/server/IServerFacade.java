@@ -83,35 +83,6 @@ public interface IServerFacade {
 	public boolean joinGame(GamesJoinInput input) throws ServerException; // cookie?
 	
 	/**
-	 * This method is for testing and debugging purposes. 
-	 * When a bug is found, you can use the /games/save method to save the state of the game to a file, and attach the file to a bug report. 
-	 * A developer can later restore the state of the game when the bug occurred by loading the previously saved file 
-	 * using the /games/load method. Game files are saved to and loaded from the server's saves/ directory.
-	 * @param input contains gameID and filename
-	 * @pre 1. The specified game ID is valid <br>
-	 * 2. The specified file name is valid (i.e., not null or empty)<br>
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success in the body.<br>
-	 * 2. The current state of the specified game (including its ID) has been saved to the specified file name in the server’s saves/ directory<br>
-	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
-	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
-	 */
-	public boolean saveGame(GamesSaveInput input) throws ServerException; // boolean?
-	
-	/**
-	 * This method is for testing and debugging purposes.
-	 * When a bug is found, you can use the /games/save method to save the state of the game to a file, and attach the file to a bug report. 
-	 * A developer can later restore the state of the game when the bug occurred by loading the previously saved file 
-	 * using the /games/load method. Game files are saved to and loaded from the server's saves/ directory.
-	 * @param input contains filename
-	 * @pre A previously saved game file with the specified name exists in the server’s saves/ directory.
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success� in the body.<br>
-	 * 2. The game in the specified file has been loaded into the server and its state restored (including its ID).<br>
-	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error<br>
-	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
-	 */
-	public GameModel loadGame(GamesLoadInput input) throws ServerException; // GameModel?
-	
-	/**
 	 * Returns the current state of the game in JSON format.<br><br>
 	 * In addition to the current game state, the returned JSON also includes a “version� number for the client model. 
 	 * The next time /game/model is called, the version number from the previously retrieved model may optionally be included 
@@ -132,74 +103,6 @@ public interface IServerFacade {
 	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
 	 */
 	public GameModel getGameModelVersion(GameModelVersionInput input) throws ServerException;
-	
-	/**
-	 * Clears out the command history of the current game.<br><br>
-	 * For the default games created by the server, this method reverts the game to the state immediately after the initial placement round.
-	 * For user ­created games, this method reverts the game to the very beginning (i.e., before the initial placement round).<br><br>
-	 * This method returns the client model JSON for the game after it has been reset.
-	 * @param input contains user
-	 * @pre The caller has previously logged in to the server and joined a game (i.e., they have valid catan.user and catan.game HTTP cookies).
-	 * @post VALID:<br>1. The game’s command history has been cleared out<br>
-	 * 2. The game’s players have NOT been cleared out<br>
-	 * 3. The server returns an HTTP 200 success response.<br>
-	 * 4. The body contains the game’s updated client model JSON<br>
-	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
-	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
-	 */
-	public GameModel resetGame(GameResetInput input) throws ServerException; // GameModel?
-	
-	/**
-	 * Returns a list of commands that have been executed in the current game.<br><br>
-	 * This method can be used for testing and debugging. The command list returned by this method can be passed 
-	 * to the /game/command (POST) method to re­execute the commands in the game. This would typically be done after 
-	 * calling /game/reset to clear out the game’s command history. This is one way to capture the state of a game and restore it later. 
-	 * (See the /games/save and /games/load methods which provide another way to save and restore the state of a game.)<br><br>
-	 * For the default games created by the server, this method returns a list of all commands that have been executed after 
-	 * the initial placement round. For user­created games, this method returns a list of all commands that have been executed since 
-	 * the very beginning of the game (i.e., before the initial placement round).
-	 * @param input contains user
-	 * @pre The caller has previously logged in to the server and joined a game (i.e., they have valid catan.user and catan.game HTTP cookies).
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response.<br>
-	 * 2. The body contains a JSON array of commands that have been executed in the game. 
-	 * This command array is suitable for passing back to the /game/command [POST] method to restore the state of the 
-	 * game later (after calling /game/reset to revert the game to its initial state).<br>
-	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
-	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
-	 */
-	public List<String> getGameCommands(GameCommandsGetInput input) throws ServerException; // list of commands?
-	
-	/**
-	 * Executes the specified command list in the current game.<br><br>
-	 * This method can be used for testing and debugging. The command list returned by the /game/command [GET] 
-	 * method is suitable for passing to this method.<br><br>
-	 * This method returns the client model JSON for the game after the command list has been applied.
-	 * @param input contains user and commands
-	 * @pre The caller has previously logged in to the server and joined a game (i.e., they have valid catan.user and catan.game HTTP cookies).
-	 * @post VALID:<br>1. The passed­in command list has been applied to the game.<br>
-	 * 2. The server returns an HTTP 200 success response.<br>
-	 * 3. The body contains the game’s updated client model JSON<br>
-	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
-	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
-	 */
-	public GameModel postGameCommands(GameCommandsPostInput input) throws ServerException; // GameModel?
-	
-	// public GameListAIOutput listGameAI(GameListAIInput input)
-	
-	// public GameAddAIOutput addGameAI(GameAddAIOutput input)
-	
-	// UTIL
-	
-	/**
-	 * Sets the server’s logging level.
-	 * @param input 
-	 * @pre The caller specifies a valid logging level. Valid values include: <pre>SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST</pre>
-	 * @post VALID:<br>1. The server returns an HTTP 200 success response with “Success� in the body.<br>
-	 * 2. The Server is using the specified logging level<br>
-	 * <br>FAIL:<br>The server returns an HTTP 400 error response, and the body contains an error
-	 * @throws ServerException if status is not <pre>HTTP_OK</pre>
-	 */
-	public boolean changeLogLevel(UtilChangeLogLevelInput input) throws ServerException; // boolean?
 	
 	// MOVES
 	// ANYTIME

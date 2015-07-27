@@ -54,44 +54,11 @@ public class MockProxyServer implements IServerFacade {
 	}
 
 	@Override
-	public boolean saveGame(GamesSaveInput input) throws ServerException {
-		return false;
-	}
-
-	@Override
-	public GameModel loadGame(GamesLoadInput input) throws ServerException {
-		return null;
-	}
-
-	@Override
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
 		JsonNode root = JsonParser.nodeFromFile(new File("model.json"));
 		GameModel model = JsonParser.gameModelFromJson(root);
 		return model;
-	}
-
-	@Override
-	public GameModel resetGame(GameResetInput input) throws ServerException {
-		return null;
-	}
-
-	@Override
-	public List<String> getGameCommands(GameCommandsGetInput input)
-			throws ServerException {
-		return null;
-	}
-
-	@Override
-	public GameModel postGameCommands(GameCommandsPostInput input)
-			throws ServerException {
-		return null;
-	}
-
-	@Override
-	public boolean changeLogLevel(UtilChangeLogLevelInput input)
-			throws ServerException {
-		return false;
 	}
 
 	@Override
