@@ -5,9 +5,24 @@ import java.util.List;
 
 import client.communication.LogEntry;
 import client.domestic.Trade;
+import shared.definitions.CatanColor;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import shared.model.bank.Bank;
+import shared.model.bank.BankException;
+import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
+import shared.model.board.BoardFacade;
+import shared.model.board.City;
 import shared.model.board.PlayerID;
+import shared.model.board.Road;
+import shared.model.board.Settlement;
+import shared.model.board.Vertex;
+import shared.model.player.ActivePlayerFacade;
+import shared.model.player.InactivePlayerFacade;
 import shared.model.player.Player;
 
 /**
@@ -27,6 +42,7 @@ public class GameModel {
 	List<LogEntry> logs = new ArrayList<LogEntry>();
 	List<LogEntry>  chats = new ArrayList<LogEntry>();
 	private int winner = -1;
+	private static GameModel defaultGM;
 	
 	public GameModel(int gameID) {
 		this.gameID = gameID;
@@ -217,6 +233,54 @@ public class GameModel {
 				+ ", board=" + board + ", players=" + players
 				+ ", turnTracker=" + turnTracker + ", bank=" + bank
 				+ ", trade=" + trade + "]";
+	}
+	
+	public static GameModel getDefaultModel(){
+		if(defaultGM == null){
+			defaultGM  = new GameModel(0);
+			try {
+				Player harold = new Player(CatanColor.BROWN, "Harold", 0);
+				harold.getPlayerBank().setRC(4);
+				harold.setPlayerFacade(new ActivePlayerFacade(harold));
+				Player gretchen = new Player(CatanColor.GREEN, "Gretchen", 1);
+				gretchen.getPlayerBank().setLargestArmyCard(true);
+				gretchen.getPlayerBank().setLongestRoadCard(true);
+				gretchen.setPlayerFacade(new InactivePlayerFacade(gretchen));
+				Player ingrid  = new Player(CatanColor.ORANGE, "Ingrid", 2);
+				ingrid.getPlayerBank().modifyRC(new ResourceHand(4,0,2,1,0));
+				ingrid.setPlayerFacade(new InactivePlayerFacade(ingrid));
+				Player jerry = new Player(CatanColor.BLUE, "Jerry", 3);
+				jerry.getPlayerBank().modifyRC(new ResourceHand(2,2,2,1,1));
+				jerry.setPlayerFacade(new InactivePlayerFacade(jerry));
+				defaultGM.addPlayer(harold);
+				defaultGM.addPlayer(gretchen);
+				defaultGM.addPlayer(ingrid);
+				defaultGM.addPlayer(jerry);
+				Board board = new Board(false, false, false);
+				List<Vertex> vertices = new ArrayList<Vertex>();
+				vertices.add(new Settlement(new PlayerID(0), new VertexLocation(new HexLocation(0,0), VertexDirection.East)));
+				vertices.add(new City(new PlayerID(0), new VertexLocation(new HexLocation(-1,-1), VertexDirection.SouthWest)));
+				vertices.add(new Settlement(new PlayerID(3), new VertexLocation(new HexLocation(1,1), VertexDirection.NorthEast)));
+				board.setBuildings(vertices);
+				List<Road> roads = new ArrayList<Road>();
+				roads.add(new Road(new PlayerID(0), new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthEast)));
+				roads.add(new Road(new PlayerID(0), new EdgeLocation(new HexLocation(0,0), EdgeDirection.South)));
+				roads.add(new Road(new PlayerID(3), new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
+				roads.add(new Road(new PlayerID(3), new EdgeLocation(new HexLocation(0,2), EdgeDirection.NorthEast)));
+				board.setRoads(roads);
+				BoardFacade bf = new BoardFacade(board);
+//				bf.setBoard(board);
+				board.setBoardFacade(bf);
+				defaultGM.setBoard(board);
+			} catch (TooManyPlayersException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BankException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return defaultGM;
 	}
 	
 	

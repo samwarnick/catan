@@ -325,7 +325,7 @@ public class ModelController {
 	
 	public void reset(){
 		poller = null;
-		JGC.getJoinGameView().showModal();
+		JGC.start();
 	}
 	
 }
