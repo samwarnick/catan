@@ -3,7 +3,9 @@ package client.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.join.JoinGameController;
 import client.poller.Poller;
+import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 import server.ServerException;
 import shared.communication.input.*;
@@ -25,6 +27,7 @@ public class ModelController {
 	private GameModelFacade gameModelFacade;
 	private Poller poller;
 	private Player clientPlayer;
+	private JoinGameController JGC;
 
 	private int PlayerID;
 	private String playerName;
@@ -314,6 +317,15 @@ public class ModelController {
 		
 		public void ModelChanged();
 
+	}
+	
+	public void setJGC(JoinGameController x){
+		JGC = x;
+	}
+	
+	public void reset(){
+		poller = null;
+		JGC.getJoinGameView().showModal();
 	}
 	
 }
