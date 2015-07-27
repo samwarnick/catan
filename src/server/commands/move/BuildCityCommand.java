@@ -1,8 +1,13 @@
 package server.commands.move;
 
+import java.util.List;
+
 import server.commands.ICommand;
 import shared.communication.input.Input;
+import shared.communication.input.move.BuildCityInput;
+import shared.locations.VertexLocation;
 import shared.model.GameModel;
+import shared.model.board.Vertex;
 
 public class BuildCityCommand implements ICommand{
 	
@@ -16,8 +21,11 @@ public class BuildCityCommand implements ICommand{
 	 */
 	@Override
 	public Object execute(Input input) {
-		// TODO Auto-generated method stub
-		return null;
+		int playerIndex = ((BuildCityInput) input).getPlayerIndex();
+		VertexLocation location = ((BuildCityInput) input).getVertexLocation();
+		
+		List<Vertex> buildings = model.getBoard().getBuildings();
+		
 	}
 	
 	public void setModel(GameModel model){
