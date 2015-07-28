@@ -23,18 +23,17 @@ public class Roads {
 	 * @pre none
 	 * @param road
 	 * @throws NoRoadsLeftException
-	 * @throws RoadAlreadyThereException 
 	 * @post adds a Road, or throws NoRoadsLeftException.
 	 */
 
-	public void buildRoad() throws NoRoadsLeftException {
+	public void buildRoad() throws Exception {
 
 		if (roadsLeft > 0)
 		{
 			roadsLeft--;
 		}
 		else
-			throw new NoRoadsLeftException();
+			throw new Exception("NoRoadsLeft");
 		
 	}
 
@@ -42,9 +41,4 @@ public class Roads {
 		return roadsLeft;
 	}
 
-}
-
-@SuppressWarnings("serial")
-class NoRoadsLeftException extends Exception{
-	
 }

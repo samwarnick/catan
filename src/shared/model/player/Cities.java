@@ -24,13 +24,13 @@ public class Cities {
  * @throws NoCitiesLeftException
  * @post adds a city, or throws NoCitiesLeftException.
  */
-	public void buildCity() throws NoCitiesLeftException {
+	public void buildCity() throws Exception {
 		if (citiesLeft > 0)
 		{
 			citiesLeft--;
 		}
 		else
-			throw new NoCitiesLeftException();
+			throw new Exception("NoCitiesLeft");
 	}
 
 	public int getCitiesLeft() {
@@ -39,9 +39,4 @@ public class Cities {
 	
 	
 
-}
-
-@SuppressWarnings("serial")
-class NoCitiesLeftException extends Exception{
-	
 }

@@ -11,22 +11,21 @@ import shared.locations.EdgeLocation;
 public class BuildRoadInput extends MoveInput {
 
 	private boolean free;
-	private Spot roadLocation;
+	private EdgeLocation location;
 	private String type = "buildRoad";
 	
-	public BuildRoadInput(int playerIndex, boolean isFree, EdgeLocation location1) {
+	public BuildRoadInput(int playerIndex, boolean isFree, EdgeLocation location) {
 		super("/buildRoad", playerIndex);
 		this.free = isFree;
-		this.roadLocation = new Spot(location1.getHexLoc().getX(), location1.getHexLoc().getY(),
-									abbreviate(location1.getDir()));
+		this.location = location;
 	}
 
 	public boolean isFree() {
 		return free;
 	}
 
-	public Spot getRoadLocation() {
-		return roadLocation;
+	public EdgeLocation getRoadLocation() {
+		return location;
 	}
 
 	public String getType() {
@@ -37,8 +36,8 @@ public class BuildRoadInput extends MoveInput {
 		this.free = free;
 	}
 
-	public void setRoadLocation(Spot roadLocation) {
-		this.roadLocation = roadLocation;
+	public void setRoadLocation(EdgeLocation location) {
+		this.location = location;
 	}
 
 	public void setType(String type) {

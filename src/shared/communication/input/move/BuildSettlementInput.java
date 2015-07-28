@@ -11,14 +11,13 @@ import shared.locations.VertexLocation;
 public class BuildSettlementInput extends MoveInput {
 
 	private boolean free;
-	private Spot vertexLocation;
+	private VertexLocation location;
 	private String type = "buildSettlement";
 	
 	public BuildSettlementInput(int playerIndex, boolean isFree, VertexLocation location) {
 		super("/buildSettlement", playerIndex);
 		this.free = isFree;
-		this.vertexLocation = new Spot(location.getHexLoc().getX(), location.getHexLoc().getY(),
-				abbreviate(location.getDir()));
+		this.location = location;
 	}
 	
 	public boolean isFree() {
@@ -39,12 +38,12 @@ public class BuildSettlementInput extends MoveInput {
 		this.type = type;
 	}
 
-	public Spot getVertexLocation() {
-		return vertexLocation;
+	public VertexLocation getVertexLocation() {
+		return location;
 	}
 
-	public void setVertexLocation(Spot vertexLocation) {
-		this.vertexLocation = vertexLocation;
+	public void setVertexLocation(VertexLocation location) {
+		this.location = location;
 	}
 
 	private String abbreviate(VertexDirection e){
