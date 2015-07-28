@@ -42,7 +42,7 @@ public class UserHandler implements HttpHandler {
 			exchange.getResponseBody().write(bytes);
 			exchange.getResponseBody().close();
 		} else {
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 		}
 	}
 }
