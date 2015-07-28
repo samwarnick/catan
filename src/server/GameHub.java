@@ -5,9 +5,7 @@ import java.util.List;
 
 import client.data.GameInfo;
 import shared.model.GameModel;
-import shared.model.user.Password;
 import shared.model.user.User;
-import shared.model.user.Username;
 
 public class GameHub {
 
@@ -20,12 +18,12 @@ public class GameHub {
 		models = new ArrayList<GameModel>();
 		infos = new ArrayList<GameInfo>();
 		users = new ArrayList<User>();
-		users.add(new User(new Username("Spencer"),new Password("spencer")));
-		users.add(new User(new Username("Sam"),new Password("sam")));
-		users.add(new User(new Username("Jordan"),new Password("jordan")));
-		users.add(new User(new Username("Matt"),new Password("matt")));
-		users.add(new User(new Username("Isaac"),new Password("isaac")));
-
+		
+		addUser(new User("Spencer","spencer"));
+		addUser(new User("Sam","sam"));
+		addUser(new User("Isaac","isaac"));
+		addUser(new User("Jordan","jordan"));
+		addUser(new User("Matt","matt"));
 	}
 	
 	public static GameHub getInstance(){
@@ -43,8 +41,31 @@ public class GameHub {
 		return infos.get(num);
 	}
 	
+	public List<GameInfo> getGameInfos() {
+		return infos;
+	}
+	
 	public User getUser(int num){
 		return users.get(num);
+	}
+	
+	public User getUserByNameAndPassword(String username, String password) {
+		for (User u: users) {
+			if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+				return u;
+			}
+		}
+		
+		return null;
+	}
+	
+	public boolean userAlreadyThere(String username) {
+		for (User u: users) {
+			if (u.getUsername().equals(username)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void addModel(GameModel model){
@@ -55,7 +76,8 @@ public class GameHub {
 		infos.add(info);
 	}
 	
-	public void addUser(User user){
+	public void addUser(User user) {
+		user.setId(users.size());
 		users.add(user);
 	}
 	

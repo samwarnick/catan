@@ -1,31 +1,29 @@
 package shared.model.user;
 
 public class User {
-	private Username username;
-	private Password password;
-	private String cookie;
+	private String username;
+	private String password;
+	private int id;
 	
-	public User(Username username, Password password) {
+	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		cookie = "";
-	}
-
-	public String getCookie() {
-		return cookie;
+		id = -1;
 	}
 	
-	public void setCookie(String cookie) {
-		this.cookie = cookie;
-	}
-	
-	public Username getUsername() {
+	public String getUsername() {
 		return username;
 	}
 	
-	public Password getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

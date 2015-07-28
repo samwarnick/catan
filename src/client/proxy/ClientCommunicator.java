@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -60,43 +65,54 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public JsonNode post(Input toPost, String requestMethod) throws ServerException {
+	public Object post(Input toPost, String requestMethod) throws ServerException {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
 			url = new URL(URLPrefix + method);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        conn.setRequestMethod(requestMethod);
+	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
+	        conn.setRequestProperty("Content-Type", "text/html");
 	        if(cookie!=null){
 	        	conn.setRequestProperty("Cookie", cookie);
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
 	        if (requestMethod != "GET") {
 		        mapper.writeValue(conn.getOutputStream(), toPost);
 	        }
 	        conn.getOutputStream().close();
+	        
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	if (conn.getHeaderField("Content-length").equals("7")) { // i.e. "success" in response body
-	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
-	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			cookie = precookie.substring(0, precookie.length()-8);
-	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
-	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
-	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
-	        		}
-	        		if(toPost.getMethod().equals("/games/join")){
-	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
-	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
-	        			int index = temp.lastIndexOf("catan.game=") + 11;
-	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
-	        		}
+	        	System.out.println("OK");
+	        	System.out.println(conn.getContentLength());
+	        	
+	        	String precookie = (String) conn.getHeaderField("Set-Cookie");
+	        	System.out.println(precookie);
+	        	
+	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
+	        		System.out.println("Success");
+//	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
+//	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
+//	        			cookie = precookie.substring(0, precookie.length()-8);
+//	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+//	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
+//	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
+//	        		}
+//	        		if(toPost.getMethod().equals("/games/join")){
+//	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
+//	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
+//	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+//	        			int index = temp.lastIndexOf("catan.game=") + 11;
+//	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
+//	        		}
 	        		return null;
 	        	}
 	        	else{
-	        		return mapper.readTree(conn.getInputStream());
+	        		return mapper.readValue(conn.getInputStream(), Object.class);
 	        	}
 	        }
 	        else{
@@ -104,7 +120,6 @@ public class ClientCommunicator {
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new ServerException(e.getMessage());
 		}
 	}

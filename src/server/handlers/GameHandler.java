@@ -13,6 +13,7 @@ public class GameHandler implements HttpHandler {
 	 */
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		// TODO Auto-generated method stub
+		System.out.println("In GameHandler");
+		
 	}
 }
