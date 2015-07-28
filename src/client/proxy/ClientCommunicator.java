@@ -5,7 +5,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import server.ServerException;
@@ -60,25 +59,30 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public JsonNode post(Input toPost, String requestMethod) throws ServerException {
+	public Object post(Input toPost, String requestMethod) throws ServerException {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
 			url = new URL(URLPrefix + method);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        conn.setRequestMethod(requestMethod);
+	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
+	        conn.setRequestProperty("Content-Type", "text/html");
 	        if(cookie!=null){
 	        	conn.setRequestProperty("Cookie", cookie);
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
+//	        mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
 	        if (requestMethod != "GET") {
-		        mapper.writeValue(conn.getOutputStream(), toPost);
 	        }
 	        conn.getOutputStream().close();
+	        
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	if (conn.getHeaderField("Content-length").equals("7")) { // i.e. "success" in response body
+	        	
+	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
+	        		System.out.println("Success");
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
 	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
 	        			cookie = precookie.substring(0, precookie.length()-8);
@@ -96,7 +100,7 @@ public class ClientCommunicator {
 	        		return null;
 	        	}
 	        	else{
-	        		return mapper.readTree(conn.getInputStream());
+	        		return mapper.readValue(conn.getInputStream(), Object.class);
 	        	}
 	        }
 	        else{
@@ -104,7 +108,6 @@ public class ClientCommunicator {
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new ServerException(e.getMessage());
 		}
 	}

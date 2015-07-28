@@ -1,7 +1,5 @@
 package shared.communication.input;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * This class is the base class for all Input classes
  * @author Matt
@@ -9,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class Input {
 
-	@JsonIgnore
 	private String method;
 	
 	public Input(String method) {

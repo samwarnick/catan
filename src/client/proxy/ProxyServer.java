@@ -55,26 +55,13 @@ public class ProxyServer implements IServerFacade {
 	@Override
 	public ArrayList<GameInfo> listGames(GamesListInput input)
 			throws ServerException {
-		JsonNode root = clientCommunicator.post(input, "GET");
-		if (!root.isMissingNode()) {
-			ArrayList<GameInfo> gameInfoList = new ArrayList<GameInfo>();
-			Iterator<JsonNode> iter = root.elements();
-			while (iter.hasNext()) {
-				JsonNode temp = iter.next();
-				gameInfoList.add(JsonParser.gameInfoFromJson(temp));
-			}
-			return gameInfoList;
-		}
-		return null; 
+		ArrayList<GameInfo> games = (ArrayList<GameInfo>) clientCommunicator.post(input, "POST");
+		return games;
 	}
 
 	@Override
 	public GameInfo createGame(GamesCreateInput input) throws ServerException {
-		JsonNode root = clientCommunicator.post(input, "POST");
-		if (!root.isMissingNode()) {
-			return JsonParser.gameInfoFromJson(root);
-		}
-		return null;
+		return (GameInfo) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
@@ -86,99 +73,99 @@ public class ProxyServer implements IServerFacade {
 	@Override
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "GET"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel sendChat(SendChatInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel discardCards(DiscardCardsInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel rollNumber(RollNumberInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel buildRoad(BuildRoadInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel buildSettlement(BuildSettlementInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel buildCity(BuildCityInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel offerTrade(OfferTradeInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel maritimeTrade(MaritimeTradeInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel robPlayer(RobPlayerInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel finishTurn(FinishTurnInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel playSoldier(PlaySoldierInput input) throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel playYearOfPlenty(PlayYearOfPlentyInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel playRoadBuilding(PlayRoadBuildingInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel playMonopoly(PlayMonopolyInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 
 	@Override
 	public GameModel playMonument(PlayMonumentInput input)
 			throws ServerException {
-		return JsonParser.gameModelFromJson(clientCommunicator.post(input, "POST"));
+		return (GameModel) clientCommunicator.post(input, "POST");
 	}
 	
 	public int getPlayerId(){
@@ -188,7 +175,4 @@ public class ProxyServer implements IServerFacade {
 	public int getGameId(){
 		return clientCommunicator.getGameId();
 	}
-
-	
-
 }

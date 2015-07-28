@@ -20,8 +20,9 @@ public class Server {
 	private HttpHandler gamesHandler = new GamesHandler();
 	
 	public void run(int port) {
+		System.out.println("Server starting on port " + port);
 		try {
-			server = HttpServer.create(new InetSocketAddress(port), 12);
+			server = HttpServer.create(new InetSocketAddress(port), 100);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

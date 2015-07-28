@@ -1,5 +1,6 @@
 package server.commands.games;
 
+import server.GameHub;
 import server.commands.ICommand;
 import shared.communication.input.Input;
 
@@ -11,11 +12,7 @@ public class ListCommand implements ICommand{
 	 */
 
 	@Override
-	public Object execute(Input input) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object execute(String input) {
+		return GameHub.getInstance().getGameInfos();
 	}
-	
-	
-
 }

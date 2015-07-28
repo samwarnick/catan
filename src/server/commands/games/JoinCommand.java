@@ -11,7 +11,7 @@ public class JoinCommand implements ICommand {
 	 */
 	
 	@Override
-	public Object execute(Input input) {
+	public Object execute(String input) {
 		// TODO Auto-generated method stub
 		return null;
 	}

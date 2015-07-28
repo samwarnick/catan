@@ -1,19 +1,20 @@
 package server.handlers;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
-import server.commands.ICommand;
+import server.ServerException;
 import server.commands.user.LoginCommand;
+import server.commands.user.RegisterCommand;
 import shared.communication.input.Input;
+import shared.model.user.User;
 
-public class UserHandler implements HttpHandler {
-
-	private ICommand command = null;
+public class UserHandler extends Handler {
 	
 	/**
 	 * creates a new command based on which /user/ method is called and executes that command.
@@ -21,26 +22,42 @@ public class UserHandler implements HttpHandler {
 	 */
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		Input input = mapper.readValue(exchange.getRequestBody(), Input.class);
+		
+		String json = jsonStringFromExchange(exchange.getRequestBody());
+		Input input = new Gson().fromJson(json, Input.class);
 		switch (input.getMethod()) {
 		case "/user/login":
 			command = new LoginCommand();
+			break;
 		case "/user/register":
-			// command = new UserRegisterCommand();
-		default:
-			command = null;
+			command = new RegisterCommand();
+			break;
 		}
 		
 		if (command != null) {
-			command.execute(input);
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-			// set cookie
-			
-			// write to response body
-			byte[] bytes = mapper.writeValueAsBytes("Success");
-			exchange.getResponseBody().write(bytes);
-			exchange.getResponseBody().close();
+			try {
+				User user = (User) command.execute(json);
+				exchange.getResponseHeaders().set("Content-Type", "text/html");
+				
+				// create cookie from user
+				String cookie = user.createCookie();
+				// set cookie
+				exchange.getResponseHeaders().add("Set-Cookie", cookie);
+				
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 7);
+				
+				// write to response body
+
+				// write to response body
+				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
+				writer.write("Success");
+				writer.close();
+				
+				exchange.getResponseBody().close();
+			} catch (ServerException e) {
+				e.printStackTrace();
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
+			}
 		} else {
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 		}
