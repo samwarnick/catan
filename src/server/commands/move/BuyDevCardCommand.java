@@ -1,13 +1,16 @@
 package server.commands.move;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import server.GameHub;
 import server.commands.ICommand;
 import shared.communication.input.Input;
+import shared.definitions.DevCardType;
 import shared.model.GameModel;
+import shared.model.bank.DevelopmentHand;
 
 public class BuyDevCardCommand implements ICommand {
-
-	private GameModel model;
-	
 	
 	/**
 	 * @param input is a valid BuyDevCardInput object
@@ -17,11 +20,67 @@ public class BuyDevCardCommand implements ICommand {
 	 */
 	@Override
 	public Object execute(Input input) {
-		// TODO Auto-generated method stub
-		return null;
+		int GameID = -1;
+		GameModel model = GameHub.getInstance().getModel(GameID);
+		ArrayList<Integer> empties = new ArrayList<Integer>();
+		Random rand = new Random();
+		DevCardType dct = null;
+		String name = null;
+	    int randomNum;
+	    try{
+		while(true){
+			
+			while(true){
+				randomNum = rand.nextInt(5);
+				if(!empties.contains(randomNum)) break;
+			}
+			
+		    switch(randomNum){
+		    case 0:
+		    	if(model.getBank().hasDC(DevCardType.SOLDIER, 1)){
+		    		dct = DevCardType.SOLDIER;
+		    		break;
+		    	}
+		    	empties.add(randomNum);
+		    case 1:
+		    	if(model.getBank().hasDC(DevCardType.YEAR_OF_PLENTY, 1)){
+		    		dct = DevCardType.SOLDIER;
+		    		break;
+		    	}
+		    	empties.add(randomNum);
+		    case 2:
+		    	if(model.getBank().hasDC(DevCardType.ROAD_BUILD, 1)){
+		    		dct = DevCardType.SOLDIER;
+		    		break;
+		    	}
+		    	empties.add(randomNum);
+		    case 3:
+		    	if(model.getBank().hasDC(DevCardType.MONOPOLY, 1)){
+		    		dct = DevCardType.SOLDIER;
+		    		break;
+		    	}
+		    	empties.add(randomNum);
+		    case 4:
+		    	if(model.getBank().hasDC(DevCardType.MONUMENT, 1)){
+		    		dct = DevCardType.SOLDIER;
+		    		break;
+		    	}
+		    	empties.add(randomNum);
+		    }
+			
+			if(dct != null) break;
+		}
+		
+		model.getPlayer(name).getPlayerBank().addDC(dct);
+		DevelopmentHand dh = new DevelopmentHand();
+		dh.setSoldier(-1);
+		model.getBank().modifyDC(dh);
+		}	catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return model;
 	}
 
-	public void setModel(GameModel model) {
-		this.model = model;
-	}
+
 }
