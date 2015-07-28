@@ -4,13 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Scanner;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import server.ServerException;
@@ -80,35 +74,29 @@ public class ClientCommunicator {
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
+//	        mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
 	        if (requestMethod != "GET") {
-		        mapper.writeValue(conn.getOutputStream(), toPost);
 	        }
 	        conn.getOutputStream().close();
 	        
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	System.out.println("OK");
-	        	System.out.println(conn.getContentLength());
-	        	
-	        	String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        	System.out.println(precookie);
 	        	
 	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
 	        		System.out.println("Success");
-//	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
-//	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-//	        			cookie = precookie.substring(0, precookie.length()-8);
-//	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
-//	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
-//	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
-//	        		}
-//	        		if(toPost.getMethod().equals("/games/join")){
-//	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-//	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
-//	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
-//	        			int index = temp.lastIndexOf("catan.game=") + 11;
-//	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
-//	        		}
+	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
+	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
+	        			cookie = precookie.substring(0, precookie.length()-8);
+	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
+	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
+	        		}
+	        		if(toPost.getMethod().equals("/games/join")){
+	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
+	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
+	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+	        			int index = temp.lastIndexOf("catan.game=") + 11;
+	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
+	        		}
 	        		return null;
 	        	}
 	        	else{

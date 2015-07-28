@@ -2,17 +2,11 @@ package server.handlers;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.URLEncoder;
-import java.util.Scanner;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonWriter;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 import server.ServerException;
 import server.commands.user.LoginCommand;
@@ -20,7 +14,7 @@ import server.commands.user.RegisterCommand;
 import shared.communication.input.Input;
 import shared.model.user.User;
 
-public class UserHandler extends Handler implements HttpHandler {
+public class UserHandler extends Handler {
 	
 	/**
 	 * creates a new command based on which /user/ method is called and executes that command.
@@ -28,7 +22,6 @@ public class UserHandler extends Handler implements HttpHandler {
 	 */
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
 		
 		String json = jsonStringFromExchange(exchange.getRequestBody());
 		Input input = new Gson().fromJson(json, Input.class);
@@ -46,8 +39,10 @@ public class UserHandler extends Handler implements HttpHandler {
 				User user = (User) command.execute(json);
 				exchange.getResponseHeaders().set("Content-Type", "text/html");
 				
+				// create cookie from user
+				String cookie = user.createCookie();
 				// set cookie
-				exchange.getResponseHeaders().add("Set-Cookie", "stuff");
+				exchange.getResponseHeaders().add("Set-Cookie", cookie);
 				
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 7);
 				

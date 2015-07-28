@@ -37,6 +37,12 @@ public class GameHub {
 		return models.get(num);
 	}
 	
+	public void updateModel(GameModel updatedModel) {
+		int id = updatedModel.getGameID();
+		models.remove(id);
+		models.add(id, updatedModel);
+	}
+	
 	public GameInfo getInfo(int num){
 		return infos.get(num);
 	}
@@ -59,7 +65,16 @@ public class GameHub {
 		return null;
 	}
 	
-	public boolean userAlreadyThere(String username) {
+	public User registerUser(String username, String password) {
+		if (!userAlreadyThere(username)) {
+			User newUser = new User(username, password);
+			addUser(newUser);
+			return getUserByNameAndPassword(username, password);
+		}
+		return null;
+	}
+	
+	private boolean userAlreadyThere(String username) {
 		for (User u: users) {
 			if (u.getUsername().equals(username)) {
 				return true;
@@ -68,11 +83,11 @@ public class GameHub {
 		return false;
 	}
 	
-	public void addModel(GameModel model){
+	public void addModel(GameModel model) {
 		models.add(model);
 	}
 	
-	public void addInfo(GameInfo info){
+	public void addInfo(GameInfo info) {
 		infos.add(info);
 	}
 	

@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 
-import client.data.GameInfo;
-import server.GameHub;
+import server.ServerException;
 import server.commands.ICommand;
 import server.commands.games.CreateCommand;
 import server.commands.games.JoinCommand;
@@ -31,7 +29,6 @@ public class GamesHandler extends Handler {
 		Input input = new Gson().fromJson(json, Input.class);
 		switch (input.getMethod()) {
 		case "/games/list":
-			System.out.println("Listing");
 			command = new ListCommand();
 			break;
 		case "/games/create":
@@ -42,28 +39,38 @@ public class GamesHandler extends Handler {
 			break;
 		}
 		
-		if (command != null) {
-			List<GameInfo> games = GameHub.getInstance().getGameInfos();
+		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+		
+		if (command != null && cookie != null) {
 			
-			exchange.getResponseHeaders().set("Content-Type", "text/html");
-			exchange.getResponseHeaders().add("Set-Cookie", "stuff");
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+			Object result;
+			try {
+				result = command.execute(json);
+				
+				if (command.getClass().equals(JoinCommand.class)) {
+					// add to cookie with game 
+					
+					int id = (int) result;
+					cookie = cookie + "catan.game=" + id;
+					
+					exchange.getResponseHeaders().add("Set-Cookie", cookie);
+				}
+				
+				exchange.getResponseHeaders().set("Content-Type", "text/html");
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
-			// write to response body
-			Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-			String toWrite = new Gson().toJson(games);
-			writer.write(toWrite);
-			writer.close();
-			
-//			Headers headers = exchange.getResponseHeaders();
-//			for (String s: headers.keySet()) {
-//				System.out.println(s);
-//			}
-			
-			exchange.getResponseBody().close();
+				// write to response body
+				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
+				String toWrite = new Gson().toJson(result);
+				writer.write(toWrite);
+				writer.close();
+				
+				exchange.getResponseBody().close();
+			} catch (ServerException e) {
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
+			}
 		} else {
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
-			exchange.getResponseBody().close();
 		}
 	}
 }
