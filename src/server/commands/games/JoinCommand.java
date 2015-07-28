@@ -1,7 +1,6 @@
 package server.commands.games;
 
 import server.commands.ICommand;
-import shared.communication.input.Input;
 
 public class JoinCommand implements ICommand {
 

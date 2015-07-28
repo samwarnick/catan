@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -30,12 +31,14 @@ public class GameHandler extends Handler {
 			break;
 		}
 		
-		// check for cookies
+		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
 		
-		if (command != null) {
+		if (command != null && cookie != null) {
 				
-			int num = 0;
-			GameModel model = GameHub.getInstance().getModel(num);
+			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+			int index = temp.lastIndexOf("catan.game=") + 11;
+			int gameId = Integer.parseInt(temp.substring(index, temp.length()));
+			GameModel model = GameHub.getInstance().getModel(gameId);
 			exchange.getResponseHeaders().set("Content-Type", "text/html");
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 

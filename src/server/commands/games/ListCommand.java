@@ -2,7 +2,6 @@ package server.commands.games;
 
 import server.GameHub;
 import server.commands.ICommand;
-import shared.communication.input.Input;
 
 public class ListCommand implements ICommand{
 	

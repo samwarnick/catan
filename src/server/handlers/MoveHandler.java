@@ -80,14 +80,16 @@ public class MoveHandler extends Handler {
 		}
 		
 		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
-		StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
-		int index = temp.lastIndexOf("catan.game=") + 11;
-		int gameId = Integer.parseInt(temp.substring(index, temp.length()));
 		
 		if (command != null && cookie != null) {
 			try {
+				StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+				int index = temp.lastIndexOf("catan.game=") + 11;
+				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
 				GameModel model = GameHub.getInstance().getModel(gameId);
-				GameModel updatedModel = (GameModel) command.execute(json);
+				MoveCommand moveCommand = (MoveCommand) command;
+				moveCommand.setGameModel(model);
+				GameModel updatedModel = (GameModel) moveCommand.execute(json);
 				GameHub.getInstance().updateModel(updatedModel);
 				
 				exchange.getResponseHeaders().set("Content-Type", "text/html");
