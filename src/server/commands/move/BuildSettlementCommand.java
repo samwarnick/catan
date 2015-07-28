@@ -1,9 +1,9 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
 import server.ServerException;
 import server.commands.ICommand;
-import shared.communication.input.Input;
-import shared.communication.input.move.BuildRoadInput;
 import shared.communication.input.move.BuildSettlementInput;
 import shared.locations.VertexLocation;
 import shared.model.GameModel;
@@ -25,10 +25,12 @@ public class BuildSettlementCommand implements ICommand{
 	 * @throws ServerException 
 	 */
 	@Override
-	public Object execute(Input input) throws ServerException {
-		VertexLocation location = ((BuildSettlementInput)input).getVertexLocation();
-		boolean isFree = ((BuildSettlementInput)input).isFree();
-		int playerIndex = ((BuildSettlementInput) input).getPlayerIndex();
+	public Object execute(String input) throws ServerException {
+		Gson parser = new Gson();
+		BuildSettlementInput in = parser.fromJson(input, BuildSettlementInput.class);
+		VertexLocation location = in.getVertexLocation();
+		boolean isFree = in.isFree();
+		int playerIndex = in.getPlayerIndex();
 		
 		Player player = model.getPlayer(new PlayerID(playerIndex));
 		if (!isFree) {

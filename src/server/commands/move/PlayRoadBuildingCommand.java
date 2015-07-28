@@ -1,9 +1,9 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
 import server.ServerException;
 import server.commands.ICommand;
-import shared.communication.input.Input;
-import shared.communication.input.move.BuildRoadInput;
 import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.locations.EdgeLocation;
 import shared.model.GameModel;
@@ -24,10 +24,12 @@ public class PlayRoadBuildingCommand implements ICommand {
 	 * @throws ServerException 
 	 */
 	@Override
-	public Object execute(Input input) throws ServerException {
-		EdgeLocation location1 = ((PlayRoadBuildingInput)input).getLocation1();
-		EdgeLocation location2 = ((PlayRoadBuildingInput)input).getLocation2();
-		int playerIndex = ((BuildRoadInput) input).getPlayerIndex();
+	public Object execute(String input) throws ServerException {
+		Gson parser = new Gson();
+		PlayRoadBuildingInput in = parser.fromJson(input, PlayRoadBuildingInput.class);
+		EdgeLocation location1 = in.getLocation1();
+		EdgeLocation location2 = in.getLocation2();
+		int playerIndex = in.getPlayerIndex();
 		
 		Player player = model.getPlayer(new PlayerID(playerIndex));
 		model.getBoard().getRoads().add(new Road(player.getPlayerID(), location1));

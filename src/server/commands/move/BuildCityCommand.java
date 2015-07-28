@@ -2,9 +2,10 @@ package server.commands.move;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import server.ServerException;
 import server.commands.ICommand;
-import shared.communication.input.Input;
 import shared.communication.input.move.BuildCityInput;
 import shared.locations.VertexLocation;
 import shared.model.GameModel;
@@ -27,9 +28,11 @@ public class BuildCityCommand implements ICommand{
 	 * @throws ServerException 
 	 */
 	@Override
-	public Object execute(Input input) throws ServerException {
-		VertexLocation location = ((BuildCityInput) input).getVertexLocation();
-		int playerIndex = ((BuildCityInput) input).getPlayerIndex();
+	public Object execute(String input) throws ServerException {
+		Gson parser = new Gson();
+		BuildCityInput in = parser.fromJson(input, BuildCityInput.class);
+		VertexLocation location = in.getVertexLocation();
+		int playerIndex = in.getPlayerIndex();
 		
 		List<Vertex> buildings = model.getBoard().getBuildings();
 		Vertex settlement = null;

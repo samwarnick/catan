@@ -184,7 +184,9 @@ public class MapController extends client.base.Controller implements IMapControl
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (PlayerID id : playerIDs) {
 			Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id);
-			if (!player.equals(ModelController.getInstance().getClientPlayer()) && ModelController.getInstance().getGameModelFacade().canRobPlayer(player, robber)){
+			if (!player.equals(ModelController.getInstance().getClientPlayer())
+					&& ModelController.getInstance().getGameModelFacade().canRobPlayer(player, robber)
+					&& players.contains(player)){
 				players.add(player);
 			}
 		}
