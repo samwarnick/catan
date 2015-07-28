@@ -45,7 +45,7 @@ public class BuildSettlementCommand implements ICommand{
 			player.getSettlements().buildSettlement();
 			player.getVictoryPoints().addPublicVictoryPoint();
 		} catch (Exception e) {
-			throw new ServerException("Error with changing settlements available when building a road:\n" + e.getMessage());
+			throw new ServerException("Error with changing settlements available when building a settlement:\n" + e.getMessage());
 		}
 		
 		return model;

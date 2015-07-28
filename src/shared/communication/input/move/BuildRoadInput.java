@@ -1,6 +1,5 @@
 package shared.communication.input.move;
 
-import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 
 /**
@@ -44,18 +43,18 @@ public class BuildRoadInput extends MoveInput {
 		this.type = type;
 	}
 	
-	private String abbreviate(EdgeDirection e){
-		switch(e){
-		case North: return "N";
-		case NorthEast: return "NE";
-		case South: return "S";
-		case SouthEast: return "SE";
-		case NorthWest: return "NW";
-		case SouthWest: return "SW";
-		default: return "";
-		}
-		
-	}
+//	private String abbreviate(EdgeDirection e){
+//		switch(e){
+//		case North: return "N";
+//		case NorthEast: return "NE";
+//		case South: return "S";
+//		case SouthEast: return "SE";
+//		case NorthWest: return "NW";
+//		case SouthWest: return "SW";
+//		default: return "";
+//		}
+//		
+//	}
 	
 	
 		

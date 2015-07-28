@@ -177,6 +177,36 @@ public class GameModel {
 		this.winner = winner;
 	}
 
+	public void assignLongestRoad() {
+		Player player = players.get(0);
+		for (int i = 1; i < players.size(); i++) {
+			if (players.get(i).getLongestRoad().getNumRoads() > player.getLongestRoad().getNumRoads()) {
+				player = players.get(i);
+			}
+		}
+		
+		if (player.getLongestRoad().getNumRoads() >= 5 && !player.hasLongestRoad()) {
+			if (bank.hasLongestRoadCard()) {
+				bank.setLongestRoadCard(false);
+				player.getLongestRoad().setHasLongestRoad(true);
+				player.getVictoryPoints().addPrivateVictoryPoint();
+				player.getVictoryPoints().addPrivateVictoryPoint();
+			}
+			else {
+				for (Player otherPlayer : players) {
+					if (otherPlayer.hasLongestRoad()) {
+						otherPlayer.getLongestRoad().setHasLongestRoad(false);
+						otherPlayer.getVictoryPoints().subtractPublicVictoryPoints(2);
+						player.getLongestRoad().setHasLongestRoad(true);
+						player.getVictoryPoints().addPrivateVictoryPoint();
+						player.getVictoryPoints().addPrivateVictoryPoint();
+					}
+				} 				
+			}
+			assert(player.hasLongestRoad());
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

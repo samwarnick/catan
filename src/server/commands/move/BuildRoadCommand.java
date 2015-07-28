@@ -3,7 +3,6 @@ package server.commands.move;
 import server.ServerException;
 import server.commands.ICommand;
 import shared.communication.input.Input;
-import shared.communication.input.move.BuildCityInput;
 import shared.communication.input.move.BuildRoadInput;
 import shared.locations.EdgeLocation;
 import shared.model.GameModel;
@@ -11,7 +10,6 @@ import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
 import shared.model.board.Road;
-import shared.model.player.LongestRoad;
 import shared.model.player.Player;
 
 public class BuildRoadCommand implements ICommand{
@@ -46,19 +44,7 @@ public class BuildRoadCommand implements ICommand{
 			throw new ServerException("Error with changing roads available when building a road:\n" + e.getMessage());
 		}
 		
-		if (player.getLongestRoad().getNumRoads() >= 5) {
-			for (Player otherPlayer : model.getPlayers()) {
-				// how many is minimum for longestroad?
-				if (otherPlayer.hasLongestRoad()
-						&& player.getLongestRoad().getNumRoads() > otherPlayer.getLongestRoad().getNumRoads()) {
-					otherPlayer.getLongestRoad().setHasLongestRoad(false);
-					otherPlayer.getVictoryPoints().subtractPublicVictoryPoints(2);
-					player.getLongestRoad().setHasLongestRoad(true);
-					player.getVictoryPoints().addPrivateVictoryPoint();
-					player.getVictoryPoints().addPrivateVictoryPoint();
-				}
-			} 
-		}
+		model.assignLongestRoad();
 		
 		return model;
 	}

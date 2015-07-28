@@ -9,36 +9,35 @@ import shared.locations.EdgeLocation;
  */
 public class PlayRoadBuildingInput extends MoveInput {
 
-	private Spot spot1;
-	private Spot spot2;
+	private EdgeLocation location1;
+	private EdgeLocation location2;
 	private String type = "Road_Building";
 	
 	public PlayRoadBuildingInput(int playerIndex, EdgeLocation location1, EdgeLocation location2) {
 		super("/Road_Building", playerIndex);
-		spot1 = new Spot(location1.getHexLoc().getX(), location1.getHexLoc().getY(),
-				location1.getDir().getAbbreviation());
-		spot2 =  new Spot(location2.getHexLoc().getX(), location2.getHexLoc().getY(),
-				location2.getDir().getAbbreviation());
+		this.location1 = location1;
+		this.location2 = location2;
+	}
+	
+
+	public EdgeLocation getLocation1() {
+		return location1;
 	}
 
-	public Spot getSpot1() {
-		return spot1;
+	public void setLocation1(EdgeLocation location1) {
+		this.location1 = location1;
 	}
 
-	public Spot getSpot2() {
-		return spot2;
+	public EdgeLocation getLocation2() {
+		return location2;
+	}
+
+	public void setLocation2(EdgeLocation location2) {
+		this.location2 = location2;
 	}
 
 	public String getType() {
 		return type;
-	}
-
-	public void setSpot1(Spot spot1) {
-		this.spot1 = spot1;
-	}
-
-	public void setSpot2(Spot spot2) {
-		this.spot2 = spot2;
 	}
 
 	public void setType(String type) {

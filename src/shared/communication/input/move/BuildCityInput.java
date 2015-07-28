@@ -1,6 +1,5 @@
 package shared.communication.input.move;
 
-import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -35,16 +34,16 @@ public class BuildCityInput extends MoveInput {
 	}
 
 
-	private String abbreviate(VertexDirection e){
-		switch(e){
-		case East: return "E";
-		case NorthEast: return "NE";
-		case West: return "W";
-		case SouthEast: return "SE";
-		case NorthWest: return "NW";
-		case SouthWest: return "SW";
-		default: return "";
-		}
-	}
-	
+//	private String abbreviate(VertexDirection e){
+//		switch(e){
+//		case East: return "E";
+//		case NorthEast: return "NE";
+//		case West: return "W";
+//		case SouthEast: return "SE";
+//		case NorthWest: return "NW";
+//		case SouthWest: return "SW";
+//		default: return "";
+//		}
+//	}
+//	
 }
