@@ -15,6 +15,6 @@ public interface ICommand {
 	 * It should perform all necessary operations for the command on the server data.
 	 * @throws ServerException 
 	 */
-	Object execute(Input input) throws ServerException;
+	Object execute(String input) throws ServerException;
 	
 }

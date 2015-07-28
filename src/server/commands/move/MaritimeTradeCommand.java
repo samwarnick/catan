@@ -2,7 +2,11 @@ package server.commands.move;
 
 import server.commands.ICommand;
 import shared.communication.input.Input;
+import shared.communication.input.move.MaritimeTradeInput;
 import shared.model.GameModel;
+import shared.model.bank.BankException;
+import shared.model.bank.ResourceHand;
+import shared.model.board.PlayerID;
 
 public class MaritimeTradeCommand implements ICommand {
 
@@ -17,8 +21,71 @@ public class MaritimeTradeCommand implements ICommand {
 	 */
 	@Override
 	public Object execute(Input input) {
-		// TODO Auto-generated method stub
-		return null;
+		MaritimeTradeInput maritimeTradeInput = (MaritimeTradeInput) input;
+		int ratio = maritimeTradeInput.getRatio();
+		ResourceHand rh = new ResourceHand();
+		ResourceHand bankrh = new ResourceHand();
+		switch (maritimeTradeInput.getInputResource()){
+		case "Wood":{
+			rh.setWood(-1 * ratio);
+			bankrh.setWood(ratio);
+			break;
+		}
+		case "Brick":{
+			rh.setBrick(-1 * ratio);
+			bankrh.setBrick(ratio);
+			break;
+		}
+		case "Sheep":{
+			rh.setSheep(-1 * ratio);
+			bankrh.setSheep(ratio);
+			break;
+		}
+		case "Wheat":{
+			rh.setWheat(-1 * ratio);
+			bankrh.setWheat(ratio);
+			break;
+		}
+		case "Ore":{
+			rh.setOre(-1 * ratio);
+			bankrh.setOre(ratio);
+			break;
+		}
+		}
+		switch (maritimeTradeInput.getOutputResource()){
+		case "Wood":{
+			rh.setWood(1);
+			bankrh.setWood(-1);
+			break;
+		}
+		case "Brick":{
+			rh.setBrick(1);
+			bankrh.setBrick(-1);
+			break;
+		}
+		case "Sheep":{
+			rh.setSheep(1);
+			bankrh.setSheep(-1);
+			break;
+		}
+		case "Wheat":{
+			rh.setWheat(1);
+			bankrh.setWheat(-1);
+			break;
+		}
+		case "Ore":{
+			rh.setOre(1);
+			bankrh.setOre(-1);
+			break;
+		}
+		}
+		try {
+			model.getPlayer(new PlayerID(maritimeTradeInput.getPlayerIndex())).getPlayerBank().modifyRC(rh);
+			model.getBank().modifyRC(bankrh);
+		} catch (BankException e) {
+			e.printStackTrace();
+		}
+		return model;
 	}
 
 	public void setModel(GameModel model) {

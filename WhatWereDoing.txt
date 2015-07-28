@@ -1,24 +1,9 @@
-Spencer: Roll
-Isaac: Game hub
-Matt: 
-Jordan: Game hub, turn tracker
-Sam: ModelController set active player facade 
+Spencer:Add default users to the game hub, offer trade, acceptTrade, maritimeTrade, discardCards, finishTurn
+Isaac: game ones, buyDevCard, sendChat
+Matt: buildRoad, buildCity, buildSettlement, rollNumber, Road_Building
+Jordan: robPlayer, Soldier, Monument, YearofPlenty, Monopoly
+Sam: ALL THE HANDLERS, ant, swagger
 
 TODO:
+test the people beneath you on the list.  Jordan tests Spencer’s.
 
-Roll
-TurnTracker
-PlayerWaiting
-JoinGame
-Maritime trade
-Domestic Trade
-
-"FINISHED": (Need testing)
-
-ResourceController
-DiscardController // implement listener update model
-DevCardController
-Login
-Chat
-GameHistory
-TheMap

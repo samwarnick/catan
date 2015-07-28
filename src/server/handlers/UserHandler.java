@@ -8,7 +8,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import server.commands.ICommand;
-import server.commands.user.UserLoginCommand;
+import server.commands.user.LoginCommand;
 import shared.communication.input.Input;
 
 public class UserHandler implements HttpHandler {
@@ -25,7 +25,7 @@ public class UserHandler implements HttpHandler {
 		Input input = mapper.readValue(exchange.getRequestBody(), Input.class);
 		switch (input.getMethod()) {
 		case "/user/login":
-			command = new UserLoginCommand();
+			command = new LoginCommand();
 		case "/user/register":
 			// command = new UserRegisterCommand();
 		default:
@@ -42,7 +42,7 @@ public class UserHandler implements HttpHandler {
 			exchange.getResponseBody().write(bytes);
 			exchange.getResponseBody().close();
 		} else {
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 		}
 	}
 }
