@@ -19,7 +19,7 @@ public class BuildSettlementInput extends MoveInput {
 		this.location = location;
 	}
 	
-	public boolean isFree() {
+	public boolean getFree() {
 		return free;
 	}
 
