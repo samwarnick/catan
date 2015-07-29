@@ -24,7 +24,7 @@ public class BuildSettlementCommand extends MoveCommand{
 		Gson parser = new Gson();
 		BuildSettlementInput in = parser.fromJson(input, BuildSettlementInput.class);
 		VertexLocation location = in.getVertexLocation();
-		boolean isFree = in.isFree();
+		boolean isFree = in.getFree();
 		int playerIndex = in.getPlayerIndex();
 		
 		Player player = model.getPlayer(new PlayerID(playerIndex));

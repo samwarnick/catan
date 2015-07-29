@@ -23,7 +23,7 @@ public class BuildRoadCommand extends MoveCommand{
 		Gson parser = new Gson();
 		BuildRoadInput in = parser.fromJson(input, BuildRoadInput.class);
 		EdgeLocation location = in.getRoadLocation();
-		boolean isFree = in.isFree();
+		boolean isFree = in.getFree();
 		int playerIndex = in.getPlayerIndex();
 		
 		Player player = model.getPlayer(new PlayerID(playerIndex));
