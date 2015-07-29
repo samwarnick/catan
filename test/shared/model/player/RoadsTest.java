@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import shared.model.player.NoRoadsLeftException;
 import shared.model.player.Roads;
 
 public class RoadsTest {
@@ -17,7 +16,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -25,7 +24,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -33,7 +32,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -41,7 +40,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -49,7 +48,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -57,7 +56,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -65,7 +64,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -73,7 +72,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -81,7 +80,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -89,7 +88,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -97,7 +96,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -105,7 +104,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -113,7 +112,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -121,7 +120,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -129,7 +128,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -137,7 +136,7 @@ public class RoadsTest {
 		
 		try {
 			roads.buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertTrue(noLeft);

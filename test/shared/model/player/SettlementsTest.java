@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import shared.model.player.NoSettlementsLeftException;
 import shared.model.player.Settlements;
-import shared.model.player.TooManySettlementsException;
 
 public class SettlementsTest {
 
@@ -25,42 +23,42 @@ public class SettlementsTest {
 		// build settlements
 		try {
 			settlements.buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
 		assertEquals(4, settlements.getSettlementsLeft());
 		try {
 			settlements.buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
 		assertEquals(3, settlements.getSettlementsLeft());
 		try {
 			settlements.buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
 		assertEquals(2, settlements.getSettlementsLeft());
 		try {
 			settlements.buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
 		assertEquals(1, settlements.getSettlementsLeft());
 		try {
 			settlements.buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
 		assertEquals(0, settlements.getSettlementsLeft());
 		try {
 			settlements.buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertTrue(noLeft);
@@ -70,42 +68,42 @@ public class SettlementsTest {
 		boolean tooMany = false;
 		try {
 			settlements.subtractSettlement();
-		} catch (TooManySettlementsException e) {
+		} catch (Exception e) {
 			tooMany = true;
 		}
 		assertFalse(tooMany);
 		assertEquals(1, settlements.getSettlementsLeft());
 		try {
 			settlements.subtractSettlement();
-		} catch (TooManySettlementsException e) {
+		} catch (Exception e) {
 			tooMany = true;
 		}
 		assertFalse(tooMany);
 		assertEquals(2, settlements.getSettlementsLeft());
 		try {
 			settlements.subtractSettlement();
-		} catch (TooManySettlementsException e) {
+		} catch (Exception e) {
 			tooMany = true;
 		}
 		assertFalse(tooMany);
 		assertEquals(3, settlements.getSettlementsLeft());
 		try {
 			settlements.subtractSettlement();
-		} catch (TooManySettlementsException e) {
+		} catch (Exception e) {
 			tooMany = true;
 		}
 		assertFalse(tooMany);
 		assertEquals(4, settlements.getSettlementsLeft());
 		try {
 			settlements.subtractSettlement();
-		} catch (TooManySettlementsException e) {
+		} catch (Exception e) {
 			tooMany = true;
 		}
 		assertFalse(tooMany);
 		assertEquals(5, settlements.getSettlementsLeft());
 		try {
 			settlements.subtractSettlement();
-		} catch (TooManySettlementsException e) {
+		} catch (Exception e) {
 			tooMany = true;
 		}
 		assertTrue(tooMany);

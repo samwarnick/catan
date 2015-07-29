@@ -273,8 +273,8 @@ public class GameModel {
 				harold.getPlayerBank().setRC(4);
 				harold.setPlayerFacade(new ActivePlayerFacade(harold));
 				Player gretchen = new Player(CatanColor.GREEN, "Gretchen", 1);
-				gretchen.getPlayerBank().setLargestArmyCard(true);
-				gretchen.getPlayerBank().setLongestRoadCard(true);
+//				gretchen.getPlayerBank().setLargestArmyCard(true);
+//				gretchen.getPlayerBank().setLongestRoadCard(true);
 				gretchen.setPlayerFacade(new InactivePlayerFacade(gretchen));
 				Player ingrid  = new Player(CatanColor.ORANGE, "Ingrid", 2);
 				ingrid.getPlayerBank().modifyRC(new ResourceHand(4,0,2,1,0));
@@ -311,10 +311,5 @@ public class GameModel {
 			}
 		}
 		return defaultGM;
-	}
-	
-	
-	
-	
+	}	
 }
-
