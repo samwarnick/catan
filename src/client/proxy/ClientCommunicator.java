@@ -1,11 +1,14 @@
 package client.proxy;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import server.ServerException;
 import shared.communication.input.Input;
@@ -59,7 +62,7 @@ public class ClientCommunicator {
 	 * @post returns the object included in the HTML response given by the server.
 	 */
 	
-	public Object post(Input toPost, String requestMethod) throws ServerException {
+	public String post(Input toPost, String requestMethod) throws ServerException {
 		try {
 			String method = toPost.getMethod();
 	        URL url;
@@ -104,8 +107,17 @@ public class ClientCommunicator {
 	        		}
 	        		return null;
 	        	}
-	        	else{
-	        		return mapper.readValue(conn.getInputStream(), Object.class);
+	        	else {
+	        		StringBuilder builder = new StringBuilder();
+	        		Scanner scan = new Scanner(conn.getInputStream());
+	        		while (scan.hasNext()) {
+	        			builder.append(scan.nextLine());
+	        		}
+	        		scan.close();
+	        		String json = builder.toString();
+	        		System.out.println(json);
+	        		return json;
+//	        		return mapper.readValue(conn.getInputStream(), Object.class);
 	        	}
 	        }
 	        else{

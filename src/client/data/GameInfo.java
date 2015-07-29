@@ -62,5 +62,9 @@ public class GameInfo
 	{
 		return Collections.unmodifiableList(players);
 	}
+
+	public void setPlayers(List<PlayerInfo> players) {
+		this.players = players;
+	}
 }
 

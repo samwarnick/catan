@@ -14,7 +14,6 @@ import server.commands.games.CreateCommand;
 import server.commands.games.JoinCommand;
 import server.commands.games.ListCommand;
 import shared.communication.input.Input;
-import shared.model.board.PlayerID;
 
 public class GamesHandler extends Handler {
 
@@ -44,8 +43,12 @@ public class GamesHandler extends Handler {
 		}
 		
 		String userCookie = exchange.getRequestHeaders().getFirst("Cookie");
+		boolean valid = true;
+		if (command.getClass().equals(JoinCommand.class) || command.getClass().equals(JoinCommand.class) && userCookie == null) {
+			valid = false;
+		}
 		
-		if (command != null) {
+		if (command != null && valid) {
 			
 			Object result;
 			try {
@@ -79,6 +82,7 @@ public class GamesHandler extends Handler {
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
 				String toWrite = new Gson().toJson(result);
+				System.out.println(toWrite);
 				writer.write(toWrite);
 				writer.close();
 				
