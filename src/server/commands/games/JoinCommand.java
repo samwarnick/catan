@@ -45,7 +45,7 @@ public class JoinCommand implements ICommand {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
+		return jgi.getId();
 	}
 	
 	private CatanColor chooseColor(String c){
