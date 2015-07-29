@@ -1,12 +1,14 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
 import client.domestic.Trade;
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.OfferTradeInput;
 import shared.model.GameModel;
 
-public class OfferTradeCommand implements ICommand {
+public class OfferTradeCommand extends MoveCommand {
 
 	private GameModel model;
 	
@@ -18,8 +20,8 @@ public class OfferTradeCommand implements ICommand {
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
-	public Object execute(Input input) {
-		OfferTradeInput offerTradeInput = (OfferTradeInput) input;
+	public Object execute(String input) {
+		OfferTradeInput offerTradeInput = new Gson().fromJson(input,OfferTradeInput.class);
 		Trade trade = new Trade(offerTradeInput.getOffer().getBrick(), offerTradeInput.getOffer().getWood(), offerTradeInput.getOffer().getSheep(), offerTradeInput.getOffer().getWheat(), 
 				offerTradeInput.getOffer().getOre(), offerTradeInput.getPlayerIndex(), offerTradeInput.getReceiver());
 		model.setTrade(trade);

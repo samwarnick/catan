@@ -1,5 +1,7 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.AcceptTradeInput;
@@ -8,7 +10,7 @@ import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
 
-public class AcceptTradeCommand implements ICommand{
+public class AcceptTradeCommand extends MoveCommand{
 	
 	private GameModel model;
 
@@ -18,8 +20,8 @@ public class AcceptTradeCommand implements ICommand{
 	 * @return the updated GameModel is returned
 	 */
 	@Override
-	public Object execute(Input input) {
-		AcceptTradeInput acceptTradeInput = (AcceptTradeInput) input;
+	public Object execute(String input) {
+		AcceptTradeInput acceptTradeInput = new Gson().fromJson(input,AcceptTradeInput.class);
 		if (acceptTradeInput.isWillAccept())
 		{
 			ResourceHand receiveRH = new ResourceHand(model.getTrade().getBrickNum(), model.getTrade().getWoodNum(), model.getTrade().getSheepNum(), model.getTrade().getWheatNum(), model.getTrade().getOreNum());

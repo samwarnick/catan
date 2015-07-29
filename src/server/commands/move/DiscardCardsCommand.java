@@ -1,5 +1,8 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
+import server.ServerException;
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.DiscardCardsInput;
@@ -8,7 +11,7 @@ import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
 
-public class DiscardCardsCommand implements ICommand{
+public class DiscardCardsCommand extends MoveCommand{
 	
 	private GameModel model;
 
@@ -18,8 +21,9 @@ public class DiscardCardsCommand implements ICommand{
 	 * @return the updated GameModel
 	 */
 	@Override
-	public Object execute(Input input) {
-		DiscardCardsInput discardCardsinput = (DiscardCardsInput) input;
+	public Object execute(String input) {
+		
+		DiscardCardsInput discardCardsinput = new Gson().fromJson(input, DiscardCardsInput.class);
 		ResourceHand rh = discardCardsinput.getDiscardedCards();
 		ResourceHand bankRH = discardCardsinput.getDiscardedCards();
 		bankRH.setBrick(rh.getBrick() * -1);
@@ -41,5 +45,7 @@ public class DiscardCardsCommand implements ICommand{
 	public void setModel(GameModel model){
 		this.model = model;
 	}
+
+	
 
 }

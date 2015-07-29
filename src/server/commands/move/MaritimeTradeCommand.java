@@ -1,5 +1,7 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.MaritimeTradeInput;
@@ -8,7 +10,7 @@ import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
 
-public class MaritimeTradeCommand implements ICommand {
+public class MaritimeTradeCommand extends MoveCommand {
 
 	private GameModel model;
 	
@@ -20,8 +22,8 @@ public class MaritimeTradeCommand implements ICommand {
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
-	public Object execute(Input input) {
-		MaritimeTradeInput maritimeTradeInput = (MaritimeTradeInput) input;
+	public Object execute(String input) {
+		MaritimeTradeInput maritimeTradeInput = new Gson().fromJson(input,MaritimeTradeInput.class);
 		int ratio = maritimeTradeInput.getRatio();
 		ResourceHand rh = new ResourceHand();
 		ResourceHand bankrh = new ResourceHand();

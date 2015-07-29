@@ -1,5 +1,7 @@
 package server.commands.move;
 
+import com.google.gson.Gson;
+
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.FinishTurnInput;
@@ -8,7 +10,7 @@ import shared.model.board.PlayerID;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.InactivePlayerFacade;
 
-public class FinishTurnCommand implements ICommand {
+public class FinishTurnCommand extends MoveCommand {
 
 	private GameModel model;
 	
@@ -20,8 +22,8 @@ public class FinishTurnCommand implements ICommand {
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
-	public Object execute(Input input) {
-		FinishTurnInput finishTurnInput = (FinishTurnInput) input;
+	public Object execute(String input) {
+		FinishTurnInput finishTurnInput = new Gson().fromJson(input,FinishTurnInput.class);
 		model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex())).setPlayerFacade(new InactivePlayerFacade(model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex()))));
 		
 		
