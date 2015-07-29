@@ -5,16 +5,12 @@ import com.google.gson.Gson;
 import server.ServerException;
 import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.locations.EdgeLocation;
-import shared.model.GameModel;
 import shared.model.board.PlayerID;
 import shared.model.board.Road;
 import shared.model.player.Player;
 
 public class PlayRoadBuildingCommand extends MoveCommand {
 
-	private GameModel model;
-	
-	
 	/**
 	 * @param input is a valid PlayRoadBuildingInput object
 	 * @pre The first road location must connect to one of the player's existing roads. The second road location must connect to one of the player's existing roads or the first road. The locations must be on a valid land edge and not occupied by another player. The player must have two unused roads.

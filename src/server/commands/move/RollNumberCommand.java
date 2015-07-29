@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import server.ServerException;
 import shared.communication.input.move.RollNumberInput;
 import shared.locations.HexLocation;
-import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
@@ -16,9 +15,6 @@ import shared.model.board.ResourceHex;
 import shared.model.player.Player;
 
 public class RollNumberCommand extends MoveCommand{
-	
-	private GameModel model;
-
 	
 	/**
 	 * @pre none

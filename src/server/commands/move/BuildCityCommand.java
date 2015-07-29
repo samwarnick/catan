@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import server.ServerException;
 import shared.communication.input.move.BuildCityInput;
 import shared.locations.VertexLocation;
-import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.City;
@@ -16,10 +15,7 @@ import shared.model.board.Vertex;
 import shared.model.player.Player;
 
 public class BuildCityCommand extends MoveCommand{
-	
-	private GameModel model;
-
-	
+		
 	/**
 	 * @pre the location is a valid location for the player to build a city, the player has enough resources to build a city.
 	 * @post the city will be placed at the location and the resources will be removed from the player

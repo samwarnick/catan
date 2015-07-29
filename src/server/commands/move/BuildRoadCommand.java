@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import server.ServerException;
 import shared.communication.input.move.BuildRoadInput;
 import shared.locations.EdgeLocation;
-import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
@@ -14,8 +13,6 @@ import shared.model.player.Player;
 
 public class BuildRoadCommand extends MoveCommand{
 	
-	private GameModel model;
-
 	/**
 	 * @pre the location is a valid location for the player to build a road, the player has enough resources to build a road if it isn't free.
 	 * @post the road will be placed at the location and the resources will be removed from the player if the road wasn't free.
