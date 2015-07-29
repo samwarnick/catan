@@ -12,6 +12,7 @@ public interface ICommand {
 	/**
 	 * This method will be called by the appropriate handler on the server.
 	 * It should perform all necessary operations for the command on the server data.
+	 * @throws ServerException 
 	 */
 	Object execute(String input) throws ServerException;
 	

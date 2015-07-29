@@ -131,6 +131,11 @@ public class Player {
 	public void setRoads(Roads roads) {
 		this.roads = roads;
 	}
+	
+	public void buildRoad() throws Exception {
+		roads.buildRoad();
+		longestRoad.addRoad();
+	}
 
 	public Settlements getSettlements() {
 		return settlements;

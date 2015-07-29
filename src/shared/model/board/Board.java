@@ -276,6 +276,8 @@ public class Board {
 		waterHexes.add(new WaterHex(hexLoc));
 		waterHexes.add(new WaterHex(new HexLocation(x, y)));
 		
+		robber = new Robber(desertHex.getLocation());
+		
 		assert !landIt.hasNext();
 		assert !portIt.hasNext();
 		assert !numIt.hasNext();

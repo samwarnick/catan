@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import shared.model.player.Cities;
-import shared.model.player.NoCitiesLeftException;
 
 public class CitiesTest {
 
@@ -23,7 +22,7 @@ public class CitiesTest {
 		
 		try {
 			cities.buildCity();
-		} catch (NoCitiesLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -31,7 +30,7 @@ public class CitiesTest {
 		
 		try {
 			cities.buildCity();
-		} catch (NoCitiesLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -39,7 +38,7 @@ public class CitiesTest {
 		
 		try {
 			cities.buildCity();
-		} catch (NoCitiesLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -47,7 +46,7 @@ public class CitiesTest {
 		
 		try {
 			cities.buildCity();
-		} catch (NoCitiesLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertFalse(noLeft);
@@ -55,7 +54,7 @@ public class CitiesTest {
 		
 		try {
 			cities.buildCity();
-		} catch (NoCitiesLeftException e) {
+		} catch (Exception e) {
 			noLeft = true;
 		}
 		assertTrue(noLeft);

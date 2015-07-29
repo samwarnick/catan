@@ -10,9 +10,6 @@ import shared.definitions.ResourceType;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
 import shared.model.player.ActivePlayerFacade;
-import shared.model.player.NoCitiesLeftException;
-import shared.model.player.NoRoadsLeftException;
-import shared.model.player.NoSettlementsLeftException;
 import shared.model.player.Player;
 
 public class ActivePlayerFacadeTest {
@@ -200,7 +197,7 @@ public class ActivePlayerFacadeTest {
 			player.getRoads().buildRoad();
 			player.getRoads().buildRoad();
 			player.getRoads().buildRoad();
-		} catch (NoRoadsLeftException e) {
+		} catch (Exception e) {
 			return;
 		}
 		
@@ -227,7 +224,7 @@ public class ActivePlayerFacadeTest {
 			player.getSettlements().buildSettlement();
 			player.getSettlements().buildSettlement();
 			player.getSettlements().buildSettlement();
-		} catch (NoSettlementsLeftException e) {
+		} catch (Exception e) {
 			return;
 		}
 		
@@ -252,7 +249,7 @@ public class ActivePlayerFacadeTest {
 			player.getCities().buildCity();
 			player.getCities().buildCity();
 			player.getCities().buildCity();
-		} catch (NoCitiesLeftException e) {
+		} catch (Exception e) {
 			return;
 		}
 		

@@ -1,6 +1,5 @@
 package shared.communication.input.move;
 
-import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -10,25 +9,24 @@ import shared.locations.VertexLocation;
  */
 public class BuildCityInput extends MoveInput {
 
-	private Spot vertexLocation;
+	VertexLocation location;
 	private String type = "buildCity";
 
 	public BuildCityInput(int playerIndex, VertexLocation location) {
 		super("/buildCity", playerIndex);
-		this.vertexLocation = new Spot(location.getHexLoc().getX(), location.getHexLoc().getY(),
-											abbreviate(location.getDir()));
+		this.location = location;
 	}
 
-	public Spot getVertexLocation() {
-		return vertexLocation;
+	public VertexLocation getVertexLocation() {
+		return location;
 	}
 
 	public String getType() {
 		return type;
 	}
 
-	public void setVertexLocation(Spot vertexLocation) {
-		this.vertexLocation = vertexLocation;
+	public void setVertexLocation(VertexLocation location) {
+		this.location = location;
 	}
 
 	public void setType(String type) {
@@ -36,16 +34,16 @@ public class BuildCityInput extends MoveInput {
 	}
 
 
-	private String abbreviate(VertexDirection e){
-		switch(e){
-		case East: return "E";
-		case NorthEast: return "NE";
-		case West: return "W";
-		case SouthEast: return "SE";
-		case NorthWest: return "NW";
-		case SouthWest: return "SW";
-		default: return "";
-		}
-	}
-	
+//	private String abbreviate(VertexDirection e){
+//		switch(e){
+//		case East: return "E";
+//		case NorthEast: return "NE";
+//		case West: return "W";
+//		case SouthEast: return "SE";
+//		case NorthWest: return "NW";
+//		case SouthWest: return "SW";
+//		default: return "";
+//		}
+//	}
+//	
 }

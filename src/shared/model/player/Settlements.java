@@ -28,12 +28,12 @@ public class Settlements {
 	 * @post adds a Settlement, or throws NoSettlementsLeftException.
 	 */
 
-	public void buildSettlement() throws NoSettlementsLeftException {
+	public void buildSettlement() throws Exception {
 		if(settlementsLeft > 0){
 				settlementsLeft--;
 		}
 		else
-			throw new NoSettlementsLeftException();
+			throw new Exception("NoSettlementsLeft");
 	}
 
 	public int getSettlementsLeft() {
@@ -47,25 +47,16 @@ public class Settlements {
 	 * @throws NoSettlementFoundException 
 	 * @post removes the Settlement specified in the parameter.
 	 */
-	public void subtractSettlement() throws TooManySettlementsException {
+	public void subtractSettlement() throws Exception {
 		if (settlementsLeft < 5){
 			settlementsLeft++;
 		}
 		else
-			throw new TooManySettlementsException();
+			throw new Exception("TooManySettlements");
 				
 	}
 	
 	
 	
-	
-}
-@SuppressWarnings("serial")
-class NoSettlementsLeftException extends Exception{
-	
-}
-@SuppressWarnings("serial")
-
-class TooManySettlementsException extends Exception{
 	
 }
