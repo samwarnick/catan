@@ -34,7 +34,7 @@ public class ListCommandTest {
 	public void testgoodInput() {
 		GamesCreateInput createInput = new GamesCreateInput("Bob", true, true, true);
 		CreateCommand createCommand = new CreateCommand();
-		createCommand.execute(createInput);
+		createCommand.execute(new Gson().toJson(createInput));
 		GamesListInput listInput = new GamesListInput();
 		ListCommand listCommand = new ListCommand();
 		List<GameInfo> output = (List<GameInfo>) listCommand.execute(new Gson().toJson(listInput));
