@@ -92,6 +92,7 @@ public class ClientCommunicator {
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.user=") + 11;
 	        			playerId = Integer.parseInt(temp.substring(index, temp.length()));
+	        			System.out.println(playerId);
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
 	        			cookie += ";" + (String) conn.getHeaderField("Set-Cookie");

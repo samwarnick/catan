@@ -13,6 +13,5 @@ public class ListCommand implements ICommand{
 	@Override
 	public Object execute(String input) {
 		return GameHub.getInstance().getGameInfos();
-
 	}
 }
