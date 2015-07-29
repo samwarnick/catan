@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.*;
 
+import com.google.gson.Gson;
+
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesListInput;
 import shared.communication.input.move.BuyDevCardInput;
@@ -24,7 +26,7 @@ public class ListCommandTest {
 	public void testBadInput() {
 		BuyDevCardInput input = new BuyDevCardInput(0);
 		ListCommand listCommand = new ListCommand();
-		List<GameInfo> output = (List<GameInfo>) listCommand.execute(input);
+		List<GameInfo> output = (List<GameInfo>) listCommand.execute(new Gson().toJson(input));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -35,7 +37,7 @@ public class ListCommandTest {
 		createCommand.execute(createInput);
 		GamesListInput listInput = new GamesListInput();
 		ListCommand listCommand = new ListCommand();
-		List<GameInfo> output = (List<GameInfo>) listCommand.execute(listInput);
+		List<GameInfo> output = (List<GameInfo>) listCommand.execute(new Gson().toJson(listInput));
 		assertEquals(output.get(0).getTitle(),"Bob");
 		assertEquals(output.get(0).getId(),0);
 		assertEquals(output.get(0).getPlayers().size(),1);

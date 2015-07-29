@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+import com.google.gson.Gson;
+
 import shared.communication.input.move.BuyDevCardInput;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
@@ -34,8 +36,8 @@ public class BuyDevCardCommandTest {
 		Player testPlayer = testModel.getPlayer(new PlayerID(0));
 		try {
 			BuyDevCardCommand command = new BuyDevCardCommand();
-			command.setModel(model);
-			model = (GameModel) command.execute(input);
+			//command.setModel(model);
+			model = (GameModel) command.execute(new Gson().toJson(input));
 			model.getPlayer(new PlayerID(0)).getPlayerBank().modifyRC(new ResourceHand(1,1,1,1,1));
 			testModel.getPlayer(new PlayerID(0)).getPlayerBank().modifyRC(new ResourceHand(1,1,1,1,1));
 			testPlayer.getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));

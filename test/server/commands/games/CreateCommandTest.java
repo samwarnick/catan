@@ -2,8 +2,9 @@ package server.commands.games;
 
 import static org.junit.Assert.*;
 
-
 import org.junit.*;
+
+import com.google.gson.Gson;
 
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.move.BuyDevCardInput;
@@ -20,14 +21,14 @@ public class CreateCommandTest {
 	public void testBadInput() {
 		BuyDevCardInput input = new BuyDevCardInput(0);
 		CreateCommand createCommand = new CreateCommand();
-		GameInfo output = (GameInfo) createCommand.execute(input);
+		GameInfo output = (GameInfo) createCommand.execute(new Gson().toJson(input));
 	}
 	
 	@Test
 	public void testgoodInput() {
 		GamesCreateInput createInput = new GamesCreateInput("Bob", true, true, true);
 		CreateCommand createCommand = new CreateCommand();
-		GameInfo output = (GameInfo) createCommand.execute(createInput);
+		GameInfo output = (GameInfo) createCommand.execute(new Gson().toJson(createInput));
 		
 		assertEquals(output.getTitle(),"Bob");
 		assertEquals(output.getId(),0);

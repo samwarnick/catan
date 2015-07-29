@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+import com.google.gson.Gson;
+
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesJoinInput;
 import shared.communication.input.move.BuyDevCardInput;
@@ -21,14 +23,14 @@ public class JoinCommandTest {
 	public void testBadInput() {
 		BuyDevCardInput input = new BuyDevCardInput(0);
 		JoinCommand joinCommand = new JoinCommand();
-		GameInfo output = (GameInfo) joinCommand.execute(input);
+		GameInfo output = (GameInfo) joinCommand.execute(new Gson().toJson(input));
 	}
 	
 	@Test
 	public void testNotInGame() {
 		GamesCreateInput createInput = new GamesCreateInput("Bob", true, true, true);
 		CreateCommand createCommand = new CreateCommand();
-		GameInfo output = (GameInfo) createCommand.execute(createInput);
+		GameInfo output = (GameInfo) createCommand.execute(new Gson().toJson(createInput));
 		
 		assertEquals(output.getTitle(),"Bob");
 		assertEquals(output.getId(),0);
@@ -36,7 +38,7 @@ public class JoinCommandTest {
 		
 		GamesJoinInput joinInput = new GamesJoinInput(0, CatanColor.BROWN);
 		JoinCommand joinCommand = new JoinCommand();
-		GameInfo joinOutput = (GameInfo) joinCommand.execute(joinInput);
+		GameInfo joinOutput = (GameInfo) joinCommand.execute(new Gson().toJson(joinInput));
 		
 		assertEquals(joinOutput.getId(),0);
 		assertEquals(joinOutput.getTitle(),"Bob");
@@ -49,7 +51,7 @@ public class JoinCommandTest {
 	public void testRejoinInGame() {
 		GamesCreateInput createInput = new GamesCreateInput("Bob", true, true, true);
 		CreateCommand createCommand = new CreateCommand();
-		GameInfo output = (GameInfo) createCommand.execute(createInput);
+		GameInfo output = (GameInfo) createCommand.execute(new Gson().toJson(createInput));
 		
 		assertEquals(output.getTitle(),"Bob");
 		assertEquals(output.getId(),0);
@@ -57,7 +59,7 @@ public class JoinCommandTest {
 		
 		GamesJoinInput joinInput = new GamesJoinInput(0, CatanColor.BROWN);
 		JoinCommand joinCommand = new JoinCommand();
-		GameInfo joinOutput = (GameInfo) joinCommand.execute(joinInput);
+		GameInfo joinOutput = (GameInfo) joinCommand.execute(new Gson().toJson(joinInput));
 		
 		assertEquals(joinOutput.getId(),0);
 		assertEquals(joinOutput.getTitle(),"Bob");
