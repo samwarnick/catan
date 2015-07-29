@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import server.GameHub;
 import server.commands.ICommand;
-import shared.communication.input.Input;
 import shared.communication.input.UserLoginInput;
 
 public class LoginCommand implements ICommand {

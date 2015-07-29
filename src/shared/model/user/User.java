@@ -28,7 +28,6 @@ public class User {
 	}
 	
 	public String createCookie() {
-		String cookie = "";
-		return cookie;
+		return "catan.user=" + id;
 	}
 }

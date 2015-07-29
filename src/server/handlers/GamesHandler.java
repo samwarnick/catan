@@ -39,9 +39,9 @@ public class GamesHandler extends Handler {
 			break;
 		}
 		
-		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+		String userCookie = exchange.getRequestHeaders().getFirst("Cookie");
 		
-		if (command != null && cookie != null) {
+		if (command != null && userCookie != null) {
 			
 			Object result;
 			try {
@@ -51,9 +51,9 @@ public class GamesHandler extends Handler {
 					// add to cookie with game 
 					
 					int id = (int) result;
-					cookie = cookie + "catan.game=" + id;
+					String gameCookie = "catan.game=" + id;
 					
-					exchange.getResponseHeaders().add("Set-Cookie", cookie);
+					exchange.getResponseHeaders().add("Set-Cookie", gameCookie);
 				}
 				
 				exchange.getResponseHeaders().set("Content-Type", "text/html");

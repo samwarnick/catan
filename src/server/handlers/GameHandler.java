@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.URLDecoder;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -35,7 +34,7 @@ public class GameHandler extends Handler {
 		
 		if (command != null && cookie != null) {
 				
-			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+			StringBuilder temp = new StringBuilder(cookie);
 			int index = temp.lastIndexOf("catan.game=") + 11;
 			int gameId = Integer.parseInt(temp.substring(index, temp.length()));
 			GameModel model = GameHub.getInstance().getModel(gameId);

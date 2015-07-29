@@ -3,7 +3,6 @@ package client.proxy;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -84,16 +83,19 @@ public class ClientCommunicator {
 	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
 	        		System.out.println("Success");
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
-	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			cookie = precookie.substring(0, precookie.length()-8);
-	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
-	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
-	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
+//	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
+//	        			cookie = precookie.substring(0, precookie.length()-8);
+//	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+//	        			int index = temp.lastIndexOf("\"playerID\":") + 11;
+//	        			playerId = Integer.parseInt(temp.substring(index, temp.length()-1));
+	        			cookie = (String) conn.getHeaderField("Set-Cookie");
+	        			StringBuilder temp = new StringBuilder(cookie);
+	        			int index = temp.lastIndexOf("catan.user=") + 11;
+	        			playerId = Integer.parseInt(temp.substring(index, temp.length()));
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")){
-	        			String precookie = (String) conn.getHeaderField("Set-Cookie");
-	        			cookie += "; " + precookie.substring(0, precookie.length()-8);
-	        			StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+	        			cookie += ";" + (String) conn.getHeaderField("Set-Cookie");
+	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.game=") + 11;
 	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));
 	        		}

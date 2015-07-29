@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.URLDecoder;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -80,10 +79,12 @@ public class MoveHandler extends Handler {
 		}
 		
 		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+		String[] cookieArray = cookie.split(";");
 		
-		if (command != null && cookie != null) {
+		if (command != null && cookieArray.length == 2) {
 			try {
-				StringBuilder temp = new StringBuilder(URLDecoder.decode(cookie, "UTF-8"));
+				String gameCookie = cookieArray[1];
+				StringBuilder temp = new StringBuilder(gameCookie);
 				int index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
 				GameModel model = GameHub.getInstance().getModel(gameId);
