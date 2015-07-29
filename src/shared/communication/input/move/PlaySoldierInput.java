@@ -11,6 +11,7 @@ public class PlaySoldierInput extends MoveInput {
 
 	private int victimIndex;
 	private SoldierSpot location;
+	private HexLocation hexLocation;
 	
 
 	public PlaySoldierInput(int playerIndex, HexLocation location, int victimIndex) {
@@ -18,6 +19,7 @@ public class PlaySoldierInput extends MoveInput {
 		setType("Soldier");
 		this.victimIndex = victimIndex;
 		this.location = new SoldierSpot(Integer.toString(location.getX()), Integer.toString(location.getY()));
+		hexLocation = location;
 	}
 
 	public SoldierSpot getLocation() {
@@ -27,5 +29,10 @@ public class PlaySoldierInput extends MoveInput {
 	public int getVictimIndex() {
 		return victimIndex;
 	}
+
+	public HexLocation getHexLocation() {
+		return hexLocation;
+	}
 		
 }
+
