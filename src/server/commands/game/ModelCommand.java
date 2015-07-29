@@ -13,8 +13,7 @@ public class ModelCommand implements ICommand {
 
 	@Override
 	public Object execute(String input) {
-		int GameID = 0;
-		return GameHub.getInstance().getModel(GameID);
+		return null;
 	}
 
 }

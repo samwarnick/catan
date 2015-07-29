@@ -3,14 +3,11 @@ package server.commands.move;
 import java.util.ArrayList;
 import java.util.Random;
 
-import server.GameHub;
-import server.commands.ICommand;
-import shared.communication.input.Input;
+
 import shared.definitions.DevCardType;
-import shared.model.GameModel;
 import shared.model.bank.DevelopmentHand;
 
-public class BuyDevCardCommand implements ICommand {
+public class BuyDevCardCommand extends MoveCommand {
 	
 	/**
 	 * @param input is a valid BuyDevCardInput object
@@ -18,10 +15,8 @@ public class BuyDevCardCommand implements ICommand {
 	 * @post The player has a new development card. If it is a monument card, it has been added to the player's old development card hand. If it is a non-monument card, it has been added to the player's new development card hand. 
 	 * @return The GameModel after executing the changes
 	 */
-	@Override
+
 	public Object execute(String input) {
-		int GameID = -1;
-		GameModel model = GameHub.getInstance().getModel(GameID);
 		ArrayList<Integer> empties = new ArrayList<Integer>();
 		Random rand = new Random();
 		DevCardType dct = null;

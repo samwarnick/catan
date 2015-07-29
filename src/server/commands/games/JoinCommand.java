@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.google.gson.Gson;
+
 import server.GameHub;
 import server.commands.ICommand;
 import shared.communication.input.GamesJoinInput;
@@ -23,9 +25,9 @@ public class JoinCommand implements ICommand {
 	
 	@Override
 	public Object execute(String input) {
-		int GameID = -1;
-		GameModel model = GameHub.getInstance().getModel(GameID);
-		GamesJoinInput jgi = new GamesJoinInput(GameID, CatanColor.BLUE);
+		Gson parser = new Gson();
+		GamesJoinInput jgi = parser.fromJson(input, GamesJoinInput.class);
+		GameModel model = GameHub.getInstance().getModel(jgi.getId());
 		String name = null;
 		Player newP = new Player();
 		CatanColor cc = chooseColor(jgi.getColor());

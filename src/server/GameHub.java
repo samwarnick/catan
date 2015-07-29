@@ -37,6 +37,10 @@ public class GameHub {
 		return models.get(num);
 	}
 	
+	public int getModelsSize(){
+		return models.size();
+	}
+	
 	public void updateModel(GameModel updatedModel) {
 		int id = updatedModel.getGameID();
 		models.remove(id);

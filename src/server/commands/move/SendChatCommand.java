@@ -3,16 +3,14 @@ package server.commands.move;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.google.gson.Gson;
+
 import client.communication.LogEntry;
-import server.GameHub;
-import server.commands.ICommand;
-import shared.communication.input.Input;
 import shared.communication.input.move.SendChatInput;
 import shared.definitions.CatanColor;
-import shared.definitions.DevCardType;
-import shared.model.GameModel;
 
-public class SendChatCommand implements ICommand{
+
+public class SendChatCommand extends MoveCommand{
 
 	
 	/**
@@ -21,11 +19,9 @@ public class SendChatCommand implements ICommand{
 	 * @return returns the game model after it has been updated.
 	 */
 	
-	@Override
 	public Object execute(String input) {
-		int GameID = -1;
-		GameModel model = GameHub.getInstance().getModel(GameID);
-		SendChatInput in = new SendChatInput( GameID, "");
+		Gson parser = new Gson();
+		SendChatInput in = parser.fromJson(input, SendChatInput.class);
 		int pi = in.getPlayerIndex();
 		CatanColor cc = model.getPlayers().get(pi).getColor();
 		LogEntry le = new LogEntry(cc, in.getContent());
