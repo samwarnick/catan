@@ -13,9 +13,9 @@ import shared.model.board.PlayerID;
 import shared.model.player.Player;
 import shared.model.player.VictoryPoints;
 
-public class PlayMonumentCommand implements ICommand {
+public class PlayMonumentCommand extends MoveCommand {
 	
-	private GameModel model;
+	//private GameModel model;
 	
 	
 	/**

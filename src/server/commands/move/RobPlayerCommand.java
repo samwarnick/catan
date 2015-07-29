@@ -13,9 +13,9 @@ import shared.model.bank.BankException;
 import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
-public class RobPlayerCommand implements ICommand {
+public class RobPlayerCommand extends MoveCommand {
 
-	private GameModel model;
+	//private GameModel model;
 	
 	
 	/**

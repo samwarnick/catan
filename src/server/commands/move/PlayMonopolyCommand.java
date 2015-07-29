@@ -14,9 +14,9 @@ import shared.model.bank.BankException;
 import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
-public class PlayMonopolyCommand implements ICommand {
+public class PlayMonopolyCommand extends MoveCommand {
 
-	private GameModel model;
+	//private GameModel model;
 	
 	
 	/**
