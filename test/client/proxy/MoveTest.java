@@ -31,22 +31,20 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.model.bank.ResourceHand;
-import shared.model.user.Password;
-import shared.model.user.Username;
 import client.proxy.ProxyServer;
 
 public class MoveTest {
 
 	private static ProxyServer ps;
-	static Username user = new Username("Sam");
-	static Password pass = new Password("sam");
+	static String user = "Sam";
+	static String pass = "sam";
 	
 	@BeforeClass
 	public static void init(){
 		ps = ProxyServer.getInstance();
 		
 		try {
-			ps.loginUser(new UserLoginInput(user.getUsername(), pass.getPassword()));
+			ps.loginUser(new UserLoginInput(user, pass));
 			ps.joinGame(new GamesJoinInput(0,CatanColor.RED));
 		} catch (ServerException e) {
 			assertTrue(false);

@@ -25,10 +25,13 @@ public class GamesHandler extends Handler {
 	 */
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
+		System.out.println("GamesHandler");
 		String json = jsonStringFromExchange(exchange.getRequestBody());
 		Input input = new Gson().fromJson(json, Input.class);
+		System.out.println(input.getMethod());
 		switch (input.getMethod()) {
 		case "/games/list":
+			System.out.println("Listing");
 			command = new ListCommand();
 			break;
 		case "/games/create":
@@ -41,7 +44,7 @@ public class GamesHandler extends Handler {
 		
 		String userCookie = exchange.getRequestHeaders().getFirst("Cookie");
 		
-		if (command != null && userCookie != null) {
+		if (command != null) {
 			
 			Object result;
 			try {
@@ -59,11 +62,15 @@ public class GamesHandler extends Handler {
 				exchange.getResponseHeaders().set("Content-Type", "text/html");
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
+				System.out.println("writing");
+				
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
 				String toWrite = new Gson().toJson(result);
 				writer.write(toWrite);
 				writer.close();
+				
+				System.out.println("written");
 				
 				exchange.getResponseBody().close();
 			} catch (ServerException e) {

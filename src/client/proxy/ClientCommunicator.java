@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import server.ServerException;
@@ -73,13 +74,14 @@ public class ClientCommunicator {
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
-//	        mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
+	        mapper.setVisibilityChecker(mapper.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
 	        if (requestMethod != "GET") {
+	        	mapper.writeValue(conn.getOutputStream(), toPost);
 	        }
 	        conn.getOutputStream().close();
 	        
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	
+	        	System.out.println("HTTP_OK");
 	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
 	        		System.out.println("Success");
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
