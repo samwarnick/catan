@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import server.ServerException;
-import server.commands.ICommand;
 import shared.communication.input.move.RollNumberInput;
 import shared.locations.HexLocation;
 import shared.model.GameModel;
@@ -16,7 +15,7 @@ import shared.model.board.PlayerID;
 import shared.model.board.ResourceHex;
 import shared.model.player.Player;
 
-public class RollNumberCommand implements ICommand{
+public class RollNumberCommand extends MoveCommand{
 	
 	private GameModel model;
 
@@ -104,9 +103,5 @@ public class RollNumberCommand implements ICommand{
 		}
 		
 		return model;
-	}
-
-	public void setModel(GameModel model){
-		this.model = model;
 	}
 }

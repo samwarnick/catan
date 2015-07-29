@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import server.ServerException;
-import server.commands.ICommand;
 import shared.communication.input.move.BuildCityInput;
 import shared.locations.VertexLocation;
 import shared.model.GameModel;
@@ -16,7 +15,7 @@ import shared.model.board.PlayerID;
 import shared.model.board.Vertex;
 import shared.model.player.Player;
 
-public class BuildCityCommand implements ICommand{
+public class BuildCityCommand extends MoveCommand{
 	
 	private GameModel model;
 
@@ -72,9 +71,4 @@ public class BuildCityCommand implements ICommand{
 		
 		return model;
 	}
-	
-	public void setModel(GameModel model){
-		this.model = model;
-	}
-
 }

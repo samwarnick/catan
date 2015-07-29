@@ -28,8 +28,8 @@ public class PlayMonopolyCommandTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(inputClass);
 		PlayMonumentCommand command = new PlayMonumentCommand();
-		command.setModel(model);
-		command.setModel(model);
+		command.setGameModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class PlayMonopolyCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class PlayMonopolyCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {

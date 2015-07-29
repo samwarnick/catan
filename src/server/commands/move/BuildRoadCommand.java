@@ -3,7 +3,6 @@ package server.commands.move;
 import com.google.gson.Gson;
 
 import server.ServerException;
-import server.commands.ICommand;
 import shared.communication.input.move.BuildRoadInput;
 import shared.locations.EdgeLocation;
 import shared.model.GameModel;
@@ -13,7 +12,7 @@ import shared.model.board.PlayerID;
 import shared.model.board.Road;
 import shared.model.player.Player;
 
-public class BuildRoadCommand implements ICommand{
+public class BuildRoadCommand extends MoveCommand{
 	
 	private GameModel model;
 
@@ -50,10 +49,6 @@ public class BuildRoadCommand implements ICommand{
 		model.assignLongestRoad();
 		
 		return model;
-	}
-	
-	public void setModel(GameModel model){
-		this.model = model;
 	}
 
 }

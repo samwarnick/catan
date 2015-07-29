@@ -32,7 +32,7 @@ public class PlaySoldierCommandTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(inputClass);
 		PlaySoldierCommand command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -46,7 +46,7 @@ public class PlaySoldierCommandTest {
 			e1.printStackTrace();
 		}
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 1);
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -73,7 +73,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(0, loc, -1);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -110,7 +110,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(0, loc, 3);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -158,7 +158,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(0, loc, 1);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 			assertTrue(false);
@@ -178,7 +178,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(0, loc, 3);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 			assertTrue(false);
@@ -197,7 +197,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(3, loc, 0);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 			assertTrue(false);
@@ -224,7 +224,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(3, loc, 1);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -245,7 +245,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(3, loc, 1);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -266,7 +266,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(3, loc, 1);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -287,7 +287,7 @@ public class PlaySoldierCommandTest {
 		inputClass = new PlaySoldierInput(3, loc, 1);
 		input = gson.toJson(inputClass);
 		command = new PlaySoldierCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {

@@ -28,7 +28,7 @@ public class RobPlayerCommandTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(inputClass);
 		RobPlayerCommand command = new RobPlayerCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -45,7 +45,7 @@ public class RobPlayerCommandTest {
 		inputClass = new RobPlayerInput(3, loc, -1);
 		input = gson.toJson(inputClass);
 		command = new RobPlayerCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class RobPlayerCommandTest {
 		inputClass = new RobPlayerInput(0, loc, 3);
 		input = gson.toJson(inputClass);
 		command = new RobPlayerCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -114,7 +114,7 @@ public class RobPlayerCommandTest {
 		inputClass = new RobPlayerInput(3, loc, 1);
 		input = gson.toJson(inputClass);
 		command = new RobPlayerCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 			assertTrue(false);
@@ -133,7 +133,7 @@ public class RobPlayerCommandTest {
 		inputClass = new RobPlayerInput(0, loc, 3);
 		input = gson.toJson(inputClass);
 		command = new RobPlayerCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 			assertTrue(false);

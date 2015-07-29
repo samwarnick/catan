@@ -3,7 +3,6 @@ package server.commands.move;
 import com.google.gson.Gson;
 
 import server.ServerException;
-import server.commands.ICommand;
 import shared.communication.input.move.BuildSettlementInput;
 import shared.locations.VertexLocation;
 import shared.model.GameModel;
@@ -13,7 +12,7 @@ import shared.model.board.PlayerID;
 import shared.model.board.Settlement;
 import shared.model.player.Player;
 
-public class BuildSettlementCommand implements ICommand{
+public class BuildSettlementCommand extends MoveCommand{
 	
 	private GameModel model;
 
@@ -52,9 +51,4 @@ public class BuildSettlementCommand implements ICommand{
 		
 		return model;
 	}
-	
-	public void setModel(GameModel model){
-		this.model = model;
-	}
-
 }

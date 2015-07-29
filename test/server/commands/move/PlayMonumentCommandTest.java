@@ -29,7 +29,7 @@ public class PlayMonumentCommandTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(inputClass);
 		PlayMonumentCommand command = new PlayMonumentCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class PlayMonumentCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class PlayMonumentCommandTest {
 		
 		//test for enough to win
 		model.getPlayer(new PlayerID(0)).getVictoryPoints().addPublicVictoryPoint();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -93,7 +93,7 @@ public class PlayMonumentCommandTest {
 			e.printStackTrace();
 		}
 		
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class PlayMonumentCommandTest {
 		
 		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 9);
 		
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {

@@ -29,7 +29,7 @@ public class PlayYearOfPlentyCommandTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(inputClass);
 		PlayYearOfPlentyCommand command = new PlayYearOfPlentyCommand();
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class PlayYearOfPlentyCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class PlayYearOfPlentyCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class PlayYearOfPlentyCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		command.setModel(model);
+		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
 		} catch (Exception e) {
