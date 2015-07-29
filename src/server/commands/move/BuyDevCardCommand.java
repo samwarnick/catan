@@ -19,7 +19,7 @@ public class BuyDevCardCommand implements ICommand {
 	 * @return The GameModel after executing the changes
 	 */
 	@Override
-	public Object execute(Input input) {
+	public Object execute(String input) {
 		int GameID = -1;
 		GameModel model = GameHub.getInstance().getModel(GameID);
 		ArrayList<Integer> empties = new ArrayList<Integer>();

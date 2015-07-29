@@ -47,10 +47,11 @@ public class GameHub {
 		return infos.get(num);
 	}
 	
+
 	public List<GameInfo> getGameInfos() {
 		return infos;
 	}
-	
+
 	public User getUser(int num){
 		return users.get(num);
 	}

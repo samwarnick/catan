@@ -22,10 +22,10 @@ public class SendChatCommand implements ICommand{
 	 */
 	
 	@Override
-	public Object execute(Input input) {
+	public Object execute(String input) {
 		int GameID = -1;
 		GameModel model = GameHub.getInstance().getModel(GameID);
-		SendChatInput in = (SendChatInput)input;
+		SendChatInput in = new SendChatInput( GameID, "");
 		int pi = in.getPlayerIndex();
 		CatanColor cc = model.getPlayers().get(pi).getColor();
 		LogEntry le = new LogEntry(cc, in.getContent());
