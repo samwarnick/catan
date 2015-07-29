@@ -14,6 +14,7 @@ import server.commands.games.CreateCommand;
 import server.commands.games.JoinCommand;
 import server.commands.games.ListCommand;
 import shared.communication.input.Input;
+import shared.model.board.PlayerID;
 
 public class GamesHandler extends Handler {
 
@@ -48,6 +49,17 @@ public class GamesHandler extends Handler {
 			
 			Object result;
 			try {
+				
+				if (command.getClass().equals(JoinCommand.class)) {
+					
+					StringBuilder temp = new StringBuilder(userCookie);
+					int index = temp.lastIndexOf("catan.user=") + 11;
+					int playerID = Integer.parseInt(temp.substring(index, temp.length()));
+					
+					JoinCommand join = (JoinCommand) command;
+					join.setPlayerID(playerID);
+				}
+				
 				result = command.execute(json);
 				
 				if (command.getClass().equals(JoinCommand.class)) {

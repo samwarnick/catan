@@ -18,6 +18,12 @@ import shared.model.player.Player;
 
 public class JoinCommand implements ICommand {
 
+	private int playerID;
+	
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+
 	/**
 	 * @pre a logged in player attempting to join a game he/she is not already a part of.
 	 * @post player is added to game, a Boolean with the value of true is returned.
