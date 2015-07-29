@@ -29,6 +29,8 @@ public class GamesHandler extends Handler {
 		String json = jsonStringFromExchange(exchange.getRequestBody());
 		Input input = new Gson().fromJson(json, Input.class);
 		System.out.println(input.getMethod());
+		boolean needCookie = false;
+		boolean join = false;
 		switch (input.getMethod()) {
 		case "/games/list":
 			System.out.println("Listing");
@@ -36,31 +38,35 @@ public class GamesHandler extends Handler {
 			break;
 		case "/games/create":
 			command = new CreateCommand();
+			needCookie = true;
 			break;
 		case "/games/join":
 			command = new JoinCommand();
+			needCookie = true;
+			join = true;
 			break;
 		}
 		
 		String userCookie = exchange.getRequestHeaders().getFirst("Cookie");
+		System.out.println(userCookie);
 		boolean valid = true;
-		if (command.getClass().equals(JoinCommand.class) || command.getClass().equals(JoinCommand.class) && userCookie == null) {
+		if (userCookie == null) {
 			valid = false;
 		}
 		
-		if (command != null && valid) {
+		if (command != null && ((needCookie && valid) || (!needCookie))) {
 			
 			Object result;
 			try {
 				
-				if (command.getClass().equals(JoinCommand.class)) {
+				if (join) {
 					
 					StringBuilder temp = new StringBuilder(userCookie);
 					int index = temp.lastIndexOf("catan.user=") + 11;
 					int playerID = Integer.parseInt(temp.substring(index, temp.length()));
 					
-					JoinCommand join = (JoinCommand) command;
-					join.setPlayerID(playerID);
+					JoinCommand joinCommand = (JoinCommand) command;
+					joinCommand.setPlayerID(playerID);
 				}
 				
 				result = command.execute(json);
