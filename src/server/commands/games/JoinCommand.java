@@ -6,15 +6,13 @@ import java.util.Random;
 
 import server.GameHub;
 import server.commands.ICommand;
-<<<<<<< Updated upstream
-=======
 import shared.communication.input.GamesJoinInput;
 import shared.communication.input.Input;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.model.GameModel;
+import shared.model.TooManyPlayersException;
 import shared.model.player.Player;
->>>>>>> Stashed changes
 
 public class JoinCommand implements ICommand {
 
@@ -24,21 +22,21 @@ public class JoinCommand implements ICommand {
 	 */
 	
 	@Override
-<<<<<<< Updated upstream
 	public Object execute(String input) {
-		// TODO Auto-generated method stub
-		return null;
-=======
-	public Object execute(Input input) {
 		int GameID = -1;
 		GameModel model = GameHub.getInstance().getModel(GameID);
-		GamesJoinInput jgi = (GamesJoinInput)input;
+		GamesJoinInput jgi = new GamesJoinInput(GameID, CatanColor.BLUE);
 		String name = null;
 		Player newP = new Player();
 		CatanColor cc = chooseColor(jgi.getColor());
 		newP.setColor(cc);
 		newP.setName(name);
-		model.addPlayer(new Player());
+		try {
+			model.addPlayer(newP);
+		} catch (TooManyPlayersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 	
@@ -74,7 +72,6 @@ public class JoinCommand implements ICommand {
 
 		
 		return CatanColor.RED;
->>>>>>> Stashed changes
 	}
 
 }
