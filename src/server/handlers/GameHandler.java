@@ -26,6 +26,7 @@ public class GameHandler extends Handler {
 		Input input = new Gson().fromJson(json, Input.class);
 		switch (input.getMethod()) {
 		case "/game/model":
+			System.out.println("getting model");
 			command = new ModelCommand();
 			break;
 		}

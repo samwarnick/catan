@@ -1,14 +1,12 @@
 package client.proxy;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import server.ServerException;
 import shared.communication.input.Input;
@@ -84,17 +82,16 @@ public class ClientCommunicator {
 	        conn.getOutputStream().close();
 	        
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	System.out.println("HTTP_OK");
+	        	System.out.println("HTTP_OK: " + toPost.getMethod());
 	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
-	        		System.out.println("Success");
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
 	        			cookie = (String) conn.getHeaderField("Set-Cookie");
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.user=") + 11;
 	        			playerId = Integer.parseInt(temp.substring(index, temp.length()));
-	        			System.out.println(playerId);
 	        		}
-	        		if(toPost.getMethod().equals("/games/join")){
+	        		if(toPost.getMethod().equals("/games/join")) {
+	        			System.out.println("We need to set our game cookie");
 	        			cookie += ";" + (String) conn.getHeaderField("Set-Cookie");
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.game=") + 11;
@@ -110,11 +107,11 @@ public class ClientCommunicator {
 	        		}
 	        		scan.close();
 	        		String json = builder.toString();
-	        		System.out.println(json);
 	        		return json;
 	        	}
 	        }
 	        else{
+	        	System.out.println("HTTP_FAIL: " + toPost.getMethod());
 	        	throw new ServerException(String.format("%s, %s, %s", url.toString(),
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
