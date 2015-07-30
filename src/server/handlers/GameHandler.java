@@ -5,15 +5,11 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
 
-import client.data.GameInfo;
 import server.GameHub;
 import server.commands.game.ModelCommand;
 import shared.communication.input.Input;
@@ -32,33 +28,28 @@ public class GameHandler extends Handler {
 		Input input = new Gson().fromJson(json, Input.class);
 		switch (input.getMethod()) {
 		case "/game/model":
-			System.out.println("getting model");
 			command = new ModelCommand();
 			break;
 		}
 		
-		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
-		System.out.println("get model cookie: " + cookie);		
+		String cookie = exchange.getRequestHeaders().getFirst("Cookie");	
 		if (command != null && cookie != null) {
 				
 			StringBuilder temp = new StringBuilder(cookie);
 			int index = temp.lastIndexOf("catan.game=") + 11;
 			int gameId = Integer.parseInt(temp.substring(index, temp.length()));
-			System.out.println("Want the game with id: " + gameId);
 			GameModel model = GameHub.getInstance().getModel(gameId);
 			exchange.getResponseHeaders().set("Content-Type", "text/html");
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
 			// write to response body
 			Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-			System.out.println("About to write MODEL");
 
 			GsonBuilder builder = new GsonBuilder();
 			builder.setPrettyPrinting();
 			builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
 			Gson gson = builder.create();
 			String toWrite = gson.toJson(model);
-			System.out.println(toWrite);
 			writer.write(toWrite);
 			writer.close();
 			

@@ -5,7 +5,6 @@ import java.util.List;
 
 import client.join.JoinGameController;
 import client.poller.Poller;
-import client.proxy.ClientCommunicator;
 import client.proxy.ProxyServer;
 import server.ServerException;
 import shared.communication.input.*;

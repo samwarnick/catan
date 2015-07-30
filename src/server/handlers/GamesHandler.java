@@ -52,10 +52,13 @@ public class GamesHandler extends Handler {
 		
 		if (command != null && ((needCookie && valid) || (!needCookie))) {
 			
+			System.out.println(json);
+			
 			Object result;
 			try {
 				
 				if (join) {
+					System.out.println("joining");
 					StringBuilder temp = new StringBuilder(userCookie);
 					int index = temp.lastIndexOf("catan.user=") + 11;
 					int playerID = Integer.parseInt(temp.substring(index, temp.length()));

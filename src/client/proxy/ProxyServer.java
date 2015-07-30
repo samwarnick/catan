@@ -17,6 +17,9 @@ import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.model.GameModel;
 import shared.model.JsonParser;
+import shared.model.board.BoardFacade;
+import shared.model.player.InactivePlayerFacade;
+import shared.model.player.Player;
 
 public class ProxyServer implements IServerFacade {
 
@@ -81,9 +84,7 @@ public class ProxyServer implements IServerFacade {
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
-		GameModel model = gson.fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
@@ -218,5 +219,17 @@ public class ProxyServer implements IServerFacade {
 	
 	public int getGameId(){
 		return clientCommunicator.getGameId();
+	}
+	
+	private GameModel modelFromJson(String json) {
+		Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+		GameModel model = gson.fromJson(json, GameModel.class);
+		for (Player p: model.getPlayers()) {
+			if (p != null) {
+				p.setPlayerFacade(new InactivePlayerFacade(p));
+			}
+		}
+		model.getBoard().setBoardFacade(new BoardFacade(model.getBoard()));
+		return model;
 	}
 }

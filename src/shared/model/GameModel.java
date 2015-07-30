@@ -107,7 +107,7 @@ public class GameModel {
 	
 	public Player getPlayer(String playerName){
 		for(Player player : players) {
-			if(player.getName().equals(playerName)) {
+			if(player != null && player.getName().equals(playerName)) {
 				return player;
 			}
 		}
