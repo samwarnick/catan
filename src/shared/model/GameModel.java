@@ -24,6 +24,7 @@ import shared.model.board.Vertex;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.InactivePlayerFacade;
 import shared.model.player.Player;
+import shared.model.player.VictoryPoints;
 
 /**
  * The model for the game
@@ -67,6 +68,7 @@ public class GameModel {
 		}
 		if (!tooManyPlayers){
 			player.setPlayerID(indexToAdd);
+			player.setVictoryPoints(new VictoryPoints(0, 0));
 			players.add(indexToAdd, player);
 			players.remove(4);
 		}
