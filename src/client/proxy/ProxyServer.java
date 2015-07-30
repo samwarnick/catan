@@ -2,12 +2,9 @@ package client.proxy;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import client.data.GameInfo;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +13,6 @@ import server.*;
 import shared.communication.input.*;
 import shared.communication.input.move.*;
 import shared.model.GameModel;
-import shared.model.JsonParser;
 import shared.model.board.BoardFacade;
 import shared.model.player.InactivePlayerFacade;
 import shared.model.player.Player;
