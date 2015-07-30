@@ -1,20 +1,15 @@
 package server.commands.games;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.google.gson.Gson;
 
 import server.GameHub;
 import server.commands.ICommand;
 import shared.communication.input.GamesJoinInput;
-import shared.communication.input.Input;
 import shared.definitions.CatanColor;
-import shared.definitions.DevCardType;
 import shared.model.GameModel;
 import shared.model.TooManyPlayersException;
 import shared.model.player.Player;
+import shared.model.user.User;
 
 public class JoinCommand implements ICommand {
 
@@ -34,7 +29,8 @@ public class JoinCommand implements ICommand {
 		Gson parser = new Gson();
 		GamesJoinInput jgi = parser.fromJson(input, GamesJoinInput.class);
 		GameModel model = GameHub.getInstance().getModel(jgi.getId());
-		String name = null;
+		User user = GameHub.getInstance().getUser(playerID);
+		String name = user.getUsername();
 		Player newP = new Player();
 		CatanColor cc = chooseColor(jgi.getColor());
 		newP.setColor(cc);
@@ -42,44 +38,44 @@ public class JoinCommand implements ICommand {
 		try {
 			model.addPlayer(newP);
 		} catch (TooManyPlayersException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(model.getPlayers().toString());
 		return jgi.getId();
 	}
 	
 	private CatanColor chooseColor(String c){
+		System.out.println("choosing color");
 		c = c.toLowerCase();
 		if(c == "blue"){
 			return CatanColor.BLUE;
 		}
-		if(c == "red"){
+		else if(c == "red"){
 			return CatanColor.RED;
 		}
-		if(c == "orange"){
+		else if(c == "orange"){
 			return CatanColor.ORANGE;
 		}
-		if(c == "green"){
+		else if(c == "green"){
 			return CatanColor.GREEN;
 		}
-		if(c == "purple"){
+		else if(c == "purple"){
 			return CatanColor.PURPLE;
 		}
-		if(c == "puce"){
+		else if(c == "puce"){
 			return CatanColor.PUCE;
 		}
-		if(c == "brown"){
+		else if(c == "brown"){
 			return CatanColor.BROWN;
 		}
-		if(c == "white"){
+		else if(c == "white"){
 			return CatanColor.WHITE;
 		}
-		if(c == "yellow"){
+		else if(c == "yellow"){
 			return CatanColor.YELLOW;
+		} else {
+			return CatanColor.RED;
 		}
-
-		
-		return CatanColor.RED;
 	}
 
 }

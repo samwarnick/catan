@@ -60,21 +60,21 @@ public class GamesHandler extends Handler {
 			try {
 				
 				if (join) {
-					
+					System.out.println("we want to join");
 					StringBuilder temp = new StringBuilder(userCookie);
 					int index = temp.lastIndexOf("catan.user=") + 11;
 					int playerID = Integer.parseInt(temp.substring(index, temp.length()));
-					
 					JoinCommand joinCommand = (JoinCommand) command;
 					joinCommand.setPlayerID(playerID);
 				}
 				
 				result = command.execute(json);
 				
-				if (command.getClass().equals(JoinCommand.class)) {
+				if (join) {
 					// add to cookie with game 
 					
 					int id = (int) result;
+					System.out.println(result);
 					String gameCookie = "catan.game=" + id;
 					
 					exchange.getResponseHeaders().add("Set-Cookie", gameCookie);

@@ -31,7 +31,7 @@ public class GameHandler extends Handler {
 		}
 		
 		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
-		
+		System.out.println("get model cookie: " + cookie);		
 		if (command != null && cookie != null) {
 				
 			StringBuilder temp = new StringBuilder(cookie);

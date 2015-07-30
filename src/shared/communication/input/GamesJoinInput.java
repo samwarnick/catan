@@ -10,12 +10,12 @@ import shared.definitions.CatanColor;
 public class GamesJoinInput extends Input {
 
 	private int id;
-	private CatanColor color;
+	private String color;
 	
 	public GamesJoinInput(int gameID, CatanColor color) {
 		super("/games/join");
 		this.id = gameID;
-		this.color = color;
+		this.color = color.toString().toLowerCase();
 	}
 
 	public int getId() {
@@ -23,7 +23,7 @@ public class GamesJoinInput extends Input {
 	}
 
 	public String getColor() {
-		return color.toString().toLowerCase();
+		return color;
 	}
 
 }
