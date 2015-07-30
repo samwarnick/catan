@@ -2,6 +2,8 @@ package client.data;
 
 import java.util.*;
 
+import shared.model.player.Player;
+
 /**
  * Used to pass game information into views<br>
  * <br>
@@ -65,6 +67,20 @@ public class GameInfo
 
 	public void setPlayers(List<PlayerInfo> players) {
 		this.players = players;
+	}
+	
+	public void updatePlayers(List<Player> ps) {
+		players = new ArrayList<PlayerInfo>();
+		for(int i=0; i<ps.size(); i++){
+			if(ps.get(i)==null) continue;
+			Player p = ps.get(i);
+			PlayerInfo pi = new PlayerInfo();
+			pi.setColor(p.getColor());
+			pi.setId(p.getUniqueID());
+			pi.setName(p.getName());
+			pi.setPlayerIndex(i);
+			players.add(pi);
+		}
 	}
 }
 

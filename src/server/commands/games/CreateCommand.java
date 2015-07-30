@@ -26,7 +26,6 @@ public class CreateCommand implements ICommand {
 		Board b = new Board(gci.isRandomTiles(), gci.isRandomPorts(), gci.isRandomNumbers());
 		model.setBoard(b);
 		GameInfo gi = new GameInfo();
-		for(int i = 0; i<4; i++) gi.addPlayer(null);
 		gi.setTitle(gci.getName());
 		gi.setId(GameHub.getInstance().getModelsSize());
 		GameHub.getInstance().addModel(model);

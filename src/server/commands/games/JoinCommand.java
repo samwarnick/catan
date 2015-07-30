@@ -1,5 +1,7 @@
 package server.commands.games;
 
+import client.data.PlayerInfo;
+
 import com.google.gson.Gson;
 
 import server.GameHub;
@@ -37,6 +39,7 @@ public class JoinCommand implements ICommand {
 		newP.setName(name);
 		try {
 			model.addPlayer(newP);
+			GameHub.getInstance().getInfo(playerID).updatePlayers(model.getPlayers());
 		} catch (TooManyPlayersException e) {
 			e.printStackTrace();
 		}
