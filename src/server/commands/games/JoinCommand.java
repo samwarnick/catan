@@ -33,13 +33,14 @@ public class JoinCommand implements ICommand {
 		GameModel model = GameHub.getInstance().getModel(jgi.getId());
 		User user = GameHub.getInstance().getUser(playerID);
 		String name = user.getUsername();
+		CatanColor cc = chooseColor(jgi.getColor());
 		if(model.getPlayer(name) != null){
+			model.getPlayer(name).setColor(cc);
+			int index = model.getPlayer(name).getPlayerID().getPlayerid();
+			GameHub.getInstance().getInfo(jgi.getId()).getPlayers().get(index).setColor(cc);;
 			return jgi.getId();
 		}
-		Player newP = new Player();
-		CatanColor cc = chooseColor(jgi.getColor());
-		newP.setColor(cc);
-		newP.setName(name);
+		Player newP = new Player(cc, name, -1);
 		try {
 			model.addPlayer(newP);
 			GameHub.getInstance().getInfo(jgi.getId()).updatePlayers(model.getPlayers());
