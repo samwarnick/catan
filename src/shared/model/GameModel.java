@@ -66,6 +66,7 @@ public class GameModel {
 			}
 		}
 		if (!tooManyPlayers){
+			player.setPlayerID(indexToAdd);
 			players.add(indexToAdd, player);
 			players.remove(4);
 		}
