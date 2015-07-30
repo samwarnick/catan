@@ -33,6 +33,9 @@ public class JoinCommand implements ICommand {
 		GameModel model = GameHub.getInstance().getModel(jgi.getId());
 		User user = GameHub.getInstance().getUser(playerID);
 		String name = user.getUsername();
+		if(model.getPlayer(name) != null){
+			return jgi.getId();
+		}
 		Player newP = new Player();
 		CatanColor cc = chooseColor(jgi.getColor());
 		newP.setColor(cc);

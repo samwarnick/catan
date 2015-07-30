@@ -2,9 +2,11 @@ package client.join;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import client.base.*;
+
 import javax.swing.border.Border;
 
 /**
@@ -102,10 +104,15 @@ public class NewGameView extends OverlayView implements INewGameView
         @Override
         public void actionPerformed(ActionEvent e)
         {
-
+        	
             if (e.getSource() == createButton)
             {
-
+            	if(txtTitle.getText().trim().length() == 0){
+            		JOptionPane.showMessageDialog(null,"Game Needs a Title",
+    						"No Title", JOptionPane.ERROR_MESSAGE);
+            		return;
+            	}
+            	createButton.setEnabled(false);
                 getController().createNewGame();
             }
             else if (e.getSource() == cancelButton)
@@ -119,7 +126,7 @@ public class NewGameView extends OverlayView implements INewGameView
     @Override
     public IJoinGameController getController()
     {
-
+    	
         return (IJoinGameController) super.getController();
     }
 
