@@ -311,5 +311,13 @@ public class GameModel {
 			}
 		}
 		return defaultGM;
+	}
+
+	public static GameModel getDefaultGM() {
+		return defaultGM;
+	}
+
+	public static void setDefaultGM(GameModel defaultGM) {
+		GameModel.defaultGM = defaultGM;
 	}	
 }

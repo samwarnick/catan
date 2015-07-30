@@ -44,7 +44,7 @@ public class GamesHandler extends Handler {
 			break;
 		}
 		
-		String userCookie = exchange.getRequestHeaders().getFirst("Cookie");
+		String userCookie = exchange.getRequestHeaders().getFirst("Cookie").split(";")[0];
 		boolean valid = true;
 		if (userCookie == null) {
 			valid = false;
@@ -70,7 +70,6 @@ public class GamesHandler extends Handler {
 					
 					int id = (int) result;
 					String gameCookie = "catan.game=" + id;
-					System.out.println(gameCookie);
 					
 					exchange.getResponseHeaders().add("Set-Cookie", gameCookie);
 					

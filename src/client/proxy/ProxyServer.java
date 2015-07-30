@@ -1,5 +1,6 @@
 package client.proxy;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +9,7 @@ import client.data.GameInfo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import server.*;
@@ -79,7 +81,8 @@ public class ProxyServer implements IServerFacade {
 	public GameModel getGameModelVersion(GameModelVersionInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
+		Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+		GameModel model = gson.fromJson(json, GameModel.class);
 		return model;
 	}
 

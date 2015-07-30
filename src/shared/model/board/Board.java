@@ -17,11 +17,11 @@ import shared.locations.VertexLocation;
 public class Board {
 	
 	private List<ResourceHex> resourceHexes;
-	private Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
+	private transient Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
 	private Hex desertHex;
-	private BoardFacade boardFacade;
+	private transient BoardFacade boardFacade;
 	private Robber robber;
 	
 	private List<Road> roads;

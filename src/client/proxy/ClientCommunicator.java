@@ -26,7 +26,6 @@ public class ClientCommunicator {
 	private String serverHost = "localhost";
 	private int serverPort = 8081;
 	private String URLPrefix;
-	private String cookie = null;
 	private int playerId = -1;
 	private int gameId = -1;
 	
@@ -70,8 +69,13 @@ public class ClientCommunicator {
 	        conn.setDoInput(true);
 	        conn.setDoOutput(true);
 	        conn.setRequestProperty("Content-Type", "text/html");
-	        if(cookie!=null){
-	        	conn.setRequestProperty("Cookie", cookie);
+	        if(playerId != -1) {
+	        	String cookieToSend = String.format("catan.user=%d", playerId, gameId);
+	        	if (gameId != -1) {
+	        		cookieToSend = cookieToSend + String.format("; catan.game=%d", gameId);
+	        	}
+	        	System.out.println("Cookie: " + cookieToSend);
+	        	conn.setRequestProperty("Cookie", cookieToSend);
 	        }
 	        conn.connect();
 	        ObjectMapper mapper = new ObjectMapper();
@@ -85,14 +89,14 @@ public class ClientCommunicator {
 	        	System.out.println("HTTP_OK: " + toPost.getMethod());
 	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
-	        			cookie = (String) conn.getHeaderField("Set-Cookie");
+	        			String cookie = (String) conn.getHeaderField("Set-Cookie");
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.user=") + 11;
 	        			playerId = Integer.parseInt(temp.substring(index, temp.length()));
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")) {
 	        			System.out.println("We need to set our game cookie");
-	        			cookie += ";" + (String) conn.getHeaderField("Set-Cookie");
+	        			String cookie = (String) conn.getHeaderField("Set-Cookie");
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.game=") + 11;
 	        			gameId = Integer.parseInt(temp.substring(index, temp.length()));

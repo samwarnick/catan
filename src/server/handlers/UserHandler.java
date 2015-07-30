@@ -45,8 +45,6 @@ public class UserHandler extends Handler {
 				exchange.getResponseHeaders().add("Set-Cookie", cookie);
 				
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 7);
-				
-				// write to response body
 
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());

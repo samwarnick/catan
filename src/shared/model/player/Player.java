@@ -24,7 +24,7 @@ public class Player {
 	private VictoryPoints victoryPoints;
 	private String name;
 	private TradeRatios tradeRatios;
-	private IPlayerFacade playerFacade;
+	private transient IPlayerFacade playerFacade;
 	private PlayerID playerID;
 	private int uniqueID;
 	

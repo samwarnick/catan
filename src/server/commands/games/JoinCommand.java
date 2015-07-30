@@ -42,7 +42,7 @@ public class JoinCommand implements ICommand {
 		newP.setName(name);
 		try {
 			model.addPlayer(newP);
-			GameHub.getInstance().getInfo(playerID).updatePlayers(model.getPlayers());
+			GameHub.getInstance().getInfo(jgi.getId()).updatePlayers(model.getPlayers());
 		} catch (TooManyPlayersException e) {
 			e.printStackTrace();
 		}
