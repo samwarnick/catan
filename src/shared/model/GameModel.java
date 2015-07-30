@@ -68,7 +68,6 @@ public class GameModel {
 		}
 		if (!tooManyPlayers){
 			player.setPlayerID(indexToAdd);
-			player.setVictoryPoints(new VictoryPoints(0, 0));
 			players.add(indexToAdd, player);
 			players.remove(4);
 		}
