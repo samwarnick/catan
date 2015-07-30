@@ -28,22 +28,18 @@ public class JoinCommand implements ICommand {
 	
 	@Override
 	public Object execute(String input) {
-		System.out.println("executing join command");
 		Gson parser = new Gson();
 		GamesJoinInput jgi = parser.fromJson(input, GamesJoinInput.class);
 		GameModel model = GameHub.getInstance().getModel(jgi.getId());
 		User user = GameHub.getInstance().getUser(playerID);
 		String name = user.getUsername();
-		System.out.println(input);
 		CatanColor cc = chooseColor(jgi.getColor());
 		if(model.getPlayer(name) != null){
-			System.out.println("Already joined");
 			model.getPlayer(name).setColor(cc);
 			int index = model.getPlayer(name).getPlayerID().getPlayerid();
 			GameHub.getInstance().getInfo(jgi.getId()).getPlayers().get(index).setColor(cc);;
 			return jgi.getId();
 		}
-		System.out.println("creating new player");
 		Player newP = new Player(cc, name, -1);
 		try {
 			model.addPlayer(newP);
@@ -51,13 +47,13 @@ public class JoinCommand implements ICommand {
 		} catch (TooManyPlayersException e) {
 			e.printStackTrace();
 		}
-		System.out.println("added");
 		return jgi.getId();
 	}
 	
 	private CatanColor chooseColor(String c){
 		System.out.println("choosing color");
 		c = c.trim().toLowerCase();
+		c = c.toLowerCase();
 		if(c.equals("blue")){
 			return CatanColor.BLUE;
 		}
