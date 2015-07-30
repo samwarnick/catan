@@ -7,7 +7,7 @@ public class TurnTracker {
 	
 	public TurnTracker(){
 		currentTurn = 0;
-		status = "First Round";
+		status = "FirstRound";
 	}
 
 	public int getCurrentTurn() {
