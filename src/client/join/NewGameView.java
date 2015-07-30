@@ -114,6 +114,7 @@ public class NewGameView extends OverlayView implements INewGameView
             	}
             	createButton.setEnabled(false);
                 getController().createNewGame();
+                createButton.setEnabled(true);
             }
             else if (e.getSource() == cancelButton)
             {
