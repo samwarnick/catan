@@ -5,12 +5,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 
-<<<<<<< HEAD
 import client.communication.LogEntry;
-
-=======
 import com.fasterxml.jackson.databind.ObjectMapper;
->>>>>>> origin/master
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 

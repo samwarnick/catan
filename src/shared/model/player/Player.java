@@ -175,19 +175,13 @@ public class Player {
 		this.longestRoad = longestRoad;
 	}
 	
-
 	public void setPlayerID(PlayerID playerID) {
 		this.playerID = playerID;
-	}
-
-	public boolean isHasDiscared() {
-		return hasDiscared;
 	}
 
 	public void setHasDiscared(boolean hasDiscared) {
 		this.hasDiscared = hasDiscared;
 	}
-
 
 	public boolean getHasDiscarded() {
 		return hasDiscared;
