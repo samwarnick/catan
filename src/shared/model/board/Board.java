@@ -348,7 +348,7 @@ public class Board {
 		this.resourceHexes = resourceHexes;
 	}
 
-	public Map<HexLocation, ResourceHex> getResourceHexesMap() {
+	@JsonIgnore public Map<HexLocation, ResourceHex> getResourceHexesMap() {
 		return resourceHexesMap;
 	}
 
@@ -392,7 +392,7 @@ public class Board {
 		return desertHex;
 	}
 
-	public BoardFacade getBoardFacade() {
+	@JsonIgnore public BoardFacade getBoardFacade() {
 		return boardFacade;
 	}
 
