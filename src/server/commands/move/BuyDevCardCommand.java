@@ -3,9 +3,9 @@ package server.commands.move;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 import shared.definitions.DevCardType;
 import shared.model.bank.DevelopmentHand;
-import shared.model.bank.ResourceHand;
 
 public class BuyDevCardCommand extends MoveCommand {
 	
@@ -21,7 +21,6 @@ public class BuyDevCardCommand extends MoveCommand {
 		Random rand = new Random();
 		DevCardType dct = null;
 		String name = null;
-		DevelopmentHand dh = new DevelopmentHand();
 	    int randomNum;
 	    try{
 		while(true){
@@ -35,35 +34,30 @@ public class BuyDevCardCommand extends MoveCommand {
 		    case 0:
 		    	if(model.getBank().hasDC(DevCardType.SOLDIER, 1)){
 		    		dct = DevCardType.SOLDIER;
-		    		dh.setSoldier(-1);
 		    		break;
 		    	}
 		    	empties.add(randomNum);
 		    case 1:
 		    	if(model.getBank().hasDC(DevCardType.YEAR_OF_PLENTY, 1)){
-		    		dct = DevCardType.YEAR_OF_PLENTY;
-		    		dh.setYearOfPlenty(-1);
+		    		dct = DevCardType.SOLDIER;
 		    		break;
 		    	}
 		    	empties.add(randomNum);
 		    case 2:
 		    	if(model.getBank().hasDC(DevCardType.ROAD_BUILD, 1)){
-		    		dct = DevCardType.ROAD_BUILD;
-		    		dh.setRoadBuild(-1);
+		    		dct = DevCardType.SOLDIER;
 		    		break;
 		    	}
 		    	empties.add(randomNum);
 		    case 3:
 		    	if(model.getBank().hasDC(DevCardType.MONOPOLY, 1)){
-		    		dct = DevCardType.MONOPOLY;
-		    		dh.setMonopoly(-1);
+		    		dct = DevCardType.SOLDIER;
 		    		break;
 		    	}
 		    	empties.add(randomNum);
 		    case 4:
 		    	if(model.getBank().hasDC(DevCardType.MONUMENT, 1)){
-		    		dct = DevCardType.MONUMENT;
-		    		dh.setMonument(-1);
+		    		dct = DevCardType.SOLDIER;
 		    		break;
 		    	}
 		    	empties.add(randomNum);
@@ -72,9 +66,9 @@ public class BuyDevCardCommand extends MoveCommand {
 			if(dct != null) break;
 		}
 		
-		model.getPlayer(name).getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));
-		model.getBank().modifyRC(new ResourceHand(0,0,1,1,1));
 		model.getPlayer(name).getPlayerBank().addDC(dct);
+		DevelopmentHand dh = new DevelopmentHand();
+		dh.setSoldier(-1);
 		model.getBank().modifyDC(dh);
 		}	catch(Exception e){
 			e.printStackTrace();
