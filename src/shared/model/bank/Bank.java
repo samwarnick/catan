@@ -142,7 +142,7 @@ public class Bank {
 		this.longestRoadCard = longestRoadCard;
 	}
 	
-	public ResourceCard getResourceStack(ResourceType type) {
+	@JsonIgnore public ResourceCard getResourceStack(ResourceType type) {
 		switch (type) {
 		case BRICK:
 			return brick;
@@ -159,7 +159,7 @@ public class Bank {
 		}
 	}
 	
-	public DevelopmentCard getDevStack(DevCardType type) {
+	@JsonIgnore public DevelopmentCard getDevStack(DevCardType type) {
 		switch(type){
 		case SOLDIER:
 			return soldier;
@@ -313,7 +313,7 @@ public class Bank {
 	 * @throws BankException
 	 */
 	
-	public void setDC(DevelopmentHand dh) throws BankException{
+	@JsonIgnore public void setDC(DevelopmentHand dh) throws BankException{
 		soldier.setQuantity(dh.getSoldier());
 		monument.setQuantity(dh.getMonument());
 		monopoly.setQuantity(dh.getMonopoly());
@@ -338,11 +338,11 @@ public class Bank {
 
 	}
 	
-	public int getNumDevCards() {
+	@JsonIgnore public int getNumDevCards() {
 		return soldier.getQuantity() + monument.getQuantity() + monopoly.getQuantity() + yearOfPlenty.getQuantity() + roadBuild.getQuantity();
 	}
 	
-	public int getNumResourceCards(){
+	@JsonIgnore public int getNumResourceCards(){
 		return wood.getQuantity() + brick.getQuantity() + sheep.getQuantity() + wheat.getQuantity() + ore.getQuantity();
 	}
 

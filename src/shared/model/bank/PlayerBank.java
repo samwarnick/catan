@@ -1,6 +1,8 @@
 package shared.model.bank;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import shared.definitions.DevCardType;
 
 /**
@@ -45,7 +47,7 @@ public class PlayerBank extends Bank {
 		}
 	}
 	
-	public DevelopmentCard getNewDevStack(DevCardType type) {
+	@JsonIgnore public DevelopmentCard getNewDevStack(DevCardType type) {
 		switch(type){
 		case SOLDIER:
 			return newSoldier;
