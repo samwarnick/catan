@@ -13,6 +13,11 @@ public class TradeRatio {
 	private int ratio;
 	private ResourceType type;
 	
+	public TradeRatio() {
+		ratio = 0;
+		type = null;
+	}
+	
 	public TradeRatio(ResourceType type) {
 		ratio = 4;
 		this.type = type;

@@ -23,7 +23,7 @@ public class Board {
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
 	private Hex desertHex;
-	private transient BoardFacade boardFacade;
+	@JsonIgnore private transient BoardFacade boardFacade;
 	private Robber robber;
 	
 	private List<Road> roads;
@@ -348,7 +348,7 @@ public class Board {
 		this.resourceHexes = resourceHexes;
 	}
 
-	public Map<HexLocation, ResourceHex> getResourceHexesMap() {
+	@JsonIgnore public Map<HexLocation, ResourceHex> getResourceHexesMap() {
 		return resourceHexesMap;
 	}
 
@@ -392,7 +392,7 @@ public class Board {
 		return desertHex;
 	}
 
-	public BoardFacade getBoardFacade() {
+	@JsonIgnore public BoardFacade getBoardFacade() {
 		return boardFacade;
 	}
 
