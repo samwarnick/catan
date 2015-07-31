@@ -108,11 +108,11 @@ public class MoveHandler extends Handler {
 
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-				GsonBuilder builder = new GsonBuilder();
-				builder.setPrettyPrinting();
-				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
-				Gson gson = builder.create();
-				String toWrite = gson.toJson(updatedModel);
+//				GsonBuilder builder = new GsonBuilder();
+//				builder.setPrettyPrinting();
+//				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
+//				Gson gson = builder.create();
+				String toWrite = new ObjectMapper().writeValueAsString(updatedModel);
 				writer.write(toWrite);
 				writer.close();
 				
