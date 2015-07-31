@@ -3,9 +3,11 @@ package server.handlers;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 
 import server.GameHub;
@@ -80,17 +82,23 @@ public class MoveHandler extends Handler {
 		
 		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
 		String[] cookieArray = cookie.split(";");
+		System.out.println("My cookieArray is: " + cookieArray.length);
 		
 		if (command != null && cookieArray.length == 2) {
+			System.out.println("about to do something");
 			try {
-				String gameCookie = cookieArray[1];
+				String gameCookie = cookieArray[1].trim();
 				StringBuilder temp = new StringBuilder(gameCookie);
 				int index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
 				GameModel model = GameHub.getInstance().getModel(gameId);
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
+				System.out.println("Editing model with ID: " + gameId);
 				GameModel updatedModel = (GameModel) moveCommand.execute(json);
+				if (updatedModel == null) {
+					System.out.println("Something went wrong");
+				}
 				GameHub.getInstance().updateModel(updatedModel);
 				
 				exchange.getResponseHeaders().set("Content-Type", "text/html");
@@ -98,7 +106,12 @@ public class MoveHandler extends Handler {
 
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-				String toWrite = new Gson().toJson(updatedModel);
+				GsonBuilder builder = new GsonBuilder();
+				builder.setPrettyPrinting();
+				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
+				Gson gson = builder.create();
+				String toWrite = gson.toJson(updatedModel);
+				System.out.println(toWrite);
 				writer.write(toWrite);
 				writer.close();
 				

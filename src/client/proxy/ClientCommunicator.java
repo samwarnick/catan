@@ -74,7 +74,6 @@ public class ClientCommunicator {
 	        	if (gameId != -1) {
 	        		cookieToSend = cookieToSend + String.format("; catan.game=%d", gameId);
 	        	}
-	        	System.out.println("Cookie: " + cookieToSend);
 	        	conn.setRequestProperty("Cookie", cookieToSend);
 	        }
 	        conn.connect();
@@ -86,7 +85,6 @@ public class ClientCommunicator {
 	        conn.getOutputStream().close();
 	        
 	        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-	        	System.out.println("HTTP_OK: " + toPost.getMethod());
 	        	if (conn.getContentLength() == 7) { // i.e. "success" in response body
 	        		if(toPost.getMethod().equals("/user/login") || toPost.getMethod().equals("/user/register")){
 	        			String cookie = (String) conn.getHeaderField("Set-Cookie");
@@ -95,7 +93,6 @@ public class ClientCommunicator {
 	        			playerId = Integer.parseInt(temp.substring(index, temp.length()));
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")) {
-	        			System.out.println("We need to set our game cookie");
 	        			String cookie = (String) conn.getHeaderField("Set-Cookie");
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.game=") + 11;
@@ -115,7 +112,6 @@ public class ClientCommunicator {
 	        	}
 	        }
 	        else{
-	        	System.out.println("HTTP_FAIL: " + toPost.getMethod());
 	        	throw new ServerException(String.format("%s, %s, %s", url.toString(),
 						toPost.getMethod(), conn.getResponseCode()));
 	        }

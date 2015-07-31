@@ -1,8 +1,5 @@
 package server.commands.move;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.google.gson.Gson;
 
 import client.communication.LogEntry;
@@ -20,6 +17,7 @@ public class SendChatCommand extends MoveCommand{
 	 */
 	
 	public Object execute(String input) {
+		System.out.println("executing sending chat");
 		Gson parser = new Gson();
 		SendChatInput in = parser.fromJson(input, SendChatInput.class);
 		int pi = in.getPlayerIndex();

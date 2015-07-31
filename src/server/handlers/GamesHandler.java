@@ -44,14 +44,29 @@ public class GamesHandler extends Handler {
 			break;
 		}
 		
-		String userCookie = exchange.getRequestHeaders().getFirst("Cookie").split(";")[0];
+		// deal with the cookie
+		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+		String userCookie = cookie;
 		boolean valid = true;
-		if (userCookie == null) {
-			valid = false;
+		if (cookie != null) {
+			// check if it has more than just the user
+			StringBuilder builder = new StringBuilder(cookie);
+			boolean needsTobeSplit = false;
+			for (int i = 0; i < builder.length(); i++) {
+				if (builder.charAt(i) == ';') {
+					needsTobeSplit = true;
+				}
+			}
+			if (needsTobeSplit) {
+				String[] array = cookie.split(";");
+				userCookie = array[0];
+			}
+			if (userCookie == null) {
+				valid = false;
+			}
 		}
 		
 		if (command != null && ((needCookie && valid) || (!needCookie))) {
-			
 			Object result;
 			try {
 				

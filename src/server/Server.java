@@ -31,7 +31,7 @@ public class Server {
 		server.createContext("/user/", userHandler);
 		server.createContext("/game/", gameHandler);
 		server.createContext("/games/", gamesHandler);
-		server.createContext("/move/", moveHandler);
+		server.createContext("/moves/", moveHandler);
 		
 		server.start();
 	}

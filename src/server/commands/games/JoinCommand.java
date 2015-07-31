@@ -51,7 +51,6 @@ public class JoinCommand implements ICommand {
 	}
 	
 	private CatanColor chooseColor(String c){
-		System.out.println("choosing color");
 		c = c.trim().toLowerCase();
 		c = c.toLowerCase();
 		if(c.equals("blue")){
