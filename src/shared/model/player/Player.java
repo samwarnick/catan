@@ -122,7 +122,11 @@ public class Player {
 		return playerID;
 	}
 
-	public void setPlayerID(int playerID) {
+	public void setPlayerID(PlayerID playerID) {
+		this.playerID = playerID;
+	}
+	
+	@JsonIgnore public void setPlayerID(int playerID) {
 		this.playerID = new PlayerID(playerID);
 	}
 
@@ -173,10 +177,6 @@ public class Player {
 
 	public void setLongestRoad(LongestRoad longestRoad) {
 		this.longestRoad = longestRoad;
-	}
-	
-	public void setPlayerID(PlayerID playerID) {
-		this.playerID = playerID;
 	}
 
 	public void setHasDiscared(boolean hasDiscared) {
