@@ -91,28 +91,24 @@ public class MoveHandler extends Handler {
 		if (command != null && cookieArray.length == 2) {
 			try {
 				
-				String userCookie = cookieArray[1].trim();
-				StringBuilder temp = new StringBuilder(userCookie);
-				int index = temp.lastIndexOf("catan.user=") + 11;
-				int playerId = Integer.parseInt(temp.substring(index, temp.length()));
-				
 				String gameCookie = cookieArray[1].trim();
-				temp = new StringBuilder(gameCookie);
-				index = temp.lastIndexOf("catan.game=") + 11;
+				StringBuilder temp = new StringBuilder(gameCookie);
+				int index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
+				
+				GameModel model = GameHub.getInstance().getModel(gameId);
 
 				//add log to GameHistory
-				gameCookie = cookieArray[0].trim();
-				temp = new StringBuilder(gameCookie);
-				index = temp.lastIndexOf("catan.user=") + 11;
-				int pId = Integer.parseInt(temp.substring(index, temp.length()));
-				GameModel model = GameHub.getInstance().getModel(gameId);
-				String name = GameHub.getInstance().getUser(pId).getUsername();
-				CatanColor cc = model.getPlayer(name).getColor();
-				String message = name + " " + input.getMethod();
-				System.out.printf("message %s and id %d\n", message, pId);
-				LogEntry le = new LogEntry(cc, message);
-				GameHub.getInstance().getModel(gameId).getLogs().add(le);
+//				gameCookie = cookieArray[0].trim();
+//				temp = new StringBuilder(gameCookie);
+//				index = temp.lastIndexOf("catan.user=") + 11;
+//				int pId = Integer.parseInt(temp.substring(index, temp.length()));
+//				String name = GameHub.getInstance().getUser(pId).getUsername();
+//				CatanColor cc = model.getPlayer(name).getColor();
+//				String message = name + " " + input.getMethod();
+//				System.out.printf("message %s and id %d\n", message, pId);
+//				LogEntry le = new LogEntry(cc, message);
+//				GameHub.getInstance().getModel(gameId).getLogs().add(le);
 				//finished with log
 
 				MoveCommand moveCommand = (MoveCommand) command;

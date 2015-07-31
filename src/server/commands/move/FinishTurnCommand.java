@@ -9,6 +9,7 @@ import shared.model.GameModel;
 import shared.model.board.PlayerID;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.InactivePlayerFacade;
+import shared.model.player.Player;
 
 public class FinishTurnCommand extends MoveCommand {
 
@@ -25,16 +26,37 @@ public class FinishTurnCommand extends MoveCommand {
 	public Object execute(String input) {
 		FinishTurnInput finishTurnInput;
 		try {
+
 			finishTurnInput = new ObjectMapper().readValue(input, FinishTurnInput.class);
-			System.out.println("Here's some stuff");
-			System.out.println(finishTurnInput.getMethod());
+
+			PlayerID player = new PlayerID(finishTurnInput.getPlayerIndex());
+			Player players = model.getPlayer(player);
+			players.setPlayerFacade(new InactivePlayerFacade(players));
+			int nextActivePlayer;
 			System.out.println(finishTurnInput.getPlayerIndex());
-			model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex())).setPlayerFacade(new InactivePlayerFacade(model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex()))));
+			if (model.getTurnTracker().getStatus().equals("SecondRound")){
+				nextActivePlayer = finishTurnInput.getPlayerIndex() - 1;
+				if (nextActivePlayer == -1){
+					nextActivePlayer = 0;
+					model.getTurnTracker().setStatus("Rolling");
+				}
+			}
+			else if (model.getTurnTracker().getStatus().equals("FirstRound")){
+				nextActivePlayer = finishTurnInput.getPlayerIndex() + 1;
+				if (nextActivePlayer == 4){
+						nextActivePlayer = 3;
+						model.getTurnTracker().setStatus("SecondRound");
+				}
+			}
+			else{
+				nextActivePlayer = finishTurnInput.getPlayerIndex() + 1;
+				if (nextActivePlayer == 4){
+					nextActivePlayer = 0;
+			}
+				model.getTurnTracker().setStatus("Rolling");
+			}
 			
-			
-			int nextActivePlayer = finishTurnInput.getPlayerIndex() + 1;
-			if (nextActivePlayer == 4)
-				nextActivePlayer = 0;
+
 			model.getPlayer(new PlayerID(nextActivePlayer)).setPlayerFacade(new ActivePlayerFacade(model.getPlayer(new PlayerID(nextActivePlayer))));
 			try {
 				System.out.println("THIS IS THE NEXT PLAYER: " + nextActivePlayer);
@@ -48,8 +70,8 @@ public class FinishTurnCommand extends MoveCommand {
 		}
 		return model;
 	}
-
-	public void setModel(GameModel model) {
+	
+	public void setGameModel(GameModel model) {
 		this.model = model;
 	}
 }
