@@ -59,7 +59,6 @@ public class ProxyServer implements IServerFacade {
 	public ArrayList<GameInfo> listGames(GamesListInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		System.out.println(json);
 		ArrayList<GameInfo> games = new Gson().fromJson(json, new TypeToken<ArrayList<GameInfo>>(){}.getType());
 		return games;
 	}
