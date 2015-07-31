@@ -40,11 +40,6 @@ public class ClientCommunicator {
 	public ClientCommunicator() {
 		URLPrefix = "http://" + DEFAULT_HOST + ":" + DEFAULT_PORT;
 	}
-
-	
-	public void modcook(){
-		
-	}
 	
 	public ClientCommunicator(String host, int port){
 		serverHost = host;
@@ -91,7 +86,6 @@ public class ClientCommunicator {
 	        			StringBuilder temp = new StringBuilder(cookie);
 	        			int index = temp.lastIndexOf("catan.user=") + 11;
 	        			playerId = Integer.parseInt(temp.substring(index, temp.length()));
-	        			System.out.printf("the player id %d\n", playerId);
 	        		}
 	        		if(toPost.getMethod().equals("/games/join")) {
 	        			String cookie = (String) conn.getHeaderField("Set-Cookie");
@@ -117,6 +111,7 @@ public class ClientCommunicator {
 						toPost.getMethod(), conn.getResponseCode()));
 	        }
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new ServerException(e.getMessage());
 		}
 	}
