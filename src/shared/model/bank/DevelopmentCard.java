@@ -11,14 +11,22 @@ import shared.definitions.DevCardType;
  */
 public class DevelopmentCard {
 
-	private int quantity;
 	private int limit;
+	private int quantity;
 	
 	public DevelopmentCard() {
-		quantity = 0;
 		limit = 0;
+		quantity = 0;
 	}
 	
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
 	/**
 	 * 
 	 * @param quantity
@@ -63,8 +71,8 @@ public class DevelopmentCard {
 	}
 
 	public void setQuantity(int quantity) throws BankException {
-		if((quantity) < 0 || (quantity) > limit ) throw new BankException
-													("set quantity parameter is out of bounds");
+//		if((quantity) < 0 || (quantity) > limit ) throw new BankException
+//													("set quantity parameter is out of bounds");
 		this.quantity = quantity;
 	}
 

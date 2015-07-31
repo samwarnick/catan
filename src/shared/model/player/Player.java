@@ -189,7 +189,7 @@ public class Player {
 	}
 
 
-	public boolean getHasDiscarded() {
+	@JsonIgnore public boolean getHasDiscarded() {
 		return hasDiscared;
 	}
 
@@ -207,7 +207,7 @@ public class Player {
 				+ playerID + "]";
 	}
 	
-	public PlayerInfo getPlayerInfo() {
+	@JsonIgnore public PlayerInfo getPlayerInfo() {
 		return new PlayerInfo(name, color, playerID.getPlayerid());
 	}
 

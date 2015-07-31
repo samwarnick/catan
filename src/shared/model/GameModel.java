@@ -156,7 +156,7 @@ public class GameModel {
 		this.bank = bank;
 	}
 	
-	public Player getCurrentPlayer(){
+	@JsonIgnore public Player getCurrentPlayer(){
 		return players.get(turnTracker.getCurrentTurn());
 	}
 
