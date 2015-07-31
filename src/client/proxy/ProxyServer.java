@@ -86,127 +86,110 @@ public class ProxyServer implements IServerFacade {
 	@Override
 	public GameModel sendChat(SendChatInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel acceptTrade(AcceptTradeInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel discardCards(DiscardCardsInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel rollNumber(RollNumberInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel buildRoad(BuildRoadInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel buildSettlement(BuildSettlementInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel buildCity(BuildCityInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel offerTrade(OfferTradeInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel maritimeTrade(MaritimeTradeInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel robPlayer(RobPlayerInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel finishTurn(FinishTurnInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel buyDevCard(BuyDevCardInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel playSoldier(PlaySoldierInput input) throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel playYearOfPlenty(PlayYearOfPlentyInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel playRoadBuilding(PlayRoadBuildingInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel playMonopoly(PlayMonopolyInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 
 	@Override
 	public GameModel playMonument(PlayMonumentInput input)
 			throws ServerException {
 		String json = clientCommunicator.post(input, "POST");
-		GameModel model = new Gson().fromJson(json, GameModel.class);
-		return model;
+		return modelFromJson(json);
 	}
 	
 	public int getPlayerId(){
