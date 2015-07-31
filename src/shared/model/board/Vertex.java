@@ -1,4 +1,8 @@
 package shared.model.board;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * 
  * @author jordanJohnson
@@ -6,6 +10,11 @@ package shared.model.board;
  */
 import shared.locations.VertexLocation;
 
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="type")
+@JsonSubTypes({
+	@Type(value = Settlement.class, name = "settlement"),
+	@Type(value = City.class, name = "city")
+})
 public class Vertex {
 	private PlayerID owner;
 	private VertexLocation location;
