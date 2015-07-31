@@ -4,6 +4,10 @@ public class PlayerID {
 
 	private int playerid;
 	
+	public PlayerID() {
+		playerid = 0;
+	}
+	
 	public PlayerID(int num) {
 		if (num >= -1 && num <= 3)
 			playerid = num;

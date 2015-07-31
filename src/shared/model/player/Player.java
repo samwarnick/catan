@@ -1,5 +1,7 @@
 package shared.model.player;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import client.data.PlayerInfo;
 import shared.definitions.CatanColor;
 import shared.model.bank.PlayerBank;
@@ -24,7 +26,7 @@ public class Player {
 	private VictoryPoints victoryPoints;
 	private String name;
 	private TradeRatios tradeRatios;
-	private transient IPlayerFacade playerFacade;
+	@JsonIgnore private transient IPlayerFacade playerFacade;
 	private PlayerID playerID;
 	private int uniqueID;
 	
@@ -50,12 +52,12 @@ public class Player {
 	}
 
 
-	public IPlayerFacade getPlayerFacade() {
+	@JsonIgnore public IPlayerFacade getPlayerFacade() {
 		return playerFacade;
 	}
 
 
-	public void setPlayerFacade(IPlayerFacade playerFacade) {
+	@JsonIgnore public void setPlayerFacade(IPlayerFacade playerFacade) {
 		this.playerFacade = playerFacade;
 	}
 
@@ -120,7 +122,7 @@ public class Player {
 		return playerID;
 	}
 
-	public void setPlayerID(int playerID) {
+	@JsonIgnore public void setPlayerID(int playerID) {
 		this.playerID = new PlayerID(playerID);
 	}
 

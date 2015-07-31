@@ -3,13 +3,15 @@ package server.handlers;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
+<<<<<<< HEAD
 import client.communication.LogEntry;
 
+=======
+import com.fasterxml.jackson.databind.ObjectMapper;
+>>>>>>> origin/master
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 
 import server.GameHub;
@@ -40,6 +42,7 @@ public class MoveHandler extends Handler {
 			command = new RobPlayerCommand();
 			break;
 		case "/moves/finishTurn":
+			System.out.println("finish turn");
 			command = new FinishTurnCommand();
 			break;
 		case "/moves/buyDevCard":
@@ -115,11 +118,12 @@ public class MoveHandler extends Handler {
 
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-				GsonBuilder builder = new GsonBuilder();
-				builder.setPrettyPrinting();
-				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
-				Gson gson = builder.create();
-				String toWrite = gson.toJson(updatedModel);
+//				GsonBuilder builder = new GsonBuilder();
+//				builder.setPrettyPrinting();
+//				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
+//				Gson gson = builder.create();
+				String toWrite = new ObjectMapper().writeValueAsString(updatedModel);
+				System.out.println(toWrite);
 				writer.write(toWrite);
 				writer.close();
 				

@@ -3,12 +3,8 @@ package server.commands.move;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
-import server.commands.ICommand;
-import shared.communication.input.Input;
 import shared.communication.input.move.FinishTurnInput;
-import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
 import shared.model.board.PlayerID;
 import shared.model.player.ActivePlayerFacade;
@@ -30,6 +26,9 @@ public class FinishTurnCommand extends MoveCommand {
 		FinishTurnInput finishTurnInput;
 		try {
 			finishTurnInput = new ObjectMapper().readValue(input, FinishTurnInput.class);
+			System.out.println("Here's some stuff");
+			System.out.println(finishTurnInput.getMethod());
+			System.out.println(finishTurnInput.getPlayerIndex());
 			model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex())).setPlayerFacade(new InactivePlayerFacade(model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex()))));
 			
 			
@@ -38,6 +37,7 @@ public class FinishTurnCommand extends MoveCommand {
 				nextActivePlayer = 0;
 			model.getPlayer(new PlayerID(nextActivePlayer)).setPlayerFacade(new ActivePlayerFacade(model.getPlayer(new PlayerID(nextActivePlayer))));
 			try {
+				System.out.println("THIS IS THE NEXT PLAYER: " + nextActivePlayer);
 				model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex())).getPlayerBank().transfer();
 				model.getTurnTracker().setCurrentTurn(nextActivePlayer);
 			} catch (Exception e) {

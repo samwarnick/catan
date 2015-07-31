@@ -11,6 +11,10 @@ public class Edge {
 	private PlayerID owner;
 	private EdgeLocation location;
 	
+	public Edge() {
+		owner = null;
+		location = null;
+	}
 	
 	public Edge(PlayerID owner, EdgeLocation location) {
 		this.owner = owner;

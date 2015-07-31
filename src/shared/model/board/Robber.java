@@ -11,6 +11,10 @@ public class Robber {
 
 	private HexLocation location;
 	
+	public Robber() {
+		location = null;
+	}
+	
 	public Robber(HexLocation location) {
 		this.location = location;
 	}
