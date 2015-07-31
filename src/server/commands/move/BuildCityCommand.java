@@ -1,11 +1,14 @@
 package server.commands.move;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import server.ServerException;
 import shared.communication.input.move.BuildCityInput;
+import shared.communication.input.move.SendChatInput;
 import shared.locations.VertexLocation;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
@@ -24,45 +27,50 @@ public class BuildCityCommand extends MoveCommand{
 	 */
 	@Override
 	public Object execute(String input) throws ServerException {
-		Gson parser = new Gson();
-		BuildCityInput in = parser.fromJson(input, BuildCityInput.class);
-		VertexLocation location = in.getVertexLocation();
-		int playerIndex = in.getPlayerIndex();
-		
-		List<Vertex> buildings = model.getBoard().getBuildings();
-		Vertex settlement = null;
-		for (int i = 0; i < buildings.size(); i++) {
-			if (buildings.get(i).getLocation().equals(location)) {
-				settlement = buildings.get(i);
-				break;
-			}
-		}
-		if (settlement == null) {
-			throw new ServerException("The given location is not a settlement.");
-		}
-		buildings.remove(settlement);
-		City city = new City(settlement.getOwner(), settlement.getLocation());
-		buildings.add(city);
-		
-		Player player = model.getPlayer(city.getOwner());
-		if (!player.equals(model.getPlayer(new PlayerID(playerIndex)))) {
-			throw new ServerException("The player does not match the owner of the settlement at the given location.");
-		}
-		else {
-			ResourceHand rh = new ResourceHand(0, 0, 0, -2, -3);
-			try {
-				player.getPlayerBank().modifyRC(rh);
-			} catch (BankException e) {
-				throw new ServerException("Error with player resources when building city:\n" + e.getMessage());
-			}
+		BuildCityInput in;
+		try {
+			in = new ObjectMapper().readValue(input, BuildCityInput.class);
+			VertexLocation location = in.getVertexLocation();
+			int playerIndex = in.getPlayerIndex();
 			
-			try {
-				player.getSettlements().subtractSettlement();
-				player.getCities().buildCity();
-				player.getVictoryPoints().addPublicVictoryPoint();
-			} catch (Exception e) {
-				throw new ServerException("Error changing player values when building city:\n" + e.getMessage());
-			}			
+			List<Vertex> buildings = model.getBoard().getBuildings();
+			Vertex settlement = null;
+			for (int i = 0; i < buildings.size(); i++) {
+				if (buildings.get(i).getLocation().equals(location)) {
+					settlement = buildings.get(i);
+					break;
+				}
+			}
+			if (settlement == null) {
+				throw new ServerException("The given location is not a settlement.");
+			}
+			buildings.remove(settlement);
+			City city = new City(settlement.getOwner(), settlement.getLocation());
+			buildings.add(city);
+			
+			Player player = model.getPlayer(city.getOwner());
+			if (!player.equals(model.getPlayer(new PlayerID(playerIndex)))) {
+				throw new ServerException("The player does not match the owner of the settlement at the given location.");
+			}
+			else {
+				ResourceHand rh = new ResourceHand(0, 0, 0, -2, -3);
+				try {
+					player.getPlayerBank().modifyRC(rh);
+				} catch (BankException e) {
+					throw new ServerException("Error with player resources when building city:\n" + e.getMessage());
+				}
+				
+				try {
+					player.getSettlements().subtractSettlement();
+					player.getCities().buildCity();
+					player.getVictoryPoints().addPublicVictoryPoint();
+				} catch (Exception e) {
+					throw new ServerException("Error changing player values when building city:\n" + e.getMessage());
+				}			
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		return model;
