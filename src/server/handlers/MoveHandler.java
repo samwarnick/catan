@@ -3,18 +3,19 @@ package server.handlers;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
 import client.communication.LogEntry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 
 import server.GameHub;
 import server.ServerException;
 import server.commands.move.*;
 import shared.communication.input.Input;
-import shared.definitions.CatanColor;
 import shared.model.GameModel;
 
 public class MoveHandler extends Handler {
@@ -38,7 +39,6 @@ public class MoveHandler extends Handler {
 			command = new RobPlayerCommand();
 			break;
 		case "/moves/finishTurn":
-			System.out.println("finish turn");
 			command = new FinishTurnCommand();
 			break;
 		case "/moves/buyDevCard":
@@ -91,19 +91,7 @@ public class MoveHandler extends Handler {
 				StringBuilder temp = new StringBuilder(gameCookie);
 				int index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
-				//add log to GameHistory
-				gameCookie = cookieArray[0].trim();
-				temp = new StringBuilder(gameCookie);
-				index = temp.lastIndexOf("catan.user=") + 11;
-				int pId = Integer.parseInt(temp.substring(index, temp.length()));
 				GameModel model = GameHub.getInstance().getModel(gameId);
-				String name = GameHub.getInstance().getUser(pId).getUsername();
-				CatanColor cc = model.getPlayer(name).getColor();
-				String message = name + " " + input.getMethod();
-				LogEntry le = new LogEntry(cc, message);
-				GameHub.getInstance().getModel(gameId).getLogs().add(le);
-				
-				//finished with log
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
 				GameModel updatedModel = (GameModel) moveCommand.execute(json);
@@ -114,12 +102,11 @@ public class MoveHandler extends Handler {
 
 				// write to response body
 				Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-//				GsonBuilder builder = new GsonBuilder();
-//				builder.setPrettyPrinting();
-//				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
-//				Gson gson = builder.create();
-				String toWrite = new ObjectMapper().writeValueAsString(updatedModel);
-				System.out.println(toWrite);
+				GsonBuilder builder = new GsonBuilder();
+				builder.setPrettyPrinting();
+				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
+				Gson gson = builder.create();
+				String toWrite = gson.toJson(updatedModel);
 				writer.write(toWrite);
 				writer.close();
 				

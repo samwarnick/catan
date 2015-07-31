@@ -13,11 +13,6 @@ public class ResourceCard {
 	private int quantity;
 	private ResourceType type;
 	
-	public ResourceCard() {
-		quantity = 0;
-		type = null;
-	}
-	
 	/**
 	 * 
 	 * Constructor

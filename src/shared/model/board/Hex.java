@@ -8,11 +8,6 @@ public class Hex {
 	private HexType landType;
 	private HexLocation location;
 	
-	public Hex() {
-		landType = null;
-		location = null;
-	}
-	
 	public Hex(HexType landType, HexLocation location) {
 		this.landType = landType;
 		this.location = location;

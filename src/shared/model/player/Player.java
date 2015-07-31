@@ -26,7 +26,7 @@ public class Player {
 	private VictoryPoints victoryPoints;
 	private String name;
 	private TradeRatios tradeRatios;
-	@JsonIgnore private transient IPlayerFacade playerFacade;
+	private transient IPlayerFacade playerFacade;
 	private PlayerID playerID;
 	private int uniqueID;
 	
@@ -52,12 +52,12 @@ public class Player {
 	}
 
 
-	@JsonIgnore public IPlayerFacade getPlayerFacade() {
+	public IPlayerFacade getPlayerFacade() {
 		return playerFacade;
 	}
 
 
-	@JsonIgnore public void setPlayerFacade(IPlayerFacade playerFacade) {
+	public void setPlayerFacade(IPlayerFacade playerFacade) {
 		this.playerFacade = playerFacade;
 	}
 
@@ -122,7 +122,7 @@ public class Player {
 		return playerID;
 	}
 
-	@JsonIgnore public void setPlayerID(int playerID) {
+	public void setPlayerID(int playerID) {
 		this.playerID = new PlayerID(playerID);
 	}
 

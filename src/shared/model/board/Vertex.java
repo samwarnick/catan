@@ -10,10 +10,6 @@ public class Vertex {
 	private PlayerID owner;
 	private VertexLocation location;
 
-	public Vertex() {
-		owner = null;
-		location = null;
-	}
 	
 	public Vertex(PlayerID owner, VertexLocation location) {
 		this.owner = owner;

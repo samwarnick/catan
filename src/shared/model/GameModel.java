@@ -3,8 +3,6 @@ package shared.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import client.communication.LogEntry;
 import client.domestic.Trade;
 import shared.definitions.CatanColor;
@@ -46,19 +44,6 @@ public class GameModel {
 	List<LogEntry>  chats = new ArrayList<LogEntry>();
 	private int winner = -1;
 	private static GameModel defaultGM;
-	
-	public GameModel() {
-		gameID = 0;
-		gameVersion = 0;
-		board = null;
-		players = null;
-		turnTracker = null;
-		bank = null;
-		trade = null;
-		logs = null;
-		chats = null;
-		
-	}
 	
 	public GameModel(int gameID) {
 		this.gameID = gameID;
@@ -282,7 +267,7 @@ public class GameModel {
 				+ ", trade=" + trade + "]";
 	}
 	
-	@JsonIgnore public static GameModel getDefaultModel(){
+	public static GameModel getDefaultModel(){
 		if(defaultGM == null){
 			defaultGM  = new GameModel(0);
 			try {
@@ -330,11 +315,11 @@ public class GameModel {
 		return defaultGM;
 	}
 
-	@JsonIgnore public static GameModel getDefaultGM() {
+	public static GameModel getDefaultGM() {
 		return defaultGM;
 	}
 
-	@JsonIgnore public static void setDefaultGM(GameModel defaultGM) {
+	public static void setDefaultGM(GameModel defaultGM) {
 		GameModel.defaultGM = defaultGM;
 	}	
 }
