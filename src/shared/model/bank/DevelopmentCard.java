@@ -14,6 +14,11 @@ public class DevelopmentCard {
 	private int quantity;
 	private int limit;
 	
+	public DevelopmentCard() {
+		quantity = 0;
+		limit = 0;
+	}
+	
 	/**
 	 * 
 	 * @param quantity

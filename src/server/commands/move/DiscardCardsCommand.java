@@ -51,7 +51,7 @@ public class DiscardCardsCommand extends MoveCommand{
 		return model;
 	}
 	
-	public void setGameModel(GameModel model){
+	public void setModel(GameModel model){
 		this.model = model;
 	}
 
