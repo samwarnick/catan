@@ -12,6 +12,10 @@ public class FinishTurnInput extends MoveInput {
 	public FinishTurnInput(int playerIndex) {
 		super("/finishTurn", playerIndex);
 	}
+	
+	public FinishTurnInput() {
+		super("/finishTurn", -1);
+	}
 
 	public String getType() {
 		return type;

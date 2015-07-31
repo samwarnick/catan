@@ -19,6 +19,11 @@ public class PlayRoadBuildingInput extends MoveInput {
 		this.location2 = location2;
 	}
 	
+	public PlayRoadBuildingInput() {
+		super("/Road_Building", -1);
+		this.location1 = null;
+		this.location2 = null;
+	}
 
 	public EdgeLocation getLocation1() {
 		return location1;

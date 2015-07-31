@@ -13,6 +13,12 @@ public class OfferTradeInput extends MoveInput {
 	private int receiver;
 	private String type = "offerTrade";
 	
+	public OfferTradeInput() {
+		super("/offerTrade", -1);
+		this.offer = null;
+		this.receiver = -1;
+	}
+	
 	public String getType() {
 		return type;
 	}

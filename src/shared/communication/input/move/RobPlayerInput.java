@@ -20,6 +20,26 @@ public class RobPlayerInput extends MoveInput {
 		this.victimIndex = victimIndex;
 		hexLocation = location;
 	}
+	
+	public RobPlayerInput() {
+		super("/robPlayer", -1);
+		setType("robPlayer");
+		this.location = null;
+		this.victimIndex = -1;
+		hexLocation = null;
+	}
+
+	public void setVictimIndex(int victimIndex) {
+		this.victimIndex = victimIndex;
+	}
+
+	public void setLocation(SoldierSpot location) {
+		this.location = location;
+	}
+
+	public void setHexLocation(HexLocation hexLocation) {
+		this.hexLocation = hexLocation;
+	}
 
 	public SoldierSpot getLocation() {
 		return location;

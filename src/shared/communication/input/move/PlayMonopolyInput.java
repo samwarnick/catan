@@ -9,6 +9,11 @@ public class PlayMonopolyInput extends MoveInput {
 
 	private String resource = "wool";
 	private String type = "Monopoly";
+	
+	public PlayMonopolyInput() {
+		super("/Monopoly", -1);
+		this.resource = null;
+	}
 
 	public String getResource() {
 		return resource;

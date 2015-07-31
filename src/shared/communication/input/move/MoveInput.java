@@ -21,6 +21,10 @@ public class MoveInput extends Input {
 		return playerIndex;
 	}
 
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
+
 	public String getType() {
 		return type;
 	}

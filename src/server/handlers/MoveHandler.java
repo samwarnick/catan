@@ -82,10 +82,8 @@ public class MoveHandler extends Handler {
 		
 		String cookie = exchange.getRequestHeaders().getFirst("Cookie");
 		String[] cookieArray = cookie.split(";");
-		System.out.println("My cookieArray is: " + cookieArray.length);
 		
 		if (command != null && cookieArray.length == 2) {
-			System.out.println("about to do something");
 			try {
 				String gameCookie = cookieArray[1].trim();
 				StringBuilder temp = new StringBuilder(gameCookie);
@@ -94,11 +92,7 @@ public class MoveHandler extends Handler {
 				GameModel model = GameHub.getInstance().getModel(gameId);
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
-				System.out.println("Editing model with ID: " + gameId);
 				GameModel updatedModel = (GameModel) moveCommand.execute(json);
-				if (updatedModel == null) {
-					System.out.println("Something went wrong");
-				}
 				GameHub.getInstance().updateModel(updatedModel);
 				
 				exchange.getResponseHeaders().set("Content-Type", "text/html");
@@ -111,7 +105,6 @@ public class MoveHandler extends Handler {
 				builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
 				Gson gson = builder.create();
 				String toWrite = gson.toJson(updatedModel);
-				System.out.println(toWrite);
 				writer.write(toWrite);
 				writer.close();
 				

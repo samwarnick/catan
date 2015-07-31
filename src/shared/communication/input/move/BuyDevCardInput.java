@@ -12,6 +12,10 @@ public class BuyDevCardInput extends MoveInput {
 	public BuyDevCardInput(int playerIndex) {
 		super("/buyDevCard", playerIndex);
 	}
+	
+	public BuyDevCardInput() {
+		super("/buyDevCard", -1);
+	}
 
 	public String getType() {
 		return type;

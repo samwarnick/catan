@@ -16,6 +16,19 @@ public class BuildCityInput extends MoveInput {
 		super("/buildCity", playerIndex);
 		this.location = location;
 	}
+	
+	public BuildCityInput() {
+		super("/buildCity", -1);
+		this.location = null;
+	}
+
+	public VertexLocation getLocation() {
+		return location;
+	}
+
+	public void setLocation(VertexLocation location) {
+		this.location = location;
+	}
 
 	public VertexLocation getVertexLocation() {
 		return location;

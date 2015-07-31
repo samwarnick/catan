@@ -11,6 +11,12 @@ public class Spot {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Spot() {
+		this.direction = null;
+		this.x = 0;
+		this.y = 0;
+	}
 
 	public int getX() {
 		return x;

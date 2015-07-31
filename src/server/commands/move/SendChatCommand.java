@@ -1,6 +1,8 @@
 package server.commands.move;
 
-import com.google.gson.Gson;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import client.communication.LogEntry;
 import shared.communication.input.move.SendChatInput;
@@ -17,13 +19,16 @@ public class SendChatCommand extends MoveCommand{
 	 */
 	
 	public Object execute(String input) {
-		System.out.println("executing sending chat");
-		Gson parser = new Gson();
-		SendChatInput in = parser.fromJson(input, SendChatInput.class);
-		int pi = in.getPlayerIndex();
-		CatanColor cc = model.getPlayers().get(pi).getColor();
-		LogEntry le = new LogEntry(cc, in.getContent());
-		model.getChats().add(le);
+		SendChatInput in;
+		try {
+			in = new ObjectMapper().readValue(input, SendChatInput.class);
+			int pi = in.getPlayerIndex();
+			CatanColor cc = model.getPlayers().get(pi).getColor();
+			LogEntry le = new LogEntry(cc, in.getContent());
+			model.getChats().add(le);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return model;
 	}
 	

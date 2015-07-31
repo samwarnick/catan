@@ -14,6 +14,11 @@ public class AcceptTradeInput extends MoveInput {
 		super("/acceptTrade", playerIndex);
 		this.willAccept = willAccept;
 	}
+	
+	public AcceptTradeInput() {
+		super("/acceptTrade", -1);
+		this.willAccept = false;
+	}
 
 	public boolean isWillAccept() {
 		return willAccept;

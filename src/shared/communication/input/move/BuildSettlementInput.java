@@ -19,6 +19,20 @@ public class BuildSettlementInput extends MoveInput {
 		this.location = location;
 	}
 	
+	public BuildSettlementInput() {
+		super("/buildSettlement", -1);
+		this.free = false;
+		this.location = null;
+	}
+	
+	public VertexLocation getLocation() {
+		return location;
+	}
+
+	public void setLocation(VertexLocation location) {
+		this.location = location;
+	}
+
 	public boolean getFree() {
 		return free;
 	}

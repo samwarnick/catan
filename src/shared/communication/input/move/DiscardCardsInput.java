@@ -1,5 +1,7 @@
 package shared.communication.input.move;
 
+import com.sun.jndi.url.dns.dnsURLContext;
+
 import shared.model.bank.ResourceHand;
 
 /**
@@ -15,6 +17,11 @@ public class DiscardCardsInput extends MoveInput {
 	public DiscardCardsInput(int playerIndex, ResourceHand discardedCards) {
 		super("/discardCards", playerIndex);
 		this.discardedCards = discardedCards;
+	}
+	
+	public DiscardCardsInput() {
+		super("/discardCards", -1);
+		this.discardedCards = null;
 	}
 
 	public ResourceHand getDiscardedCards() {

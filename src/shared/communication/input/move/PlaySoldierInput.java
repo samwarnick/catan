@@ -21,6 +21,26 @@ public class PlaySoldierInput extends MoveInput {
 		this.location = new SoldierSpot(Integer.toString(location.getX()), Integer.toString(location.getY()));
 		hexLocation = location;
 	}
+	
+	public PlaySoldierInput() {
+		super("/Soldier", -1);
+		setType("Soldier");
+		this.victimIndex = -1;
+		this.location = null;
+		hexLocation = null;
+	}
+
+	public void setVictimIndex(int victimIndex) {
+		this.victimIndex = victimIndex;
+	}
+
+	public void setLocation(SoldierSpot location) {
+		this.location = location;
+	}
+
+	public void setHexLocation(HexLocation hexLocation) {
+		this.hexLocation = hexLocation;
+	}
 
 	public SoldierSpot getLocation() {
 		return location;

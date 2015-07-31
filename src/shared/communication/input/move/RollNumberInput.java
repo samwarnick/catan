@@ -14,6 +14,11 @@ public class RollNumberInput extends MoveInput {
 		super("/rollNumber", playerIndex);
 		this.number = number;
 	}
+	
+	public RollNumberInput() {
+		super("/rollNumber", -1);
+		this.number = -1;
+	}
 
 	public int getNumber() {
 		return number;

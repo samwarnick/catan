@@ -18,6 +18,20 @@ public class BuildRoadInput extends MoveInput {
 		this.free = isFree;
 		this.location = location;
 	}
+	
+	public BuildRoadInput() {
+		super("/buildRoad", -1);
+		this.free = false;
+		this.location = null;
+	}
+
+	public EdgeLocation getLocation() {
+		return location;
+	}
+
+	public void setLocation(EdgeLocation location) {
+		this.location = location;
+	}
 
 	public boolean getFree() {
 		return free;

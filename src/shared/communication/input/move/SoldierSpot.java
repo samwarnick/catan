@@ -10,11 +10,25 @@ public class SoldierSpot {
 		this.y = y;
 	}
 	
+	public SoldierSpot() {
+		super();
+		this.x = "0";
+		this.y = "0";
+	}
+	
 	public String getX() {
 		return x;
 	}
 	public String getY() {
 		return y;
+	}
+
+	public void setX(String x) {
+		this.x = x;
+	}
+
+	public void setY(String y) {
+		this.y = y;
 	}
 	
 	

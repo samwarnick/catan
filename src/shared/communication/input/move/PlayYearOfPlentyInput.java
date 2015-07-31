@@ -18,6 +18,12 @@ public class PlayYearOfPlentyInput extends MoveInput {
 		this.resource1 = resource1.toString().toLowerCase();
 		this.resource2 = resource2.toString().toLowerCase();
 	}
+	
+	public PlayYearOfPlentyInput() {
+		super("/Year_of_Plenty", -1);
+		this.resource1 = null;
+		this.resource2 = null;
+	}
 
 	public String getResource1() {
 		return resource1;

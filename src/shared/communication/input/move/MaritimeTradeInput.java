@@ -21,6 +21,13 @@ public class MaritimeTradeInput extends MoveInput {
 		this.inputResource = inputResource.toString().toLowerCase();
 		this.outputResource = outpurResource.toString().toLowerCase();
 	}
+	
+	public MaritimeTradeInput() {
+		super("/maritimeTrade", -1);
+		this.ratio = -1;
+		this.inputResource = null;
+		this.outputResource = null;
+	}
 
 	public int getRatio() {
 		return ratio;
