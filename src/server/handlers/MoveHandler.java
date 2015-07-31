@@ -87,9 +87,15 @@ public class MoveHandler extends Handler {
 		
 		if (command != null && cookieArray.length == 2) {
 			try {
+				
+				String userCookie = cookieArray[1].trim();
+				StringBuilder temp = new StringBuilder(userCookie);
+				int index = temp.lastIndexOf("catan.user=") + 11;
+				int playerId = Integer.parseInt(temp.substring(index, temp.length()));
+				
 				String gameCookie = cookieArray[1].trim();
-				StringBuilder temp = new StringBuilder(gameCookie);
-				int index = temp.lastIndexOf("catan.game=") + 11;
+				temp = new StringBuilder(gameCookie);
+				index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
 				GameModel model = GameHub.getInstance().getModel(gameId);
 				MoveCommand moveCommand = (MoveCommand) command;
