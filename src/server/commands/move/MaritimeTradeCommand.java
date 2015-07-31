@@ -1,10 +1,14 @@
 package server.commands.move;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.MaritimeTradeInput;
+import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
@@ -23,69 +27,74 @@ public class MaritimeTradeCommand extends MoveCommand {
 	 */
 	@Override
 	public Object execute(String input) {
-		MaritimeTradeInput maritimeTradeInput = new Gson().fromJson(input,MaritimeTradeInput.class);
-		int ratio = maritimeTradeInput.getRatio();
-		ResourceHand rh = new ResourceHand();
-		ResourceHand bankrh = new ResourceHand();
-		switch (maritimeTradeInput.getInputResource()){
-		case "Wood":{
-			rh.setWood(-1 * ratio);
-			bankrh.setWood(ratio);
-			break;
-		}
-		case "Brick":{
-			rh.setBrick(-1 * ratio);
-			bankrh.setBrick(ratio);
-			break;
-		}
-		case "Sheep":{
-			rh.setSheep(-1 * ratio);
-			bankrh.setSheep(ratio);
-			break;
-		}
-		case "Wheat":{
-			rh.setWheat(-1 * ratio);
-			bankrh.setWheat(ratio);
-			break;
-		}
-		case "Ore":{
-			rh.setOre(-1 * ratio);
-			bankrh.setOre(ratio);
-			break;
-		}
-		}
-		switch (maritimeTradeInput.getOutputResource()){
-		case "Wood":{
-			rh.setWood(1);
-			bankrh.setWood(-1);
-			break;
-		}
-		case "Brick":{
-			rh.setBrick(1);
-			bankrh.setBrick(-1);
-			break;
-		}
-		case "Sheep":{
-			rh.setSheep(1);
-			bankrh.setSheep(-1);
-			break;
-		}
-		case "Wheat":{
-			rh.setWheat(1);
-			bankrh.setWheat(-1);
-			break;
-		}
-		case "Ore":{
-			rh.setOre(1);
-			bankrh.setOre(-1);
-			break;
-		}
-		}
+		MaritimeTradeInput maritimeTradeInput;
 		try {
-			model.getPlayer(new PlayerID(maritimeTradeInput.getPlayerIndex())).getPlayerBank().modifyRC(rh);
-			model.getBank().modifyRC(bankrh);
-		} catch (BankException e) {
-			e.printStackTrace();
+			maritimeTradeInput = new ObjectMapper().readValue(input, MaritimeTradeInput.class);
+			int ratio = maritimeTradeInput.getRatio();
+			ResourceHand rh = new ResourceHand();
+			ResourceHand bankrh = new ResourceHand();
+			switch (maritimeTradeInput.getInputResource()){
+			case "Wood":{
+				rh.setWood(-1 * ratio);
+				bankrh.setWood(ratio);
+				break;
+			}
+			case "Brick":{
+				rh.setBrick(-1 * ratio);
+				bankrh.setBrick(ratio);
+				break;
+			}
+			case "Sheep":{
+				rh.setSheep(-1 * ratio);
+				bankrh.setSheep(ratio);
+				break;
+			}
+			case "Wheat":{
+				rh.setWheat(-1 * ratio);
+				bankrh.setWheat(ratio);
+				break;
+			}
+			case "Ore":{
+				rh.setOre(-1 * ratio);
+				bankrh.setOre(ratio);
+				break;
+			}
+			}
+			switch (maritimeTradeInput.getOutputResource()){
+			case "Wood":{
+				rh.setWood(1);
+				bankrh.setWood(-1);
+				break;
+			}
+			case "Brick":{
+				rh.setBrick(1);
+				bankrh.setBrick(-1);
+				break;
+			}
+			case "Sheep":{
+				rh.setSheep(1);
+				bankrh.setSheep(-1);
+				break;
+			}
+			case "Wheat":{
+				rh.setWheat(1);
+				bankrh.setWheat(-1);
+				break;
+			}
+			case "Ore":{
+				rh.setOre(1);
+				bankrh.setOre(-1);
+				break;
+			}
+			}
+			try {
+				model.getPlayer(new PlayerID(maritimeTradeInput.getPlayerIndex())).getPlayerBank().modifyRC(rh);
+				model.getBank().modifyRC(bankrh);
+			} catch (BankException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		return model;
 	}

@@ -1,11 +1,15 @@
 package server.commands.move;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.PlayYearOfPlentyInput;
+import shared.communication.input.move.RollNumberInput;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.model.GameModel;
@@ -26,28 +30,32 @@ public class PlayYearOfPlentyCommand extends MoveCommand {
 	 */
 	@Override
 	public Object execute(String input) {
-		Gson parser = new Gson();
-		PlayYearOfPlentyInput playYearOfPlentyInput = parser.fromJson(input, PlayYearOfPlentyInput.class);
-		ResourceType type1 = getResourceTypeFromString(playYearOfPlentyInput.getResource1());
-		ResourceType type2 = getResourceTypeFromString(playYearOfPlentyInput.getResource2());
-		//add resources to player
-		Player p = model.getPlayer(new PlayerID(playYearOfPlentyInput.getPlayerIndex()));
+		PlayYearOfPlentyInput playYearOfPlentyInput;
 		try {
-			p.getPlayerBank().getResourceStack(type1).setQuantity(p.getPlayerBank().getResourceStack(type1).getQuantity() + 1);
-			p.getPlayerBank().getResourceStack(type2).setQuantity(p.getPlayerBank().getResourceStack(type2).getQuantity() + 1);
-			//decrement resources from bank
-			model.getBank().getResourceStack(type1).setQuantity(model.getBank().getResourceStack(type1).getQuantity() -1);
-			model.getBank().getResourceStack(type2).setQuantity(model.getBank().getResourceStack(type2).getQuantity() -1);
-		} catch (BankException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//decrement year of plenty card
-		try {
-			p.getPlayerBank().getDevStack(DevCardType.YEAR_OF_PLENTY).setQuantity(p.getPlayerBank().getDevStack(DevCardType.YEAR_OF_PLENTY).getQuantity() - 1);
-		} catch (BankException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			playYearOfPlentyInput = new ObjectMapper().readValue(input, PlayYearOfPlentyInput.class);
+			ResourceType type1 = getResourceTypeFromString(playYearOfPlentyInput.getResource1());
+			ResourceType type2 = getResourceTypeFromString(playYearOfPlentyInput.getResource2());
+			//add resources to player
+			Player p = model.getPlayer(new PlayerID(playYearOfPlentyInput.getPlayerIndex()));
+			try {
+				p.getPlayerBank().getResourceStack(type1).setQuantity(p.getPlayerBank().getResourceStack(type1).getQuantity() + 1);
+				p.getPlayerBank().getResourceStack(type2).setQuantity(p.getPlayerBank().getResourceStack(type2).getQuantity() + 1);
+				//decrement resources from bank
+				model.getBank().getResourceStack(type1).setQuantity(model.getBank().getResourceStack(type1).getQuantity() -1);
+				model.getBank().getResourceStack(type2).setQuantity(model.getBank().getResourceStack(type2).getQuantity() -1);
+			} catch (BankException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//decrement year of plenty card
+			try {
+				p.getPlayerBank().getDevStack(DevCardType.YEAR_OF_PLENTY).setQuantity(p.getPlayerBank().getDevStack(DevCardType.YEAR_OF_PLENTY).getQuantity() - 1);
+			} catch (BankException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		return model;
 	}

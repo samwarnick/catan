@@ -1,11 +1,15 @@
 package server.commands.move;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import server.ServerException;
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.DiscardCardsInput;
+import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;
@@ -23,22 +27,27 @@ public class DiscardCardsCommand extends MoveCommand{
 	@Override
 	public Object execute(String input) {
 		
-		DiscardCardsInput discardCardsinput = new Gson().fromJson(input, DiscardCardsInput.class);
-		ResourceHand rh = discardCardsinput.getDiscardedCards();
-		ResourceHand bankRH = discardCardsinput.getDiscardedCards();
-		bankRH.setBrick(rh.getBrick() * -1);
-		bankRH.setWood(rh.getWood() * -1);
-		bankRH.setSheep(rh.getSheep() * -1);
-		bankRH.setWheat(rh.getWheat() * -1);
-		bankRH.setOre(rh.getOre() * -1);
+		DiscardCardsInput discardCardsinput;
 		try {
-			model.getPlayer(new PlayerID(discardCardsinput.getPlayerIndex())).getPlayerBank().modifyRC(rh);
-			model.getBank().modifyRC(bankRH);
-			
-		} catch (BankException e) {
-			e.printStackTrace();
+			discardCardsinput = new ObjectMapper().readValue(input, DiscardCardsInput.class);
+			ResourceHand rh = discardCardsinput.getDiscardedCards();
+			ResourceHand bankRH = discardCardsinput.getDiscardedCards();
+			bankRH.setBrick(rh.getBrick() * -1);
+			bankRH.setWood(rh.getWood() * -1);
+			bankRH.setSheep(rh.getSheep() * -1);
+			bankRH.setWheat(rh.getWheat() * -1);
+			bankRH.setOre(rh.getOre() * -1);
+			try {
+				model.getPlayer(new PlayerID(discardCardsinput.getPlayerIndex())).getPlayerBank().modifyRC(rh);
+				model.getBank().modifyRC(bankRH);
+				
+			} catch (BankException e) {
+				e.printStackTrace();
+			}
+			model.getTurnTracker().setStatus("Playing");
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
-		model.getTurnTracker().setStatus("Playing");
 		return model;
 	}
 	

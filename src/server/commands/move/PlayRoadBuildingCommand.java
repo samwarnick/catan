@@ -1,9 +1,13 @@
 package server.commands.move;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import server.ServerException;
 import shared.communication.input.move.PlayRoadBuildingInput;
+import shared.communication.input.move.SendChatInput;
 import shared.locations.EdgeLocation;
 import shared.model.board.PlayerID;
 import shared.model.board.Road;
@@ -20,23 +24,27 @@ public class PlayRoadBuildingCommand extends MoveCommand {
 	 */
 	@Override
 	public Object execute(String input) throws ServerException {
-		Gson parser = new Gson();
-		PlayRoadBuildingInput in = parser.fromJson(input, PlayRoadBuildingInput.class);
-		EdgeLocation location1 = in.getLocation1();
-		EdgeLocation location2 = in.getLocation2();
-		int playerIndex = in.getPlayerIndex();
-		
-		Player player = model.getPlayer(new PlayerID(playerIndex));
-		model.getBoard().getRoads().add(new Road(player.getPlayerID(), location1));
-		model.getBoard().getRoads().add(new Road(player.getPlayerID(), location2));
+		PlayRoadBuildingInput in;
 		try {
-			player.getRoads().buildRoad();
-			player.getRoads().buildRoad();
-		} catch (Exception e) {
-			throw new ServerException("Error with changing roads available when playing road building card:\n" + e.getMessage());
+			in = new ObjectMapper().readValue(input, PlayRoadBuildingInput.class);
+			EdgeLocation location1 = in.getLocation1();
+			EdgeLocation location2 = in.getLocation2();
+			int playerIndex = in.getPlayerIndex();
+			
+			Player player = model.getPlayer(new PlayerID(playerIndex));
+			model.getBoard().getRoads().add(new Road(player.getPlayerID(), location1));
+			model.getBoard().getRoads().add(new Road(player.getPlayerID(), location2));
+			try {
+				player.getRoads().buildRoad();
+				player.getRoads().buildRoad();
+			} catch (Exception e) {
+				throw new ServerException("Error with changing roads available when playing road building card:\n" + e.getMessage());
+			}
+			
+			model.assignLongestRoad();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
-		
-		model.assignLongestRoad();
 		
 		return model;
 	}

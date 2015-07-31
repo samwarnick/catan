@@ -1,11 +1,15 @@
 package server.commands.move;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import client.domestic.Trade;
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.OfferTradeInput;
+import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
 
 public class OfferTradeCommand extends MoveCommand {
@@ -21,11 +25,16 @@ public class OfferTradeCommand extends MoveCommand {
 	 */
 	@Override
 	public Object execute(String input) {
-		OfferTradeInput offerTradeInput = new Gson().fromJson(input,OfferTradeInput.class);
-		Trade trade = new Trade(offerTradeInput.getOffer().getBrick(), offerTradeInput.getOffer().getWood(), offerTradeInput.getOffer().getSheep(), offerTradeInput.getOffer().getWheat(), 
-				offerTradeInput.getOffer().getOre(), offerTradeInput.getPlayerIndex(), offerTradeInput.getReceiver());
-		model.setTrade(trade);
-		model.getTurnTracker().setStatus("Trading");
+		OfferTradeInput offerTradeInput;
+		try {
+			offerTradeInput = new ObjectMapper().readValue(input, OfferTradeInput.class);
+			Trade trade = new Trade(offerTradeInput.getOffer().getBrick(), offerTradeInput.getOffer().getWood(), offerTradeInput.getOffer().getSheep(), offerTradeInput.getOffer().getWheat(), 
+					offerTradeInput.getOffer().getOre(), offerTradeInput.getPlayerIndex(), offerTradeInput.getReceiver());
+			model.setTrade(trade);
+			model.getTurnTracker().setStatus("Trading");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return model;
 	}
 

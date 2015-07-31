@@ -1,11 +1,15 @@
 package server.commands.move;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import server.commands.ICommand;
 import shared.communication.input.Input;
 import shared.communication.input.move.PlayMonopolyInput;
 import shared.communication.input.move.PlayMonumentInput;
+import shared.communication.input.move.SendChatInput;
 import shared.definitions.DevCardType;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
@@ -26,19 +30,23 @@ public class PlayMonumentCommand extends MoveCommand {
 	 */
 	@Override
 	public Object execute(String input) {
-		Gson parser = new Gson();
-		PlayMonumentInput playMonumentInput = parser.fromJson(input, PlayMonumentInput.class);
-		Player p = model.getPlayer(new PlayerID(playMonumentInput.getPlayerIndex()));
-		//add victory point
-		VictoryPoints victoryPoints= p.getVictoryPoints();
-		victoryPoints.addPublicVictoryPoint();
-		p.setVictoryPoints(victoryPoints);
-		//subtract victory card
+		PlayMonumentInput playMonumentInput;
 		try {
-			p.getPlayerBank().getDevStack(DevCardType.MONUMENT).setQuantity(p.getPlayerBank().getDevStack(DevCardType.MONUMENT).getQuantity() - 1);
-		} catch (BankException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			playMonumentInput = new ObjectMapper().readValue(input, PlayMonumentInput.class);
+			Player p = model.getPlayer(new PlayerID(playMonumentInput.getPlayerIndex()));
+			//add victory point
+			VictoryPoints victoryPoints= p.getVictoryPoints();
+			victoryPoints.addPublicVictoryPoint();
+			p.setVictoryPoints(victoryPoints);
+			//subtract victory card
+			try {
+				p.getPlayerBank().getDevStack(DevCardType.MONUMENT).setQuantity(p.getPlayerBank().getDevStack(DevCardType.MONUMENT).getQuantity() - 1);
+			} catch (BankException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		return model;
 	}
