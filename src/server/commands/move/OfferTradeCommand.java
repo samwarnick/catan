@@ -38,7 +38,7 @@ public class OfferTradeCommand extends MoveCommand {
 		return model;
 	}
 
-	public void setModel(GameModel model) {
+	public void setGameModel(GameModel model) {
 		this.model = model;
 	}
 

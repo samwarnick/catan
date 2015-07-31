@@ -2,8 +2,6 @@ package shared.model.ratios;
 
 import java.util.HashMap;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import shared.definitions.ResourceType;
 
 /**
@@ -28,14 +26,10 @@ public class TradeRatios {
 		return tradeRatios;
 	}
 	
-	@JsonIgnore public TradeRatio getTradeRatio(ResourceType type) {
+	public TradeRatio getTradeRatio(ResourceType type) {
 		return tradeRatios.get(type);
 	}
 	
-	public void setTradeRatios(HashMap<ResourceType, TradeRatio> tradeRatios) {
-		this.tradeRatios = tradeRatios;
-	}
-
 	public void setRatio(TradeRatio newRatio) {
 		tradeRatios.put(newRatio.getType(), newRatio);
 	}

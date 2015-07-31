@@ -2,9 +2,6 @@ package shared.model.board;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.HashMap;
 
 import shared.definitions.ResourceType;
@@ -22,7 +19,7 @@ import shared.model.ratios.*;
  */
 public class BoardFacade {
 
-	@JsonIgnore private Board board;
+	private Board board;
 	
 	public BoardFacade(Board board) {
 		this.board = board;

@@ -3,12 +3,11 @@ package server.handlers;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 
 import server.GameHub;
@@ -45,13 +44,14 @@ public class GameHandler extends Handler {
 
 			// write to response body
 			Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-			try {
-				String toWrite = new ObjectMapper().writeValueAsString(model);
-				writer.write(toWrite);
-				writer.close();
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
+
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
+			Gson gson = builder.create();
+			String toWrite = gson.toJson(model);
+			writer.write(toWrite);
+			writer.close();
 			
 			exchange.getResponseBody().close();
 		} else {
