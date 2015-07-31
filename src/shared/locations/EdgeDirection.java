@@ -1,5 +1,7 @@
 package shared.locations;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public enum EdgeDirection
 {
 	
@@ -17,12 +19,12 @@ public enum EdgeDirection
 		SouthWest.opposite = NorthEast;
 	}
 	
-	public EdgeDirection getOppositeDirection()
+	@JsonIgnore public EdgeDirection getOppositeDirection()
 	{
 		return opposite;
 	}
 	
-	public String getAbbreviation() {
+	@JsonIgnore public String getAbbreviation() {
 		switch (this) {
 		case North:
 			return "N";

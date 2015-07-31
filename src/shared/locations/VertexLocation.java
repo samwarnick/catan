@@ -1,6 +1,8 @@
 package shared.locations;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;;
 
 /**
  * Represents the location of a vertex on a hex map
@@ -10,6 +12,11 @@ public class VertexLocation
 	
 	private HexLocation hexLoc;
 	private VertexDirection dir;
+	
+	public VertexLocation() {
+		hexLoc = null;
+		dir = null;
+	}
 	
 	public VertexLocation(HexLocation hexLoc, VertexDirection dir)
 	{
@@ -45,7 +52,7 @@ public class VertexLocation
 	 * 
 	 * @return List of VertexLocations that indicate the same location on the board as this VertexLocation
 	 */
-	public ArrayList<VertexLocation> getAmbiguousVertices() {
+	@JsonIgnore public ArrayList<VertexLocation> getAmbiguousVertices() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
 		VertexDirection newDir1;
@@ -104,7 +111,7 @@ public class VertexLocation
 		return ambiguities;
 	}
 	
-	public ArrayList<VertexLocation> getAdjacentVertices() {
+	@JsonIgnore public ArrayList<VertexLocation> getAdjacentVertices() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
 		HexLocation newLoc3;
@@ -181,7 +188,7 @@ public class VertexLocation
 		return adjacentHexes;
 	}
 	
-	public ArrayList<EdgeLocation> getAdjacentEdges() {
+	@JsonIgnore public ArrayList<EdgeLocation> getAdjacentEdges() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
 		HexLocation newLoc3;
@@ -304,7 +311,7 @@ public class VertexLocation
 	 * 
 	 * @return Normalized vertex location
 	 */
-	public VertexLocation getNormalizedLocation()
+	@JsonIgnore public VertexLocation getNormalizedLocation()
 	{
 		
 		// Return location that has direction NW or NE

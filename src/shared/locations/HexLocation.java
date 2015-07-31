@@ -2,6 +2,8 @@ package shared.locations;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Represents the location of a hex on a hex map
  */
@@ -10,6 +12,11 @@ public class HexLocation
 	
 	private int x;
 	private int y;
+	
+	public HexLocation() {
+		x = 0;
+		y = 0;
+	}
 	
 	public HexLocation(int x, int y)
 	{
@@ -70,7 +77,7 @@ public class HexLocation
 		return true;
 	}
 	
-	public HexLocation getNeighborLoc(EdgeDirection dir)
+	@JsonIgnore public HexLocation getNeighborLoc(EdgeDirection dir)
 	{
 		switch (dir)
 		{
@@ -92,7 +99,7 @@ public class HexLocation
 		}
 	}
 	
-	public boolean isAdjacent(HexLocation loc) {
+	@JsonIgnore public boolean isAdjacent(HexLocation loc) {
 		if(this.equals(loc)) return false;
 		if(Math.abs(this.x - loc.x) <= 1 && this.y - loc.y == 0) return true;
 		if(Math.abs(this.y - loc.y) <= 1 && this.x - loc.x == 0) return true;
@@ -107,7 +114,7 @@ public class HexLocation
 	 * @param loc
 	 * @return a list of HexLocations that are not adjacent to loc and are valid landHex locations, list can be empty if there are no such locations
 	 */
-	public ArrayList<HexLocation> getLocsNotAdjacentTo(HexLocation loc) {
+	@JsonIgnore public ArrayList<HexLocation> getLocsNotAdjacentTo(HexLocation loc) {
 		ArrayList<HexLocation> newLocs = new ArrayList<HexLocation>();
 		int dx = this.x - loc.x;
 		int dy = this.y - loc.y;
@@ -201,7 +208,7 @@ public class HexLocation
 		return newLocs;
 	}
 	
-	public boolean isValidLandHexLocation() {
+	@JsonIgnore public boolean isValidLandHexLocation() {
 		if(x > 2 || x < -2) return false;
 		if(y > 2 || y < -2) return false;
 		
@@ -214,7 +221,7 @@ public class HexLocation
 		return false;
 	}
 	
-	public ArrayList<VertexLocation> getVertices() {
+	@JsonIgnore public ArrayList<VertexLocation> getVertices() {
 		ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 		vertices.add(new VertexLocation(this, VertexDirection.East));
 		vertices.add(new VertexLocation(this, VertexDirection.NorthEast));

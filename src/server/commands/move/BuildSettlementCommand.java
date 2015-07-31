@@ -25,6 +25,7 @@ public class BuildSettlementCommand extends MoveCommand{
 	 */
 	@Override
 	public Object execute(String input) throws ServerException {
+		System.out.println("BuildSettlementCommand start");
 		BuildSettlementInput in;
 		try {
 			in = new ObjectMapper().readValue(input, BuildSettlementInput.class);

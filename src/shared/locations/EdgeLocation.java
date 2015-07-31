@@ -2,6 +2,8 @@ package shared.locations;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Represents the location of an edge on a hex map
  */
@@ -10,6 +12,11 @@ public class EdgeLocation
 	
 	private HexLocation hexLoc;
 	private EdgeDirection dir;
+	
+	public EdgeLocation() {
+		hexLoc = null;
+		dir = null;
+	}
 	
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection dir)
 	{
@@ -41,7 +48,7 @@ public class EdgeLocation
 		this.dir = dir;
 	}
 	
-	public EdgeLocation getAmbiguousEdge() {
+	@JsonIgnore public EdgeLocation getAmbiguousEdge() {
 		HexLocation newLoc;
 		switch(dir) {
 		case NorthWest: newLoc = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
@@ -64,7 +71,7 @@ public class EdgeLocation
 		return ambiguity;
 	}
 	
-	public VertexLocation getLeftVertex() {
+	@JsonIgnore public VertexLocation getLeftVertex() {
 		switch(dir) {
 		case North:
 			return new VertexLocation(hexLoc, VertexDirection.NorthWest);
@@ -83,7 +90,7 @@ public class EdgeLocation
 		}
 	}
 	
-	public VertexLocation getRightVertex() {
+	@JsonIgnore public VertexLocation getRightVertex() {
 		switch(dir) {
 		case North:
 			return new VertexLocation(hexLoc, VertexDirection.NorthEast);
@@ -102,7 +109,7 @@ public class EdgeLocation
 		}
 	}
 	
-	public ArrayList<EdgeLocation> getLeftAdjacentEdges() {
+	@JsonIgnore public ArrayList<EdgeLocation> getLeftAdjacentEdges() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
 		EdgeDirection newDir1;
@@ -168,7 +175,7 @@ public class EdgeLocation
 		return adjacentEdges;
 	}
 	
-	public ArrayList<EdgeLocation> getRightAdjacentEdges() {
+	@JsonIgnore public ArrayList<EdgeLocation> getRightAdjacentEdges() {
 		HexLocation newLoc1;
 		HexLocation newLoc2;
 		EdgeDirection newDir1;
@@ -274,7 +281,7 @@ public class EdgeLocation
 	 * 
 	 * @return Normalized hex location
 	 */
-	public EdgeLocation getNormalizedLocation()
+	@JsonIgnore public EdgeLocation getNormalizedLocation()
 	{
 		
 		// Return an EdgeLocation that has direction NW, N, or NE

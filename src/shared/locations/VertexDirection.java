@@ -1,5 +1,7 @@
 package shared.locations;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public enum VertexDirection
 {
 	West, NorthWest, NorthEast, East, SouthEast, SouthWest;
@@ -16,7 +18,7 @@ public enum VertexDirection
 		SouthWest.opposite = NorthEast;
 	}
 	
-	public VertexDirection getOppositeDirection()
+	@JsonIgnore public VertexDirection getOppositeDirection()
 	{
 		return opposite;
 	}
