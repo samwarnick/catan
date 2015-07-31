@@ -28,6 +28,7 @@ public class CreateCommand implements ICommand {
 		GameInfo gi = new GameInfo();
 		gi.setTitle(gci.getName());
 		gi.setId(GameHub.getInstance().getModelsSize());
+		gi.updatePlayers(model.getPlayers());
 		GameHub.getInstance().addModel(model);
 		GameHub.getInstance().addInfo(gi);
 		return gi;

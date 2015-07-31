@@ -72,7 +72,10 @@ public class GameInfo
 	public void updatePlayers(List<Player> ps) {
 		players = new ArrayList<PlayerInfo>();
 		for(int i=0; i<ps.size(); i++){
-			if(ps.get(i)==null) continue;
+			if(ps.get(i)==null){
+				players.add(null);
+				continue;
+			}
 			Player p = ps.get(i);
 			PlayerInfo pi = new PlayerInfo();
 			pi.setColor(p.getColor());

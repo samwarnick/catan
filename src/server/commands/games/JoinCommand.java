@@ -41,6 +41,7 @@ public class JoinCommand implements ICommand {
 			return jgi.getId();
 		}
 		Player newP = new Player(cc, name, -1);
+		newP.setUniqueID(playerID);
 		try {
 			model.addPlayer(newP);
 			GameHub.getInstance().getInfo(jgi.getId()).updatePlayers(model.getPlayers());

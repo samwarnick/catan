@@ -132,11 +132,11 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 				tmp3.setFont(labelFont);
 				gamePanel.add(tmp3);
 				JButton joinButton;
-
+				System.out.printf("local player id %d\n", ProxyServer.getInstance().getPlayerId());
 				if (ProxyServer.getInstance().getPlayerId() != -1) {
 					localPlayer.setId(ProxyServer.getInstance().getPlayerId());
 				}
-				
+				//System.out.printf("local player id %d", localPlayer.getId());
 				joinButton = new JButton();
 				if (count == 4)
 				{
@@ -148,6 +148,7 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 				}
 				for (PlayerInfo p: game.getPlayers())
 				{
+					if(p!=null)System.out.printf("player id %d\n", p.getId());
 					if (p != null && localPlayer != null && p.getId() == localPlayer.getId()) {
 						joinButton = new JButton("Re-Join");
 					}
