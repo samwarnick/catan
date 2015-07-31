@@ -60,15 +60,15 @@ public class Player {
 	}
 
 
-	public boolean hasLongestRoad(){
+	@JsonIgnore public boolean hasLongestRoad(){
 		return longestRoad.isHasLongestRoad();
 	}
 	
-	public boolean hasLargestArmy(){
+	@JsonIgnore public boolean hasLargestArmy(){
 		return largestArmy.getHasLargestArmy();
 	}
 	
-	public int getArmySize(){
+	@JsonIgnore public int getArmySize(){
 		return largestArmy.getNumSoldiers();
 	}
 	
