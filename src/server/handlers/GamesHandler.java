@@ -5,6 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -101,7 +102,7 @@ public class GamesHandler extends Handler {
 					
 					// write to response body
 					Writer writer = new OutputStreamWriter(exchange.getResponseBody());
-					String toWrite = new Gson().toJson(result);
+					String toWrite = new ObjectMapper().writeValueAsString(result);
 					writer.write(toWrite);
 					writer.close();
 				}

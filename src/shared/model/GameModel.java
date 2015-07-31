@@ -3,6 +3,8 @@ package shared.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import client.communication.LogEntry;
 import client.domestic.Trade;
 import shared.definitions.CatanColor;
@@ -24,6 +26,7 @@ import shared.model.board.Vertex;
 import shared.model.player.ActivePlayerFacade;
 import shared.model.player.InactivePlayerFacade;
 import shared.model.player.Player;
+import shared.model.player.VictoryPoints;
 
 /**
  * The model for the game
@@ -43,6 +46,19 @@ public class GameModel {
 	List<LogEntry>  chats = new ArrayList<LogEntry>();
 	private int winner = -1;
 	private static GameModel defaultGM;
+	
+	public GameModel() {
+		gameID = 0;
+		gameVersion = 0;
+		board = null;
+		players = null;
+		turnTracker = null;
+		bank = null;
+		trade = null;
+		logs = null;
+		chats = null;
+		
+	}
 	
 	public GameModel(int gameID) {
 		this.gameID = gameID;
@@ -140,7 +156,7 @@ public class GameModel {
 		this.bank = bank;
 	}
 	
-	public Player getCurrentPlayer(){
+	@JsonIgnore public Player getCurrentPlayer(){
 		return players.get(turnTracker.getCurrentTurn());
 	}
 
@@ -266,7 +282,7 @@ public class GameModel {
 				+ ", trade=" + trade + "]";
 	}
 	
-	public static GameModel getDefaultModel(){
+	@JsonIgnore public static GameModel getDefaultModel(){
 		if(defaultGM == null){
 			defaultGM  = new GameModel(0);
 			try {
@@ -314,11 +330,11 @@ public class GameModel {
 		return defaultGM;
 	}
 
-	public static GameModel getDefaultGM() {
+	@JsonIgnore public static GameModel getDefaultGM() {
 		return defaultGM;
 	}
 
-	public static void setDefaultGM(GameModel defaultGM) {
+	@JsonIgnore public static void setDefaultGM(GameModel defaultGM) {
 		GameModel.defaultGM = defaultGM;
 	}	
 }
