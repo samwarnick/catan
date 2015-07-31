@@ -94,6 +94,7 @@ public class MoveHandler extends Handler {
 				StringBuilder temp = new StringBuilder(gameCookie);
 				int index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
+
 				//add log to GameHistory
 				gameCookie = cookieArray[0].trim();
 				temp = new StringBuilder(gameCookie);
@@ -107,6 +108,7 @@ public class MoveHandler extends Handler {
 				LogEntry le = new LogEntry(cc, message);
 				GameHub.getInstance().getModel(gameId).getLogs().add(le);
 				//finished with log
+
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
 				GameModel updatedModel = (GameModel) moveCommand.execute(json);
