@@ -40,6 +40,7 @@ public class FinishTurnCommand extends MoveCommand {
 			try {
 				model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex())).getPlayerBank().transfer();
 				model.getTurnTracker().setCurrentTurn(nextActivePlayer);
+				System.out.println("THIS IS THE NEXT PLAYER: " + nextActivePlayer);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
