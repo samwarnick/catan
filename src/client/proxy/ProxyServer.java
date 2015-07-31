@@ -203,9 +203,10 @@ public class ProxyServer implements IServerFacade {
 	private GameModel modelFromJson(String json) {
 		Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
 		GameModel model = gson.fromJson(json, GameModel.class);
-		for (Player p: model.getPlayers()) {
-			if (p != null) {
-				p.setPlayerFacade(new InactivePlayerFacade(p));
+		for (int i = 0; i < model.getPlayers().size(); i++) {
+			if (model.getPlayers().get(i) != null) {
+				model.getPlayers().get(i).setPlayerFacade(new InactivePlayerFacade(model.getPlayers().get(i)));
+				model.getPlayers().get(i).setPlayerID(i);
 			}
 		}
 		model.getBoard().setBoardFacade(new BoardFacade(model.getBoard()));
