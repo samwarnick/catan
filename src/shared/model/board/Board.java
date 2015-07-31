@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
@@ -17,11 +19,11 @@ import shared.locations.VertexLocation;
 public class Board {
 	
 	private List<ResourceHex> resourceHexes;
-	private transient Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
+	@JsonIgnore private transient Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
 	private Hex desertHex;
-	private transient BoardFacade boardFacade;
+	@JsonIgnore private transient BoardFacade boardFacade;
 	private Robber robber;
 	
 	private List<Road> roads;
@@ -346,7 +348,7 @@ public class Board {
 		this.resourceHexes = resourceHexes;
 	}
 
-	public Map<HexLocation, ResourceHex> getResourceHexesMap() {
+	@JsonIgnore public Map<HexLocation, ResourceHex> getResourceHexesMap() {
 		return resourceHexesMap;
 	}
 
@@ -390,7 +392,7 @@ public class Board {
 		return desertHex;
 	}
 
-	public BoardFacade getBoardFacade() {
+	@JsonIgnore public BoardFacade getBoardFacade() {
 		return boardFacade;
 	}
 
