@@ -15,12 +15,6 @@ public class PortHex extends WaterHex {
 	private int ratio;
 	private EdgeDirection orientation;
 	
-	public PortHex() {
-		portType = null;
-		ratio = 0;
-		orientation = null;
-	}
-	
 	public PortHex(HexLocation location, PortType portType, int ratio, EdgeDirection orientation) {
 		super(location);
 		this.portType = portType;

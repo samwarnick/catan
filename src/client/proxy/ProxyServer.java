@@ -1,12 +1,10 @@
 package client.proxy;
 
-import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import client.data.GameInfo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -203,20 +201,15 @@ public class ProxyServer implements IServerFacade {
 	}
 	
 	private GameModel modelFromJson(String json) {
-		System.out.println(json);
-		GameModel model = null;
-		try {
-			model = new ObjectMapper().readValue(json, GameModel.class);
-			for (Player p: model.getPlayers()) {
-				if (p != null) {
-					p.setPlayerFacade(new InactivePlayerFacade(p));
-				}
+		Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+		GameModel model = gson.fromJson(json, GameModel.class);
+		for (int i = 0; i < model.getPlayers().size(); i++) {
+			if (model.getPlayers().get(i) != null) {
+				model.getPlayers().get(i).setPlayerFacade(new InactivePlayerFacade(model.getPlayers().get(i)));
+				model.getPlayers().get(i).setPlayerID(i);
 			}
-			model.getBoard().setBoardFacade(new BoardFacade(model.getBoard()));
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		
+		model.getBoard().setBoardFacade(new BoardFacade(model.getBoard()));
 		return model;
 	}
 }

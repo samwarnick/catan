@@ -8,10 +8,6 @@ import shared.locations.VertexLocation;
 
 public class City extends Vertex{
 	
-	public City () {
-		
-	}
-	
 	public City(PlayerID owner, VertexLocation location)
 	{
 		super(owner, location);

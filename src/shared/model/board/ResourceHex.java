@@ -7,11 +7,6 @@ public class ResourceHex extends Hex {
 
 	private int numberToken;
 
-	public ResourceHex() {
-		super();
-		numberToken = 0;
-	}
-	
 	public ResourceHex(HexType landType, HexLocation location, int numberToken) {
 		super(landType, location);
 		this.numberToken = numberToken;
