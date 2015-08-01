@@ -196,9 +196,15 @@ public class GameModel {
 
 	public void assignLongestRoad() {
 		Player player = players.get(0);
-		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).getLongestRoad().getNumRoads() > player.getLongestRoad().getNumRoads()) {
-				player = players.get(i);
+		for (Player p : players) {
+			if (p.hasLongestRoad()) {
+				player = p;
+			}
+		}
+		
+		for (Player p : players) {
+			if (p.getLongestRoad().getNumRoads() > player.getLongestRoad().getNumRoads()) {
+				player = p;
 			}
 		}
 		
@@ -206,8 +212,8 @@ public class GameModel {
 			if (bank.hasLongestRoadCard()) {
 				bank.setLongestRoadCard(false);
 				player.getLongestRoad().setHasLongestRoad(true);
-				player.getVictoryPoints().addPrivateVictoryPoint();
-				player.getVictoryPoints().addPrivateVictoryPoint();
+				player.getVictoryPoints().addPublicVictoryPoint();
+				player.getVictoryPoints().addPublicVictoryPoint();
 			}
 			else {
 				for (Player otherPlayer : players) {
@@ -215,8 +221,9 @@ public class GameModel {
 						otherPlayer.getLongestRoad().setHasLongestRoad(false);
 						otherPlayer.getVictoryPoints().subtractPublicVictoryPoints(2);
 						player.getLongestRoad().setHasLongestRoad(true);
-						player.getVictoryPoints().addPrivateVictoryPoint();
-						player.getVictoryPoints().addPrivateVictoryPoint();
+						player.getVictoryPoints().addPublicVictoryPoint();
+						player.getVictoryPoints().addPublicVictoryPoint();
+						return;
 					}
 				} 				
 			}

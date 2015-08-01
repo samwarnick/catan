@@ -35,8 +35,8 @@ public class PlayRoadBuildingCommand extends MoveCommand {
 			model.getBoard().getRoads().add(new Road(player.getPlayerID(), location1));
 			model.getBoard().getRoads().add(new Road(player.getPlayerID(), location2));
 			try {
-				player.getRoads().buildRoad();
-				player.getRoads().buildRoad();
+				player.buildRoad();
+				player.buildRoad();
 			} catch (Exception e) {
 				throw new ServerException("Error with changing roads available when playing road building card:\n" + e.getMessage());
 			}

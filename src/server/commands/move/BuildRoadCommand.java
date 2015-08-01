@@ -43,7 +43,7 @@ public class BuildRoadCommand extends MoveCommand{
 			
 			model.getBoard().getRoads().add(new Road(player.getPlayerID(), location));
 			try {
-				player.getRoads().buildRoad();
+				player.buildRoad();
 			} catch (Exception e) {
 				throw new ServerException("Error with changing roads available when building a road:\n" + e.getMessage());
 			}
