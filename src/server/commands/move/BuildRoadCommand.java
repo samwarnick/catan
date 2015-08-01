@@ -33,9 +33,9 @@ public class BuildRoadCommand extends MoveCommand{
 			
 			Player player = model.getPlayer(new PlayerID(playerIndex));
 			if (!isFree) {
-				ResourceHand rh = new ResourceHand(-1, -1, 0, 0, 0);
 				try {
-					player.getPlayerBank().modifyRC(rh);
+					model.getBank().modifyRC(new ResourceHand(1,1,0,0,0));
+					player.getPlayerBank().modifyRC(new ResourceHand(-1,-1,0,0,0));
 				} catch (BankException e) {
 					throw new ServerException("Error with player resources when building road:\n" + e.getMessage());
 				} 

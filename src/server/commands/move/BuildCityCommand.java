@@ -53,9 +53,9 @@ public class BuildCityCommand extends MoveCommand{
 				throw new ServerException("The player does not match the owner of the settlement at the given location.");
 			}
 			else {
-				ResourceHand rh = new ResourceHand(0, 0, 0, -2, -3);
 				try {
-					player.getPlayerBank().modifyRC(rh);
+					model.getBank().modifyRC(new ResourceHand(0,0,0,2,3));
+					player.getPlayerBank().modifyRC(new ResourceHand(0,0,0,-2,-3));
 				} catch (BankException e) {
 					throw new ServerException("Error with player resources when building city:\n" + e.getMessage());
 				}
@@ -69,7 +69,6 @@ public class BuildCityCommand extends MoveCommand{
 				}			
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

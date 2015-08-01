@@ -360,6 +360,9 @@ public class BoardFacade {
 			for (VertexLocation vertex : allVertices) {
 				if (building.getLocation().equals(vertex)){
 					players.add(building.getOwner());
+					if (building.getClass() == City.class) {
+						players.add(building.getOwner());
+					}
 				}
 			}
 		}
