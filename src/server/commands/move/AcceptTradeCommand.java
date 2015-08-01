@@ -35,19 +35,19 @@ public class AcceptTradeCommand extends MoveCommand{
 				try {
 					model.getPlayer(new PlayerID(acceptTradeInput.getPlayerIndex())).getPlayerBank().modifyRC(receiveRH);
 					model.getPlayer(new PlayerID(model.getTrade().getSender())).getPlayerBank().modifyRC(sendRH);
-					model.setTrade(null);
-					model.getTurnTracker().setStatus("Playing");
 				} catch (BankException e) {
 					e.printStackTrace();
 				}
 			}
+			model.setTrade(null);
+			model.getTurnTracker().setStatus("Playing");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		return model;
 	}
 	
-	public void setModel(GameModel model){
+	public void setGameModel(GameModel model){
 		this.model = model;
 	}
 

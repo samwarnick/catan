@@ -5,8 +5,11 @@ import java.util.List;
 
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import server.commands.games.CreateCommand;
+import shared.communication.input.GamesCreateInput;
 import shared.definitions.CatanColor;
 import shared.model.GameModel;
+import shared.model.board.Board;
 import shared.model.player.Player;
 import shared.model.user.User;
 
@@ -27,13 +30,14 @@ public class GameHub {
 		addUser(new User("Isaac","isaac"));
 		addUser(new User("Jordan","jordan"));
 		addUser(new User("Matt","matt"));
+		
 		/*
 		ArrayList<PlayerInfo> infos = new ArrayList<PlayerInfo>();
 		infos.add(new PlayerInfo("Spencer",CatanColor.WHITE,0));
 		infos.add(new PlayerInfo("Sam",CatanColor.PUCE,1));
 		infos.add(new PlayerInfo("Isaac",CatanColor.GREEN,2));
 		infos.add(new PlayerInfo("Matt",CatanColor.ORANGE,4));
-		addInfo(new GameInfo(0,"default",infos));
+		addInfo(new GameInfo(1,"default",infos));
 		GameModel model = GameModel.getDefaultGM();
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(new Player(CatanColor.WHITE,"Spencer",0));
@@ -41,9 +45,11 @@ public class GameHub {
 		players.add(new Player(CatanColor.GREEN,"Isaac",2));
 		players.add(new Player(CatanColor.ORANGE,"Matt",3));
 		model.setPlayers(players);
+		model.setBoard(new Board(true,true,true));
 		addModel(model);
 		System.out.println(models.size() + "      AJSDFKH:    " + infos.size());
 		*/
+		
 	}
 	
 	public static GameHub getInstance(){

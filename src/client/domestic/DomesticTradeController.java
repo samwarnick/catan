@@ -299,7 +299,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		//I'm not sure why this has to be +1, but that is how it works
 		System.out.println("PlayerIndex: " + playerIndex);
 		this.playerIndex = playerIndex;
-		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1))
+		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1) && (woodNum + sheepNum + wheatNum+brickNum+oreNum)>1)
 		{
 			if (playerIndex != -1)
 			{
@@ -341,7 +341,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			break;
 		
 		}
-		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1))
+		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1)&& (woodNum + sheepNum + wheatNum+brickNum+oreNum)>1)
 		{
 			if (playerIndex != -1)
 			{
@@ -398,7 +398,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			break;
 		
 		}
-		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1))
+		if ((woodStatus == 1 || brickStatus == 1 || sheepStatus == 1 || wheatStatus == 1 || oreStatus == 1) && (woodStatus == -1 || brickStatus == -1 || sheepStatus == -1 || wheatStatus == -1 || oreStatus == -1)&& (woodNum + sheepNum + wheatNum+brickNum+oreNum)>1)
 		{
 			if (playerIndex != -1)
 			{

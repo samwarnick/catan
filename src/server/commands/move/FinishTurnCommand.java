@@ -33,7 +33,6 @@ public class FinishTurnCommand extends MoveCommand {
 			Player players = model.getPlayer(player);
 			players.setPlayerFacade(new InactivePlayerFacade(players));
 			int nextActivePlayer;
-			System.out.println(finishTurnInput.getPlayerIndex());
 			if (model.getTurnTracker().getStatus().equals("SecondRound")){
 				nextActivePlayer = finishTurnInput.getPlayerIndex() - 1;
 				if (nextActivePlayer == -1){
@@ -59,7 +58,6 @@ public class FinishTurnCommand extends MoveCommand {
 
 			model.getPlayer(new PlayerID(nextActivePlayer)).setPlayerFacade(new ActivePlayerFacade(model.getPlayer(new PlayerID(nextActivePlayer))));
 			try {
-				System.out.println("THIS IS THE NEXT PLAYER: " + nextActivePlayer);
 				model.getPlayer(new PlayerID(finishTurnInput.getPlayerIndex())).getPlayerBank().transfer();
 				model.getTurnTracker().setCurrentTurn(nextActivePlayer);
 			} catch (Exception e) {
