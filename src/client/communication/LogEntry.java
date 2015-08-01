@@ -24,6 +24,10 @@ public class LogEntry
 		this.message = message;
 	}
 	
+	public LogEntry(){
+		
+	}
+	
 	public CatanColor getColor()
 	{
 		return color;

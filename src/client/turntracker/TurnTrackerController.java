@@ -103,7 +103,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 			// set finish 
-			if (status.equals("Rolling")) {
+			if (status.equals("Rolling") && clientPlayer.getPlayerFacade().canFinishTurn()) {
 				getView().updateGameState("Roll the Dice", false);
 			}
 			else if (clientPlayer.getPlayerFacade().canFinishTurn() && phase != Phase.first && phase != Phase.second) {
