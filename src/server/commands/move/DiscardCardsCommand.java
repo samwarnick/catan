@@ -44,6 +44,7 @@ public class DiscardCardsCommand extends MoveCommand{
 			} catch (BankException e) {
 				e.printStackTrace();
 			}
+			//change it so it checks every player.
 			model.getTurnTracker().setStatus("Playing");
 		} catch (IOException e1) {
 			e1.printStackTrace();
