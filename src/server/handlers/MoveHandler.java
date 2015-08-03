@@ -46,7 +46,6 @@ public class MoveHandler extends Handler {
 			break;
 		case "/moves/finishTurn":
 			extension = "finished his/her turn";
-			System.out.println("finish turn");
 			command = new FinishTurnCommand();
 			break;
 		case "/moves/buyDevCard":
