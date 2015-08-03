@@ -47,11 +47,11 @@ public class RollController extends Controller implements IRollController {
 	public void rollDice() {
 		Random rand = new Random();
 		int  diceTotal = rand.nextInt(6) + rand.nextInt(6) + 2;
-		/*
+		
 		while (diceTotal == 7){
 			diceTotal = rand.nextInt(6) + rand.nextInt(6) + 2;
 		}
-		*/
+		
 		int currentPlayerIndex = GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn();
 		RollNumberInput input = new RollNumberInput(currentPlayerIndex, diceTotal);
 		ModelController.getInstance().rollDice(input);
@@ -79,10 +79,7 @@ public class RollController extends Controller implements IRollController {
 				
 			} else if (getRollView().isModalShowing()) {
 				getRollView().closeModal();
-			} else if (getResultView().isModalShowing()) {
-				getResultView().closeModal();
-			}
-			
+			} 
 		}
 	};
 

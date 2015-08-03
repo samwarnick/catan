@@ -67,6 +67,7 @@ public class GamesHandler extends Handler {
 			}
 		}
 		
+		
 		if (command != null && ((needCookie && valid) || (!needCookie))) {
 			Object result;
 			try {
@@ -77,13 +78,16 @@ public class GamesHandler extends Handler {
 					int playerID = Integer.parseInt(temp.substring(index, temp.length()));
 					JoinCommand joinCommand = (JoinCommand) command;
 					joinCommand.setPlayerID(playerID);
+					System.out.println(cookie);
+
 				}
 				
 				result = command.execute(json);
 				
 				if (join) {
 					// add to cookie with game 
-					
+					System.out.println("HDISFKHJSDHF"+cookie);
+
 					int id = (int) result;
 					String gameCookie = "catan.game=" + id;
 					
@@ -95,6 +99,7 @@ public class GamesHandler extends Handler {
 					Writer writer = new OutputStreamWriter(exchange.getResponseBody());
 					writer.write("Success");
 					writer.close();
+
 				} else {
 					
 					exchange.getResponseHeaders().set("Content-Type", "text/html");
@@ -109,6 +114,7 @@ public class GamesHandler extends Handler {
 				
 				exchange.getResponseBody().close();
 			} catch (ServerException e) {
+				e.printStackTrace();
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 			}
 		} else {

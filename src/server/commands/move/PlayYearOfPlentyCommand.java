@@ -70,14 +70,19 @@ public class PlayYearOfPlentyCommand extends MoveCommand {
 		switch(type){
 		case "brick":
 			realType = ResourceType.BRICK;
+			break;
 		case "wood":
 			realType = ResourceType.WOOD;
+			break;
 		case "sheep":
 			realType = ResourceType.SHEEP;
+			break;
 		case "wheat":
 			realType = ResourceType.WHEAT;
+			break;
 		case "ore":
 			realType = ResourceType.ORE;
+			break;
 		default:
 				System.out.println("dat ain't a real type 'o reasource - PlayYearOfPlentyCommand");
 		}
