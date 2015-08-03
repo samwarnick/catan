@@ -18,7 +18,6 @@ public class UpdateGame implements Runnable {
 	
 	@Override
 	public void run() {
-		System.out.println("POLLING");
 		GameModel serverModel = null;
 		if (ModelController.getInstance().isTesting()) {
 			try {

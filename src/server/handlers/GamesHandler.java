@@ -86,7 +86,6 @@ public class GamesHandler extends Handler {
 				
 				if (join) {
 					// add to cookie with game 
-					System.out.println("HDISFKHJSDHF"+cookie);
 
 					int id = (int) result;
 					String gameCookie = "catan.game=" + id;

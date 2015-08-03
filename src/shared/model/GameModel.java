@@ -340,7 +340,7 @@ public class GameModel {
 				} catch (NoPlayerFoundException e1) {
 					e1.printStackTrace();
 				}
-				track.setStatus("Playing");
+				track.setStatus("Rolling");
 				defaultGM.setTurnTracker(track);
 				Bank bank = new Bank();
 				bank.modifyRC(new ResourceHand(-4,-4,-4,-4,-4));
