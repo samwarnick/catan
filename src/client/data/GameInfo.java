@@ -2,6 +2,7 @@ package client.data;
 
 import java.util.*;
 
+import shared.definitions.CatanColor;
 import shared.model.player.Player;
 
 /**
@@ -84,6 +85,15 @@ public class GameInfo
 			pi.setPlayerIndex(i);
 			players.add(pi);
 		}
+	}
+
+	public boolean hasColor(CatanColor x) {
+		for(int i = 0; i<players.size(); i++){
+			if(players.get(i)==null) continue;
+			if(players.get(i).getColor().equals(x)) return true;
+		}
+		
+		return false;
 	}
 }
 
