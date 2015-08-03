@@ -33,55 +33,56 @@ public class MaritimeTradeCommand extends MoveCommand {
 			int ratio = maritimeTradeInput.getRatio();
 			ResourceHand rh = new ResourceHand();
 			ResourceHand bankrh = new ResourceHand();
+			System.out.println(maritimeTradeInput.getInputResource());
 			switch (maritimeTradeInput.getInputResource()){
-			case "Wood":{
+			case "wood":{
 				rh.setWood(-1 * ratio);
 				bankrh.setWood(ratio);
 				break;
 			}
-			case "Brick":{
+			case "brick":{
 				rh.setBrick(-1 * ratio);
 				bankrh.setBrick(ratio);
 				break;
 			}
-			case "Sheep":{
+			case "sheep":{
 				rh.setSheep(-1 * ratio);
 				bankrh.setSheep(ratio);
 				break;
 			}
-			case "Wheat":{
+			case "wheat":{
 				rh.setWheat(-1 * ratio);
 				bankrh.setWheat(ratio);
 				break;
 			}
-			case "Ore":{
+			case "ore":{
 				rh.setOre(-1 * ratio);
 				bankrh.setOre(ratio);
 				break;
 			}
 			}
 			switch (maritimeTradeInput.getOutputResource()){
-			case "Wood":{
+			case "wood":{
 				rh.setWood(1);
 				bankrh.setWood(-1);
 				break;
 			}
-			case "Brick":{
+			case "brick":{
 				rh.setBrick(1);
 				bankrh.setBrick(-1);
 				break;
 			}
-			case "Sheep":{
+			case "sheep":{
 				rh.setSheep(1);
 				bankrh.setSheep(-1);
 				break;
 			}
-			case "Wheat":{
+			case "wheat":{
 				rh.setWheat(1);
 				bankrh.setWheat(-1);
 				break;
 			}
-			case "Ore":{
+			case "ore":{
 				rh.setOre(1);
 				bankrh.setOre(-1);
 				break;
