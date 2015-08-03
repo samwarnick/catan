@@ -15,6 +15,7 @@ import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
+import shared.model.bank.DevelopmentHand;
 import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
@@ -71,7 +72,7 @@ public class PlayMonopolyCommand extends MoveCommand {
 				e.printStackTrace();
 			}
 			try {
-				p.getPlayerBank().getDevStack(DevCardType.MONOPOLY).setQuantity(p.getPlayerBank().getDevStack(DevCardType.MONOPOLY).getQuantity() - 1);
+				p.getPlayerBank().modifyDC(new DevelopmentHand(0,0,-1,0,0));
 			} catch (BankException e) {
 				e.printStackTrace();
 			}

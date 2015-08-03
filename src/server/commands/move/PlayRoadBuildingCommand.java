@@ -9,6 +9,7 @@ import server.ServerException;
 import shared.communication.input.move.PlayRoadBuildingInput;
 import shared.communication.input.move.SendChatInput;
 import shared.locations.EdgeLocation;
+import shared.model.bank.DevelopmentHand;
 import shared.model.board.PlayerID;
 import shared.model.board.Road;
 import shared.model.player.Player;
@@ -37,6 +38,7 @@ public class PlayRoadBuildingCommand extends MoveCommand {
 			try {
 				player.buildRoad();
 				player.buildRoad();
+				player.getPlayerBank().modifyDC(new DevelopmentHand(0,0,0,0,-1));
 			} catch (Exception e) {
 				throw new ServerException("Error with changing roads available when playing road building card:\n" + e.getMessage());
 			}
