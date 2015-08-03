@@ -12,6 +12,7 @@ import shared.model.player.Player;
 public class PointsController extends Controller implements IPointsController, ModelControllerListener {
 
 	private IGameFinishedView finishedView;
+	private boolean shown = false;
 	
 	/**
 	 * PointsController constructor
@@ -53,7 +54,8 @@ public class PointsController extends Controller implements IPointsController, M
 			getPointsView().setPoints(clientPlayer.getVictoryPoints().getTotalVictoryPoints());
 		}
 		Player winner = ModelController.getInstance().getGameModelFacade().getWinner();
-		if (winner != null) {
+		if (winner != null && !shown) {
+			shown = true;
 			boolean isLocalPlayer = false;
 			if (clientPlayer.getName().equals(winner.getName())) {
 				isLocalPlayer = true;
