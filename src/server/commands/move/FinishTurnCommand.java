@@ -31,6 +31,9 @@ public class FinishTurnCommand extends MoveCommand {
 
 			PlayerID player = new PlayerID(finishTurnInput.getPlayerIndex());
 			Player players = model.getPlayer(player);
+			if (players.getVictoryPoints().getTotalVictoryPoints() >= 10){
+				model.setWinner(players.getUniqueID());
+			}
 			players.setPlayerFacade(new InactivePlayerFacade(players));
 			int nextActivePlayer;
 			if (model.getTurnTracker().getStatus().equals("SecondRound")){
@@ -66,6 +69,8 @@ public class FinishTurnCommand extends MoveCommand {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		
 		return model;
 	}
 	
