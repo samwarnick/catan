@@ -5,6 +5,7 @@ import client.data.PlayerInfo;
 import com.google.gson.Gson;
 
 import server.GameHub;
+import server.ServerException;
 import server.commands.ICommand;
 import shared.communication.input.GamesJoinInput;
 import shared.definitions.CatanColor;
@@ -22,18 +23,20 @@ public class JoinCommand implements ICommand {
 	}
 
 	/**
+	 * @throws ServerException 
 	 * @pre a logged in player attempting to join a game he/she is not already a part of.
 	 * @post player is added to game, a Boolean with the value of true is returned.
 	 */
 	
 	@Override
-	public Object execute(String input) {
+	public Object execute(String input) throws ServerException {
 		Gson parser = new Gson();
 		GamesJoinInput jgi = parser.fromJson(input, GamesJoinInput.class);
 		GameModel model = GameHub.getInstance().getModel(jgi.getId());
 		User user = GameHub.getInstance().getUser(playerID);
 		String name = user.getUsername();
 		CatanColor cc = chooseColor(jgi.getColor());
+		if(GameHub.getInstance().getInfo(jgi.getId()).hasColor(cc)) throw new ServerException();
 		if(model.getPlayer(name) != null){
 			model.getPlayer(name).setColor(cc);
 			int index = model.getPlayer(name).getPlayerID().getPlayerid();
