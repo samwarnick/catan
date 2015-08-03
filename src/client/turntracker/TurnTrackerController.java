@@ -1,8 +1,5 @@
 package client.turntracker;
 
-import shared.definitions.CatanColor;
-import shared.model.GameModelFacade;
-import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
 import java.util.List;
@@ -41,40 +38,11 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void endTurn() {
 		ModelController.getInstance().finishTurn();
-		// currentPlayerIndex++;
-//		if(currentPlayerIndex == 4)
-//		{
-//			currentPlayerIndex = 0;
-//			if(phase == Phase.first)
-//			{
-//				phase = Phase.second;
-//			}
-//			else if(phase == Phase.second)
-//			{
-//				phase = Phase.playing;
-//			}
-//		}
-//		initFromModel();
-		// getView().updateGameState("Waiting for other players", false);
 	}
 	
 	public void changePhase(Phase newPhase)
 	{
 		phase = newPhase;
-	}
-	
-	private void initFromModel() {
-       // if(Facade.getInstance().getPregameState().equals(PreGameState.PLAYING)) //phase == Phase.first / Phase.second
-      //  {
-        	//int currentTurnIndex = ProxyServer.getInstance().getGamemodel().getTurnTracker().getCurrentTurn();
-        	getView().updatePlayer(currentPlayerIndex,0,true,false,false);
-        	
-            getView().updateGameState("First Round",false);
-            int playerId = GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn();
-            Player currentPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(new PlayerID(playerId));
-            CatanColor color = currentPlayer.getColor();
-            getView().setLocalPlayerColor(color);
-     //   }
 	}
 
 	@Override
@@ -144,6 +112,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 	
 	private void updatePlayers(List<Player> players, Player clientPlayer, int currentPlayerIndex) {
+		
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
 			if(p != null)

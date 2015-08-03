@@ -8,6 +8,7 @@ import shared.locations.VertexLocation;
 
 public class Settlement extends Vertex{
 	
+	
 	public Settlement() {
 		
 	}
