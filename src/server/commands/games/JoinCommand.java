@@ -41,6 +41,7 @@ public class JoinCommand implements ICommand {
 		if(model.getPlayer(name) != null){
 			model.getPlayer(name).setColor(cc);
 			int index = model.getPlayer(name).getPlayerID().getPlayerid();
+			model.updateLogs(cc, name);
 			GameHub.getInstance().getInfo(jgi.getId()).getPlayers().get(index).setColor(cc);
 			return jgi.getId();
 		}

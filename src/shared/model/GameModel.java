@@ -361,5 +361,20 @@ public class GameModel {
 
 	@JsonIgnore public static void setDefaultGM(GameModel defaultGM) {
 		GameModel.defaultGM = defaultGM;
+	}
+
+	public void updateLogs(CatanColor cc, String name) {
+		int i = 0;
+		CatanColor old = getPlayer(name).getColor();
+			for(i=0;i<logs.size();i++){
+				if(logs.get(i).getColor().equals(old)){
+					logs.get(i).setColor(cc);
+				}
+			}
+			for(i=0;i<chats.size();i++){
+				if(chats.get(i).getColor().equals(old)){
+					chats.get(i).setColor(cc);
+				}
+			}
 	}	
 }
