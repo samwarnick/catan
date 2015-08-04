@@ -12,6 +12,7 @@ import shared.definitions.CatanColor;
 public class SendChatCommand extends MoveCommand{
 
 	
+	
 	/**
 	 * @pre none
 	 * @post Puts the chat dialog in the chat log.
@@ -31,6 +32,7 @@ public class SendChatCommand extends MoveCommand{
 		}
 		return model;
 	}
+	
 	
 
 

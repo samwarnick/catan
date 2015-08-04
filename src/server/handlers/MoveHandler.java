@@ -5,9 +5,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 
-
 import client.communication.LogEntry;
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -17,6 +15,7 @@ import server.GameHub;
 import server.ServerException;
 import server.commands.move.*;
 import shared.communication.input.Input;
+import shared.communication.input.move.RollNumberInput;
 import shared.definitions.CatanColor;
 import shared.model.GameModel;
 
@@ -37,7 +36,7 @@ public class MoveHandler extends Handler {
 			command = new SendChatCommand();
 			break;
 		case "/moves/rollNumber":
-			extension = "rolled";
+			extension = "rolled a ";
 			command = new RollNumberCommand();
 			break;
 		case "/moves/robPlayer":
@@ -46,7 +45,6 @@ public class MoveHandler extends Handler {
 			break;
 		case "/moves/finishTurn":
 			extension = "finished his/her turn";
-			System.out.println("finish turn");
 			command = new FinishTurnCommand();
 			break;
 		case "/moves/buyDevCard":
@@ -116,6 +114,13 @@ public class MoveHandler extends Handler {
 				
 				GameModel model = GameHub.getInstance().getModel(gameId);
 
+				
+
+				MoveCommand moveCommand = (MoveCommand) command;
+				moveCommand.setGameModel(model);
+				GameModel updatedModel = (GameModel) moveCommand.execute(json);
+				GameHub.getInstance().updateModel(updatedModel);
+				
 				//add log to GameHistory
 				gameCookie = cookieArray[0].trim();
 				temp = new StringBuilder(gameCookie);
@@ -123,16 +128,15 @@ public class MoveHandler extends Handler {
 				int pId = Integer.parseInt(temp.substring(index, temp.length()));
 				String name = GameHub.getInstance().getUser(pId).getUsername();
 				CatanColor cc = model.getPlayer(name).getColor();
+				if (extension.equals("rolled a ")){
+					RollNumberInput rollInput = new ObjectMapper().readValue(json, RollNumberInput.class);
+					extension = extension + rollInput.getNumber();
+				}
 				String message = name + " " + extension + ".";
 				System.out.printf("message %s and id %d\n", message, pId);
 				LogEntry le = new LogEntry(cc, message);
 				GameHub.getInstance().getModel(gameId).getLogs().add(le);
 				//finished with log
-
-				MoveCommand moveCommand = (MoveCommand) command;
-				moveCommand.setGameModel(model);
-				GameModel updatedModel = (GameModel) moveCommand.execute(json);
-				GameHub.getInstance().updateModel(updatedModel);
 				
 				exchange.getResponseHeaders().set("Content-Type", "text/html");
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

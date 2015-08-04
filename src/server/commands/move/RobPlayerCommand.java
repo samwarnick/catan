@@ -32,12 +32,15 @@ public class RobPlayerCommand extends MoveCommand {
 	 */
 	@Override
 	public Object execute(String input) {
+		//System.out.println(input);
 		RobPlayerInput robPlayerInput;
 		try {
+			//System.out.println("c");
 			robPlayerInput = new ObjectMapper().readValue(input, RobPlayerInput.class);
 			//robber location is set to specified location
 			HexLocation newLocation = robPlayerInput.getHexLocation(); //add this function to RobPlayerInput;
 			try {
+				//System.out.println("d");
 				model.getBoard().getRobber().moveRobber(newLocation);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -46,8 +49,10 @@ public class RobPlayerCommand extends MoveCommand {
 			//victim gives a card to the player who moved the robber
 			int victimIndex = robPlayerInput.getVictimIndex();
 			int aggressorIndex = robPlayerInput.getPlayerIndex();
+			//System.out.println("e");
 			if(victimIndex != -1)
 			{
+				//System.out.println("f");
 				Player victim = model.getPlayer(new PlayerID(victimIndex));
 				Player aggressor = model.getPlayer(new PlayerID(aggressorIndex));
 				if(CheckIfVictimHasCard(ResourceType.BRICK, victim))
@@ -74,6 +79,8 @@ public class RobPlayerCommand extends MoveCommand {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		//System.out.println("g");
+		model.getTurnTracker().setStatus("Playing");
 		return model;
 	}
 
@@ -83,12 +90,14 @@ public class RobPlayerCommand extends MoveCommand {
 	
 	private boolean CheckIfVictimHasCard(ResourceType type, Player victim)
 	{
+		//System.out.println("a");
 		return (victim.getPlayerBank().getResourceStack(type).getQuantity() > 0);
 	}
 	
 	private void giveReasource(ResourceType type, int victimIndex, int aggressorIndex)
 	{
 		try {
+			//System.out.println("b");
 			model.getPlayer(new PlayerID(victimIndex)).getPlayerBank().getResourceStack(type).setQuantity(model.getPlayer(new PlayerID(victimIndex)).getPlayerBank().getResourceStack(type).getQuantity() - 1);
 			model.getPlayer(new PlayerID(aggressorIndex)).getPlayerBank().getResourceStack(type).setQuantity(model.getPlayer(new PlayerID(aggressorIndex)).getPlayerBank().getResourceStack(type).getQuantity() + 1);
 		} catch (BankException e) {

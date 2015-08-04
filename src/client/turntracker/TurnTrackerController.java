@@ -1,8 +1,5 @@
 package client.turntracker;
 
-import shared.definitions.CatanColor;
-import shared.model.GameModelFacade;
-import shared.model.board.PlayerID;
 import shared.model.player.Player;
 
 import java.util.List;
@@ -22,7 +19,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	int currentPlayerIndex = 0;
 	int numberOfPlayers = 0;
 	Phase phase = Phase.first;
-	boolean initialized = false;
+	private static boolean initialized = false;
 
 	public TurnTrackerController(ITurnTrackerView view) {
 		
@@ -41,40 +38,11 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void endTurn() {
 		ModelController.getInstance().finishTurn();
-		// currentPlayerIndex++;
-//		if(currentPlayerIndex == 4)
-//		{
-//			currentPlayerIndex = 0;
-//			if(phase == Phase.first)
-//			{
-//				phase = Phase.second;
-//			}
-//			else if(phase == Phase.second)
-//			{
-//				phase = Phase.playing;
-//			}
-//		}
-//		initFromModel();
-		// getView().updateGameState("Waiting for other players", false);
 	}
 	
 	public void changePhase(Phase newPhase)
 	{
 		phase = newPhase;
-	}
-	
-	private void initFromModel() {
-       // if(Facade.getInstance().getPregameState().equals(PreGameState.PLAYING)) //phase == Phase.first / Phase.second
-      //  {
-        	//int currentTurnIndex = ProxyServer.getInstance().getGamemodel().getTurnTracker().getCurrentTurn();
-        	getView().updatePlayer(currentPlayerIndex,0,true,false,false);
-        	
-            getView().updateGameState("First Round",false);
-            int playerId = GameModelFacade.getInstance().getGameModel().getTurnTracker().getCurrentTurn();
-            Player currentPlayer = GameModelFacade.getInstance().getGameModel().getPlayer(new PlayerID(playerId));
-            CatanColor color = currentPlayer.getColor();
-            getView().setLocalPlayerColor(color);
-     //   }
 	}
 
 	@Override
@@ -104,7 +72,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			
 			// set finish 
 			if (status.equals("Rolling") && clientPlayer.getPlayerFacade().canFinishTurn()) {
-				getView().updateGameState("Roll the Dice", false);
+				getView().updateGameState("Rolling", false);
 			}
 			else if (clientPlayer.getPlayerFacade().canFinishTurn() && phase != Phase.first && phase != Phase.second) {
 				getView().updateGameState("Finish Turn", true);
@@ -123,8 +91,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			
 			if(numPlayers == 4 && !initialized)
 			{
-				initializePlayers(players);
 				initialized = true;
+				initializePlayers(players);
 			}
 			if (initialized) {
 				updatePlayers(players, clientPlayer, currentPlayerIndex);
@@ -135,29 +103,24 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	private void initializePlayers(List<Player> players) {
 		
 		for (int i = 0; i < players.size(); i++) {
-			Player p = players.get(i);
-			if(p != null)
-			{
-				getView().initializePlayer(i, p.getName(), p.getColor());
-			}
+			Player p = players.get(i);	
+			getView().initializePlayer(i, p.getName(), p.getColor());
 		}
 	}
 	
 	private void updatePlayers(List<Player> players, Player clientPlayer, int currentPlayerIndex) {
+		
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
-			if(p != null)
-			{
-				int victoryPoints = p.getVictoryPoints().getPublicVictoryPoints();
-				if (clientPlayer.getName().equals(p.getName())) {
-					victoryPoints = p.getVictoryPoints().getTotalVictoryPoints();
-				}
-				boolean highlight = false;
-				if (i == currentPlayerIndex) {
-					highlight = true;
-				}
-				getView().updatePlayer(i, victoryPoints, highlight, p.hasLargestArmy(), p.hasLongestRoad());
+			int victoryPoints = p.getVictoryPoints().getPublicVictoryPoints();
+			if (clientPlayer.getName().equals(p.getName())) {
+				victoryPoints = p.getVictoryPoints().getTotalVictoryPoints();
 			}
+			boolean highlight = false;
+			if (i == currentPlayerIndex) {
+				highlight = true;
+			}
+			getView().updatePlayer(i, victoryPoints, highlight, p.hasLargestArmy(), p.hasLongestRoad());
 		}
 	}
 }

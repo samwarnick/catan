@@ -36,7 +36,7 @@ public class BuyDevCardCommandTest {
 		Player testPlayer = testModel.getPlayer(new PlayerID(0));
 		try {
 			BuyDevCardCommand command = new BuyDevCardCommand();
-			//command.setModel(model);
+			command.setGameModel(model);
 			model = (GameModel) command.execute(new Gson().toJson(input));
 			model.getPlayer(new PlayerID(0)).getPlayerBank().modifyRC(new ResourceHand(1,1,1,1,1));
 			testModel.getPlayer(new PlayerID(0)).getPlayerBank().modifyRC(new ResourceHand(1,1,1,1,1));

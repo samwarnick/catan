@@ -15,6 +15,7 @@ import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.model.bank.Bank;
 import shared.model.bank.BankException;
+import shared.model.bank.DevelopmentHand;
 import shared.model.bank.ResourceHand;
 import shared.model.board.Board;
 import shared.model.board.BoardFacade;
@@ -293,19 +294,26 @@ public class GameModel {
 		if(defaultGM == null){
 			defaultGM  = new GameModel(0);
 			try {
-				Player harold = new Player(CatanColor.BROWN, "Harold", 0);
+				Player harold = new Player(CatanColor.BROWN, "Spencer", 0);
 				harold.getPlayerBank().setRC(4);
 				harold.setPlayerFacade(new ActivePlayerFacade(harold));
-				Player gretchen = new Player(CatanColor.GREEN, "Gretchen", 1);
+				harold.setUniqueID(0);
+				harold.setVictoryPoints(new VictoryPoints(9,9));
+				harold.getPlayerBank().addNewDC(new DevelopmentHand(1,1,1,1,1));
+				harold.getPlayerBank().transfer();
+				Player gretchen = new Player(CatanColor.GREEN, "Sam", 1);
 //				gretchen.getPlayerBank().setLargestArmyCard(true);
 //				gretchen.getPlayerBank().setLongestRoadCard(true);
 				gretchen.setPlayerFacade(new InactivePlayerFacade(gretchen));
-				Player ingrid  = new Player(CatanColor.ORANGE, "Ingrid", 2);
+				gretchen.setUniqueID(1);
+				Player ingrid  = new Player(CatanColor.ORANGE, "Matt", 2);
 				ingrid.getPlayerBank().modifyRC(new ResourceHand(4,0,2,1,0));
 				ingrid.setPlayerFacade(new InactivePlayerFacade(ingrid));
-				Player jerry = new Player(CatanColor.BLUE, "Jerry", 3);
+				ingrid.setUniqueID(2);
+				Player jerry = new Player(CatanColor.BLUE, "Isaac", 3);
 				jerry.getPlayerBank().modifyRC(new ResourceHand(2,2,2,1,1));
 				jerry.setPlayerFacade(new InactivePlayerFacade(jerry));
+				jerry.setUniqueID(4);
 				defaultGM.addPlayer(harold);
 				defaultGM.addPlayer(gretchen);
 				defaultGM.addPlayer(ingrid);
@@ -326,6 +334,16 @@ public class GameModel {
 //				bf.setBoard(board);
 				board.setBoardFacade(bf);
 				defaultGM.setBoard(board);
+				TurnTracker track = new TurnTracker();
+				try {
+					track.setCurrentTurn(0);
+				} catch (NoPlayerFoundException e1) {
+					e1.printStackTrace();
+				}
+				track.setStatus("Rolling");
+				defaultGM.setTurnTracker(track);
+				Bank bank = new Bank();
+				bank.modifyRC(new ResourceHand(-4,-4,-4,-4,-4));
 			} catch (TooManyPlayersException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

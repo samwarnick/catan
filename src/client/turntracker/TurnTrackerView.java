@@ -9,6 +9,7 @@ import shared.model.player.Player;
 import client.base.*;
 import client.catan.*;
 import client.controller.ModelController;
+import client.controller.ModelController.ModelControllerListener;
 import client.utils.ImageUtils;
 
 
@@ -80,7 +81,6 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 	@Override
 	public void initializePlayer(int playerIndex, String playerName,
 			CatanColor playerColor) {
-		
 		playerPanel[playerIndex].setLayout(new BorderLayout());
 		
 		JLabel name = new JLabel(playerName);
@@ -117,15 +117,16 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 	@Override
 	public void updatePlayer(int playerIndex, int points, boolean highlight,
 			boolean largestArmy, boolean longestRoad) {
-		
 		playerArmy[playerIndex].setVisible(largestArmy);
 		playerRoad[playerIndex].setVisible(longestRoad);
 		playerPoints[playerIndex].setText(String.format("%d", points));
+		
 		
 		if(highlight)
 			playerPanel[playerIndex].setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 3));
 		else
 			playerPanel[playerIndex].setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+		
 		
 		// update colors
 		Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayers().get(playerIndex);
@@ -145,5 +146,4 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 	}
 	
 }
-
 

@@ -8,27 +8,19 @@ package shared.communication.input.move;
 public class PlayMonopolyInput extends MoveInput {
 
 	private String resource = "wool";
-	private String type = "Monopoly";
 	
 	public PlayMonopolyInput() {
 		super("/Monopoly", -1);
 		this.resource = null;
+		super.setType("Monopoly");
 	}
 
 	public String getResource() {
 		return resource;
 	}
 
-	public String getType() {
-		return type;
-	}
-
 	public void setResource(String resource) {
 		this.resource = resource;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public PlayMonopolyInput(int playerIndex, String resource) {

@@ -27,7 +27,7 @@ public class PlayMonopolyCommandTest {
 		PlayMonopolyInput inputClass = new PlayMonopolyInput(0, "Brick");
 		Gson gson = new Gson();
 		String input = gson.toJson(inputClass);
-		PlayMonumentCommand command = new PlayMonumentCommand();
+		PlayMonopolyCommand command = new PlayMonopolyCommand();
 		command.setGameModel(model);
 		command.setGameModel(model);
 		try {

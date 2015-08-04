@@ -13,6 +13,7 @@ import shared.communication.input.move.SendChatInput;
 import shared.definitions.DevCardType;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
+import shared.model.bank.DevelopmentHand;
 import shared.model.board.PlayerID;
 import shared.model.player.Player;
 import shared.model.player.VictoryPoints;
@@ -40,7 +41,7 @@ public class PlayMonumentCommand extends MoveCommand {
 			p.setVictoryPoints(victoryPoints);
 			//subtract victory card
 			try {
-				p.getPlayerBank().getDevStack(DevCardType.MONUMENT).setQuantity(p.getPlayerBank().getDevStack(DevCardType.MONUMENT).getQuantity() - 1);
+				p.getPlayerBank().modifyDC(new DevelopmentHand(0,-1,0,0,0));
 			} catch (BankException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

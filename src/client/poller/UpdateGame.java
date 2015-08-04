@@ -9,7 +9,7 @@ import client.controller.ModelController;
 import client.proxy.MockProxyServer;
 import client.proxy.ProxyServer;
 
-public class UpdateGame extends TimerTask{
+public class UpdateGame implements Runnable {
 
 	
 	public UpdateGame(){
@@ -18,7 +18,6 @@ public class UpdateGame extends TimerTask{
 	
 	@Override
 	public void run() {
-//		System.out.println("POLLING");
 		GameModel serverModel = null;
 		if (ModelController.getInstance().isTesting()) {
 			try {
@@ -30,7 +29,6 @@ public class UpdateGame extends TimerTask{
 		else {
 			try {
 				serverModel = ProxyServer.getInstance().getGameModelVersion(new GameModelVersionInput(ModelController.getInstance().getGameModelFacade().getGameModel().getGameVersion()));
-//				System.out.println(serverModel.getTurnTracker().getStatus());
 			} catch (ServerException e) {
 				e.printStackTrace();
 			}

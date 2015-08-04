@@ -100,7 +100,12 @@ public class RobView extends OverlayView implements IRobView {
 		if(candidateVictims != null)
 			numberOfPlayers = candidateVictims.length;
 		
+		victimButtons = new ArrayList<JButton>();
+		
 		if(numberOfPlayers != 0){
+			////System.out.println("numberOfPlayers ! = 0");
+			////System.out.println("numberOfPlayers ! = 0");
+			////System.out.println("numberOfPlayers ! = 0");
 			this.remove(buttonPanel);
 			buttonPanel = new JPanel();
 			buttonPanel.setBorder(BorderFactory.createEmptyBorder(25,0,25,0));

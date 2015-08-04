@@ -179,29 +179,47 @@ public class MapController extends client.base.Controller implements IMapControl
 
 	public void placeRobber(HexLocation hexLoc) {
 		robber = hexLoc;
-		
+		//System.out.println("Place robber!");
 		List<PlayerID> playerIDs = ModelController.getInstance().getGameModelFacade().getGameModel().getBoard().getBoardFacade().getPlayersOnHex(hexLoc);
+		//System.out.println(playerIDs.size());
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (PlayerID id : playerIDs) {
 			Player player = ModelController.getInstance().getGameModelFacade().getGameModel().getPlayer(id);
-			if (!player.equals(ModelController.getInstance().getClientPlayer())
-					&& ModelController.getInstance().getGameModelFacade().canRobPlayer(player, robber)
-					&& players.contains(player)){
-				players.add(player);
+			//System.out.println(player.getName());
+			//System.out.println("Zeroth");
+			if (!player.equals(ModelController.getInstance().getClientPlayer()))
+			{
+				//System.out.println("first");
+				if(ModelController.getInstance().getGameModelFacade().canRobPlayer(player, robber))
+				{
+					//System.out.println("second");
+					if(!players.contains(player)){
+						//System.out.println("third");
+						//System.out.println(player.getName());
+						players.add(player);
+					}
+				}
+
 			}
 		}
+		//System.out.println(players.size());
 		
 		RobPlayerInfo[] robInfo = new RobPlayerInfo[players.size()];
+		//System.out.println("should make rob info");
 		for (int i = 0; i < players.size(); i++) {
+			//System.out.println("make rob info");
 			Player player = players.get(i);
 			RobPlayerInfo info = new RobPlayerInfo();
 			info.setId(player.getPlayerID().getPlayerid());
 			info.setPlayerIndex(player.getPlayerID().getPlayerid());
 			info.setName(player.getName());
+			//System.out.println(player.getName());
 			info.setColor(player.getColor());
 			info.setNumCards(player.getPlayerBank().getNumResourceCards());
 			robInfo[i] = info;
 		}
+		//System.out.println("made rob info");
+		//System.out.println(robInfo.length);
 		getRobView().setPlayers(robInfo);
 		if (!getRobView().isModalShowing()) {
 			getRobView().showModal();

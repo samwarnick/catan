@@ -6,23 +6,14 @@ package shared.communication.input.move;
  * 
  */
 public class BuyDevCardInput extends MoveInput {
-	
-	private String type = "buyDevCard";
 
 	public BuyDevCardInput(int playerIndex) {
 		super("/buyDevCard", playerIndex);
+		super.setType("buyDevCard");
 	}
 	
 	public BuyDevCardInput() {
 		super("/buyDevCard", -1);
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 }
