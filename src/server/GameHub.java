@@ -32,14 +32,14 @@ public class GameHub {
 		addUser(new User("Matt","matt"));
 		
 		
-		ArrayList<PlayerInfo> infos = new ArrayList<PlayerInfo>();
-		infos.add(new PlayerInfo("Spencer",CatanColor.WHITE,0));
-		infos.add(new PlayerInfo("Sam",CatanColor.PUCE,1));
-		infos.add(new PlayerInfo("Isaac",CatanColor.GREEN,2));
-		infos.add(new PlayerInfo("Matt",CatanColor.ORANGE,4));
-		GameInfo ginfo = new GameInfo(0,"default",infos);
-		addInfo(ginfo);
-		GameModel model = GameModel.getDefaultModel();
+//		ArrayList<PlayerInfo> infos = new ArrayList<PlayerInfo>();
+//		infos.add(new PlayerInfo("Spencer",CatanColor.WHITE,0));
+//		infos.add(new PlayerInfo("Sam",CatanColor.PUCE,1));
+//		infos.add(new PlayerInfo("Isaac",CatanColor.GREEN,2));
+//		infos.add(new PlayerInfo("Matt",CatanColor.ORANGE,4));
+//		GameInfo ginfo = new GameInfo(0,"default",infos);
+//		addInfo(ginfo);
+//		GameModel model = GameModel.getDefaultModel();
 //		ArrayList<Player> players = new ArrayList<Player>();
 //		players.add(new Player(CatanColor.WHITE,"Spencer",0));
 //		players.add(new Player(CatanColor.PUCE,"Sam",1));
@@ -47,7 +47,7 @@ public class GameHub {
 //		players.add(new Player(CatanColor.ORANGE,"Matt",3));
 //		model.setPlayers(players);
 //		model.setBoard(new Board(true,true,true));
-		addModel(model);
+//		addModel(model);
 		
 		
 	}

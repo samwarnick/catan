@@ -23,7 +23,7 @@ public class CreateCommandTest {
 		CreateCommand createCommand = new CreateCommand();
 		String in = new Gson().toJson(input);
 		GameInfo output = (GameInfo) createCommand.execute(in);
-		assertEquals(output.getId(),1);
+		assertEquals(output.getId(),0);
 	}
 	
 	@Test
@@ -34,7 +34,7 @@ public class CreateCommandTest {
 		
 		assertEquals(output.getTitle(),"Bob");
 		// id is 1 because of default game on server and bad input
-		assertEquals(output.getId(),2);
+		assertEquals(output.getId(),1);
 		assertEquals(output.getPlayers().size(),4);
 		assertEquals(output.getPlayers().get(1), null);
 

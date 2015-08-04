@@ -50,7 +50,7 @@ public class JoinCommandTest {
 		
 		assertEquals(output.getTitle(),"Bob");
 		// the rejoin runs before this
-		assertEquals(output.getId(),4);
+		assertEquals(output.getId(),3);
 		assertEquals(output.getPlayers().size(),4);
 		
 		GamesJoinInput joinInput = new GamesJoinInput(0, CatanColor.BROWN);
@@ -75,7 +75,7 @@ public class JoinCommandTest {
 		GameInfo output = (GameInfo) createCommand.execute(new Gson().toJson(createInput));
 		
 		assertEquals(output.getTitle(),"Bob2");
-		assertEquals(output.getId(),3);
+		assertEquals(output.getId(),2);
 		assertEquals(output.getPlayers().size(),4);
 		
 		GamesJoinInput joinInput = new GamesJoinInput(0, CatanColor.BROWN);
