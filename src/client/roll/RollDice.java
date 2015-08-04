@@ -2,7 +2,7 @@ package client.roll;
 
 import java.util.TimerTask;
 
-public class RollDice implements Runnable {
+public class RollDice extends TimerTask{
 	
 	private RollController controller;
 	
