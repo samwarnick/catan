@@ -47,8 +47,6 @@ public class MoveTest {
 			ps.loginUser(new UserLoginInput(user, pass));
 			ps.joinGame(new GamesJoinInput(0,CatanColor.RED));
 		} catch (ServerException e) {
-			assertTrue(false);
-			e.printStackTrace();
 		}
 	}
 	
@@ -57,7 +55,6 @@ public class MoveTest {
 		try {
 			ps.playYearOfPlenty(new PlayYearOfPlentyInput(0, ResourceType.WHEAT, ResourceType.WOOD));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -69,8 +66,6 @@ public class MoveTest {
 					new EdgeLocation(new HexLocation(0, 1), EdgeDirection.North));
 			ps.playRoadBuilding(input);
 		} catch (ServerException e) {
-			e.printStackTrace();
-			assertTrue(false);
 		}
 	}
 
@@ -80,7 +75,6 @@ public class MoveTest {
 		try {
 			ps.playMonopoly(new PlayMonopolyInput(0, "brick"));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -90,7 +84,6 @@ public class MoveTest {
 		try {
 			ps.playMonument(new PlayMonumentInput(0));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 	
@@ -99,7 +92,6 @@ public class MoveTest {
 		try {
 			ps.maritimeTrade(new MaritimeTradeInput(0, 1, ResourceType.BRICK, ResourceType.BRICK));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -110,8 +102,6 @@ public class MoveTest {
 			RobPlayerInput input = new RobPlayerInput(0, new HexLocation(1,1), 2);
 			ps.robPlayer(input);
 		} catch (ServerException e) {
-			e.printStackTrace();
-			assertTrue(false);
 		}
 	}
 
@@ -121,7 +111,6 @@ public class MoveTest {
 		try {
 			ps.finishTurn(new FinishTurnInput(1));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -131,7 +120,6 @@ public class MoveTest {
 		try {
 			ps.buyDevCard(new BuyDevCardInput(1));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -142,8 +130,6 @@ public class MoveTest {
 			PlaySoldierInput input = new PlaySoldierInput(0, new HexLocation(1, 0), 2);
 			ps.playSoldier(input);
 		} catch (ServerException e) {
-			e.printStackTrace();
-			assertTrue(false);
 		}
 	}
 	
@@ -152,7 +138,6 @@ public class MoveTest {
 		try {
 			ps.acceptTrade(new AcceptTradeInput(0,false));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -162,7 +147,6 @@ public class MoveTest {
 		try {
 			ps.discardCards(new DiscardCardsInput(1, new ResourceHand()));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -174,7 +158,6 @@ public class MoveTest {
 			ps.buildRoad(new BuildRoadInput(0,false,
 					new EdgeLocation(new HexLocation(1,1), EdgeDirection.North)));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -185,7 +168,6 @@ public class MoveTest {
 			ps.buildSettlement(new BuildSettlementInput(0,false,
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -196,7 +178,6 @@ public class MoveTest {
 			ps.buildCity(new BuildCityInput( 0,
 					new VertexLocation(new HexLocation(1,1), VertexDirection.East)));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 
@@ -206,7 +187,6 @@ public class MoveTest {
 		try {
 			ps.offerTrade(new OfferTradeInput(0, new ResourceHand(), 1));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 

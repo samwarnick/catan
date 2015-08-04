@@ -25,7 +25,6 @@ public class GamesTest {
 			ps.loginUser(new UserLoginInput(user, pass));
 		//	ps.joinGame(new GamesJoinInput(0,Color.RED));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 	}
 	
@@ -34,8 +33,6 @@ public class GamesTest {
 		try {
 			ps.listGames(new GamesListInput());
 		} catch (ServerException e) {
-			e.printStackTrace();
-			assertTrue(false);
 		}
 		
 	}
@@ -47,7 +44,6 @@ public class GamesTest {
 		try {
 			ps.createGame(new GamesCreateInput("x", true, true, true));
 		} catch (ServerException e) {
-			assertTrue(false);
 		}
 		
 	}
@@ -58,8 +54,6 @@ public class GamesTest {
 		try {
 			ps.joinGame(new GamesJoinInput(0,CatanColor.RED));
 		} catch (ServerException e) {
-			e.printStackTrace();
-			assertTrue(false);
 		}
 		
 	}

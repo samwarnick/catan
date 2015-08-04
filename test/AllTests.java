@@ -41,7 +41,22 @@ public class AllTests {
 				"shared.model.player.TradeRatioTest",
 				"shared.model.player.VictoryPointsTest",
 				"shared.model.GameModelFacadeTests",
-				"shared.model.JsonParserTest"
+				"shared.model.JsonParserTest",
+				"server.commands.games.CreateCommandTest",
+				"server.commands.games.JoinCommandTest",
+				"server.commands.games.ListCommandTest",
+				//"server.commands.move.BuildCityTest",
+				//"server.commands.move.BuildRoadTest",
+				//"server.commands.move.BuildSettlementTest",
+				"server.commands.move.BuyDevCardCommandTest",
+				//"server.commands.move.PlayMonopolyCommandTest",
+				//"server.commands.move.PlayMonumentCommandTest",
+				//"server.commands.move.PlaySoldierCommandTest",
+				//"server.commands.move.PlayYearOfPlentyCommandTest",
+				//"server.commands.move.RoadBuildingTest",
+				//"server.commands.move.RobPlayerCommandTest",
+				//"server.commands.move.RollNumberTest",
+				"server.commands.move.SendChatCommandTest"
 		};
 
 		org.junit.runner.JUnitCore.main(testClasses);

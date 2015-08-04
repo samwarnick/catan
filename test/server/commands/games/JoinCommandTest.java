@@ -4,8 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import server.ServerException;
 import shared.communication.input.GamesCreateInput;
 import shared.communication.input.GamesJoinInput;
 import shared.communication.input.move.BuyDevCardInput;
@@ -21,9 +24,22 @@ public class JoinCommandTest {
 
 	@Test
 	public void testBadInput() {
+		try{
 		BuyDevCardInput input = new BuyDevCardInput(0);
 		JoinCommand joinCommand = new JoinCommand();
-		GameInfo output ;
+		String in = new Gson().toJson(input);
+		GameInfo output = null;
+		try {
+			output = (GameInfo) joinCommand.execute(in);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assert(output == null);
+		}
+		catch (NullPointerException e){
+			assert(true);
+		}
 	}
 	
 	@Test
@@ -39,11 +55,15 @@ public class JoinCommandTest {
 		
 		GamesJoinInput joinInput = new GamesJoinInput(0, CatanColor.BROWN);
 		JoinCommand joinCommand = new JoinCommand();
-		GameInfo joinOutput;
+		Integer joinOutput = null;
+		try {
+			joinOutput = (Integer) joinCommand.execute(new ObjectMapper().writeValueAsString(joinInput));
+		} catch (JsonProcessingException | ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//assertEquals(joinOutput.getId(),0);
-		//assertEquals(joinOutput.getTitle(),"Bob");
-		//assertEquals(joinOutput.getPlayers().get(1).getColor(),CatanColor.BROWN);
+		assertEquals(joinOutput,null);
 
 		
 	}
@@ -55,17 +75,20 @@ public class JoinCommandTest {
 		GameInfo output = (GameInfo) createCommand.execute(new Gson().toJson(createInput));
 		
 		assertEquals(output.getTitle(),"Bob2");
-		// 3 because of other tests run
 		assertEquals(output.getId(),3);
 		assertEquals(output.getPlayers().size(),4);
 		
 		GamesJoinInput joinInput = new GamesJoinInput(0, CatanColor.BROWN);
 		JoinCommand joinCommand = new JoinCommand();
-		//GameInfo joinOutput = (GameInfo) joinCommand.execute(new Gson().toJson(joinInput));
+		Integer joinOutput = null;
+		try {
+			joinOutput = (Integer) joinCommand.execute(new ObjectMapper().writeValueAsString(joinInput));
+		} catch (JsonProcessingException | ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-//		assertEquals(joinOutput.getId(),0);
-//		assertEquals(joinOutput.getTitle(),"Bob");
-//		assertEquals(joinOutput.getPlayers().get(0).getColor(),CatanColor.BROWN);
+		assertEquals(joinOutput,new Integer(0));
 
 		
 	}

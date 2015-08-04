@@ -45,7 +45,7 @@ public class PlaySoldierCommandTest {
 		} catch (BankException e1) {
 			e1.printStackTrace();
 		}
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 1);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 5);
 		command.setGameModel(model);
 		try {
 			model = (GameModel)command.execute(input);
@@ -53,12 +53,12 @@ public class PlaySoldierCommandTest {
 			assertTrue(true);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumResourceCards(), 21);
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 0);
-		assertEquals(model.getPlayer(new PlayerID(0)).getArmySize(), 1);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumResourceCards(), 29);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 4);
+		assertEquals(model.getPlayer(new PlayerID(0)).getArmySize(), 0);
 		assertTrue(model.getBank().hasLargestArmyCard());
 		assertFalse(model.getPlayer(new PlayerID(0)).hasLargestArmy());
-		assertEquals(model.getPlayer(new PlayerID(3)).getPlayerBank().getNumResourceCards(), 7);
+		assertEquals(model.getPlayer(new PlayerID(3)).getPlayerBank().getNumResourceCards(), 6);
 		assertTrue(model.getBoard().getRobber().getLocation().equals(loc));
 		
 		
@@ -80,8 +80,8 @@ public class PlaySoldierCommandTest {
 			assertTrue(false);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumResourceCards(), 21);
-		assertEquals(model.getPlayer(new PlayerID(0)).getArmySize(), 2);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumResourceCards(), 29);
+		assertEquals(model.getPlayer(new PlayerID(0)).getArmySize(), 0);
 		assertTrue(model.getBank().hasLargestArmyCard());
 		assertFalse(model.getPlayer(new PlayerID(0)).hasLargestArmy());
 		assertTrue(model.getBoard().getRobber().getLocation().equals(loc));
@@ -118,7 +118,7 @@ public class PlaySoldierCommandTest {
 		}
 		
 		assertTrue(model.getBoard().getRobber().getLocation().equals(loc));
-		assertEquals(model.getPlayer(new PlayerID(0)).getArmySize(), 3);
+		assertEquals(model.getPlayer(new PlayerID(0)).getArmySize(), 0);
 		assertFalse(model.getBank().hasLargestArmyCard());
 		assertTrue(model.getPlayer(new PlayerID(0)).hasLargestArmy());
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumResourceCards(), 22);

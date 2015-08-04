@@ -23,6 +23,7 @@ public class CreateCommandTest {
 		CreateCommand createCommand = new CreateCommand();
 		String in = new Gson().toJson(input);
 		GameInfo output = (GameInfo) createCommand.execute(in);
+		assertEquals(output.getId(),1);
 	}
 	
 	@Test
