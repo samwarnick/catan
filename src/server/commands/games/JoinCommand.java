@@ -39,9 +39,9 @@ public class JoinCommand implements ICommand {
 		if(GameHub.getInstance().getInfo(jgi.getId()).hasColor(cc) != null &&
 				!GameHub.getInstance().getInfo(jgi.getId()).hasColor(cc).equals(name)) throw new ServerException();
 		if(model.getPlayer(name) != null){
+			model.updateLogs(cc, name);
 			model.getPlayer(name).setColor(cc);
 			int index = model.getPlayer(name).getPlayerID().getPlayerid();
-			model.updateLogs(cc, name);
 			GameHub.getInstance().getInfo(jgi.getId()).getPlayers().get(index).setColor(cc);
 			return jgi.getId();
 		}
