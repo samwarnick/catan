@@ -87,7 +87,7 @@ public class BuyDevCardCommand extends MoveCommand {
 			
 			if(dct != null) break;
 		}
-		model.getPlayer(name).getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));
+		model.getPlayer(new PlayerID(playerIndex)).getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));
 		model.getBank().modifyRC(new ResourceHand(0,0,1,1,1));
 		model.getPlayer(new PlayerID(playerIndex)).getPlayerBank().addNewDC(dct);
 		model.getBank().modifyDC(dh);
