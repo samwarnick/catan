@@ -1,11 +1,18 @@
 package server.commands.move;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import shared.communication.input.move.BuildCityInput;
+import shared.communication.input.move.BuyDevCardInput;
 import shared.definitions.DevCardType;
+import shared.locations.VertexLocation;
 import shared.model.bank.DevelopmentHand;
 import shared.model.bank.ResourceHand;
+import shared.model.board.PlayerID;
 
 public class BuyDevCardCommand extends MoveCommand {
 	
@@ -17,6 +24,14 @@ public class BuyDevCardCommand extends MoveCommand {
 	 */
 
 	public Object execute(String input) {
+		BuyDevCardInput in = null;
+		try {
+			in = new ObjectMapper().readValue(input, BuyDevCardInput.class);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int playerIndex = in.getPlayerIndex();
 		System.out.printf("BuyDevCard\n");
 		ArrayList<Integer> empties = new ArrayList<Integer>();
 		Random rand = new Random();
@@ -77,7 +92,7 @@ public class BuyDevCardCommand extends MoveCommand {
 		System.out.printf("BOut to remove stuff2\n");
 		model.getBank().modifyRC(new ResourceHand(0,0,1,1,1));
 		System.out.printf("BOut to remove stuff3\n");
-		model.getPlayer(name).getPlayerBank().addDC(dct);
+		model.getPlayer(new PlayerID(playerIndex)).getPlayerBank().addDC(dct);
 		System.out.printf("BOut to remove stuff4\n");
 		model.getBank().modifyDC(dh);
 		System.out.printf("BOut to remove stuff5\n");
