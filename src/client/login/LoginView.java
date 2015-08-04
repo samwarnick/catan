@@ -209,6 +209,7 @@ public class LoginView extends OverlayView implements ILoginView
             txtPassword = new JPasswordField(NUM_TXT_COLS);
 
             btnSignIn = new JButton("Sign in");
+            
         }
 
         private void initLayout()
