@@ -88,7 +88,7 @@ public class BuyDevCardCommand extends MoveCommand {
 			if(dct != null) break;
 		}
 		System.out.printf("BOut to remove stuff1\n");
-		model.getPlayer(name).getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));
+		model.getPlayer(new PlayerID(playerIndex)).getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));
 		System.out.printf("BOut to remove stuff2\n");
 		model.getBank().modifyRC(new ResourceHand(0,0,1,1,1));
 		System.out.printf("BOut to remove stuff3\n");
