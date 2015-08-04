@@ -46,63 +46,63 @@ public class SelectColorView extends OverlayView implements ISelectColorView {
 		lblTitle = new JLabel("Join Game - Select Color");
 		lblTitle.setFont(new java.awt.Font(fontName, 1, LABEL_TEXT_SIZE));
 		
-		btnRed = new JButton("Red");
+		btnRed = new JButton("Firetruck Red");
 		btnRed.addActionListener(actionListener);
 		btnRed.setBackground(CatanColor.RED.getJavaColor());
 		btnRed.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnRed.setContentAreaFilled(false);
 		btnRed.setOpaque(true);
 
-		btnOrange = new JButton("Orange");
+		btnOrange = new JButton("Sunset");
 		btnOrange.addActionListener(actionListener);
 		btnOrange.setBackground(CatanColor.ORANGE.getJavaColor());
 		btnOrange.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnOrange.setContentAreaFilled(false);
 		btnOrange.setOpaque(true);
 
-		btnYellow = new JButton("Yellow");
+		btnYellow = new JButton("Sunrise");
 		btnYellow.addActionListener(actionListener);
 		btnYellow.setBackground(CatanColor.YELLOW.getJavaColor());
 		btnYellow.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnYellow.setContentAreaFilled(false);
 		btnYellow.setOpaque(true);
 
-		btnBlue = new JButton("Blue");
+		btnBlue = new JButton("Papa Smurf");
 		btnBlue.addActionListener(actionListener);
 		btnBlue.setBackground(CatanColor.BLUE.getJavaColor());
 		btnBlue.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnBlue.setContentAreaFilled(false);
 		btnBlue.setOpaque(true);
 
-		btnGreen = new JButton("Green");
+		btnGreen = new JButton("Cut Grass");
 		btnGreen.addActionListener(actionListener);
 		btnGreen.setBackground(CatanColor.GREEN.getJavaColor());
 		btnGreen.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnGreen.setContentAreaFilled(false);
 		btnGreen.setOpaque(true);
 
-		btnPurple = new JButton("Purple");
+		btnPurple = new JButton("Barney");
 		btnPurple.addActionListener(actionListener);
 		btnPurple.setBackground(CatanColor.PURPLE.getJavaColor());
 		btnPurple.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnPurple.setContentAreaFilled(false);
 		btnPurple.setOpaque(true);
 
-		btnPuce = new JButton("Puce");
+		btnPuce = new JButton("Skrawberry");
 		btnPuce.addActionListener(actionListener);
 		btnPuce.setBackground(CatanColor.PUCE.getJavaColor());
 		btnPuce.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnPuce.setContentAreaFilled(false);
 		btnPuce.setOpaque(true);
 
-		btnWhite = new JButton("White");
+		btnWhite = new JButton("Vanilla");
 		btnWhite.addActionListener(actionListener);
 		btnWhite.setBackground(CatanColor.WHITE.getJavaColor());
 		btnWhite.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
 		btnWhite.setContentAreaFilled(false);
 		btnWhite.setOpaque(true);
 
-		btnBrown = new JButton("Brown");
+		btnBrown = new JButton("Chocolate");
 		btnBrown.addActionListener(actionListener);
 		btnBrown.setBackground(CatanColor.BROWN.getJavaColor());
 		btnBrown.setFont(new java.awt.Font(fontName, 1, COLOR_BUTTON_TEXT_SIZE));
