@@ -17,6 +17,7 @@ public class BuyDevCardCommand extends MoveCommand {
 	 */
 
 	public Object execute(String input) {
+		System.out.printf("BuyDevCard\n");
 		ArrayList<Integer> empties = new ArrayList<Integer>();
 		Random rand = new Random();
 		DevCardType dct = null;
@@ -71,15 +72,19 @@ public class BuyDevCardCommand extends MoveCommand {
 			
 			if(dct != null) break;
 		}
-		
+		System.out.printf("BOut to remove stuff1\n");
 		model.getPlayer(name).getPlayerBank().modifyRC(new ResourceHand(0,0,-1,-1,-1));
+		System.out.printf("BOut to remove stuff2\n");
 		model.getBank().modifyRC(new ResourceHand(0,0,1,1,1));
+		System.out.printf("BOut to remove stuff3\n");
 		model.getPlayer(name).getPlayerBank().addDC(dct);
+		System.out.printf("BOut to remove stuff4\n");
 		model.getBank().modifyDC(dh);
+		System.out.printf("BOut to remove stuff5\n");
 		}	catch(Exception e){
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
-
+	    System.out.printf("end Dev Card Store");
 		return model;
 	}
 
