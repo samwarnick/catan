@@ -59,7 +59,7 @@ public class PlayMonumentCommandTest {
 			assertTrue(true);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 8);
+		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 19);
 		
 		
 		
@@ -72,7 +72,7 @@ public class PlayMonumentCommandTest {
 			assertTrue(false);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 10);
+		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 21);
 		
 		
 		
@@ -90,7 +90,6 @@ public class PlayMonumentCommandTest {
 			model.getPlayer(new PlayerID(1)).getPlayerBank().addDC(DevCardType.MONUMENT);
 			model.getPlayer(new PlayerID(1)).getPlayerBank().addDC(DevCardType.MONUMENT);
 		} catch (BankException e) {
-			e.printStackTrace();
 		}
 		
 		command.setGameModel(model);
@@ -100,7 +99,7 @@ public class PlayMonumentCommandTest {
 			assertTrue(false);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 9);
+		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 22);
 		
 		command.setGameModel(model);
 		try {
@@ -109,7 +108,7 @@ public class PlayMonumentCommandTest {
 			assertTrue(false);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 10);
+		assertEquals(model.getPlayer(new PlayerID(0)).getVictoryPoints().getTotalVictoryPoints(), 23);
 	}
 
 }

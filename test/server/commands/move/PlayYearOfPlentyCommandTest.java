@@ -51,12 +51,12 @@ public class PlayYearOfPlentyCommandTest {
 			assertTrue(false);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getBrick().getQuantity(), 6);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getBrick().getQuantity(), 8);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getWood().getQuantity(), 4);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getSheep().getQuantity(), 4);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getWheat().getQuantity(), 4);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getOre().getQuantity(), 4);
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 0);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 4);
 		
 		
 		
@@ -76,12 +76,12 @@ public class PlayYearOfPlentyCommandTest {
 			assertTrue(false);
 		}
 		
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getBrick().getQuantity(), 6);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getBrick().getQuantity(), 8);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getWood().getQuantity(), 5);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getSheep().getQuantity(), 5);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getWheat().getQuantity(), 4);
 		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getOre().getQuantity(), 4);
-		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 0);
+		assertEquals(model.getPlayer(new PlayerID(0)).getPlayerBank().getNumDevCards(), 4);
 		
 		
 		
@@ -102,11 +102,11 @@ public class PlayYearOfPlentyCommandTest {
 		}
 		
 		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getBrick().getQuantity(), 0);
-		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getWood().getQuantity(), 0);
-		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getSheep().getQuantity(), 0);
+		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getWood().getQuantity(), 1);
+		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getSheep().getQuantity(), 1);
 		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getWheat().getQuantity(), 0);
 		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getOre().getQuantity(), 0);
-		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getNumDevCards(), 1);
+		assertEquals(model.getPlayer(new PlayerID(1)).getPlayerBank().getNumDevCards(), 0);
 	}
 
 }

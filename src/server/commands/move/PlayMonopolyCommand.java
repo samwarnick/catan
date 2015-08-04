@@ -36,19 +36,24 @@ public class PlayMonopolyCommand extends MoveCommand {
 		try {
 			playMonopolyInput = new ObjectMapper().readValue(input, PlayMonopolyInput.class);
 			int playerIndex = playMonopolyInput.getPlayerIndex();
-			String type = playMonopolyInput.getType();
+			String type = playMonopolyInput.getResource();
 			ResourceType realType = null;
 			switch(type){
 			case "brick":
 				realType = ResourceType.BRICK;
+				break;
 			case "wood":
 				realType = ResourceType.WOOD;
+				break;
 			case "sheep":
 				realType = ResourceType.SHEEP;
+				break;
 			case "wheat":
 				realType = ResourceType.WHEAT;
+				break;
 			case "ore":
 				realType = ResourceType.ORE;
+				break;
 			default:
 					System.out.println("dat ain't a real type 'o reasource - PlayMonopolyCommand");
 			}
