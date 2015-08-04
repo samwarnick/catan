@@ -45,17 +45,12 @@ public class AllTests {
 				"server.commands.games.CreateCommandTest",
 				"server.commands.games.JoinCommandTest",
 				"server.commands.games.ListCommandTest",
-				//"server.commands.move.BuildCityTest",
-				//"server.commands.move.BuildRoadTest",
-				//"server.commands.move.BuildSettlementTest",
 				"server.commands.move.BuyDevCardCommandTest",
-				//"server.commands.move.PlayMonopolyCommandTest",
-				//"server.commands.move.PlayMonumentCommandTest",
-				//"server.commands.move.PlaySoldierCommandTest",
-				//"server.commands.move.PlayYearOfPlentyCommandTest",
-				//"server.commands.move.RoadBuildingTest",
-				//"server.commands.move.RobPlayerCommandTest",
-				//"server.commands.move.RollNumberTest",
+				"server.commands.move.MaritimeTradeInputTest",
+				"server.commands.move.AcceptTradeCommandTest",
+				"server.commands.move.DiscardCardsTest",
+				"server.commands.move.OfferTradeCommandTest",
+				"server.commands.move.FinishTurnTest",
 				"server.commands.move.SendChatCommandTest"
 		};
 

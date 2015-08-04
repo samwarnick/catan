@@ -41,7 +41,10 @@ public class BuildRoadTest {
 			costModel = (GameModel) command.execute(new ObjectMapper().writeValueAsString(inputcost));
 			assertEquals(model.getBoard().getRoads().get(0).getOwner().getPlayerid(),0);
 			assertEquals(costModel.getBoard().getRoads().get(0).getOwner().getPlayerid(),0);
-			//assertEqulas(costModel)
+			assertEquals(costModel.getPlayers().get(0).getPlayerBank().getBrick(),1);
+			assertEquals(costModel.getPlayers().get(0).getPlayerBank().getWood(),1);
+			
+			
 			
 		} catch (JsonProcessingException | ServerException e) {
 			// TODO Auto-generated catch block

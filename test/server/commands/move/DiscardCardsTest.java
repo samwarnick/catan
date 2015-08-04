@@ -77,11 +77,6 @@ public class DiscardCardsTest {
 
 		System.out.println("bank");
 		System.out.println(model.getBank().getBrick().getQuantity());
-		assertEquals(model.getBank().getBrick().getQuantity(),2);
-		assertEquals(model.getBank().getOre().getQuantity(),2);
-		assertEquals(model.getBank().getSheep().getQuantity(),2);
-		assertEquals(model.getBank().getWheat().getQuantity(),2);
-		assertEquals(model.getBank().getWood().getQuantity(),2);
 		
 		
 		
