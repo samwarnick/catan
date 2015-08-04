@@ -87,13 +87,13 @@ public class GameInfo
 		}
 	}
 
-	public boolean hasColor(CatanColor x) {
+	public String hasColor(CatanColor x) {
 		for(int i = 0; i<players.size(); i++){
 			if(players.get(i)==null) continue;
-			if(players.get(i).getColor().equals(x)) return true;
+			if(players.get(i).getColor().equals(x)) return players.get(i).getName();
 		}
 		
-		return false;
+		return null;
 	}
 }
 
