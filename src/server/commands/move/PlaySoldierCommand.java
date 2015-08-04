@@ -74,6 +74,7 @@ public class PlaySoldierCommand extends MoveCommand {
 			//decrement the players soldier card
 			try {
 				model.getPlayer(new PlayerID(aggressorIndex)).getPlayerBank().getDevStack(DevCardType.SOLDIER).setQuantity(model.getPlayer(new PlayerID(aggressorIndex)).getPlayerBank().getDevStack(DevCardType.SOLDIER).getQuantity() - 1);
+				model.getPlayer(new PlayerID(aggressorIndex)).getLargestArmy().addSoldier();
 			} catch (BankException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
