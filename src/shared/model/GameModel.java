@@ -367,12 +367,12 @@ public class GameModel {
 		int i = 0;
 		CatanColor old = getPlayer(name).getColor();
 			for(i=0;i<logs.size();i++){
-				if(logs.get(i).getColor().equals(old)){
+				if(logs.get(i).getColor() == (old)){
 					logs.get(i).setColor(cc);
 				}
 			}
 			for(i=0;i<chats.size();i++){
-				if(chats.get(i).getColor().equals(old)){
+				if(chats.get(i).getColor() == (old)){
 					chats.get(i).setColor(cc);
 				}
 			}
