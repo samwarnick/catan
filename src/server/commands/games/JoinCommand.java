@@ -36,7 +36,7 @@ public class JoinCommand implements ICommand {
 		User user = GameHub.getInstance().getUser(playerID);
 		String name = user.getUsername();
 		CatanColor cc = chooseColor(jgi.getColor());
-		if(!GameHub.getInstance().getInfo(jgi.getId()).hasColor(cc).equals(null)&&
+		if(GameHub.getInstance().getInfo(jgi.getId()).hasColor(cc) != null &&
 				!GameHub.getInstance().getInfo(jgi.getId()).hasColor(cc).equals(name)) throw new ServerException();
 		if(model.getPlayer(name) != null){
 			model.getPlayer(name).setColor(cc);
