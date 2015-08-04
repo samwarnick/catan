@@ -15,6 +15,7 @@ import server.GameHub;
 import server.ServerException;
 import server.commands.move.*;
 import shared.communication.input.Input;
+import shared.communication.input.move.AcceptTradeInput;
 import shared.communication.input.move.RollNumberInput;
 import shared.definitions.CatanColor;
 import shared.model.GameModel;
@@ -131,6 +132,11 @@ public class MoveHandler extends Handler {
 				if (extension.equals("rolled a ")){
 					RollNumberInput rollInput = new ObjectMapper().readValue(json, RollNumberInput.class);
 					extension = extension + rollInput.getNumber();
+				}
+				if (extension.equals("accepted a trade")){
+					AcceptTradeInput atinput = new ObjectMapper().readValue(json, AcceptTradeInput.class);
+					if (!atinput.isWillAccept())
+						extension = "rejected a trade";
 				}
 				String message = name + " " + extension + ".";
 				System.out.printf("message %s and id %d\n", message, pId);

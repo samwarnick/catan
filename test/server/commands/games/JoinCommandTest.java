@@ -63,7 +63,7 @@ public class JoinCommandTest {
 			e.printStackTrace();
 		}
 		
-		assertEquals(joinOutput,null);
+		assertEquals(joinOutput,new Integer(0));
 
 		
 	}

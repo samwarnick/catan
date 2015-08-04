@@ -3,7 +3,10 @@ package client.base;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import client.roll.RollResultView;
 
 /**
  * Base class for overlay views
@@ -119,6 +122,13 @@ public class OverlayView extends PanelView implements IOverlayView
 			{
 				window.setGlassPane(defaultGlassPane);
 				window.getGlassPane().setVisible(false);
+			}
+		}
+		if (overlayStack.peek() != null){
+
+			if (overlayStack.peek().getOverlayView().getClass() == RollResultView.class){
+				System.out.println("It's happening again!");
+				closeModal();
 			}
 		}
 	}
