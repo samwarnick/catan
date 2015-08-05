@@ -8,6 +8,12 @@ import server.dao.IGameDAO;
 import shared.model.GameModel;
 
 public class SQLGameDAO implements IGameDAO {
+	
+	private Database database;
+	
+	public SQLGameDAO(Database database) {
+		this.database = database;
+	}
 
 	@Override
 	public void addGameModel(GameModel model) {
