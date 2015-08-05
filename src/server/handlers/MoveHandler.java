@@ -119,6 +119,7 @@ public class MoveHandler extends Handler {
 
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
+				moveCommand.setInput(json);
 				GameModel updatedModel = (GameModel) moveCommand.execute(json);
 				GameHub.getInstance().updateModel(updatedModel);
 				
