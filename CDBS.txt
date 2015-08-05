@@ -1,0 +1,23 @@
+create table Users
+(
+	id integer not null primary key autoincrement,
+	User BLOB
+);
+
+create table GameModels
+(
+	id integer not null primary key autoincrement,
+	GameModel BLOB
+);
+
+create table GameInfos
+(
+	id integer not null primary key autoincrement,
+	GameInfo BLOB
+);
+
+create table Commands
+(
+	GameId integer not null primary key autoincrement,
+	Command BLOB
+);
