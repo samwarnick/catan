@@ -128,8 +128,12 @@ public class SQLGameDAO implements IGameDAO {
 			Database.safeClose(stmt);
 			Database.safeClose(keyRS);
 		}
-
-
+	}
+	
+	@Override
+	public void addCommand(int gameID, MoveCommand command) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -264,12 +268,6 @@ public class SQLGameDAO implements IGameDAO {
 			Database.safeClose(stmt);
 		}
 		return commands;	
-	}
-
-	@Override
-	public void addCommand(int gameID, MoveCommand command) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	
