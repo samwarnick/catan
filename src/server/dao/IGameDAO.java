@@ -9,7 +9,7 @@ import shared.model.GameModel;
 public interface IGameDAO {
 	
 	/**
-	 * This adds the given model to the persistence storage
+	 * This adds the given model to the persistence storage and creates a list of commands in the storage.
 	 * @param model
 	 * @pre model must be a valid GameModel object
 	 * @post model has been added to the persistence storage
@@ -23,13 +23,6 @@ public interface IGameDAO {
 	 * @post info has been added to the persistence storage
 	 */
 	public void addGameInfo(GameInfo info);
-	
-	/**
-	 * This adds an empty list of MoveCommands to the persistence storage with the next available id
-	 * @pre A game model has just been added to the persistence storage
-	 * @post An empty list of MoveCommand has been added to the persistence storage with the same id as the previously added GameModel 
-	 */
-	public void addCommands();
 	
 	/**
 	 * This updates the given model on the persistence storage
@@ -53,7 +46,7 @@ public interface IGameDAO {
 	 * @pre gameID must be a valid id for a game currently in the persistence storage
 	 * @post the list of commands has been updated for the game with the given id
 	 */
-	public void updateCommands(int gameID, List<MoveCommand> commands);
+	public void addCommand(int gameID, MoveCommand command);
 	
 	/**
 	 * This returns a list of all game models in the persistence storage
