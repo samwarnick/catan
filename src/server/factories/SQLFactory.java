@@ -8,7 +8,7 @@ import server.dao.sql.DatabaseException;
 public class SQLFactory implements AbstractFactory {
 
 	@Override
-	public IGameDAO makeGameDAO() {
+	public IGameDAO makeGameDAO(int commandLimit) {
 		Database database = new Database();
 		try {
 			Database.initialize();

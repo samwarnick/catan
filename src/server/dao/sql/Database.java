@@ -6,8 +6,8 @@ import java.util.logging.*;
 
 public class Database {
 
-	private static final String DATABASE_DIRECTORY = "Database.original";
-	private static final String DATABASE_FILE = "indexer.sqlite";
+	private static final String DATABASE_DIRECTORY = "Persistance/DataBase";
+	private static final String DATABASE_FILE = "SettlersOfCatanRBase.sqlite";
 	private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
 												File.separator + DATABASE_FILE;
 	private static Logger logger;

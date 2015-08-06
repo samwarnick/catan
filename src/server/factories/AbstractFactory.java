@@ -10,7 +10,7 @@ public interface AbstractFactory {
 	 * @pre none
 	 * @post returns a new GameDAO with the correct persistence implementation. 
 	 */
-	public IGameDAO makeGameDAO();
+	public IGameDAO makeGameDAO(int commandLimit);
 	
 	/**
 	 * @pre none

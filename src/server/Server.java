@@ -73,18 +73,17 @@ public class Server {
 			AbstractFactory factory = null;
 			while (e.hasMoreElements()) {
 		        JarEntry je = (JarEntry) e.nextElement();
-		        if(je.isDirectory() || !je.getName().endsWith(".class")){
-		            continue;
+		        if(!je.isDirectory() && je.getName().endsWith(".class")){
+		        	String className = je.getName().substring(0,je.getName().length()-6);
+			        className = className.replace('/', '.');
+			        Class c = cl.loadClass(className);
+			        factory = (AbstractFactory) c.newInstance();
 		        }
-		        String className = je.getName().substring(0,je.getName().length()-6);
-		        className = className.replace('/', '.');
-		        Class c = cl.loadClass(className);
-		        factory = (AbstractFactory) c.newInstance();
 		    }
 			
 			// make DAOs from factory
 			GameHub.getInstance().setUserDAO(factory.makeUserDAO());
-			GameHub.getInstance().setGameDAO(factory.makeGameDAO());
+			GameHub.getInstance().setGameDAO(factory.makeGameDAO(n));
 			// load data from DAOs
 			GameHub.getInstance().loadData();
 		} catch (Exception e) {

@@ -6,7 +6,7 @@ import server.dao.IUserDAO;
 public class JsonFactory implements AbstractFactory{
 
 	@Override
-	public IGameDAO makeGameDAO() {
+	public IGameDAO makeGameDAO(int commandLimit) {
 		return null;
 	}
 
