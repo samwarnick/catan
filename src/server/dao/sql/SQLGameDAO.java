@@ -360,22 +360,23 @@ public class SQLGameDAO implements IGameDAO {
 	
 	//has errors, doesn't use parameter and each blob is a list of commands, not a single command.
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MoveCommand> getCommands(int gameID) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		ArrayList<MoveCommand> commands = new ArrayList<MoveCommand>();
 		try {
-			String query = "Command from Commands";
+			String query = "Command from Commands where GameId = ?";
 			stmt = database.getConnection().prepareStatement(query);
+			stmt.setInt(1, gameID);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				
 				Blob blob = rs.getBlob(1);
 				ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
-				MoveCommand command = (MoveCommand) objectStream.readObject();
-				commands.add(command);
+				commands = (ArrayList<MoveCommand>) objectStream.readObject();
 			}
 		}
 		catch (SQLException e) {
