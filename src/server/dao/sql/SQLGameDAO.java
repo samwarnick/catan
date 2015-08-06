@@ -29,6 +29,7 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public void addGameModel(GameModel model) {
+		addCommands();
 		String query = "insert into GameModels (GameModel) values ( ?)";
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
@@ -41,12 +42,12 @@ public class SQLGameDAO implements IGameDAO {
 			blob.setBytes(0, byteStream.toByteArray());
 			stmt.setBlob(1, blob);
 			if (stmt.executeUpdate() != 1) {
-				throw new DatabaseException("Could not insert user");
+				throw new DatabaseException("Could not add Game Model");
 			}
 		}
 		catch (SQLException e) {
 			try {
-				throw new DatabaseException("Could not insert user", e);
+				throw new DatabaseException("Could not add Game Model", e);
 			} catch (DatabaseException e1) {
 				e1.printStackTrace();
 			}
@@ -63,7 +64,6 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public void addGameInfo(GameInfo info) {
-		addCommands();
 		String query = "insert into GameInfos (GameInfo) values ( ?)";
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
@@ -76,12 +76,12 @@ public class SQLGameDAO implements IGameDAO {
 			blob.setBytes(0, byteStream.toByteArray());
 			stmt.setBlob(1, blob);
 			if (stmt.executeUpdate() != 1) {
-				throw new DatabaseException("Could not insert user");
+				throw new DatabaseException("Could not add Game info");
 			}
 		}
 		catch (SQLException e) {
 			try {
-				throw new DatabaseException("Could not insert user", e);
+				throw new DatabaseException("Could not add Game info", e);
 			} catch (DatabaseException e1) {
 				e1.printStackTrace();
 			}
@@ -110,12 +110,12 @@ public class SQLGameDAO implements IGameDAO {
 			blob.setBytes(0, byteStream.toByteArray());
 			stmt.setBlob(1, blob);
 			if (stmt.executeUpdate() != 1) {
-				throw new DatabaseException("Could not insert user");
+				throw new DatabaseException("Could not add COmmand");
 			}
 		}
 		catch (SQLException e) {
 			try {
-				throw new DatabaseException("Could not insert user", e);
+				throw new DatabaseException("Could not add COmmand", e);
 			} catch (DatabaseException e1) {
 				e1.printStackTrace();
 			}
@@ -132,19 +132,143 @@ public class SQLGameDAO implements IGameDAO {
 	
 	@Override
 	public void addCommand(int gameID, MoveCommand command) {
-		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<MoveCommand> dbcommands = new ArrayList<MoveCommand>();
+		try {
+			String query = "select Command from Commands where GameId = ?";
+			stmt = database.getConnection().prepareStatement(query);
+			stmt.setInt(1, gameID);
+			rs = stmt.executeQuery();
+			Blob blob = rs.getBlob(1);
+			ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
+			ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+			dbcommands = (ArrayList<MoveCommand>) objectStream.readObject();
+			dbcommands.add(command);
+		}
+		catch (SQLException e) {
+			DatabaseException serverEx = new DatabaseException(e.getMessage(), e);
+			try {
+				throw serverEx;
+			} catch (DatabaseException e1) {
+				e1.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
+		finally {
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+			updateCommands(gameID, dbcommands);
+		}
 		
+	}
+	
+	private void updateCommands(int gameID, List<MoveCommand> commands){
+		String query = "update Commands set Command = ? where GameId = ?)";
+		PreparedStatement stmt = null;
+		ResultSet keyRS = null;		
+		try {
+			stmt = database.getConnection().prepareStatement(query);
+			Blob blob = database.getConnection().createBlob();
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
+			objectStream.writeObject(commands);
+			blob.setBytes(0, byteStream.toByteArray());
+			stmt.setBlob(1, blob);
+			stmt.setInt(2, gameID);
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not update Commands");
+			}
+		}
+		catch (SQLException e) {
+			try {
+				throw new DatabaseException("Could not update Commands", e);
+			} catch (DatabaseException e1) {
+				e1.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		finally {
+			Database.safeClose(stmt);
+			Database.safeClose(keyRS);
+		}
 	}
 
 	@Override
 	public void updateGameModel(GameModel model) {
-		// TODO Auto-generated method stub
+		String query = "update GameModels set Command = ? where id = ?)";
+		PreparedStatement stmt = null;
+		ResultSet keyRS = null;		
+		try {
+			stmt = database.getConnection().prepareStatement(query);
+			Blob blob = database.getConnection().createBlob();
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
+			objectStream.writeObject(model);
+			blob.setBytes(0, byteStream.toByteArray());
+			stmt.setBlob(1, blob);
+			stmt.setInt(2, model.getGameID());
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not update Game Model");
+			}
+		}
+		catch (SQLException e) {
+			try {
+				throw new DatabaseException("Could not update Game Model", e);
+			} catch (DatabaseException e1) {
+				e1.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		finally {
+			Database.safeClose(stmt);
+			Database.safeClose(keyRS);
+		}
 
 	}
 
 	@Override
 	public void updateGameInfo(GameInfo info) {
-		// TODO Auto-generated method stub
+		String query = "update GameInfos set Command = ? where id = ?)";
+		PreparedStatement stmt = null;
+		ResultSet keyRS = null;		
+		try {
+			stmt = database.getConnection().prepareStatement(query);
+			Blob blob = database.getConnection().createBlob();
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
+			objectStream.writeObject(info);
+			blob.setBytes(0, byteStream.toByteArray());
+			stmt.setBlob(1, blob);
+			stmt.setInt(2, info.getId());
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not update Game info");
+			}
+		}
+		catch (SQLException e) {
+			try {
+				throw new DatabaseException("Could not update Game info", e);
+			} catch (DatabaseException e1) {
+				e1.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		finally {
+			Database.safeClose(stmt);
+			Database.safeClose(keyRS);
+		}
 
 	}
 
@@ -233,6 +357,9 @@ public class SQLGameDAO implements IGameDAO {
 		return infos;
 	}
 
+	
+	//has errors, doesn't use parameter and each blob is a list of commands, not a single command.
+	
 	@Override
 	public List<MoveCommand> getCommands(int gameID) {
 		PreparedStatement stmt = null;
