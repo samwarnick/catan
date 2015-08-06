@@ -115,8 +115,6 @@ public class MoveHandler extends Handler {
 				
 				GameModel model = GameHub.getInstance().getModel(gameId);
 
-				
-
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
 				moveCommand.setInput(json);
@@ -155,6 +153,10 @@ public class MoveHandler extends Handler {
 				writer.close();
 				
 				exchange.getResponseBody().close();
+				
+				// add command to persistence
+				GameHub.getInstance().getGameDAO().addCommand(gameId, moveCommand);
+				
 			} catch (ServerException e) {
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 			}

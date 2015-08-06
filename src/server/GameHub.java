@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.data.GameInfo;
-import client.data.PlayerInfo;
-import server.commands.games.CreateCommand;
-import shared.communication.input.GamesCreateInput;
-import shared.definitions.CatanColor;
+import server.dao.IGameDAO;
+import server.dao.IUserDAO;
 import shared.model.GameModel;
-import shared.model.board.Board;
-import shared.model.player.Player;
 import shared.model.user.User;
 
 public class GameHub {
@@ -19,6 +15,8 @@ public class GameHub {
 	private List<GameInfo> infos;
 	private List<User> users;
 	private static GameHub instance;
+	private IUserDAO userDAO;
+	private IGameDAO gameDAO;
 	
 	private GameHub	(){
 		models = new ArrayList<GameModel>();
@@ -125,6 +123,40 @@ public class GameHub {
 	public void addUser(User user) {
 		user.setId(users.size());
 		users.add(user);
+	}
+
+	public void setUserDAO(IUserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
+	public void setGameDAO(IGameDAO gameDAO) {
+		this.gameDAO = gameDAO;
+	}
+	
+	public IUserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public IGameDAO getGameDAO() {
+		return gameDAO;
+	}
+
+	public void loadData() {
+		loadUsers();
+		loadGameInfos();
+		loadGameModels();
+	}
+	
+	private void loadUsers() {
+		users = userDAO.getUsers();
+	}
+	
+	private void loadGameInfos() {
+		infos = gameDAO.getAllGameInfos();
+	}
+	
+	private void loadGameModels() {
+		models = gameDAO.getAllGameModels();
 	}
 	
 }

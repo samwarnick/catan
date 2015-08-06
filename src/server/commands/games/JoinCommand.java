@@ -53,6 +53,11 @@ public class JoinCommand implements ICommand {
 		} catch (TooManyPlayersException e) {
 			e.printStackTrace();
 		}
+		
+		// update persistence
+		GameHub.getInstance().getGameDAO().updateGameInfo(GameHub.getInstance().getInfo(jgi.getId()));
+		GameHub.getInstance().getGameDAO().updateGameModel(GameHub.getInstance().getModel(jgi.getId()));
+		
 		return jgi.getId();
 	}
 	

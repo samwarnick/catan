@@ -1,11 +1,13 @@
 package server.commands.move;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import server.ServerException;
 import server.commands.ICommand;
 import shared.model.GameModel;
 
 public abstract class MoveCommand implements ICommand {
-	protected GameModel model;
+	@JsonIgnore protected transient GameModel model;
 	protected String input;
 
 	@Override

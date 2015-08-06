@@ -160,13 +160,15 @@
 	</target>
  	
 	<!-- ant our-server {-Dport=<SERVER_PORT_NUMBER>} -->
-	<!-- EXAMPLE: ant our-server -Dport=39640 -->
+	<!-- EXAMPLE: ant our-server -Dport=39640 -Dnum=10 -Dtype=SQL -->
 	<!-- If port number is omitted, run on default port. -->
 	<!-- EXAMPLE: ant our-server -->
 	<target name="our-server" depends="package" description="compiles, packages, and runs the student server">
 		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
 			<arg value="${port}"/>
+			<arg value="${num}"/>
+			<arg value="${type}"/>
 			<assertions>
 				<enable/>
 			</assertions>

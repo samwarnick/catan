@@ -1,7 +1,2 @@
-server
-server.commands
-server.commands.game
-server.commands.games
-server.commands.move
-server.commands.user
-server.handlers
+server.dao
+server.factories

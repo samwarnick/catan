@@ -31,6 +31,11 @@ public class CreateCommand implements ICommand {
 		gi.updatePlayers(model.getPlayers());
 		GameHub.getInstance().addModel(model);
 		GameHub.getInstance().addInfo(gi);
+		
+		// add to persistence
+		GameHub.getInstance().getGameDAO().addGameModel(model);
+		GameHub.getInstance().getGameDAO().addGameInfo(gi);
+		
 		return gi;
 	}
 
