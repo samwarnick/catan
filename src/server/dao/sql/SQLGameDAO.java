@@ -34,6 +34,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -41,6 +42,7 @@ public class SQLGameDAO implements IGameDAO {
 			objectStream.writeObject(model);
 			blob.setBytes(0, byteStream.toByteArray());
 			stmt.setBlob(1, blob);
+			database.endTransaction(true);
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not add Game Model");
 			}
@@ -49,11 +51,13 @@ public class SQLGameDAO implements IGameDAO {
 			try {
 				throw new DatabaseException("Could not add Game Model", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}
 		finally {
@@ -68,6 +72,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -78,16 +83,19 @@ public class SQLGameDAO implements IGameDAO {
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not add Game info");
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			try {
 				throw new DatabaseException("Could not add Game info", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}
 		finally {
@@ -102,6 +110,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -112,16 +121,19 @@ public class SQLGameDAO implements IGameDAO {
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not add COmmand");
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			try {
 				throw new DatabaseException("Could not add COmmand", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}
 		finally {
@@ -130,12 +142,14 @@ public class SQLGameDAO implements IGameDAO {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addCommand(int gameID, MoveCommand command) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<MoveCommand> dbcommands = new ArrayList<MoveCommand>();
 		try {
+			database.startTransaction();
 			String query = "select Command from Commands where GameId = ?";
 			stmt = database.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameID);
@@ -146,6 +160,7 @@ public class SQLGameDAO implements IGameDAO {
 			dbcommands = (ArrayList<MoveCommand>) objectStream.readObject();
 			if(dbcommands.size()==database.getCommandLimit()) dbcommands.clear();
 			dbcommands.add(command);
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			DatabaseException serverEx = new DatabaseException(e.getMessage(), e);
@@ -157,6 +172,9 @@ public class SQLGameDAO implements IGameDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}		
 		finally {
@@ -172,6 +190,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -183,16 +202,19 @@ public class SQLGameDAO implements IGameDAO {
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not update Commands");
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			try {
 				throw new DatabaseException("Could not update Commands", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}
 		finally {
@@ -207,6 +229,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -218,16 +241,19 @@ public class SQLGameDAO implements IGameDAO {
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not update Game Model");
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			try {
 				throw new DatabaseException("Could not update Game Model", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}
 		finally {
@@ -243,6 +269,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -254,16 +281,19 @@ public class SQLGameDAO implements IGameDAO {
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not update Game info");
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			try {
 				throw new DatabaseException("Could not update Game info", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}
 		finally {
@@ -279,6 +309,7 @@ public class SQLGameDAO implements IGameDAO {
 		ResultSet rs = null;
 		ArrayList<GameModel> models = new ArrayList<GameModel>();
 		try {
+			database.startTransaction();
 			String query = "GameModel from GameModels";
 			stmt = database.getConnection().prepareStatement(query);
 			rs = stmt.executeQuery();
@@ -290,17 +321,22 @@ public class SQLGameDAO implements IGameDAO {
 				GameModel model = (GameModel) objectStream.readObject();
 				models.add(model);
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			DatabaseException serverEx = new DatabaseException(e.getMessage(), e);
 			try {
 				throw serverEx;
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}		
 		finally {
@@ -327,6 +363,7 @@ public class SQLGameDAO implements IGameDAO {
 		ResultSet rs = null;
 		ArrayList<GameInfo> infos = new ArrayList<GameInfo>();
 		try {
+			database.startTransaction();
 			String query = "GameInfo from GameInfos";
 			stmt = database.getConnection().prepareStatement(query);
 			rs = stmt.executeQuery();
@@ -338,17 +375,22 @@ public class SQLGameDAO implements IGameDAO {
 				GameInfo info = (GameInfo) objectStream.readObject();
 				infos.add(info);
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			DatabaseException serverEx = new DatabaseException(e.getMessage(), e);
 			try {
 				throw serverEx;
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}		
 		finally {
@@ -368,6 +410,7 @@ public class SQLGameDAO implements IGameDAO {
 		ResultSet rs = null;
 		ArrayList<MoveCommand> commands = new ArrayList<MoveCommand>();
 		try {
+			database.startTransaction();
 			String query = "Command from Commands where GameId = ?";
 			stmt = database.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameID);
@@ -379,17 +422,22 @@ public class SQLGameDAO implements IGameDAO {
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 				commands = (ArrayList<MoveCommand>) objectStream.readObject();
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			DatabaseException serverEx = new DatabaseException(e.getMessage(), e);
 			try {
 				throw serverEx;
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			database.endTransaction(false);
 			e.printStackTrace();
 		}		
 		finally {

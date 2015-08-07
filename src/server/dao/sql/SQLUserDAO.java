@@ -30,6 +30,7 @@ public class SQLUserDAO implements IUserDAO{
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;		
 		try {
+			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
 			Blob blob = database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -37,6 +38,7 @@ public class SQLUserDAO implements IUserDAO{
 			objectStream.writeObject(user);
 			blob.setBytes(0, byteStream.toByteArray());
 			stmt.setBlob(1, blob);
+			database.endTransaction(true);
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not insert user");
 			}
@@ -45,6 +47,7 @@ public class SQLUserDAO implements IUserDAO{
 			try {
 				throw new DatabaseException("Could not insert user", e);
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
@@ -65,6 +68,7 @@ public class SQLUserDAO implements IUserDAO{
 		ResultSet rs = null;
 		ArrayList<User> users = new ArrayList<User>();
 		try {
+			database.startTransaction();
 			String query = "select User from Users ";
 			stmt = database.getConnection().prepareStatement(query);
 			rs = stmt.executeQuery();
@@ -76,17 +80,21 @@ public class SQLUserDAO implements IUserDAO{
 				User user = (User) objectStream.readObject();
 				users.add(user);
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			DatabaseException serverEx = new DatabaseException(e.getMessage(), e);
 			try {
 				throw serverEx;
 			} catch (DatabaseException e1) {
+				database.endTransaction(false);
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}		
 		finally {
