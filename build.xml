@@ -10,6 +10,8 @@
 	
 	<property name="host" value="localhost"/>
 	<property name="port" value="8081"/>
+	<property name="num" value="7"/>
+	<property name="type" value="SQL"/>
      
     <!-- Input folders -->
     <property name="java.src.dir" value="src"/>
@@ -161,7 +163,7 @@
  	
 	<!-- ant our-server {-Dport=<SERVER_PORT_NUMBER>} -->
 	<!-- EXAMPLE: ant our-server -Dport=39640 -Dnum=10 -Dtype=SQL -->
-	<!-- If port number is omitted, run on default port. -->
+	<!-- If port number is omitted, run on default port (8081), command limit of 7, and using SQLxx. -->
 	<!-- EXAMPLE: ant our-server -->
 	<target name="our-server" depends="package" description="compiles, packages, and runs the student server">
 		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">

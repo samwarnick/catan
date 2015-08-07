@@ -47,18 +47,17 @@ public class Server {
 	
 	public static void main(String[] args) {
 		int port = 8081;
-		int n = -1;
-		String persistType = "";
+		int n = 7;
+		String persistType = "SQL";
 		
 		Server server = new Server();
-		
+
 		if (args.length == 3) {
 			port = Integer.parseInt(args[0]);
 			n = Integer.parseInt(args[1]);
 			persistType = args[2];
-			
-			server.setUpPersistence(n, persistType);
 		}
+		server.setUpPersistence(n, persistType);
 		server.run(port);
 	}
 	
