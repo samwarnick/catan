@@ -22,6 +22,12 @@ public class JsonGameDAO implements IGameDAO {
 	}
 
 	@Override
+	public void addCommand(int gameID, MoveCommand command) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public void updateGameModel(GameModel model) {
 		// TODO Auto-generated method stub
 
@@ -51,10 +57,6 @@ public class JsonGameDAO implements IGameDAO {
 		return null;
 	}
 
-	@Override
-	public void addCommand(int gameID, MoveCommand command) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }
