@@ -76,8 +76,10 @@ public class Server {
 		        if(!je.isDirectory() && je.getName().endsWith(".class")){
 		        	String className = je.getName().substring(0,je.getName().length()-6);
 			        className = className.replace('/', '.');
-			        Class c = cl.loadClass(className);
-			        factory = (AbstractFactory) c.newInstance();
+			        if (className.equals("server.factories." + persistType +"Factory")) {
+			        	Class c = cl.loadClass(className);
+			        	factory = (AbstractFactory) c.newInstance();
+			        }
 		        }
 		    }
 			
