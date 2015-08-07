@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.data.GameInfo;
+import server.GameHub;
 import server.ServerException;
 import server.commands.move.MoveCommand;
 import server.dao.IGameDAO;
@@ -148,6 +149,7 @@ public class SQLGameDAO implements IGameDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<MoveCommand> dbcommands = new ArrayList<MoveCommand>();
+		GameModel model = null;
 		try {
 			database.startTransaction();
 			String query = "select Command from Commands where GameId = ?";
@@ -158,7 +160,10 @@ public class SQLGameDAO implements IGameDAO {
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 			ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 			dbcommands = (ArrayList<MoveCommand>) objectStream.readObject();
-			if(dbcommands.size()==database.getCommandLimit()) dbcommands.clear();
+			if(dbcommands.size()==database.getCommandLimit()){
+				dbcommands.clear();
+				model = GameHub.getInstance().getModel(gameID);
+			}
 			dbcommands.add(command);
 			database.endTransaction(true);
 		}
@@ -181,6 +186,9 @@ public class SQLGameDAO implements IGameDAO {
 			Database.safeClose(rs);
 			Database.safeClose(stmt);
 			updateCommands(gameID, dbcommands);
+			if(model!=null){
+				updateGameModel(model);
+			}
 		}
 		
 	}
