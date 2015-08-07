@@ -11,6 +11,7 @@ public class Database {
 	private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
 												File.separator + DATABASE_FILE;
 	private static Logger logger;
+	private static int commandLimit = 10;
 	
 	static {
 		logger = Logger.getLogger("recordindexer");
@@ -34,6 +35,13 @@ public class Database {
 	private SQLUserDAO userDAO;
 	private SQLGameDAO gameDAO;
 	private Connection connection;
+	
+	public Database(int commandLimit) {
+		userDAO = new SQLUserDAO(this);
+		gameDAO = new SQLGameDAO(this);
+		this.commandLimit = commandLimit;
+		connection = null;
+	}
 	
 	public Database() {
 		userDAO = new SQLUserDAO(this);
@@ -117,6 +125,10 @@ public class Database {
 
 	public SQLGameDAO getGameDAO() {
 		return gameDAO;
+	}
+
+	public int getCommandLimit() {
+		return commandLimit;
 	}
 
 

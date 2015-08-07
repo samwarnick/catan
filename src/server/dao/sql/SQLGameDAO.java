@@ -144,6 +144,7 @@ public class SQLGameDAO implements IGameDAO {
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 			ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 			dbcommands = (ArrayList<MoveCommand>) objectStream.readObject();
+			if(dbcommands.size()==database.getCommandLimit()) dbcommands.clear();
 			dbcommands.add(command);
 		}
 		catch (SQLException e) {

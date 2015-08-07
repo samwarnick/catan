@@ -9,7 +9,7 @@ public class SQLFactory implements AbstractFactory {
 
 	@Override
 	public IGameDAO makeGameDAO(int commandLimit) {
-		Database database = new Database();
+		Database database = new Database(commandLimit);
 		try {
 			Database.initialize();
 		} catch (DatabaseException e) {
