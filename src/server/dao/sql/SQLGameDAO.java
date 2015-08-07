@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import client.data.GameInfo;
 import server.GameHub;
 import server.ServerException;
@@ -37,7 +39,7 @@ public class SQLGameDAO implements IGameDAO {
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(model);
@@ -75,7 +77,7 @@ public class SQLGameDAO implements IGameDAO {
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(info);
@@ -113,7 +115,7 @@ public class SQLGameDAO implements IGameDAO {
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(new ArrayList<MoveCommand>());
@@ -156,7 +158,7 @@ public class SQLGameDAO implements IGameDAO {
 			stmt = database.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameID);
 			rs = stmt.executeQuery();
-			Blob blob = rs.getBlob(1);
+			SerialBlob blob = (SerialBlob) rs.getBlob(1);
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 			ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 			dbcommands = (ArrayList<MoveCommand>) objectStream.readObject();
@@ -200,7 +202,7 @@ public class SQLGameDAO implements IGameDAO {
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(commands);
@@ -239,7 +241,7 @@ public class SQLGameDAO implements IGameDAO {
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(model);
@@ -279,7 +281,7 @@ public class SQLGameDAO implements IGameDAO {
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(info);
@@ -323,7 +325,7 @@ public class SQLGameDAO implements IGameDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				
-				Blob blob = rs.getBlob(1);
+				SerialBlob blob = (SerialBlob) rs.getBlob(1);
 				ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 				GameModel model = (GameModel) objectStream.readObject();
@@ -377,7 +379,7 @@ public class SQLGameDAO implements IGameDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				
-				Blob blob = rs.getBlob(1);
+				SerialBlob blob = (SerialBlob) rs.getBlob(1);
 				ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 				GameInfo info = (GameInfo) objectStream.readObject();
@@ -425,7 +427,7 @@ public class SQLGameDAO implements IGameDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				
-				Blob blob = rs.getBlob(1);
+				SerialBlob blob = (SerialBlob) rs.getBlob(1);
 				ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 				commands = (ArrayList<MoveCommand>) objectStream.readObject();

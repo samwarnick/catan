@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import server.dao.IUserDAO;
 import shared.model.user.User;
 
@@ -32,7 +34,7 @@ public class SQLUserDAO implements IUserDAO{
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			Blob blob = database.getConnection().createBlob();
+			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(user);
@@ -74,7 +76,7 @@ public class SQLUserDAO implements IUserDAO{
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				
-				Blob blob = rs.getBlob(1);
+				SerialBlob blob = (SerialBlob) rs.getBlob(1);
 				ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 				User user = (User) objectStream.readObject();
