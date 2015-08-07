@@ -318,7 +318,7 @@ public class SQLGameDAO implements IGameDAO {
 		ArrayList<GameModel> models = new ArrayList<GameModel>();
 		try {
 			database.startTransaction();
-			String query = "GameModel from GameModels";
+			String query = "select GameModel from GameModels";
 			stmt = database.getConnection().prepareStatement(query);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -372,7 +372,7 @@ public class SQLGameDAO implements IGameDAO {
 		ArrayList<GameInfo> infos = new ArrayList<GameInfo>();
 		try {
 			database.startTransaction();
-			String query = "GameInfo from GameInfos";
+			String query = "select GameInfo from GameInfos";
 			stmt = database.getConnection().prepareStatement(query);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -419,7 +419,7 @@ public class SQLGameDAO implements IGameDAO {
 		ArrayList<MoveCommand> commands = new ArrayList<MoveCommand>();
 		try {
 			database.startTransaction();
-			String query = "Command from Commands where GameId = ?";
+			String query = "select Command from Commands where GameId = ?";
 			stmt = database.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameID);
 			rs = stmt.executeQuery();
