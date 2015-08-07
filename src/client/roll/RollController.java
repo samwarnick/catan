@@ -74,7 +74,7 @@ public class RollController extends Controller implements IRollController {
 					&& ModelController.getInstance().getClientPlayer().getPlayerID().getPlayerid() == ModelController.getInstance().getGameModelFacade().getGameModel().getTurnTracker().getCurrentTurn()){
 				if (!getRollView().isModalShowing()) {
 					getRollView().showModal();
-					startTimer();
+					//startTimer();
 				}
 				
 			} else if (getRollView().isModalShowing()) {
