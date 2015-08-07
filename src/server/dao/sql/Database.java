@@ -6,7 +6,7 @@ import java.util.logging.*;
 
 public class Database {
 
-	private static final String DATABASE_DIRECTORY = "lib/Persistance/DataBase";
+	private static final String DATABASE_DIRECTORY = "persistence/DataBase";
 	private static final String DATABASE_FILE = "SettlersOfCatanRBase.sqlite";
 	private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
 												File.separator + DATABASE_FILE;

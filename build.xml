@@ -96,6 +96,7 @@
 	<property name="java.build" location="build"/>
 	<property name="java.dist" location="dist"/>
 	<property name="java.lib" location="lib"/>
+	<property name="java.persist" location="Persistance"/>
  
 	<target name="init" description="create build directories">
 		<tstamp/>
@@ -121,6 +122,12 @@
 		<mkdir dir="${java.dist}/lib"/>
 		<copy todir="${java.dist}/lib">
 			<fileset dir="${java.lib}">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${java.dist}/persistence"/>
+		<copy todir="${java.dist}/persistence">
+			<fileset dir="${java.persist}">
 				<include name="**"/>
 			</fileset>
 		</copy>
