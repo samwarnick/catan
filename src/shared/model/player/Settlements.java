@@ -1,12 +1,15 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Spencer Krieger
  * 
  *Contains a list of Settlement and keeps track of how many settlements the player has left.
  */
-public class Settlements {
+@SuppressWarnings("serial")
+public class Settlements implements Serializable{
 
 	
 	private int settlementsLeft;

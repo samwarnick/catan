@@ -1,6 +1,8 @@
 package shared.model.bank;
 
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import shared.definitions.DevCardType;
@@ -18,7 +20,8 @@ import shared.definitions.ResourceType;
  *setters and methods to query their value.
  *
  */
-public class Bank {
+@SuppressWarnings("serial")
+public class Bank implements Serializable{
 	
 	protected ResourceCard brick;
 	protected ResourceCard wood;

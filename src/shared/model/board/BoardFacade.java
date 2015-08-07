@@ -1,5 +1,6 @@
 package shared.model.board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,8 @@ import shared.model.ratios.*;
  * @author Spencer Krieger
  *
  */
-public class BoardFacade {
+@SuppressWarnings("serial")
+public class BoardFacade implements Serializable{
 
 	@JsonIgnore private Board board;
 	

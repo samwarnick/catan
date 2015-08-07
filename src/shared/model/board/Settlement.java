@@ -1,4 +1,7 @@
 package shared.model.board;
+import java.io.Serializable;
+
+
 /**
  * 
  * @author jordanJohnson
@@ -6,7 +9,8 @@ package shared.model.board;
  */
 import shared.locations.VertexLocation;
 
-public class Settlement extends Vertex{
+@SuppressWarnings("serial")
+public class Settlement extends Vertex implements Serializable{
 	
 	
 	public Settlement() {

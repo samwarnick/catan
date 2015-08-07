@@ -1,5 +1,7 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import client.data.PlayerInfo;
@@ -13,7 +15,8 @@ import shared.model.ratios.TradeRatios;
  * @author Spencer Krieger
  * Represents a player.  Has everything a player would have.
  */
-public class Player {
+@SuppressWarnings("serial")
+public class Player implements Serializable{
 	
 	private PlayerBank playerBank;
 	private LongestRoad longestRoad;

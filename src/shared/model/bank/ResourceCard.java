@@ -1,5 +1,7 @@
 package shared.model.bank;
 
+import java.io.Serializable;
+
 import shared.definitions.ResourceType;
 
 /**
@@ -8,7 +10,8 @@ import shared.definitions.ResourceType;
  *The ResourceCard card holds only its quantity, which cannot exceed 19.
  *
  */
-public class ResourceCard {
+@SuppressWarnings("serial")
+public class ResourceCard implements Serializable{
 	
 	private int quantity;
 	private ResourceType type;

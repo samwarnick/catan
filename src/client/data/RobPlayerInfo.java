@@ -1,5 +1,7 @@
 package client.data;
 
+import java.io.Serializable;
+
 /**
  * Used to pass player information into the rob view<br>
  * <br>
@@ -13,7 +15,8 @@ package client.data;
  * </ul>
  * 
  */
-public class RobPlayerInfo extends PlayerInfo
+@SuppressWarnings("serial")
+public class RobPlayerInfo extends PlayerInfo implements Serializable
 {
 	
 	private int numCards;

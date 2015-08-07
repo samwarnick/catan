@@ -1,9 +1,12 @@
 package shared.model.board;
 
+import java.io.Serializable;
+
 import shared.definitions.HexType;
 import shared.locations.HexLocation;
 
-public class ResourceHex extends Hex {
+@SuppressWarnings("serial")
+public class ResourceHex extends Hex implements Serializable{
 
 	private int numberToken;
 

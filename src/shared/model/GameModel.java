@@ -1,5 +1,6 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,8 @@ import shared.model.player.VictoryPoints;
  * @author samwarnick
  *
  */
-public class GameModel {
+@SuppressWarnings("serial")
+public class GameModel implements Serializable{
 	
 	private int gameID;
 	private int gameVersion;

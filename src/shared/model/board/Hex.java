@@ -1,9 +1,12 @@
 package shared.model.board;
 
+import java.io.Serializable;
+
 import shared.definitions.HexType;
 import shared.locations.HexLocation;
 
-public class Hex {
+@SuppressWarnings("serial")
+public class Hex implements Serializable{
 
 	private HexType landType;
 	private HexLocation location;

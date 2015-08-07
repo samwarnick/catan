@@ -8,10 +8,10 @@ import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.rowset.serial.SerialBlob;
 
 import server.dao.IUserDAO;
 import shared.model.user.User;
@@ -29,20 +29,22 @@ public class SQLUserDAO implements IUserDAO{
 	public void addUser(User user) {
 		String query = "insert into Users (User) values ( ?)";
 		PreparedStatement stmt = null;
-		ResultSet keyRS = null;		
 		try {
 			database.startTransaction();
 			stmt = database.getConnection().prepareStatement(query);
-			SerialBlob blob = (SerialBlob) database.getConnection().createBlob();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(user);
-			blob.setBytes(0, byteStream.toByteArray());
-			stmt.setBlob(1, blob);
-			database.endTransaction(true);
+			byte[] array = byteStream.toByteArray();
+			stmt.setBytes(1, array);
+			
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not insert user");
 			}
+			database.endTransaction(true);
+		}
+		catch (SQLFeatureNotSupportedException e){
+			e.printStackTrace();
 		}
 		catch (SQLException e) {
 			try {
@@ -51,7 +53,8 @@ public class SQLUserDAO implements IUserDAO{
 				database.endTransaction(false);
 				e1.printStackTrace();
 			}
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		} catch (DatabaseException e) {
 			e.printStackTrace();
@@ -73,8 +76,7 @@ public class SQLUserDAO implements IUserDAO{
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				
-				SerialBlob blob = (SerialBlob) rs.getBlob(1);
-				ByteArrayInputStream byteStream = new ByteArrayInputStream(blob.getBytes(0, (int) blob.length()));
+				ByteArrayInputStream byteStream = new ByteArrayInputStream(rs.getBytes(1));
 				ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 				User user = (User) objectStream.readObject();
 				users.add(user);

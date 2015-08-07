@@ -1,10 +1,14 @@
 package shared.model.player;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author Spencer Krieger
  * keeps track of the number of roads a player has and who has the longest road
  */
-public class LongestRoad {
+@SuppressWarnings("serial")
+public class LongestRoad implements Serializable{
 	
 	private int numRoads;
 	private boolean hasLongestRoad;

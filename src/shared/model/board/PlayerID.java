@@ -1,6 +1,9 @@
 package shared.model.board;
 
-public class PlayerID {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class PlayerID implements Serializable{
 
 	private int playerid;
 	

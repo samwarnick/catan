@@ -1,5 +1,7 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 
 /**
  * 
@@ -8,7 +10,8 @@ package shared.model.player;
  *keeps track of the total number of victory point a player has.
  *keeps track of the total number of visible victory points a player has.
  */
-public class VictoryPoints {
+@SuppressWarnings("serial")
+public class VictoryPoints implements Serializable{
 	
 	private int totalVictoryPoints;
 	private int publicVictoryPoints;

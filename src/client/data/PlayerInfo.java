@@ -1,5 +1,7 @@
 package client.data;
 
+import java.io.Serializable;
+
 import shared.definitions.*;
 
 /**
@@ -14,7 +16,8 @@ import shared.definitions.*;
  * </ul>
  * 
  */
-public class PlayerInfo
+@SuppressWarnings("serial")
+public class PlayerInfo implements Serializable
 {
 	
 	private int id;

@@ -1,11 +1,14 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Spencer Krieger
  * keeps track of the number of soldiers a player has and who has the largest army
  */
-public class LargestArmy {
+@SuppressWarnings("serial")
+public class LargestArmy implements Serializable{
 	
 	private int numSoldiers;
 	private boolean hasLargestArmy;

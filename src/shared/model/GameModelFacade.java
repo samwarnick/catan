@@ -1,5 +1,6 @@
 package shared.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import shared.definitions.ResourceType;
@@ -14,7 +15,8 @@ import shared.model.player.Player;
  * @author Spencer Krieger
  *
  */
-public class GameModelFacade {
+@SuppressWarnings("serial")
+public class GameModelFacade implements Serializable{
 
 	private GameModel gameModel;
 	private static GameModelFacade gameModelFacade = null;

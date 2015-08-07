@@ -1,5 +1,6 @@
 package shared.model.ratios;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,7 +13,8 @@ import shared.definitions.ResourceType;
  * This class contains a map of TradeRatio organized by ResourceType.
  * 
  */
-public class TradeRatios {
+@SuppressWarnings("serial")
+public class TradeRatios implements Serializable{
 
 	private HashMap<ResourceType, TradeRatio> tradeRatios;
 	

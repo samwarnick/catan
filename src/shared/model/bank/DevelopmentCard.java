@@ -1,5 +1,7 @@
 package shared.model.bank;
 
+import java.io.Serializable;
+
 import shared.definitions.DevCardType;
 
 /**
@@ -9,7 +11,8 @@ import shared.definitions.DevCardType;
  *said type.
  *
  */
-public class DevelopmentCard {
+@SuppressWarnings("serial")
+public class DevelopmentCard implements Serializable{
 
 	private int limit;
 	private int quantity;

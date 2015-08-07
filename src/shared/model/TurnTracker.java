@@ -1,6 +1,9 @@
 package shared.model;
 
-public class TurnTracker {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class TurnTracker implements Serializable{
 
 	private int currentTurn;
 	private String status;

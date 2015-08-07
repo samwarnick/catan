@@ -1,5 +1,6 @@
 package shared.model.board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +15,8 @@ import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 
-public class Board {
+@SuppressWarnings("serial")
+public class Board implements Serializable{
 	
 	private List<ResourceHex> resourceHexes;
 	@JsonIgnore private transient Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();

@@ -1,5 +1,6 @@
 package client.data;
 
+import java.io.Serializable;
 import java.util.*;
 
 import shared.definitions.CatanColor;
@@ -16,7 +17,8 @@ import shared.model.player.Player;
  * </ul>
  * 
  */
-public class GameInfo
+@SuppressWarnings("serial")
+public class GameInfo implements Serializable
 {
 	private int id;
 	private String title;

@@ -1,5 +1,6 @@
 package shared.locations;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;;
@@ -7,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;;
 /**
  * Represents the location of a vertex on a hex map
  */
-public class VertexLocation
+@SuppressWarnings("serial")
+public class VertexLocation implements Serializable
 {
 	
 	private HexLocation hexLoc;

@@ -1,6 +1,9 @@
 package shared.model.bank;
 
-public class DevelopmentHand {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class DevelopmentHand implements Serializable{
 	
 	private int soldier;
 	private int monument;

@@ -1,5 +1,7 @@
 package shared.model.ratios;
 
+import java.io.Serializable;
+
 import shared.definitions.ResourceType;
 
 /**
@@ -8,7 +10,8 @@ import shared.definitions.ResourceType;
  * This class contains a ratio for maritime trade.
  * 
  */
-public class TradeRatio {
+@SuppressWarnings("serial")
+public class TradeRatio implements Serializable{
 
 	private int ratio;
 	private ResourceType type;

@@ -1,5 +1,7 @@
 package shared.model.board;
 
+import java.io.Serializable;
+
 import shared.locations.HexLocation;
 
 /**
@@ -7,7 +9,8 @@ import shared.locations.HexLocation;
  * @author samwarnick
  *
  */
-public class Robber {
+@SuppressWarnings("serial")
+public class Robber implements Serializable{
 
 	private HexLocation location;
 	

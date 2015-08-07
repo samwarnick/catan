@@ -1,5 +1,7 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 import shared.definitions.ResourceType;
 import shared.model.bank.ResourceHand;
 /**
@@ -7,7 +9,8 @@ import shared.model.bank.ResourceHand;
  * @author Spencer Krieger
  *
  */
-public class ActivePlayerFacade implements IPlayerFacade{
+@SuppressWarnings("serial")
+public class ActivePlayerFacade implements IPlayerFacade,Serializable{
 
 	private Player player;
 	

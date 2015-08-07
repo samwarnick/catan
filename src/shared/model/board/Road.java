@@ -5,9 +5,12 @@ package shared.model.board;
  *
  */
 
+import java.io.Serializable;
+
 import shared.locations.EdgeLocation;
 
-public class Road extends Edge{
+@SuppressWarnings("serial")
+public class Road extends Edge implements Serializable{
 	
 	public Road() {
 		

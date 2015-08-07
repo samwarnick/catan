@@ -14,6 +14,7 @@ import shared.definitions.DevCardType;
  *manipulate this array.
  *
  */
+@SuppressWarnings("serial")
 public class PlayerBank extends Bank {
 	
 	private DevelopmentCard newSoldier;

@@ -1,5 +1,7 @@
 package shared.model.bank;
 
+import java.io.Serializable;
+
 import shared.definitions.ResourceType;
 
 /**
@@ -8,7 +10,8 @@ import shared.definitions.ResourceType;
  * @author Matt
  * 
  */
-public class ResourceHand {
+@SuppressWarnings("serial")
+public class ResourceHand implements Serializable{
 
 	private int brick;
 	private int wood;

@@ -1,7 +1,11 @@
 package shared.model.board;
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+
 
 /**
  * 
@@ -10,12 +14,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  */
 import shared.locations.VertexLocation;
 
+@SuppressWarnings("serial")
 @JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="type")
 @JsonSubTypes({
 	@Type(value = Settlement.class, name = "settlement"),
 	@Type(value = City.class, name = "city")
 })
-public class Vertex {
+public class Vertex implements Serializable{
 	private PlayerID owner;
 	private VertexLocation location;
 

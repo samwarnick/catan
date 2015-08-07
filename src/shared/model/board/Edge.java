@@ -1,4 +1,7 @@
 package shared.model.board;
+import java.io.Serializable;
+
+
 /**
  * 
  * @author jordanJohnson
@@ -6,7 +9,8 @@ package shared.model.board;
  */
 import shared.locations.EdgeLocation;
 
-public class Edge {
+@SuppressWarnings("serial")
+public class Edge implements Serializable{
 
 	private PlayerID owner;
 	private EdgeLocation location;

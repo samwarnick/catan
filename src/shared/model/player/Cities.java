@@ -1,12 +1,15 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 
 /**
  * 
  * @author Spencer Krieger
  * Contains a list of City and keeps track of how many cities the player has left.
  */
-public class Cities {
+@SuppressWarnings("serial")
+public class Cities implements Serializable{
 	
 	private int citiesLeft;
 	

@@ -1,12 +1,15 @@
 package shared.model.player;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Spencer Krieger
  * 
  * Contains a list of Road and keeps track of how many roads the player has left.
  */
-public class Roads {
+@SuppressWarnings("serial")
+public class Roads implements Serializable{
 	
 	private int roadsLeft;
 	

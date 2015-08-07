@@ -1,5 +1,6 @@
 package shared.model.board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,8 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class PortHex extends WaterHex {
+@SuppressWarnings("serial")
+public class PortHex extends WaterHex implements Serializable{
 
 	private PortType portType;
 	private int ratio;
