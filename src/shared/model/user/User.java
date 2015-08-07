@@ -1,6 +1,9 @@
 package shared.model.user;
 
-public class User {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class User implements Serializable{
 	private String username;
 	private String password;
 	private int id;

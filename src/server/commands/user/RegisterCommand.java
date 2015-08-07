@@ -14,7 +14,6 @@ public class RegisterCommand implements ICommand {
 	public Object execute(String input) throws ServerException {
 		UserRegisterInput registerInput = new Gson().fromJson(input, UserRegisterInput.class);
 		User newUser = GameHub.getInstance().registerUser(registerInput.getUsername(), registerInput.getPassword());
-		GameHub.getInstance().getUserDAO().addUser(newUser);
 		return newUser;
 	}
 

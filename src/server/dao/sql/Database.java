@@ -6,7 +6,7 @@ import java.util.logging.*;
 
 public class Database {
 
-	private static final String DATABASE_DIRECTORY = "persistence/DataBase";
+	private static final String DATABASE_DIRECTORY = "dist/persistence/DataBase";
 	private static final String DATABASE_FILE = "SettlersOfCatanRBase.sqlite";
 	private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
 												File.separator + DATABASE_FILE;
@@ -54,6 +54,7 @@ public class Database {
 	}
 
 	public void startTransaction() throws DatabaseException {
+		System.out.println("I'm starting a transaction!");
 		try {
 			assert (connection == null);			
 			connection = DriverManager.getConnection(DATABASE_URL);
@@ -66,6 +67,7 @@ public class Database {
 	}
 	
 	public void endTransaction(boolean commit) {
+		System.out.println("I'm ending a transaction!");
 		if (connection != null) {		
 			try {
 				if (commit) {

@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,10 +44,10 @@ public class SQLGameDAO implements IGameDAO {
 			objectStream.writeObject(model);
 			blob.setBytes(0, byteStream.toByteArray());
 			stmt.setBlob(1, blob);
-			database.endTransaction(true);
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not add Game Model");
 			}
+			database.endTransaction(true);
 		}
 		catch (SQLException e) {
 			try {
@@ -64,8 +63,7 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
+			
 		}
 	}
 
@@ -102,8 +100,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
 		}
 
 	}
@@ -140,8 +136,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
 		}
 	}
 	
@@ -185,8 +179,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}		
 		finally {
-			Database.safeClose(rs);
-			Database.safeClose(stmt);
 			updateCommands(gameID, dbcommands);
 			if(model!=null){
 				updateGameModel(model);
@@ -228,8 +220,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
 		}
 	}
 
@@ -267,8 +257,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
 		}
 
 	}
@@ -307,8 +295,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
 		}
 
 	}
@@ -350,8 +336,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}		
 		finally {
-			Database.safeClose(rs);
-			Database.safeClose(stmt);
 		}
 		for (GameModel model : models){
 			List<MoveCommand> commands = getCommands(model.getGameID());
@@ -404,8 +388,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}		
 		finally {
-			Database.safeClose(rs);
-			Database.safeClose(stmt);
 		}
 		return infos;
 	}
@@ -451,8 +433,6 @@ public class SQLGameDAO implements IGameDAO {
 			e.printStackTrace();
 		}		
 		finally {
-			Database.safeClose(rs);
-			Database.safeClose(stmt);
 		}
 		return commands;	
 	}

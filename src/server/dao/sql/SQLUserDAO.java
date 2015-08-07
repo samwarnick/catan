@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,8 +57,6 @@ public class SQLUserDAO implements IUserDAO{
 			e.printStackTrace();
 		}
 		finally {
-			Database.safeClose(stmt);
-			Database.safeClose(keyRS);
 		}
 		
 	}
@@ -100,8 +97,6 @@ public class SQLUserDAO implements IUserDAO{
 			e.printStackTrace();
 		}		
 		finally {
-			Database.safeClose(rs);
-			Database.safeClose(stmt);
 		}
 		return users;	}
 

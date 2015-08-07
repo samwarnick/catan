@@ -23,11 +23,11 @@ public class GameHub {
 		infos = new ArrayList<GameInfo>();
 		users = new ArrayList<User>();
 		
-		addUser(new User("Spencer","spencer"));
-		addUser(new User("Sam","sam"));
-		addUser(new User("Isaac","isaac"));
-		addUser(new User("Jordan","jordan"));
-		addUser(new User("Matt","matt"));
+//		addUser(new User("Spencer","spencer"));
+//		addUser(new User("Sam","sam"));
+//		addUser(new User("Isaac","isaac"));
+//		addUser(new User("Jordan","jordan"));
+//		addUser(new User("Matt","matt"));
 		
 		
 //		ArrayList<PlayerInfo> infos = new ArrayList<PlayerInfo>();
@@ -123,6 +123,7 @@ public class GameHub {
 	public void addUser(User user) {
 		user.setId(users.size());
 		users.add(user);
+		userDAO.addUser(user);
 	}
 
 	public void setUserDAO(IUserDAO userDAO) {
