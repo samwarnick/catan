@@ -3,10 +3,8 @@ package client.proxy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import server.ServerException;
 import shared.communication.input.GameModelVersionInput;
-import shared.communication.input.GameResetInput;
 import shared.communication.input.GamesJoinInput;
 import shared.communication.input.UserLoginInput;
 import shared.definitions.CatanColor;

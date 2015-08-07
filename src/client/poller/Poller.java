@@ -1,6 +1,5 @@
 package client.poller;
 
-import java.util.Timer;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Poller {
 
-	private Timer timer;
 	private ScheduledThreadPoolExecutor executor;
 	
 	public Poller(){

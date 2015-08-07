@@ -2,16 +2,9 @@ package server.commands.move;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
-import server.commands.ICommand;
-import shared.communication.input.Input;
-import shared.communication.input.move.PlaySoldierInput;
 import shared.communication.input.move.RobPlayerInput;
-import shared.communication.input.move.RollNumberInput;
 import shared.definitions.ResourceType;
 import shared.locations.HexLocation;
 import shared.model.GameModel;
@@ -54,7 +47,6 @@ public class RobPlayerCommand extends MoveCommand {
 			{
 				//System.out.println("f");
 				Player victim = model.getPlayer(new PlayerID(victimIndex));
-				Player aggressor = model.getPlayer(new PlayerID(aggressorIndex));
 				if(CheckIfVictimHasCard(ResourceType.BRICK, victim))
 				{
 					giveReasource(ResourceType.BRICK, victimIndex, aggressorIndex);

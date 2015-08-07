@@ -1,7 +1,5 @@
 package server.commands.games;
 
-import client.data.PlayerInfo;
-
 import com.google.gson.Gson;
 
 import server.GameHub;

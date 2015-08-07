@@ -6,10 +6,8 @@ import java.util.Random;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import shared.communication.input.move.BuildCityInput;
 import shared.communication.input.move.BuyDevCardInput;
 import shared.definitions.DevCardType;
-import shared.locations.VertexLocation;
 import shared.model.bank.DevelopmentHand;
 import shared.model.bank.ResourceHand;
 import shared.model.board.PlayerID;
@@ -36,7 +34,6 @@ public class BuyDevCardCommand extends MoveCommand {
 		ArrayList<Integer> empties = new ArrayList<Integer>();
 		Random rand = new Random();
 		DevCardType dct = null;
-		String name = null;
 		DevelopmentHand dh = new DevelopmentHand();
 	    int randomNum;
 	    try{

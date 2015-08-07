@@ -34,7 +34,6 @@ import shared.model.player.Player;
 import shared.model.player.Roads;
 import shared.model.player.Settlements;
 import shared.model.player.VictoryPoints;
-import shared.model.ratios.TradeRatios;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -335,7 +334,7 @@ public class JsonParserTest {
 	private void testPlayer(List<Player> player)
 	{
 		assertEquals(4, player.size());
-		PlayerBank bank = player.get(0).getPlayerBank();
+//		PlayerBank bank = player.get(0).getPlayerBank();
 		//playerBank
 		List<PlayerBank> playerbanks = new ArrayList<PlayerBank>();
 		playerbanks.add(player.get(0).getPlayerBank());
@@ -397,7 +396,7 @@ public class JsonParserTest {
 		assertEquals(player.get(2).getName(), "Pete");
 		assertEquals(player.get(3).getName(), "Mark");
 		//tradeRatios
-		TradeRatios tradeRatios = player.get(0).getTradeRatios();
+//		TradeRatios tradeRatios = player.get(0).getTradeRatios();
 		
 		
 		

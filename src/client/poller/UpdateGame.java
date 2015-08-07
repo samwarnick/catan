@@ -1,7 +1,5 @@
 package client.poller;
 
-import java.util.TimerTask;
-
 import server.ServerException;
 import shared.communication.input.GameModelVersionInput;
 import shared.model.GameModel;

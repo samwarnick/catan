@@ -3,13 +3,8 @@ package server.commands.move;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
-import server.ServerException;
-import server.commands.ICommand;
-import shared.communication.input.Input;
 import shared.communication.input.move.DiscardCardsInput;
-import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;

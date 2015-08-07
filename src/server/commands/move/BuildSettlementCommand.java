@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import server.ServerException;
 import shared.communication.input.move.BuildSettlementInput;
-import shared.communication.input.move.SendChatInput;
 import shared.locations.VertexLocation;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;

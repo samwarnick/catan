@@ -22,7 +22,6 @@ import shared.model.board.Road;
 import shared.model.board.Settlement;
 import shared.model.board.Vertex;
 import shared.model.player.Player;
-import shared.model.player.Roads;
 
 public class BoardFacadeTest {
 	

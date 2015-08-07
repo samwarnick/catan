@@ -1,7 +1,5 @@
 package shared.communication.input.move;
 
-import com.sun.jndi.url.dns.dnsURLContext;
-
 import shared.model.bank.ResourceHand;
 
 /**

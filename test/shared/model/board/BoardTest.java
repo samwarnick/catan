@@ -10,12 +10,6 @@ import org.junit.Test;
 
 import shared.definitions.PortType;
 import shared.definitions.HexType;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
-import shared.model.board.*;
-
 
 public class BoardTest {
 	

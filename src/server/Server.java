@@ -1,10 +1,7 @@
 package server;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
@@ -61,7 +58,7 @@ public class Server {
 		server.run(port);
 	}
 	
-	@SuppressWarnings("resource")
+	@SuppressWarnings({ "rawtypes", "resource" })
 	private void setUpPersistence(int n, String persistType) {
 		try {
 //			String path = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toString();

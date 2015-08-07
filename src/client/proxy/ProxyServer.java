@@ -1,14 +1,12 @@
 package client.proxy;
 
 import java.io.IOException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import client.data.GameInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import server.*;
@@ -17,7 +15,6 @@ import shared.communication.input.move.*;
 import shared.model.GameModel;
 import shared.model.board.BoardFacade;
 import shared.model.player.InactivePlayerFacade;
-import shared.model.player.Player;
 
 public class ProxyServer implements IServerFacade {
 

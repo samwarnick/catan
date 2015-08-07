@@ -3,14 +3,8 @@ package server.commands.move;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
-import server.commands.ICommand;
-import shared.communication.input.Input;
-import shared.communication.input.move.PlayMonopolyInput;
 import shared.communication.input.move.PlayMonumentInput;
-import shared.communication.input.move.SendChatInput;
-import shared.definitions.DevCardType;
 import shared.model.GameModel;
 import shared.model.bank.BankException;
 import shared.model.bank.DevelopmentHand;

@@ -1,8 +1,6 @@
 package server.commands.game;
 
-import server.GameHub;
 import server.commands.ICommand;
-import shared.communication.input.Input;
 
 public class ModelCommand implements ICommand {
 	

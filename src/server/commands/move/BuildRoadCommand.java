@@ -3,11 +3,9 @@ package server.commands.move;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import server.ServerException;
 import shared.communication.input.move.BuildRoadInput;
-import shared.communication.input.move.SendChatInput;
 import shared.locations.EdgeLocation;
 import shared.model.bank.BankException;
 import shared.model.bank.ResourceHand;

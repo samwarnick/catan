@@ -7,7 +7,6 @@ import client.data.GameInfo;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import client.data.GameInfo;
 import server.IServerFacade;
 import server.ServerException;
 import shared.communication.input.*;
@@ -17,7 +16,6 @@ import shared.model.JsonParser;
 
 public class MockProxyServer implements IServerFacade {
 
-	private GameModel model;
 	private static MockProxyServer instance = null;
 	
 	public static MockProxyServer getInstance() {

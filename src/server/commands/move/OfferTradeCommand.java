@@ -3,13 +3,9 @@ package server.commands.move;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import client.domestic.Trade;
-import server.commands.ICommand;
-import shared.communication.input.Input;
 import shared.communication.input.move.OfferTradeInput;
-import shared.communication.input.move.SendChatInput;
 import shared.model.GameModel;
 
 public class OfferTradeCommand extends MoveCommand {
