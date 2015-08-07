@@ -19,13 +19,13 @@ import server.ServerException;
 import server.commands.move.MoveCommand;
 import server.dao.IGameDAO;
 import shared.model.GameModel;
-import shared.model.user.User;
 
 public class SQLGameDAO implements IGameDAO {
 	
 	private Database database;
 	
 	public SQLGameDAO(Database database) {
+		this.database = database;
 	}
 
 	@Override
