@@ -11,7 +11,7 @@ public class Database {
 	private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
 												File.separator + DATABASE_FILE;
 	private static Logger logger;
-	private static int commandLimit = 10;
+	private int commandLimit = 10;
 	
 	static {
 		logger = Logger.getLogger("recordindexer");
