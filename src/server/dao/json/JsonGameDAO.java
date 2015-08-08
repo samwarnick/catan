@@ -7,13 +7,19 @@ import java.util.List;
 
 import client.data.GameInfo;
 import server.GameHub;
+import server.ServerException;
 import server.commands.move.MoveCommand;
 import server.dao.IGameDAO;
 import shared.model.GameModel;
 
 //import org.apache.commons.io.FileUtils;
 
+
+
+
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonGameDAO implements IGameDAO {
@@ -126,20 +132,79 @@ public class JsonGameDAO implements IGameDAO {
 
 	@Override
 	public List<GameModel> getAllGameModels() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GameModel> models = new ArrayList<GameModel>();
+		//for each file
+	    File directory = new File("Persistance" + File.separator + "Json");
+	    File [] listOfDirectories = directory.listFiles();
+		for(int i = 0; i < listOfDirectories.length; i++)
+		{
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				//get the game model
+				GameModel model = mapper.readValue(new File(path + i + File.separator + "model.json"), GameModel.class);
+				//get that games commands
+				List<MoveCommand> commands = getCommands(i);
+				//and execute those commands
+				for(MoveCommand command: commands)
+				{
+					command.setGameModel(model);
+					try {
+						command.execute(command.getInput());
+					} catch (ServerException e) {
+						e.printStackTrace();
+					}
+				}
+				//add to List
+				models.add(model);
+			} catch (JsonParseException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return models;
 	}
 
 	@Override
 	public List<GameInfo> getAllGameInfos() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GameInfo> infos = new ArrayList<GameInfo>();
+		//for each file
+	    File directory = new File("Persistance" + File.separator + "Json");
+	    File [] listOfDirectories = directory.listFiles();
+		for(int i = 0; i < listOfDirectories.length; i++)
+		{
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				GameInfo info = mapper.readValue(new File(path + i + File.separator + "info.json"), GameInfo.class);
+				infos.add(info);
+			} catch (JsonParseException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	
+		}
+		return infos;
 	}
 
 	@Override
 	public List<MoveCommand> getCommands(int gameID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<MoveCommand> commands = new ArrayList<MoveCommand>();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			commands = mapper.readValue(new File(path + gameID + File.separator + "commands.json"), new TypeReference<List<MoveCommand>>(){});
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return commands;
 	}
 
 
