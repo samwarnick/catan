@@ -1,12 +1,15 @@
 package server.commands.user;
 
+import java.io.Serializable;
+
 import com.google.gson.Gson;
 
 import server.GameHub;
 import server.commands.ICommand;
 import shared.communication.input.UserLoginInput;
 
-public class LoginCommand implements ICommand {
+@SuppressWarnings("serial")
+public class LoginCommand implements ICommand,Serializable{
 
 	@Override
 	public Object execute(String input) {

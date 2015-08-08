@@ -1,9 +1,12 @@
 package server.commands.games;
 
+import java.io.Serializable;
+
 import server.GameHub;
 import server.commands.ICommand;
 
-public class ListCommand implements ICommand{
+@SuppressWarnings("serial")
+public class ListCommand implements ICommand, Serializable{
 	
 	/**
 	 * @pre no preconditions

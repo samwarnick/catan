@@ -371,7 +371,6 @@ public class SQLGameDAO implements IGameDAO {
 	}
 
 	
-	//has errors, doesn't use parameter and each blob is a list of commands, not a single command.
 	
 	@SuppressWarnings("unchecked")
 	@Override

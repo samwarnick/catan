@@ -1,5 +1,7 @@
 package server.commands.games;
 
+import java.io.Serializable;
+
 import com.google.gson.Gson;
 
 import server.GameHub;
@@ -12,7 +14,8 @@ import shared.model.TooManyPlayersException;
 import shared.model.player.Player;
 import shared.model.user.User;
 
-public class JoinCommand implements ICommand {
+@SuppressWarnings("serial")
+public class JoinCommand implements ICommand,Serializable {
 
 	private int playerID;
 	

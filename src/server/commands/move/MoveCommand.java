@@ -1,12 +1,15 @@
 package server.commands.move;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import server.ServerException;
 import server.commands.ICommand;
 import shared.model.GameModel;
 
-public abstract class MoveCommand implements ICommand {
+@SuppressWarnings("serial")
+public abstract class MoveCommand implements ICommand,Serializable {
 	@JsonIgnore protected transient GameModel model;
 	protected String input;
 

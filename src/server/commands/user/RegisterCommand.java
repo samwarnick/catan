@@ -1,5 +1,7 @@
 package server.commands.user;
 
+import java.io.Serializable;
+
 import com.google.gson.Gson;
 
 import server.GameHub;
@@ -8,7 +10,8 @@ import server.commands.ICommand;
 import shared.communication.input.UserRegisterInput;
 import shared.model.user.User;
 
-public class RegisterCommand implements ICommand {
+@SuppressWarnings("serial")
+public class RegisterCommand implements ICommand,Serializable {
 
 	@Override
 	public Object execute(String input) throws ServerException {

@@ -1,5 +1,7 @@
 package server.commands.games;
 
+import java.io.Serializable;
+
 import com.google.gson.Gson;
 
 import client.data.GameInfo;
@@ -10,7 +12,8 @@ import shared.model.GameModel;
 import shared.model.board.Board;
 
 
-public class CreateCommand implements ICommand {
+@SuppressWarnings("serial")
+public class CreateCommand implements ICommand,Serializable {
 	
 	/**
 	 * @pre player is logged in

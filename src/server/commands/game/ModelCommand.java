@@ -1,8 +1,11 @@
 package server.commands.game;
 
+import java.io.Serializable;
+
 import server.commands.ICommand;
 
-public class ModelCommand implements ICommand {
+@SuppressWarnings("serial")
+public class ModelCommand implements ICommand, Serializable{
 	
 	/**
 	 * @pre player is logged in and has joined a game
