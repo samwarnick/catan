@@ -13,6 +13,10 @@ public class SendChatCommand extends MoveCommand{
 
 	
 	
+	public SendChatCommand() {
+		super();
+	}
+
 	/**
 	 * @pre none
 	 * @post Puts the chat dialog in the chat log.

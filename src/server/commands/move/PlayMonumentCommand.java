@@ -17,6 +17,10 @@ public class PlayMonumentCommand extends MoveCommand {
 	//private GameModel model;
 	
 	
+	public PlayMonumentCommand() {
+		super();
+	}
+
 	/**
 	 * @param input is a valid PlayMonumentInput object
 	 * @pre The player must have enough monument cards for the player to have 10 victory points

@@ -17,6 +17,11 @@ import shared.model.player.Player;
 
 public class RollNumberCommand extends MoveCommand{
 	
+	
+	public RollNumberCommand() {
+		super();
+	}
+
 	/**
 	 * @pre none
 	 * @post changes the resources the players have based on the number of the roll.  It adds one resource for each settlement touching the hexes that have

@@ -10,6 +10,10 @@ import shared.model.GameModel;
 
 public class OfferTradeCommand extends MoveCommand {
 
+	public OfferTradeCommand() {
+		super();
+	}
+
 	private GameModel model;
 	
 	

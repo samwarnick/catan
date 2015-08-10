@@ -15,6 +15,10 @@ import shared.model.player.Player;
 
 public class BuildRoadCommand extends MoveCommand{
 	
+	public BuildRoadCommand() {
+		super();
+	}
+
 	/**
 	 * @pre the location is a valid location for the player to build a road, the player has enough resources to build a road if it isn't free.
 	 * @post the road will be placed at the location and the resources will be removed from the player if the road wasn't free.

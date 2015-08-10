@@ -12,6 +12,10 @@ import shared.model.board.PlayerID;
 
 public class DiscardCardsCommand extends MoveCommand{
 	
+	public DiscardCardsCommand() {
+		super();
+	}
+
 	private GameModel model;
 
 	/**

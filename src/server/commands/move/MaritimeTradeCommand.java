@@ -12,6 +12,10 @@ import shared.model.board.PlayerID;
 
 public class MaritimeTradeCommand extends MoveCommand {
 
+	public MaritimeTradeCommand() {
+		super();
+	}
+
 	private GameModel model;
 	
 	

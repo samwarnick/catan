@@ -14,6 +14,10 @@ import shared.model.board.PlayerID;
 
 public class BuyDevCardCommand extends MoveCommand {
 	
+	public BuyDevCardCommand() {
+		super();
+	}
+
 	/**
 	 * @param input is a valid BuyDevCardInput object
 	 * @pre The player has the required resources (1 ore, 1 wheat, 1 sheep) and there is at least one development card left in the game bank

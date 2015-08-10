@@ -17,6 +17,10 @@ public class PlayMonopolyCommand extends MoveCommand {
 	//private GameModel model;
 	
 	
+	public PlayMonopolyCommand() {
+		super();
+	}
+
 	/**
 	 * @param input is a valid PlayMonopolyInput object
 	 * @pre None

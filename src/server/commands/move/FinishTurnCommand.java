@@ -13,6 +13,10 @@ import shared.model.player.Player;
 
 public class FinishTurnCommand extends MoveCommand {
 
+	public FinishTurnCommand() {
+		super();
+	}
+
 	private GameModel model;
 	
 	

@@ -17,6 +17,10 @@ public class PlayYearOfPlentyCommand extends MoveCommand {
 	//private GameModel model;
 	
 	
+	public PlayYearOfPlentyCommand() {
+		super();
+	}
+
 	/**
 	 * @param input is a valid PlayYearOfPlentyInput object
 	 * @pre The two specified resources are available in the bank

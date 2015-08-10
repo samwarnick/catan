@@ -17,6 +17,10 @@ import shared.model.player.Player;
 
 public class BuildCityCommand extends MoveCommand{
 		
+	public BuildCityCommand() {
+		super();
+	}
+
 	/**
 	 * @pre the location is a valid location for the player to build a city, the player has enough resources to build a city.
 	 * @post the city will be placed at the location and the resources will be removed from the player

@@ -14,6 +14,11 @@ public class AcceptTradeCommand extends MoveCommand{
 	
 	private GameModel model;
 
+	
+	public AcceptTradeCommand() {
+		super();
+	}
+
 	/**
 	 * @pre the player is the receiver of the trade
 	 * @post the trade will be made if the trade was accepted, no trade made otherwise, the tradeOffer will be reset.

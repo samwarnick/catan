@@ -14,6 +14,10 @@ import shared.model.player.Player;
 
 public class PlayRoadBuildingCommand extends MoveCommand {
 
+	public PlayRoadBuildingCommand() {
+		super();
+	}
+
 	/**
 	 * @param input is a valid PlayRoadBuildingInput object
 	 * @pre The first road location must connect to one of the player's existing roads. The second road location must connect to one of the player's existing roads or the first road. The locations must be on a valid land edge and not occupied by another player. The player must have two unused roads.

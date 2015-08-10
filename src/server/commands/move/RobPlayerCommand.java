@@ -15,7 +15,9 @@ import shared.model.player.Player;
 public class RobPlayerCommand extends MoveCommand {
 
 	//private GameModel model;
-	
+	public RobPlayerCommand() {
+		super();
+	}
 	
 	/**
 	 * @param input is a valid RobPlayerInput object

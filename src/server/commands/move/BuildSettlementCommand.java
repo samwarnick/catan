@@ -17,6 +17,10 @@ import shared.model.player.Player;
 
 public class BuildSettlementCommand extends MoveCommand{
 	
+	public BuildSettlementCommand() {
+		super();
+	}
+
 	/**
 	 * @pre the location is a valid location for the player to build a settlement, the player has enough resources to build a settlement if it isn't free.
 	 * @post the settlement will be placed at the location and the resources will be removed from the player if the settlement wasn't free.

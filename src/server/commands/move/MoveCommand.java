@@ -37,6 +37,13 @@ import shared.model.board.Settlement;
 public abstract class MoveCommand implements ICommand,Serializable {
 	@JsonIgnore protected transient GameModel model;
 	protected String input;
+	
+	
+
+	public MoveCommand() {
+		model = null;
+		input = "";
+	}
 
 	@Override
 	public abstract Object execute(String input) throws ServerException;

@@ -18,6 +18,10 @@ public class PlaySoldierCommand extends MoveCommand {
 	//private GameModel model;
 	
 	
+	public PlaySoldierCommand() {
+		super();
+	}
+
 	/**
 	 * @param input is a valid PlaySoldierInput object
 	 * @pre The specified location is not the current location of the robber. The victim player has at least one resource.
