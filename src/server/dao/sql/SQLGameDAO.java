@@ -140,7 +140,7 @@ public class SQLGameDAO implements IGameDAO {
 			database.startTransaction();
 			String query = "select Command from Commands where GameId = ?";
 			stmt = database.getConnection().prepareStatement(query);
-			stmt.setInt(1, gameID);
+			stmt.setInt(1, gameID + 1);
 			rs = stmt.executeQuery();
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(rs.getBytes(1));
 			ObjectInputStream objectStream = new ObjectInputStream(byteStream);
@@ -186,7 +186,7 @@ public class SQLGameDAO implements IGameDAO {
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(commands);
 			stmt.setBytes(1, byteStream.toByteArray());
-			stmt.setInt(2, gameID);
+			stmt.setInt(2, gameID+ 1);
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not update Commands");
 			}
@@ -220,7 +220,7 @@ public class SQLGameDAO implements IGameDAO {
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(model);
 			stmt.setBytes(1, byteStream.toByteArray());
-			stmt.setInt(2, model.getGameID());
+			stmt.setInt(2, model.getGameID() + 1);
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not update Game Model");
 			}
@@ -255,7 +255,7 @@ public class SQLGameDAO implements IGameDAO {
 			ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 			objectStream.writeObject(info);
 			stmt.setBytes(1, byteStream.toByteArray());
-			stmt.setInt(2, info.getId());
+			stmt.setInt(2, info.getId() + 1);
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not update Game info");
 			}

@@ -1,11 +1,14 @@
 package client.communication;
 
+import java.io.Serializable;
+
 import shared.definitions.*;
 
 /**
  * Message (or entry) displayed in the LogComponent
  */
-public class LogEntry
+@SuppressWarnings("serial")
+public class LogEntry implements Serializable
 {
 	
 	/**
