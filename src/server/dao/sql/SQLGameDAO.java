@@ -326,6 +326,7 @@ public class SQLGameDAO implements IGameDAO {
 					e.printStackTrace();
 				}
 			}
+			updateCommands(model.getGameID(),new ArrayList<MoveCommand>());
 		}
 		return models;
 	}
