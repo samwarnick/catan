@@ -188,8 +188,9 @@
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
 	
-	<target name="clear" depends="clean" description="clears the persistence folders">
-		 <copy todir="Persistance" >  
+	<target name="clear" description="clears the persistence folders">
+		<delete dir="${java.dist}/persistence"/>
+		 <copy todir="${java.dist}/persistence" >
 		        <fileset dir="emptyPersist" includes="**"/>  
 		 </copy>
 	</target>

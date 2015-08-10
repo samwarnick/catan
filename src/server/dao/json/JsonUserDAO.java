@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import server.dao.*;
-import shared.model.GameModel;
 import shared.model.user.User;
 
 public class JsonUserDAO implements IUserDAO{
