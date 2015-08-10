@@ -189,7 +189,9 @@
     </target>
 	
 	<target name="clear" depends="clean" description="clears the persistence folders">
-		<copy file="emptyPersist" tofile="Persitance" overwrite="true"/>
+		 <copy todir="Persistance" >  
+		        <fileset dir="emptyPersist" includes="**"/>  
+		 </copy>
 	</target>
 </project>
 

@@ -76,25 +76,34 @@ public class JsonGameDAO implements IGameDAO {
 	public void addCommand(int gameID, MoveCommand command) {
 		ObjectMapper mapper = new ObjectMapper();
 		File file = new File(path + gameID + File.separator + "commands.json");
-		List<MoveCommand> commands = null;
-		try {
-			if (file.exists()) {
-				commands = mapper.readValue(file, new TypeReference<List<MoveCommand>>(){});
-				if (commands != null && commands.size() < commandLimit - 1) {
-					commands.add(command);
-					mapper.writeValue(file, commands);
+		if (command == null) {
+			try {
+				mapper.writeValue(file, new ArrayList<MoveCommand>());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			List<MoveCommand> commands = null;
+			try {
+				if (file.exists()) {
+					commands = mapper.readValue(file, new TypeReference<List<MoveCommand>>(){});
+					if (commands != null && commands.size() < commandLimit - 1) {
+						commands.add(command);
+						mapper.writeValue(file, commands);
+					}
+					else {
+						mapper.writeValue(new File(path + gameID + File.separator + "model.json"), GameHub.getInstance().getModel(gameID));
+						mapper.writeValue(file, new ArrayList<MoveCommand>());
+					}
 				}
 				else {
-					mapper.writeValue(new File(path + gameID + File.separator + "model.json"), GameHub.getInstance().getModel(gameID));
 					mapper.writeValue(file, new ArrayList<MoveCommand>());
 				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			else {
-				mapper.writeValue(file, new ArrayList<MoveCommand>());
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	

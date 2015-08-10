@@ -38,6 +38,7 @@ public class CreateCommand implements ICommand,Serializable {
 		// add to persistence
 		GameHub.getInstance().getGameDAO().addGameModel(model);
 		GameHub.getInstance().getGameDAO().addGameInfo(gi);
+		GameHub.getInstance().getGameDAO().addCommand(gi.getId(), null);
 		
 		return gi;
 	}
