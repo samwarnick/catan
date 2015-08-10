@@ -15,24 +15,25 @@ import shared.model.user.User;
 
 public class JsonUserDAO implements IUserDAO{
 	
-	final String path = "Persistance" + File.separator + "Json" + File.separator + "User";
+	final String path = "persistence" + File.separator + "Json" + File.separator + "User";
 
 	@Override
 	public void addUser(User user) {
 		
-		File dir = new File(path + File.separator + user.getId());
-		if (!dir.exists()) {
-			if (!dir.mkdir()) {
-				System.out.println("directory failed to be created");
-			}
-		}
-		else {
-			System.out.println("directory already exists");
-		}
+//		File dir = new File(path + File.separator + user.getId());
+//		if (!dir.exists()) {
+//			if (!dir.mkdir()) {
+//				System.out.println("directory failed to be created");
+//			}
+//		}
+//		else {
+//			System.out.println("directory already exists");
+//		}
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			mapper.writeValue(new File(path + File.separator + user.getId()), user);
+			File file = new File(path + File.separator + user.getId() + ".json");
+			mapper.writeValue(file, user);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

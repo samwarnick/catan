@@ -187,5 +187,9 @@
     <target name="make-tester-zip" depends="package" description="makes a zip file for your testing team">
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
+	
+	<target name="clear" depends="clean" description="clears the persistence folders">
+		<copy file="emptyPersist" tofile="Persitance" overwrite="true"/>
+	</target>
 </project>
 

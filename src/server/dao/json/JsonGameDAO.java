@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonGameDAO implements IGameDAO {
 	
 	private int commandLimit;
-	final String path = "Persistance" + File.separator + "Json" + File.separator;
+	final String path = "persistence" + File.separator + "Json" + File.separator;
 	
 	public JsonGameDAO(int commandLimit) {
 		this.commandLimit = commandLimit;
@@ -134,28 +134,32 @@ public class JsonGameDAO implements IGameDAO {
 	public List<GameModel> getAllGameModels() {
 		List<GameModel> models = new ArrayList<GameModel>();
 		//for each file
-	    File directory = new File("Persistance" + File.separator + "Json");
+	    File directory = new File("persistence" + File.separator + "Json");
 	    File [] listOfDirectories = directory.listFiles();
 		for(int i = 0; i < listOfDirectories.length; i++)
 		{
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				//get the game model
-				GameModel model = mapper.readValue(new File(path + i + File.separator + "model.json"), GameModel.class);
-				//get that games commands
-				List<MoveCommand> commands = getCommands(i);
-				//and execute those commands
-				for(MoveCommand command: commands)
-				{
-					command.setGameModel(model);
-					try {
-						command.execute(command.getInput());
-					} catch (ServerException e) {
-						e.printStackTrace();
+				File file = new File(path + i + File.separator + "model.json");
+				if (file.exists()) {
+					//get the game model
+					GameModel model = mapper.readValue(file, GameModel.class);
+					//get that games commands
+					List<MoveCommand> commands = getCommands(i);
+					//and execute those commands
+					for(MoveCommand command: commands)
+					{
+						command.setGameModel(model);
+						try {
+							command.execute(command.getInput());
+						} catch (ServerException e) {
+							e.printStackTrace();
+						}
 					}
+					//add to List
+					models.add(model);
 				}
-				//add to List
-				models.add(model);
+				
 			} catch (JsonParseException e) {
 				e.printStackTrace();
 			} catch (JsonMappingException e) {
@@ -171,14 +175,20 @@ public class JsonGameDAO implements IGameDAO {
 	public List<GameInfo> getAllGameInfos() {
 		List<GameInfo> infos = new ArrayList<GameInfo>();
 		//for each file
-	    File directory = new File("Persistance" + File.separator + "Json");
+	    File directory = new File("persistence" + File.separator + "Json");
+	    System.out.println(directory.getPath());
+	    System.out.println(directory.isDirectory());
 	    File [] listOfDirectories = directory.listFiles();
+	    
 		for(int i = 0; i < listOfDirectories.length; i++)
 		{
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				GameInfo info = mapper.readValue(new File(path + i + File.separator + "info.json"), GameInfo.class);
-				infos.add(info);
+				File file = new File(path + i + File.separator + "info.json");
+				if (file.exists()) {
+					GameInfo info = mapper.readValue(file, GameInfo.class);
+					infos.add(info);
+				}
 			} catch (JsonParseException e) {
 				e.printStackTrace();
 			} catch (JsonMappingException e) {

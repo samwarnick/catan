@@ -1,5 +1,6 @@
 package server;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URL;
@@ -12,7 +13,6 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import server.factories.AbstractFactory;
-import server.factories.SQLFactory;
 import server.handlers.GameHandler;
 import server.handlers.GamesHandler;
 import server.handlers.MoveHandler;
@@ -53,6 +53,7 @@ public class Server {
 		if (args.length == 3) {
 			port = Integer.parseInt(args[0]);
 			n = Integer.parseInt(args[1]);
+			System.out.println(args[2]);
 			persistType = args[2];
 		}
 		server.setUpPersistence(n, persistType);
@@ -62,23 +63,23 @@ public class Server {
 	@SuppressWarnings({ "rawtypes", "resource" })
 	private void setUpPersistence(int n, String persistType) {
 		try {
-//			String path = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toString();
-//			JarFile jarFile = new JarFile("lib/plugins/" + persistType + ".jar");
-//			Enumeration e = jarFile.entries();
-//			URL[] urls = { new URL("jar:file:lib/plugins/" + persistType +".jar!/") };
-//			URLClassLoader cl = URLClassLoader.newInstance(urls);
-			AbstractFactory factory = new SQLFactory();
-//			while (e.hasMoreElements()) {
-//		        JarEntry je = (JarEntry) e.nextElement();
-//		        if(!je.isDirectory() && je.getName().endsWith(".class")){
-//		        	String className = je.getName().substring(0,je.getName().length()-6);
-//			        className = className.replace('/', '.');
-//			        if (className.equals("server.factories." + persistType +"Factory")) {
-//			        	Class c = cl.loadClass(className);
-//			        	factory = (AbstractFactory) c.newInstance();
-//			        }
-//		        }
-//		    }
+			String path = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toString();
+			JarFile jarFile = new JarFile("lib/plugins/" + persistType + ".jar");
+			Enumeration e = jarFile.entries();
+			URL[] urls = { new URL("jar:file:lib/plugins/" + persistType +".jar!/") };
+			URLClassLoader cl = URLClassLoader.newInstance(urls);
+			AbstractFactory factory = null;
+			while (e.hasMoreElements()) {
+		        JarEntry je = (JarEntry) e.nextElement();
+		        if(!je.isDirectory() && je.getName().endsWith(".class")){
+		        	String className = je.getName().substring(0,je.getName().length()-6);
+			        className = className.replace('/', '.');
+			        if (className.equals("server.factories." + persistType +"Factory")) {
+			        	Class c = cl.loadClass(className);
+			        	factory = (AbstractFactory) c.newInstance();
+			        }
+		        }
+		    }
 			
 			// make DAOs from factory
 			GameHub.getInstance().setUserDAO(factory.makeUserDAO());

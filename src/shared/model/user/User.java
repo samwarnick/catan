@@ -14,6 +14,22 @@ public class User implements Serializable{
 		id = -1;
 	}
 	
+	public User() {
+		username = "";
+		password = "";
+		id = -1;
+	}
+	
+	
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getUsername() {
 		return username;
 	}
