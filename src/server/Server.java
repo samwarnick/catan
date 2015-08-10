@@ -6,13 +6,14 @@ import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import server.factories.AbstractFactory;
+import server.factories.JsonFactory;
+import server.factories.SQLFactory;
 import server.handlers.GameHandler;
 import server.handlers.GamesHandler;
 import server.handlers.MoveHandler;
@@ -27,6 +28,7 @@ public class Server {
 	private HttpHandler gamesHandler = new GamesHandler();
 	
 	public void run(int port) {
+		System.setProperty("sun.zip.disableMemoryMapping", "true");
 		System.out.println("Server starting on port " + port);
 		try {
 			server = HttpServer.create(new InetSocketAddress(port), 100);
@@ -63,24 +65,36 @@ public class Server {
 	@SuppressWarnings({ "rawtypes", "resource" })
 	private void setUpPersistence(int n, String persistType) {
 		try {
-			String path = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toString();
-			JarFile jarFile = new JarFile("lib/plugins/" + persistType + ".jar");
-			Enumeration e = jarFile.entries();
+//			String path = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toString();
+//			JarFile jarFile = new JarFile("lib/plugins/" + persistType + ".jar");
+//			Enumeration e = jarFile.entries();
 			URL[] urls = { new URL("jar:file:lib/plugins/" + persistType +".jar!/") };
-			URLClassLoader cl = URLClassLoader.newInstance(urls);
+//			URLClassLoader cl = URLClassLoader.newInstance(urls);
+//			AbstractFactory factory = null;
+//			while (e.hasMoreElements()) {
+//		        JarEntry je = (JarEntry) e.nextElement();
+//		        if(!je.isDirectory() && je.getName().endsWith(".class")){
+//		        	String className = je.getName().substring(0,je.getName().length()-6);
+//			        className = className.replace('/', '.');
+//			        if (className.equals("server.factories." + persistType +"Factory")) {
+//			        	Class c = cl.loadClass(className);
+//			        	factory = (AbstractFactory) c.newInstance();
+//			        }
+//		        }
+//		    }
+//			
 			AbstractFactory factory = null;
-			while (e.hasMoreElements()) {
-		        JarEntry je = (JarEntry) e.nextElement();
-		        if(!je.isDirectory() && je.getName().endsWith(".class")){
-		        	String className = je.getName().substring(0,je.getName().length()-6);
-			        className = className.replace('/', '.');
-			        if (className.equals("server.factories." + persistType +"Factory")) {
-			        	Class c = cl.loadClass(className);
-			        	factory = (AbstractFactory) c.newInstance();
-			        }
-		        }
-		    }
+			if (persistType.equals("Json")) {
+				factory = new JsonFactory();
+			} else if (persistType.equals("SQL")) {
+				factory = new SQLFactory();
+			}
 			
+//			URLClassLoader loader = new URLClassLoader(urls, this.getClass().getClassLoader());
+//			Class classToLoad = Class.forName("server.factories." + persistType + "Factory", true, loader);
+//			AbstractFactory factory = (AbstractFactory) classToLoad.newInstance();
+//			loader.close();
+					
 			// make DAOs from factory
 			GameHub.getInstance().setUserDAO(factory.makeUserDAO());
 			GameHub.getInstance().setGameDAO(factory.makeGameDAO(n));

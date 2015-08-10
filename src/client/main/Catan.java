@@ -47,6 +47,7 @@ public class Catan extends JFrame
 	
 	public static void main(final String[] args)
 	{
+		System.setProperty("sun.zip.disableMemoryMapping", "true");
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class JsonGameDAO implements IGameDAO {
 	
@@ -48,7 +49,7 @@ public class JsonGameDAO implements IGameDAO {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 //			mapper.writeValue(new File(path + model.getGameID() + File.separator + "model.json"), model);
-			XStream xml = new XStream();
+			XStream xml = new XStream(new DomDriver());
 			FileUtils.writeStringToFile(new File(path + model.getGameID() + File.separator + "model.xml"), xml.toXML(model));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -70,7 +71,7 @@ public class JsonGameDAO implements IGameDAO {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 //			mapper.writeValue(new File(path + info.getId() + File.separator + "info.json"), info);
-			XStream xml = new XStream();
+			XStream xml = new XStream(new DomDriver());
 			FileUtils.writeStringToFile(new File(path + info.getId() + File.separator + "info.xml"), xml.toXML(info));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,7 +86,7 @@ public class JsonGameDAO implements IGameDAO {
 		if (command == null) {
 			try {
 //				mapper.writeValue(file, new ArrayList<MoveCommand>());
-				XStream xml = new XStream();
+				XStream xml = new XStream(new DomDriver());
 				FileUtils.writeStringToFile(file, xml.toXML(new ArrayList<MoveCommand>()));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -95,7 +96,7 @@ public class JsonGameDAO implements IGameDAO {
 			List<MoveCommand> commands = null;
 			try {
 				if (file.exists()) {
-					XStream xml = new XStream();
+					XStream xml = new XStream(new DomDriver());
 //					commands = mapper.readValue(file, new TypeReference<List<MoveCommand>>(){});
 					commands = (List<MoveCommand>) xml.fromXML(file);
 					if (commands != null && commands.size() < commandLimit - 1) {
@@ -112,7 +113,7 @@ public class JsonGameDAO implements IGameDAO {
 				}
 				else {
 //					mapper.writeValue(file, new ArrayList<MoveCommand>());
-					XStream xml = new XStream();
+					XStream xml = new XStream(new DomDriver());
 					FileUtils.writeStringToFile(file, xml.toXML(new ArrayList<MoveCommand>()));
 				}
 				
@@ -129,7 +130,7 @@ public class JsonGameDAO implements IGameDAO {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
 //				mapper.writeValue(file, model);
-				XStream xml = new XStream();
+				XStream xml = new XStream(new DomDriver());
 				FileUtils.writeStringToFile(file, xml.toXML(model));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -147,7 +148,7 @@ public class JsonGameDAO implements IGameDAO {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
 //				mapper.writeValue(file, info);
-				XStream xml = new XStream();
+				XStream xml = new XStream(new DomDriver());
 				FileUtils.writeStringToFile(file, xml.toXML(info));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -169,7 +170,7 @@ public class JsonGameDAO implements IGameDAO {
 			ObjectMapper mapper = new ObjectMapper();
 			File file = new File(path + i + File.separator + "model.json");
 			if (file.exists()) {
-				XStream xml = new XStream();
+				XStream xml = new XStream(new DomDriver());
 				//get the game model
 //					GameModel model = mapper.readValue(file, GameModel.class);
 				GameModel model = (GameModel)xml.fromXML(file);
@@ -206,7 +207,7 @@ public class JsonGameDAO implements IGameDAO {
 //			ObjectMapper mapper = new ObjectMapper();
 			File file = new File(path + i + File.separator + "info.xml");
 			if (file.exists()) {
-				XStream xml = new XStream();
+				XStream xml = new XStream(new DomDriver());
 				//					GameInfo info = mapper.readValue(file, GameInfo.class);
 				GameInfo info = (GameInfo)xml.fromXML(file);
 				infos.add(info);
@@ -220,7 +221,7 @@ public class JsonGameDAO implements IGameDAO {
 	public List<MoveCommand> getCommands(int gameID) {
 		List<MoveCommand> commands = new ArrayList<MoveCommand>();
 		ObjectMapper mapper = new ObjectMapper();
-		XStream xml = new XStream();
+		XStream xml = new XStream(new DomDriver());
 //			commands = mapper.readValue(new File(path + gameID + File.separator + "commands.xml"), new TypeReference<List<MoveCommand>>(){});
 		commands = (List<MoveCommand>)xml.fromXML(new File(path + gameID + File.separator + "commands.xml"));
 		return commands;
