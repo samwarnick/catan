@@ -193,6 +193,8 @@
 		 <copy todir="${java.dist}/persistence" >
 		        <fileset dir="emptyPersist" includes="**"/>  
 		 </copy>
+		<mkdir dir="${java.dist}/persistence/Json"/>
+		<mkdir dir="${java.dist}/persistence/Json/User"/>
 	</target>
 </project>
 
