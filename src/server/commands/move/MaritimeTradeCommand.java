@@ -16,7 +16,7 @@ public class MaritimeTradeCommand extends MoveCommand {
 		super();
 	}
 
-	private GameModel model;
+	private transient GameModel model;
 	
 	
 	/**

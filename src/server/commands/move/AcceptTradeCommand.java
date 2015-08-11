@@ -12,7 +12,7 @@ import shared.model.board.PlayerID;
 
 public class AcceptTradeCommand extends MoveCommand{
 	
-	private GameModel model;
+	private transient GameModel model;
 
 	
 	public AcceptTradeCommand() {

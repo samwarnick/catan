@@ -17,7 +17,7 @@ public class FinishTurnCommand extends MoveCommand {
 		super();
 	}
 
-	private GameModel model;
+	private transient GameModel model;
 	
 	
 	/**
