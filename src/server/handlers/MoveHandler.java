@@ -29,7 +29,9 @@ public class MoveHandler extends Handler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		String extension = "";
+		System.out.println("move handler");
 		String json = jsonStringFromExchange(exchange.getRequestBody());
+		System.out.println(json);
 		Input input = new Gson().fromJson(json, Input.class);
 		switch (input.getMethod()) {
 		case "/moves/sendChat":
@@ -38,6 +40,7 @@ public class MoveHandler extends Handler {
 			break;
 		case "/moves/rollNumber":
 			extension = "rolled a ";
+			System.out.println(extension);
 			command = new RollNumberCommand();
 			break;
 		case "/moves/robPlayer":
@@ -107,36 +110,43 @@ public class MoveHandler extends Handler {
 		
 		if (command != null && cookieArray.length == 2) {
 			try {
-				
+				System.out.println("q");
 				String gameCookie = cookieArray[1].trim();
 				StringBuilder temp = new StringBuilder(gameCookie);
+				System.out.println("w");
 				int index = temp.lastIndexOf("catan.game=") + 11;
 				int gameId = Integer.parseInt(temp.substring(index, temp.length()));
-				
+				System.out.println("e");
 				GameModel model = GameHub.getInstance().getModel(gameId);
-
+				System.out.println("r");
 				MoveCommand moveCommand = (MoveCommand) command;
 				moveCommand.setGameModel(model);
 				moveCommand.setInput(json);
+				System.out.println("t");
 				GameModel updatedModel = (GameModel) moveCommand.execute(json);
 				GameHub.getInstance().updateModel(updatedModel);
-				
+				System.out.println("y");
 				//add log to GameHistory
 				gameCookie = cookieArray[0].trim();
 				temp = new StringBuilder(gameCookie);
+				System.out.println("u");
 				index = temp.lastIndexOf("catan.user=") + 11;
 				int pId = Integer.parseInt(temp.substring(index, temp.length()));
 				String name = GameHub.getInstance().getUser(pId).getUsername();
 				CatanColor cc = model.getPlayer(name).getColor();
+				System.out.println("i");
 				if (extension.equals("rolled a ")){
+					System.out.println("o");
 					RollNumberInput rollInput = new ObjectMapper().readValue(json, RollNumberInput.class);
 					extension = extension + rollInput.getNumber();
 				}
 				if (extension.equals("accepted a trade")){
+					System.out.println("p");
 					AcceptTradeInput atinput = new ObjectMapper().readValue(json, AcceptTradeInput.class);
 					if (!atinput.isWillAccept())
 						extension = "rejected a trade";
 				}
+				System.out.println("a");
 				String message = name + " " + extension + ".";
 				System.out.printf("message %s and id %d\n", message, pId);
 				LogEntry le = new LogEntry(cc, message);

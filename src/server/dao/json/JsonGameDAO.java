@@ -137,7 +137,7 @@ public class JsonGameDAO implements IGameDAO {
 			}
 		}
 		else {
-			System.out.println("game did not exist in persistance storage");
+			System.out.println("game did not exist in persistence storage");
 		}
 	}
 
@@ -155,7 +155,7 @@ public class JsonGameDAO implements IGameDAO {
 			}
 		}
 		else {
-			System.out.println("info did not exist in persistance storage");
+			System.out.println("info did not exist in persistence storage");
 		}
 	}
 
@@ -168,7 +168,7 @@ public class JsonGameDAO implements IGameDAO {
 		for(int i = 0; i < listOfDirectories.length; i++)
 		{
 			ObjectMapper mapper = new ObjectMapper();
-			File file = new File(path + i + File.separator + "model.json");
+			File file = new File(path + i + File.separator + "model.xml");
 			if (file.exists()) {
 				XStream xml = new XStream(new DomDriver());
 				//get the game model
@@ -188,6 +188,12 @@ public class JsonGameDAO implements IGameDAO {
 				}
 				//add to List
 				models.add(model);
+				try {
+					FileUtils.writeStringToFile(new File(path + model.getGameID() + File.separator + "model.xml"), xml.toXML(model));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				addCommand(i, null);
 			}
 		}
@@ -215,6 +221,8 @@ public class JsonGameDAO implements IGameDAO {
 			}
 	
 		}
+		
+		
 		return infos;
 	}
 

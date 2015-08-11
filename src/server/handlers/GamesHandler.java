@@ -89,7 +89,7 @@ public class GamesHandler extends Handler {
 
 					int id = (int) result;
 					String gameCookie = "catan.game=" + id;
-					
+					System.out.println("Join command: " + gameCookie);
 					exchange.getResponseHeaders().add("Set-Cookie", gameCookie);
 					
 					exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 7);

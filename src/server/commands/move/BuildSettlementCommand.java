@@ -50,13 +50,14 @@ public class BuildSettlementCommand extends MoveCommand{
 			
 			model.getBoard().getBuildings().add(new Settlement(player.getPlayerID(), location));
 			try {
-				player.getSettlements().buildSettlement();
-				player.getVictoryPoints().addPublicVictoryPoint();
 				if (model.getTurnTracker().getStatus().equals("SecondRound")) {
 					ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 					vertices.add(location);
 					vertices.addAll(location.getAmbiguousVertices());
 					for (VertexLocation vertex : vertices) {
+//						for (ResourceHex hex : model.getBoard().getResourceHexes()) {
+//							
+//						}
 						if (model.getBoard().getResourceHexesMap().containsKey(vertex.getHexLoc())) {
 							ResourceHex hex = model.getBoard().getResourceHexesMap().get(vertex.getHexLoc());
 							ResourceHand resourceGain = new ResourceHand();
@@ -94,10 +95,13 @@ public class BuildSettlementCommand extends MoveCommand{
 						}
 					}
 				}
+				player.getVictoryPoints().addPublicVictoryPoint();
+				player.getSettlements().buildSettlement();
 			} catch (ServerException e) {
 				throw new ServerException("Error getting second round resources" + e.getMessage());
 			} catch (Exception e) {
-				throw new ServerException("Error with changing settlements available when building a settlement:\n" + e.getMessage());
+				e.printStackTrace();
+//				throw new ServerException("Error with changing settlements available when building a settlement:\n" + e.getMessage());
 			}
 			
 		} catch (IOException e1) {

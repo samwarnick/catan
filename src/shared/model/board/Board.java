@@ -19,11 +19,11 @@ import shared.locations.HexLocation;
 public class Board implements Serializable{
 	
 	private List<ResourceHex> resourceHexes;
-	@JsonIgnore private transient Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
+	@JsonIgnore private Map<HexLocation,ResourceHex> resourceHexesMap = new HashMap<HexLocation, ResourceHex>();
 	private List<WaterHex> waterHexes;
 	private List<PortHex> ports;
 	private Hex desertHex;
-	@JsonIgnore private transient BoardFacade boardFacade;
+	@JsonIgnore private BoardFacade boardFacade;
 	private Robber robber;
 	
 	private List<Road> roads;
