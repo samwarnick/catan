@@ -188,6 +188,7 @@ public class JsonGameDAO implements IGameDAO {
 				}
 				//add to List
 				models.add(model);
+				addCommand(i, null);
 			}
 		}
 		return models;
